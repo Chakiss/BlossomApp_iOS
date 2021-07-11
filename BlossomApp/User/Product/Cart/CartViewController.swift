@@ -172,10 +172,30 @@ extension CartViewController: UITableViewDataSource {
 
 extension CartViewController: CartItemTableViewCellDelegate {
     
+    private func removeWarning(for item: Product) {
+        showConfirmDialogue(title: "ลบสินค้า", message: "คุณต้องการลบสินค้า \(item.name ?? "") ออกจากตะกร้าใช่ไหม ?", completion: { [weak self] in
+            
+            guard let self = self else {
+                return
+            }
+            
+            self.cart?.removeItem(item)
+            self.updateTotalPrice()
+            self.tableView.reloadData()
+            
+        })
+    }
+    
     func cellDidDecreaseItem(cell: CartItemTableViewCell) {
         if let indexPath = tableView.indexPath(for: cell),
            let items = cart?.items, indexPath.row < items.count {
             let item = items[indexPath.row]
+            
+            guard item.quantity > 1 else {
+                removeWarning(for: item.product)
+                return
+            }
+            
             cart?.removeItem(item.product)
             updateTotalPrice()
             tableView.reloadData()
