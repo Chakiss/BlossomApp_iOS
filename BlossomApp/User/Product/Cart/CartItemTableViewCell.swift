@@ -65,7 +65,7 @@ class CartItemTableViewCell: UITableViewCell {
         productNameLabel.text = model.product.name ?? "" + "Lorem ipsum de sem lorean, Rek sdfhu asidu"
         amountTitleLabel.text = "จำนวน"
         amountLabel.text = "\(model.quantity)"
-        priceLabel.text = "ราคา \(model.product.price ?? "0") บาท"
+        priceLabel.text = "ราคา \(model.product.priceInSatang().satangToBaht().toAmountText() ?? "0") บาท"
         
         let url = URL(string: model.product.image ?? "")
         productImageView.kf.setImage(with: url, placeholder: UIImage(named: "placeholder"))

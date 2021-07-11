@@ -70,7 +70,7 @@ class CartViewController: UIViewController {
         let totalText = total.toAmountText()
         self.cartHeaderModel?.priceText = totalText
         checkoutButton.isEnabled = cart?.items.count ?? 0 > 0
-        checkoutButton.backgroundColor = checkoutButton.isEnabled ? UIColor.blossomPrimary : UIColor.blossomPrimary.withAlphaComponent(0.5)
+        checkoutButton.alpha = checkoutButton.isEnabled ? 1.0 : 0.5
     }
 
     /*
@@ -89,10 +89,22 @@ class CartViewController: UIViewController {
     }
     
     private func createOrder() {
-        
+        // if success
+        gotoPaymentMethod()
     }
     
     private func updateOrder() {
+        gotoPaymentMethod()
+    }
+    
+    private func gotoPaymentMethod() {
+        
+        guard let cart = cart else {
+            return
+        }
+        
+        let paymentMethodViewController = PaymentMethodViewController.initializeInstance(cart: cart)
+        self.navigationController?.pushViewController(paymentMethodViewController, animated: true)
         
     }
     

@@ -121,12 +121,4 @@ class CartManager {
         self.currentCart?.addItem(product, quantity: quantity)
     }
     
-//    public func removeItem(_ product: Product, quantity: Int = 1) {
-//        self.currentCart?.removeItem(product, quantity: quantity)
-//    }
-//    
-//    public func removeItemFromCart(_ product: Product) {
-//        self.currentCart?.removeItemFromCart(product)
-//    }
-    
 }

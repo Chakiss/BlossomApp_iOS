@@ -62,6 +62,8 @@
 		3C7D5E53269AE888002E5AB9 /* CartHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C7D5E51269AE888002E5AB9 /* CartHeaderTableViewCell.xib */; };
 		3C7D5E56269AF9F5002E5AB9 /* CartItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7D5E54269AF9F5002E5AB9 /* CartItemTableViewCell.swift */; };
 		3C7D5E57269AF9F5002E5AB9 /* CartItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C7D5E55269AF9F5002E5AB9 /* CartItemTableViewCell.xib */; };
+		3CFE6374269B350E005235F1 /* PaymentMethodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CFE6372269B350E005235F1 /* PaymentMethodViewController.swift */; };
+		3CFE6375269B350E005235F1 /* PaymentMethodViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CFE6373269B350E005235F1 /* PaymentMethodViewController.xib */; };
 		7BD34340840AE9C6FDE794BE /* Pods_BlossomApp_BlossomAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67AFE30CEFDDCEF6DF620A61 /* Pods_BlossomApp_BlossomAppUITests.framework */; };
 		CE36DEDA94F2484A5F45AA4B /* Pods_BlossomApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 136AF1CA7D360CE492DE5BB8 /* Pods_BlossomApp.framework */; };
 /* End PBXBuildFile section */
@@ -147,6 +149,8 @@
 		3C7D5E51269AE888002E5AB9 /* CartHeaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CartHeaderTableViewCell.xib; sourceTree = "<group>"; };
 		3C7D5E54269AF9F5002E5AB9 /* CartItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartItemTableViewCell.swift; sourceTree = "<group>"; };
 		3C7D5E55269AF9F5002E5AB9 /* CartItemTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CartItemTableViewCell.xib; sourceTree = "<group>"; };
+		3CFE6372269B350E005235F1 /* PaymentMethodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodViewController.swift; sourceTree = "<group>"; };
+		3CFE6373269B350E005235F1 /* PaymentMethodViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentMethodViewController.xib; sourceTree = "<group>"; };
 		63D346E429FF2FB1D0B3AF7D /* Pods-BlossomApp-BlossomAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlossomApp-BlossomAppUITests.debug.xcconfig"; path = "Target Support Files/Pods-BlossomApp-BlossomAppUITests/Pods-BlossomApp-BlossomAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		67AFE30CEFDDCEF6DF620A61 /* Pods_BlossomApp_BlossomAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BlossomApp_BlossomAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		70D3E4488BE767A6AED10490 /* Pods-BlossomAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlossomAppTests.debug.xcconfig"; path = "Target Support Files/Pods-BlossomAppTests/Pods-BlossomAppTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -454,6 +458,8 @@
 				3C7D5E51269AE888002E5AB9 /* CartHeaderTableViewCell.xib */,
 				3C7D5E54269AF9F5002E5AB9 /* CartItemTableViewCell.swift */,
 				3C7D5E55269AF9F5002E5AB9 /* CartItemTableViewCell.xib */,
+				3CFE6372269B350E005235F1 /* PaymentMethodViewController.swift */,
+				3CFE6373269B350E005235F1 /* PaymentMethodViewController.xib */,
 			);
 			path = Cart;
 			sourceTree = "<group>";
@@ -576,6 +582,7 @@
 				1B29A3D32697E92300556A55 /* GoogleService-Info.plist in Resources */,
 				3C7D5E4F269AE48D002E5AB9 /* CartViewController.xib in Resources */,
 				1B53124D2693754200B88165 /* SukhumvitSet-Bold.ttf in Resources */,
+				3CFE6375269B350E005235F1 /* PaymentMethodViewController.xib in Resources */,
 				1B187A62268F654500BB0122 /* Assets.xcassets in Resources */,
 				1B187A60268F654300BB0122 /* Main.storyboard in Resources */,
 				1B53124B2693754200B88165 /* SukhumvitSet-Medium.ttf in Resources */,
@@ -742,6 +749,7 @@
 				1B53125E26937B5F00B88165 /* ProductListViewController.swift in Sources */,
 				1B77591F269479FA000780BD /* UIView+Additions.swift in Sources */,
 				1B1C2E2D2698A77A00F57122 /* ProductsResponse.swift in Sources */,
+				3CFE6374269B350E005235F1 /* PaymentMethodViewController.swift in Sources */,
 				1B531255269378C800B88165 /* UIColor+Extension.swift in Sources */,
 				1B5BC3BA2696086A004206AE /* LandingViewController.swift in Sources */,
 				1B3721D52695AF29006265D3 /* ProfileInformationViewController.swift in Sources */,
