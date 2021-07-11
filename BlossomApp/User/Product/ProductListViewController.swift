@@ -10,16 +10,29 @@ import Alamofire
 
 
 class ProductListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-
     
     @IBOutlet weak var tableView: UITableView!
     
-    var products: [Products] = []
+    var products: [Product] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "ยา"
         // Do any additional setup after loading the view.
+        let button = UIBarButtonItem(title: "Cart", style: .plain, target: self, action: #selector(ProductListViewController.showCartDetail))
+        self.navigationItem.rightBarButtonItem = button
+    }
+    
+    @objc
+    private func showCartDetail() {
+        
+        if CartManager.shared.currentCart == nil {
+            CartManager.shared.newCart()
+        }
+        
+        let viewController = CartViewController.initializeInstance(cart: CartManager.shared.currentCart!)
+        self.navigationController?.pushViewController(viewController, animated: true)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,6 +52,7 @@ class ProductListViewController: UIViewController, UITableViewDataSource, UITabl
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProductCell", for: indexPath) as! ProductCell
         
+        cell.delegate = self
         cell.productNameLabel.text = product.name
         cell.productPriceLabel.text = product.price ?? "" + " บาท"
         
@@ -63,6 +77,20 @@ class ProductListViewController: UIViewController, UITableViewDataSource, UITabl
 
 }
 
+extension ProductListViewController: ProductCellDelegate {
+    
+    func productCellDidAddToCart(cell: ProductCell) {
+        
+        guard let indexPath = tableView.indexPath(for: cell) else {
+            return
+        }
+        
+        let product = products[indexPath.row]
+        CartManager.shared.addItem(product)
+        
+    }
+    
+}
 
 // MARK: - Alamofire
 extension ProductListViewController {
