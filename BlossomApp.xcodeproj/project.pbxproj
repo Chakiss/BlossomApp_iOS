@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B13E6E5269ADC0000131105 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B13E6E4269ADC0000131105 /* RegisterViewController.swift */; };
+		1B13E6E7269ADC2100131105 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B13E6E6269ADC2100131105 /* LoginViewController.swift */; };
+		1B13E6EA269AE79E00131105 /* WebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B13E6E9269AE79E00131105 /* WebViewViewController.swift */; };
+		1B13E6EC269AFD4200131105 /* Doctor.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B13E6EB269AFD4200131105 /* Doctor.storyboard */; };
 		1B187A59268F654300BB0122 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B187A58268F654300BB0122 /* AppDelegate.swift */; };
 		1B187A5B268F654300BB0122 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B187A5A268F654300BB0122 /* SceneDelegate.swift */; };
 		1B187A5D268F654300BB0122 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B187A5C268F654300BB0122 /* ViewController.swift */; };
@@ -76,6 +80,10 @@
 		04C10794411E313455108812 /* Pods-BlossomApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlossomApp.debug.xcconfig"; path = "Target Support Files/Pods-BlossomApp/Pods-BlossomApp.debug.xcconfig"; sourceTree = "<group>"; };
 		11854E474C24F89B9529054F /* Pods-BlossomAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlossomAppTests.release.xcconfig"; path = "Target Support Files/Pods-BlossomAppTests/Pods-BlossomAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		136AF1CA7D360CE492DE5BB8 /* Pods_BlossomApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BlossomApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B13E6E4269ADC0000131105 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		1B13E6E6269ADC2100131105 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		1B13E6E9269AE79E00131105 /* WebViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewViewController.swift; sourceTree = "<group>"; };
+		1B13E6EB269AFD4200131105 /* Doctor.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Doctor.storyboard; sourceTree = "<group>"; };
 		1B187A55268F654300BB0122 /* BlossomApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlossomApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B187A58268F654300BB0122 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1B187A5A268F654300BB0122 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -184,6 +192,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		1B13E6E8269AE78200131105 /* WebView */ = {
+			isa = PBXGroup;
+			children = (
+				1B13E6E9269AE79E00131105 /* WebViewViewController.swift */,
+			);
+			path = WebView;
+			sourceTree = "<group>";
+		};
 		1B187A4C268F654300BB0122 = {
 			isa = PBXGroup;
 			children = (
@@ -212,7 +228,9 @@
 				1B187A58268F654300BB0122 /* AppDelegate.swift */,
 				1B187A5A268F654300BB0122 /* SceneDelegate.swift */,
 				1B187A5C268F654300BB0122 /* ViewController.swift */,
+				1B13E6EB269AFD4200131105 /* Doctor.storyboard */,
 				1B187A5E268F654300BB0122 /* Main.storyboard */,
+				1B13E6E8269AE78200131105 /* WebView */,
 				1B77592026949185000780BD /* Model */,
 				1B5BC3B82696084E004206AE /* Login */,
 				1B53124F2693777400B88165 /* User */,
@@ -389,6 +407,8 @@
 			children = (
 				1B1C2E2A2698867400F57122 /* Landing.swift */,
 				1B5BC3B92696086A004206AE /* LandingViewController.swift */,
+				1B13E6E4269ADC0000131105 /* RegisterViewController.swift */,
+				1B13E6E6269ADC2100131105 /* LoginViewController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -519,6 +539,7 @@
 			files = (
 				1B187A65268F654500BB0122 /* LaunchScreen.storyboard in Resources */,
 				1B53124A2693754200B88165 /* SukhumvitSet-SemiBold.ttf in Resources */,
+				1B13E6EC269AFD4200131105 /* Doctor.storyboard in Resources */,
 				1B53124E2693754200B88165 /* SukhumvitSet-Text.ttf in Resources */,
 				1B77591B2694775E000780BD /* BannerViewCell.xib in Resources */,
 				1B5312492693754200B88165 /* SukhumvitSet-Thin.ttf in Resources */,
@@ -667,7 +688,10 @@
 				1B1C2E3626993C5B00F57122 /* Options.swift in Sources */,
 				1B775922269491A4000780BD /* Promotion.swift in Sources */,
 				1B5BC3BC269636D4004206AE /* DoctorCell.swift in Sources */,
+				1B13E6E5269ADC0000131105 /* RegisterViewController.swift in Sources */,
 				1B77591A2694775E000780BD /* MultiBannerView.swift in Sources */,
+				1B13E6E7269ADC2100131105 /* LoginViewController.swift in Sources */,
+				1B13E6EA269AE79E00131105 /* WebViewViewController.swift in Sources */,
 				1B187A59268F654300BB0122 /* AppDelegate.swift in Sources */,
 				1B1C2E3E26994FF700F57122 /* ProductDetailViewController.swift in Sources */,
 				1B53125B26937B3400B88165 /* AppointmentListViewController.swift in Sources */,

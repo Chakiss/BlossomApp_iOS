@@ -71,6 +71,14 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
         if (user?.isAnonymous == true) {
             print("signInAnonymously")
             
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let viewController = storyboard.instantiateViewController(withIdentifier: "LandingViewController") as! LandingViewController
+           
+            let regsterNavigationController = UINavigationController(rootViewController: viewController)
+            regsterNavigationController.modalPresentationStyle = .fullScreen
+            regsterNavigationController.navigationBar.tintColor = UIColor.white
+            self.navigationController?.present(regsterNavigationController, animated: true, completion:nil)
+            
         } else {
             print("Log in already")
             let storyboard = UIStoryboard(name: "Main", bundle: nil)

@@ -9,6 +9,7 @@ target 'BlossomApp' do
 
   pod 'Firebase/Analytics'
   pod 'Firebase/Auth'
+  pod 'Firebase/Functions'
   
   pod 'FBSDKCoreKit'
   pod 'FBSDKLoginKit'
