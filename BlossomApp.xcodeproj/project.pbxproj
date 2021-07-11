@@ -11,6 +11,7 @@
 		1B13E6E7269ADC2100131105 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B13E6E6269ADC2100131105 /* LoginViewController.swift */; };
 		1B13E6EA269AE79E00131105 /* WebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B13E6E9269AE79E00131105 /* WebViewViewController.swift */; };
 		1B13E6EC269AFD4200131105 /* Doctor.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B13E6EB269AFD4200131105 /* Doctor.storyboard */; };
+		1B13E6EE269B2F3F00131105 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B13E6ED269B2F3F00131105 /* ProgressView.swift */; };
 		1B187A59268F654300BB0122 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B187A58268F654300BB0122 /* AppDelegate.swift */; };
 		1B187A5B268F654300BB0122 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B187A5A268F654300BB0122 /* SceneDelegate.swift */; };
 		1B187A5D268F654300BB0122 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B187A5C268F654300BB0122 /* ViewController.swift */; };
@@ -94,6 +95,7 @@
 		1B13E6E6269ADC2100131105 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		1B13E6E9269AE79E00131105 /* WebViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewViewController.swift; sourceTree = "<group>"; };
 		1B13E6EB269AFD4200131105 /* Doctor.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Doctor.storyboard; sourceTree = "<group>"; };
+		1B13E6ED269B2F3F00131105 /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 		1B187A55268F654300BB0122 /* BlossomApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlossomApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B187A58268F654300BB0122 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1B187A5A268F654300BB0122 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -438,6 +440,7 @@
 			isa = PBXGroup;
 			children = (
 				1B77591E269479FA000780BD /* UIView+Additions.swift */,
+				1B13E6ED269B2F3F00131105 /* ProgressView.swift */,
 				3CFE6376269B44BF005235F1 /* UIViewController+Additions.swift */,
 			);
 			path = Helper;
@@ -757,6 +760,7 @@
 				1B531255269378C800B88165 /* UIColor+Extension.swift in Sources */,
 				1B5BC3BA2696086A004206AE /* LandingViewController.swift in Sources */,
 				1B3721D52695AF29006265D3 /* ProfileInformationViewController.swift in Sources */,
+				1B13E6EE269B2F3F00131105 /* ProgressView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

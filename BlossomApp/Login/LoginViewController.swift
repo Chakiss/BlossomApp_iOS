@@ -6,11 +6,10 @@
 //
 
 import UIKit
-import FirebaseFunctions
+import Firebase
 
 class LoginViewController: UIViewController {
     
-    lazy var functions = Functions.functions()
 
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -31,7 +30,12 @@ class LoginViewController: UIViewController {
     
 
     @IBAction func loginButtonTapped() {
-        
+        ProgressHUD.show()
+        Auth.auth().signIn(withEmail: emailTextField.text ?? "", password: passwordTextField.text ?? "") { authResult, error in
+            ProgressHUD.dismiss()
+            self.navigationController?.dismiss(animated: true, completion: nil)
+        }
+
        
     }
     

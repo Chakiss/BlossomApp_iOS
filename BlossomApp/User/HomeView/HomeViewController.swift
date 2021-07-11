@@ -20,7 +20,7 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
     @IBOutlet weak var appointmentView: UIView!
     @IBOutlet weak var doctorAppointmentView: UIView!
     
-    var user = Auth.auth().currentUser
+    var user: User!
 
     var handle: AuthStateDidChangeListenerHandle?
     
@@ -48,9 +48,8 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        
-       
-        
+        user = Auth.auth().currentUser
+      
     }
     // MARK: - Action on Promotion
     
@@ -68,8 +67,7 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
     
     @objc func profileButtonTapped() {
         
-        if (user?.isAnonymous == true) {
-            print("signInAnonymously")
+        if (user == nil) {
             
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let viewController = storyboard.instantiateViewController(withIdentifier: "LandingViewController") as! LandingViewController

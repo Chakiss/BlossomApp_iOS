@@ -25,16 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
        
         configUI()
         
-        let user = Auth.auth().currentUser
-        
-        if (user != nil) {
-
-        } else {
-            Auth.auth().signInAnonymously { authResult, error in
-               
-            }
-        }
-        
         return true
         
     }

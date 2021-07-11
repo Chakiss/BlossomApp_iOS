@@ -6,11 +6,14 @@
 //
 
 import UIKit
+import Firebase
 
 class ProfileViewController: UIViewController {
 
     @IBOutlet weak var containerView: UIView!
     @IBOutlet var segmentedControl: UISegmentedControl!
+    
+    @IBOutlet var nameLabel: UILabel!
 
     private lazy var profileInformationViewController: ProfileInformationViewController = {
         // Load Storyboard
@@ -44,12 +47,26 @@ class ProfileViewController: UIViewController {
 
         setupView()
         
+        
+        let button: UIButton = UIButton(type: UIButton.ButtonType.custom)
+        button.setImage(UIImage(named: "logout"), for: .normal)
+        button.addTarget(self, action: #selector(self.logoutButtonTapped), for: .touchUpInside)
+        button.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        let barButton = UIBarButtonItem(customView: button)
+        self.navigationItem.rightBarButtonItem = barButton
+        
+        
         // Do any additional setup after loading the view.
     }
     
     private func setupView() {
         add(asChildViewController: profileInformationViewController)
         setupSegmentedControl()
+        
+        let user = Auth.auth().currentUser
+        self.nameLabel.text = user?.displayName
+        
+        
     }
     
     private func setupSegmentedControl() {
@@ -103,14 +120,22 @@ class ProfileViewController: UIViewController {
         viewController.removeFromParent()
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @objc func logoutButtonTapped() {
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+            
+            self.navigationController?.popToRootViewController(animated: true)
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let viewController = storyboard.instantiateViewController(withIdentifier: "LandingViewController") as! LandingViewController
+           
+            let regsterNavigationController = UINavigationController(rootViewController: viewController)
+            regsterNavigationController.modalPresentationStyle = .fullScreen
+            regsterNavigationController.navigationBar.tintColor = UIColor.white
+            self.navigationController?.present(regsterNavigationController, animated: true, completion:nil)
+        } catch let signOutError as NSError {
+            print("Error signing out: %@", signOutError)
+        }
     }
-    */
-
 }
