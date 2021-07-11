@@ -61,25 +61,41 @@ class RegisterViewController: UIViewController {
     }
     
     @IBAction func registerButtonTapped() {
-        
-        let payload = ["email": emailTextField.text,
-                       "password": passwordTextField.text,
-                       "firstName": nameTextField.text,
-                       "lastName": sueNameTextField.text,
-                       "phonenumber": phoneNumberTextField.text]
-        
-        functions.httpsCallable("app-signUpWithEmailAndPassword").call(payload) { result, error in
-          if let error = error as NSError? {
-            if error.domain == FunctionsErrorDomain {
-              let code = FunctionsErrorCode(rawValue: error.code)
-              let message = error.localizedDescription
-              let details = error.userInfo[FunctionsErrorDetailsKey]
+      
+        if passwordTextField.text != confirmPasswordTextField.text {
+            let alert = UIAlertController(title: "Alert", message: "กรุณาตรวจสอบพาสเวิร์ดอีกครั้ง", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            
+        } else {
+            ProgressHUD.show()
+            
+            let payload = ["email": emailTextField.text,
+                           "password": passwordTextField.text,
+                           "firstName": nameTextField.text,
+                           "lastName": sueNameTextField.text,
+                           "phoneNumber": phoneNumberTextField.text]
+            
+            functions.httpsCallable("app-users-signUpWithEmailAndPassword").call(payload) { result, error in
+                ProgressHUD.dismiss()
+                if let error = error as NSError? {
+                    if error.domain == FunctionsErrorDomain {
+                        let code = FunctionsErrorCode(rawValue: error.code)
+                        let message = error.localizedDescription
+                        let details = error.userInfo[FunctionsErrorDetailsKey]
+                        
+                        let alert = UIAlertController(title: "Alert", message: message, preferredStyle: UIAlertController.Style.alert)
+                        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                    // ...
+                }
+                if let data = result?.data as? [String: Any], let text = data["text"] as? String {
+                    //self.resultField.text = text
+                    print(data)
+                }
             }
-            // ...
-          }
-          if let data = result?.data as? [String: Any], let text = data["text"] as? String {
-            //self.resultField.text = text
-          }
+            
         }
     }
     

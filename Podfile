@@ -19,6 +19,8 @@ target 'BlossomApp' do
   pod 'Kingfisher', '5.15.8'
   pod 'AdvancedPageControl'
   
+  pod 'SVProgressHUD'
+  
   pod 'DLRadioButton', '~> 1.4'
   
 
