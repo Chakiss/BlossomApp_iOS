@@ -20,6 +20,15 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>SukhumvitSet-Bold.ttf</string>
+		<string>SukhumvitSet-Light.ttf</string>
+		<string>SukhumvitSet-Medium.ttf</string>
+		<string>SukhumvitSet-SemiBold.ttf</string>
+		<string>SukhumvitSet-Text.ttf</string>
+		<string>SukhumvitSet-Thin.ttf</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

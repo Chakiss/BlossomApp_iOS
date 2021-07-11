@@ -3,7 +3,6 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,12 +14,12 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="171"/>
+            <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="YUz-rF-dux">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="130"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <rect key="frame" x="0.0" y="20" width="414" height="130"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="130" id="oLw-Iy-aBT"/>
                     </constraints>
@@ -36,15 +35,15 @@
                     </connections>
                 </collectionView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rli-YE-XMv" customClass="AdvancedPageControlView" customModule="AdvancedPageControl">
-                    <rect key="frame" x="0.0" y="130" width="414" height="41"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <rect key="frame" x="0.0" y="150" width="414" height="50"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
             </subviews>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="YUz-rF-dux" secondAttribute="trailing" id="0QL-lM-FUG"/>
                 <constraint firstAttribute="bottom" secondItem="rli-YE-XMv" secondAttribute="bottom" id="5rn-1y-JGR"/>
-                <constraint firstItem="YUz-rF-dux" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="5tR-08-7b8"/>
+                <constraint firstItem="YUz-rF-dux" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="5tR-08-7b8"/>
                 <constraint firstAttribute="trailing" secondItem="rli-YE-XMv" secondAttribute="trailing" id="Au6-Ga-poz"/>
                 <constraint firstItem="YUz-rF-dux" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="YXj-Yt-kcz"/>
                 <constraint firstItem="rli-YE-XMv" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="h3Q-2H-yWH"/>
@@ -54,9 +53,4 @@
             <point key="canvasLocation" x="0.0" y="-235.37946428571428"/>
         </view>
     </objects>
-    <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-    </resources>
 </document>

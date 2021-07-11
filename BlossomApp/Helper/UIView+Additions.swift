@@ -1,6 +1,6 @@
 //
 //  UIView+Assitions.swift
-//  dtacapp
+//  
 //
 //  Created by sopana on 14/9/2562 BE.
 //  Copyright © 2562 Sopana. All rights reserved.
@@ -9,6 +9,18 @@
 import UIKit
 
 extension UIView {
+    
+    func addConerRadiusAndShadow(){
+        self.layer.cornerRadius = 5
+        self.layer.borderWidth = 1
+        self.layer.borderColor = UIColor.blossomLightGray.cgColor
+         
+         // shadow
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowOffset = CGSize(width: 3, height: 3)
+        self.layer.shadowOpacity = 0.1
+        self.layer.shadowRadius = 4.0
+    }
     
     func roundCorner(radius:CGFloat, with borderColor:UIColor? = nil) {
         self.layer.cornerRadius = radius

@@ -18,8 +18,10 @@
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TGv-84-iHa">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="216"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </imageView>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="TGv-84-iHa" secondAttribute="trailing" id="2UA-cx-t2F"/>
                     <constraint firstItem="TGv-84-iHa" firstAttribute="leading" secondItem="Fud-bf-bpS" secondAttribute="leading" id="H1W-Wb-mkW"/>
@@ -27,6 +29,7 @@
                     <constraint firstItem="TGv-84-iHa" firstAttribute="top" secondItem="Fud-bf-bpS" secondAttribute="top" id="TPx-le-Z1c"/>
                 </constraints>
             </collectionViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <size key="customSize" width="414" height="218"/>
             <connections>
                 <outlet property="bannerImageView" destination="TGv-84-iHa" id="yMS-CD-yV7"/>

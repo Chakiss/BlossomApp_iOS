@@ -9,10 +9,16 @@ import UIKit
 
 class LandingViewController: UIViewController {
 
+    @IBOutlet weak var multiBannerView: MultiBannerView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        multiBannerView.objects = []
+        multiBannerView.reload()
     }
     
 

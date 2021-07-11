@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,6 +15,44 @@
 		1B187A65268F654500BB0122 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B187A63268F654500BB0122 /* LaunchScreen.storyboard */; };
 		1B187A70268F654500BB0122 /* BlossomAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B187A6F268F654500BB0122 /* BlossomAppTests.swift */; };
 		1B187A7B268F654500BB0122 /* BlossomAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B187A7A268F654500BB0122 /* BlossomAppUITests.swift */; };
+		1B1C2E2B2698867400F57122 /* Landing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C2E2A2698867400F57122 /* Landing.swift */; };
+		1B1C2E2D2698A77A00F57122 /* ProductsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C2E2C2698A77A00F57122 /* ProductsResponse.swift */; };
+		1B1C2E3426993C5B00F57122 /* Sets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C2E2E26993C5A00F57122 /* Sets.swift */; };
+		1B1C2E3526993C5B00F57122 /* Subproducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C2E2F26993C5A00F57122 /* Subproducts.swift */; };
+		1B1C2E3626993C5B00F57122 /* Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C2E3026993C5A00F57122 /* Options.swift */; };
+		1B1C2E3726993C5B00F57122 /* Paginate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C2E3126993C5B00F57122 /* Paginate.swift */; };
+		1B1C2E3826993C5B00F57122 /* Product_set_items.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C2E3226993C5B00F57122 /* Product_set_items.swift */; };
+		1B1C2E3926993C5B00F57122 /* Products.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C2E3326993C5B00F57122 /* Products.swift */; };
+		1B1C2E3C269944C200F57122 /* ProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C2E3B269944C200F57122 /* ProductCell.swift */; };
+		1B1C2E3E26994FF700F57122 /* ProductDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C2E3D26994FF700F57122 /* ProductDetailViewController.swift */; };
+		1B29A3D32697E92300556A55 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1B29A3D22697E92300556A55 /* GoogleService-Info.plist */; };
+		1B3721D226959645006265D3 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3721D126959645006265D3 /* ProfileViewController.swift */; };
+		1B3721D52695AF29006265D3 /* ProfileInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3721D42695AF29006265D3 /* ProfileInformationViewController.swift */; };
+		1B3721D82695AF46006265D3 /* ProfileHealthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3721D72695AF46006265D3 /* ProfileHealthViewController.swift */; };
+		1B5312492693754200B88165 /* SukhumvitSet-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1B5312432693754200B88165 /* SukhumvitSet-Thin.ttf */; };
+		1B53124A2693754200B88165 /* SukhumvitSet-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1B5312442693754200B88165 /* SukhumvitSet-SemiBold.ttf */; };
+		1B53124B2693754200B88165 /* SukhumvitSet-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1B5312452693754200B88165 /* SukhumvitSet-Medium.ttf */; };
+		1B53124C2693754200B88165 /* SukhumvitSet-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1B5312462693754200B88165 /* SukhumvitSet-Light.ttf */; };
+		1B53124D2693754200B88165 /* SukhumvitSet-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1B5312472693754200B88165 /* SukhumvitSet-Bold.ttf */; };
+		1B53124E2693754200B88165 /* SukhumvitSet-Text.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1B5312482693754200B88165 /* SukhumvitSet-Text.ttf */; };
+		1B5312522693779C00B88165 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5312512693779C00B88165 /* HomeViewController.swift */; };
+		1B531255269378C800B88165 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B531254269378C800B88165 /* UIColor+Extension.swift */; };
+		1B53125826937AF300B88165 /* DoctorListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B53125726937AF300B88165 /* DoctorListViewController.swift */; };
+		1B53125B26937B3400B88165 /* AppointmentListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B53125A26937B3400B88165 /* AppointmentListViewController.swift */; };
+		1B53125E26937B5F00B88165 /* ProductListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B53125D26937B5F00B88165 /* ProductListViewController.swift */; };
+		1B53126126937B9400B88165 /* ChatListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B53126026937B9400B88165 /* ChatListViewController.swift */; };
+		1B5312642693E66400B88165 /* PromotionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5312632693E66400B88165 /* PromotionViewController.swift */; };
+		1B5BC3BA2696086A004206AE /* LandingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5BC3B92696086A004206AE /* LandingViewController.swift */; };
+		1B5BC3BC269636D4004206AE /* DoctorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5BC3BB269636D4004206AE /* DoctorCell.swift */; };
+		1B7759192694775E000780BD /* MultiBannerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B7759152694775E000780BD /* MultiBannerView.xib */; };
+		1B77591A2694775E000780BD /* MultiBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7759162694775E000780BD /* MultiBannerView.swift */; };
+		1B77591B2694775E000780BD /* BannerViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B7759172694775E000780BD /* BannerViewCell.xib */; };
+		1B77591C2694775E000780BD /* BannerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7759182694775E000780BD /* BannerViewCell.swift */; };
+		1B77591F269479FA000780BD /* UIView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B77591E269479FA000780BD /* UIView+Additions.swift */; };
+		1B775922269491A4000780BD /* Promotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B775921269491A4000780BD /* Promotion.swift */; };
+		2ED61670E1B731724E6241D8 /* Pods_BlossomAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E99762F7CE88D69DACDBD722 /* Pods_BlossomAppTests.framework */; };
+		7BD34340840AE9C6FDE794BE /* Pods_BlossomApp_BlossomAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67AFE30CEFDDCEF6DF620A61 /* Pods_BlossomApp_BlossomAppUITests.framework */; };
+		CE36DEDA94F2484A5F45AA4B /* Pods_BlossomApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 136AF1CA7D360CE492DE5BB8 /* Pods_BlossomApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +73,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04C10794411E313455108812 /* Pods-BlossomApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlossomApp.debug.xcconfig"; path = "Target Support Files/Pods-BlossomApp/Pods-BlossomApp.debug.xcconfig"; sourceTree = "<group>"; };
+		11854E474C24F89B9529054F /* Pods-BlossomAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlossomAppTests.release.xcconfig"; path = "Target Support Files/Pods-BlossomAppTests/Pods-BlossomAppTests.release.xcconfig"; sourceTree = "<group>"; };
+		136AF1CA7D360CE492DE5BB8 /* Pods_BlossomApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BlossomApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B187A55268F654300BB0122 /* BlossomApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlossomApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B187A58268F654300BB0122 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1B187A5A268F654300BB0122 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +90,47 @@
 		1B187A76268F654500BB0122 /* BlossomAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlossomAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B187A7A268F654500BB0122 /* BlossomAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlossomAppUITests.swift; sourceTree = "<group>"; };
 		1B187A7C268F654500BB0122 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1B1C2E2A2698867400F57122 /* Landing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.swift; sourceTree = "<group>"; };
+		1B1C2E2C2698A77A00F57122 /* ProductsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsResponse.swift; sourceTree = "<group>"; };
+		1B1C2E2E26993C5A00F57122 /* Sets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sets.swift; sourceTree = "<group>"; };
+		1B1C2E2F26993C5A00F57122 /* Subproducts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subproducts.swift; sourceTree = "<group>"; };
+		1B1C2E3026993C5A00F57122 /* Options.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Options.swift; sourceTree = "<group>"; };
+		1B1C2E3126993C5B00F57122 /* Paginate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Paginate.swift; sourceTree = "<group>"; };
+		1B1C2E3226993C5B00F57122 /* Product_set_items.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product_set_items.swift; sourceTree = "<group>"; };
+		1B1C2E3326993C5B00F57122 /* Products.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Products.swift; sourceTree = "<group>"; };
+		1B1C2E3B269944C200F57122 /* ProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCell.swift; sourceTree = "<group>"; };
+		1B1C2E3D26994FF700F57122 /* ProductDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailViewController.swift; sourceTree = "<group>"; };
+		1B29A3D22697E92300556A55 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1B3721D126959645006265D3 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		1B3721D42695AF29006265D3 /* ProfileInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInformationViewController.swift; sourceTree = "<group>"; };
+		1B3721D72695AF46006265D3 /* ProfileHealthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHealthViewController.swift; sourceTree = "<group>"; };
+		1B5312432693754200B88165 /* SukhumvitSet-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SukhumvitSet-Thin.ttf"; sourceTree = "<group>"; };
+		1B5312442693754200B88165 /* SukhumvitSet-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SukhumvitSet-SemiBold.ttf"; sourceTree = "<group>"; };
+		1B5312452693754200B88165 /* SukhumvitSet-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SukhumvitSet-Medium.ttf"; sourceTree = "<group>"; };
+		1B5312462693754200B88165 /* SukhumvitSet-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SukhumvitSet-Light.ttf"; sourceTree = "<group>"; };
+		1B5312472693754200B88165 /* SukhumvitSet-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SukhumvitSet-Bold.ttf"; sourceTree = "<group>"; };
+		1B5312482693754200B88165 /* SukhumvitSet-Text.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SukhumvitSet-Text.ttf"; sourceTree = "<group>"; };
+		1B5312512693779C00B88165 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		1B531254269378C800B88165 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		1B53125726937AF300B88165 /* DoctorListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorListViewController.swift; sourceTree = "<group>"; };
+		1B53125A26937B3400B88165 /* AppointmentListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppointmentListViewController.swift; sourceTree = "<group>"; };
+		1B53125D26937B5F00B88165 /* ProductListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListViewController.swift; sourceTree = "<group>"; };
+		1B53126026937B9400B88165 /* ChatListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListViewController.swift; sourceTree = "<group>"; };
+		1B5312632693E66400B88165 /* PromotionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionViewController.swift; sourceTree = "<group>"; };
+		1B5BC3B92696086A004206AE /* LandingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingViewController.swift; sourceTree = "<group>"; };
+		1B5BC3BB269636D4004206AE /* DoctorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorCell.swift; sourceTree = "<group>"; };
+		1B7759152694775E000780BD /* MultiBannerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MultiBannerView.xib; sourceTree = "<group>"; };
+		1B7759162694775E000780BD /* MultiBannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiBannerView.swift; sourceTree = "<group>"; };
+		1B7759172694775E000780BD /* BannerViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BannerViewCell.xib; sourceTree = "<group>"; };
+		1B7759182694775E000780BD /* BannerViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerViewCell.swift; sourceTree = "<group>"; };
+		1B77591E269479FA000780BD /* UIView+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Additions.swift"; sourceTree = "<group>"; };
+		1B775921269491A4000780BD /* Promotion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Promotion.swift; sourceTree = "<group>"; };
+		63D346E429FF2FB1D0B3AF7D /* Pods-BlossomApp-BlossomAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlossomApp-BlossomAppUITests.debug.xcconfig"; path = "Target Support Files/Pods-BlossomApp-BlossomAppUITests/Pods-BlossomApp-BlossomAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		67AFE30CEFDDCEF6DF620A61 /* Pods_BlossomApp_BlossomAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BlossomApp_BlossomAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		70D3E4488BE767A6AED10490 /* Pods-BlossomAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlossomAppTests.debug.xcconfig"; path = "Target Support Files/Pods-BlossomAppTests/Pods-BlossomAppTests.debug.xcconfig"; sourceTree = "<group>"; };
+		8B5F2BDDB301D5C4E86CCAFA /* Pods-BlossomApp-BlossomAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlossomApp-BlossomAppUITests.release.xcconfig"; path = "Target Support Files/Pods-BlossomApp-BlossomAppUITests/Pods-BlossomApp-BlossomAppUITests.release.xcconfig"; sourceTree = "<group>"; };
+		D25751402F8A9F2B68DBC1D7 /* Pods-BlossomApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlossomApp.release.xcconfig"; path = "Target Support Files/Pods-BlossomApp/Pods-BlossomApp.release.xcconfig"; sourceTree = "<group>"; };
+		E99762F7CE88D69DACDBD722 /* Pods_BlossomAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BlossomAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +138,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE36DEDA94F2484A5F45AA4B /* Pods_BlossomApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +146,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2ED61670E1B731724E6241D8 /* Pods_BlossomAppTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,12 +154,36 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BD34340840AE9C6FDE794BE /* Pods_BlossomApp_BlossomAppUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0ED73238BDF360E3A3983A70 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				136AF1CA7D360CE492DE5BB8 /* Pods_BlossomApp.framework */,
+				67AFE30CEFDDCEF6DF620A61 /* Pods_BlossomApp_BlossomAppUITests.framework */,
+				E99762F7CE88D69DACDBD722 /* Pods_BlossomAppTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		19E0BD1C073416A35022193B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				04C10794411E313455108812 /* Pods-BlossomApp.debug.xcconfig */,
+				D25751402F8A9F2B68DBC1D7 /* Pods-BlossomApp.release.xcconfig */,
+				63D346E429FF2FB1D0B3AF7D /* Pods-BlossomApp-BlossomAppUITests.debug.xcconfig */,
+				8B5F2BDDB301D5C4E86CCAFA /* Pods-BlossomApp-BlossomAppUITests.release.xcconfig */,
+				70D3E4488BE767A6AED10490 /* Pods-BlossomAppTests.debug.xcconfig */,
+				11854E474C24F89B9529054F /* Pods-BlossomAppTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		1B187A4C268F654300BB0122 = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +191,8 @@
 				1B187A6E268F654500BB0122 /* BlossomAppTests */,
 				1B187A79268F654500BB0122 /* BlossomAppUITests */,
 				1B187A56268F654300BB0122 /* Products */,
+				19E0BD1C073416A35022193B /* Pods */,
+				0ED73238BDF360E3A3983A70 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -103,9 +213,15 @@
 				1B187A5A268F654300BB0122 /* SceneDelegate.swift */,
 				1B187A5C268F654300BB0122 /* ViewController.swift */,
 				1B187A5E268F654300BB0122 /* Main.storyboard */,
+				1B77592026949185000780BD /* Model */,
+				1B5BC3B82696084E004206AE /* Login */,
+				1B53124F2693777400B88165 /* User */,
 				1B187A61268F654500BB0122 /* Assets.xcassets */,
 				1B187A63268F654500BB0122 /* LaunchScreen.storyboard */,
 				1B187A66268F654500BB0122 /* Info.plist */,
+				1B29A3D22697E92300556A55 /* GoogleService-Info.plist */,
+				1B77591D269479EB000780BD /* Helper */,
+				1B5312412693752E00B88165 /* Support files */,
 			);
 			path = BlossomApp;
 			sourceTree = "<group>";
@@ -128,6 +244,171 @@
 			path = BlossomAppUITests;
 			sourceTree = "<group>";
 		};
+		1B1C2E3A269943AC00F57122 /* ProductResponse */ = {
+			isa = PBXGroup;
+			children = (
+				1B1C2E2C2698A77A00F57122 /* ProductsResponse.swift */,
+				1B1C2E3026993C5A00F57122 /* Options.swift */,
+				1B1C2E3126993C5B00F57122 /* Paginate.swift */,
+				1B1C2E3226993C5B00F57122 /* Product_set_items.swift */,
+				1B1C2E3326993C5B00F57122 /* Products.swift */,
+				1B1C2E2E26993C5A00F57122 /* Sets.swift */,
+				1B1C2E2F26993C5A00F57122 /* Subproducts.swift */,
+			);
+			path = ProductResponse;
+			sourceTree = "<group>";
+		};
+		1B3721D026959296006265D3 /* ProfileView */ = {
+			isa = PBXGroup;
+			children = (
+				1B3721D62695AF2E006265D3 /* ProfileHealthView */,
+				1B3721D32695AEB1006265D3 /* ProfileInformation */,
+				1B3721D126959645006265D3 /* ProfileViewController.swift */,
+			);
+			path = ProfileView;
+			sourceTree = "<group>";
+		};
+		1B3721D32695AEB1006265D3 /* ProfileInformation */ = {
+			isa = PBXGroup;
+			children = (
+				1B3721D42695AF29006265D3 /* ProfileInformationViewController.swift */,
+			);
+			path = ProfileInformation;
+			sourceTree = "<group>";
+		};
+		1B3721D62695AF2E006265D3 /* ProfileHealthView */ = {
+			isa = PBXGroup;
+			children = (
+				1B3721D72695AF46006265D3 /* ProfileHealthViewController.swift */,
+			);
+			path = ProfileHealthView;
+			sourceTree = "<group>";
+		};
+		1B5312412693752E00B88165 /* Support files */ = {
+			isa = PBXGroup;
+			children = (
+				1B531253269378B600B88165 /* Color */,
+				1B5312422693753800B88165 /* font */,
+			);
+			path = "Support files";
+			sourceTree = "<group>";
+		};
+		1B5312422693753800B88165 /* font */ = {
+			isa = PBXGroup;
+			children = (
+				1B5312472693754200B88165 /* SukhumvitSet-Bold.ttf */,
+				1B5312462693754200B88165 /* SukhumvitSet-Light.ttf */,
+				1B5312452693754200B88165 /* SukhumvitSet-Medium.ttf */,
+				1B5312442693754200B88165 /* SukhumvitSet-SemiBold.ttf */,
+				1B5312482693754200B88165 /* SukhumvitSet-Text.ttf */,
+				1B5312432693754200B88165 /* SukhumvitSet-Thin.ttf */,
+			);
+			path = font;
+			sourceTree = "<group>";
+		};
+		1B53124F2693777400B88165 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				1B5312502693778100B88165 /* HomeView */,
+				1B53125626937AD900B88165 /* DoctorList */,
+				1B53125926937B2200B88165 /* Appointment */,
+				1B53125C26937B4D00B88165 /* Product */,
+				1B53125F26937B7A00B88165 /* Chat */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		1B5312502693778100B88165 /* HomeView */ = {
+			isa = PBXGroup;
+			children = (
+				1B5312512693779C00B88165 /* HomeViewController.swift */,
+				1B7759162694775E000780BD /* MultiBannerView.swift */,
+				1B7759152694775E000780BD /* MultiBannerView.xib */,
+				1B7759182694775E000780BD /* BannerViewCell.swift */,
+				1B7759172694775E000780BD /* BannerViewCell.xib */,
+				1B3721D026959296006265D3 /* ProfileView */,
+				1B5312622693E64E00B88165 /* PromotionView */,
+			);
+			path = HomeView;
+			sourceTree = "<group>";
+		};
+		1B531253269378B600B88165 /* Color */ = {
+			isa = PBXGroup;
+			children = (
+				1B531254269378C800B88165 /* UIColor+Extension.swift */,
+			);
+			path = Color;
+			sourceTree = "<group>";
+		};
+		1B53125626937AD900B88165 /* DoctorList */ = {
+			isa = PBXGroup;
+			children = (
+				1B53125726937AF300B88165 /* DoctorListViewController.swift */,
+				1B5BC3BB269636D4004206AE /* DoctorCell.swift */,
+			);
+			path = DoctorList;
+			sourceTree = "<group>";
+		};
+		1B53125926937B2200B88165 /* Appointment */ = {
+			isa = PBXGroup;
+			children = (
+				1B53125A26937B3400B88165 /* AppointmentListViewController.swift */,
+			);
+			path = Appointment;
+			sourceTree = "<group>";
+		};
+		1B53125C26937B4D00B88165 /* Product */ = {
+			isa = PBXGroup;
+			children = (
+				1B53125D26937B5F00B88165 /* ProductListViewController.swift */,
+				1B1C2E3D26994FF700F57122 /* ProductDetailViewController.swift */,
+				1B1C2E3B269944C200F57122 /* ProductCell.swift */,
+				1B1C2E3A269943AC00F57122 /* ProductResponse */,
+			);
+			path = Product;
+			sourceTree = "<group>";
+		};
+		1B53125F26937B7A00B88165 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				1B53126026937B9400B88165 /* ChatListViewController.swift */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		1B5312622693E64E00B88165 /* PromotionView */ = {
+			isa = PBXGroup;
+			children = (
+				1B5312632693E66400B88165 /* PromotionViewController.swift */,
+			);
+			path = PromotionView;
+			sourceTree = "<group>";
+		};
+		1B5BC3B82696084E004206AE /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				1B1C2E2A2698867400F57122 /* Landing.swift */,
+				1B5BC3B92696086A004206AE /* LandingViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		1B77591D269479EB000780BD /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				1B77591E269479FA000780BD /* UIView+Additions.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		1B77592026949185000780BD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1B775921269491A4000780BD /* Promotion.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -135,9 +416,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1B187A7F268F654500BB0122 /* Build configuration list for PBXNativeTarget "BlossomApp" */;
 			buildPhases = (
+				FE5C8A9F90E8EB8B34B34673 /* [CP] Check Pods Manifest.lock */,
 				1B187A51268F654300BB0122 /* Sources */,
 				1B187A52268F654300BB0122 /* Frameworks */,
 				1B187A53268F654300BB0122 /* Resources */,
+				8E5D3D7BC85A42653ED84722 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -152,6 +435,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1B187A82268F654500BB0122 /* Build configuration list for PBXNativeTarget "BlossomAppTests" */;
 			buildPhases = (
+				22695794AA424FFB3AC830E7 /* [CP] Check Pods Manifest.lock */,
 				1B187A67268F654500BB0122 /* Sources */,
 				1B187A68268F654500BB0122 /* Frameworks */,
 				1B187A69268F654500BB0122 /* Resources */,
@@ -170,9 +454,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1B187A85268F654500BB0122 /* Build configuration list for PBXNativeTarget "BlossomAppUITests" */;
 			buildPhases = (
+				2B7909BF89F58028B6731417 /* [CP] Check Pods Manifest.lock */,
 				1B187A72268F654500BB0122 /* Sources */,
 				1B187A73268F654500BB0122 /* Frameworks */,
 				1B187A74268F654500BB0122 /* Resources */,
+				8CC9D436DA5249B5470071A0 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -232,8 +518,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B187A65268F654500BB0122 /* LaunchScreen.storyboard in Resources */,
+				1B53124A2693754200B88165 /* SukhumvitSet-SemiBold.ttf in Resources */,
+				1B53124E2693754200B88165 /* SukhumvitSet-Text.ttf in Resources */,
+				1B77591B2694775E000780BD /* BannerViewCell.xib in Resources */,
+				1B5312492693754200B88165 /* SukhumvitSet-Thin.ttf in Resources */,
+				1B29A3D32697E92300556A55 /* GoogleService-Info.plist in Resources */,
+				1B53124D2693754200B88165 /* SukhumvitSet-Bold.ttf in Resources */,
 				1B187A62268F654500BB0122 /* Assets.xcassets in Resources */,
 				1B187A60268F654300BB0122 /* Main.storyboard in Resources */,
+				1B53124B2693754200B88165 /* SukhumvitSet-Medium.ttf in Resources */,
+				1B7759192694775E000780BD /* MultiBannerView.xib in Resources */,
+				1B53124C2693754200B88165 /* SukhumvitSet-Light.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,14 +548,143 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		22695794AA424FFB3AC830E7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BlossomAppTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2B7909BF89F58028B6731417 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BlossomApp-BlossomAppUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8CC9D436DA5249B5470071A0 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BlossomApp-BlossomAppUITests/Pods-BlossomApp-BlossomAppUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BlossomApp-BlossomAppUITests/Pods-BlossomApp-BlossomAppUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BlossomApp-BlossomAppUITests/Pods-BlossomApp-BlossomAppUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8E5D3D7BC85A42653ED84722 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BlossomApp/Pods-BlossomApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BlossomApp/Pods-BlossomApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BlossomApp/Pods-BlossomApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FE5C8A9F90E8EB8B34B34673 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BlossomApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		1B187A51268F654300BB0122 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B1C2E3926993C5B00F57122 /* Products.swift in Sources */,
+				1B1C2E3726993C5B00F57122 /* Paginate.swift in Sources */,
 				1B187A5D268F654300BB0122 /* ViewController.swift in Sources */,
+				1B1C2E2B2698867400F57122 /* Landing.swift in Sources */,
+				1B1C2E3826993C5B00F57122 /* Product_set_items.swift in Sources */,
+				1B1C2E3C269944C200F57122 /* ProductCell.swift in Sources */,
+				1B53125826937AF300B88165 /* DoctorListViewController.swift in Sources */,
+				1B3721D82695AF46006265D3 /* ProfileHealthViewController.swift in Sources */,
+				1B1C2E3626993C5B00F57122 /* Options.swift in Sources */,
+				1B775922269491A4000780BD /* Promotion.swift in Sources */,
+				1B5BC3BC269636D4004206AE /* DoctorCell.swift in Sources */,
+				1B77591A2694775E000780BD /* MultiBannerView.swift in Sources */,
 				1B187A59268F654300BB0122 /* AppDelegate.swift in Sources */,
+				1B1C2E3E26994FF700F57122 /* ProductDetailViewController.swift in Sources */,
+				1B53125B26937B3400B88165 /* AppointmentListViewController.swift in Sources */,
+				1B1C2E3526993C5B00F57122 /* Subproducts.swift in Sources */,
+				1B3721D226959645006265D3 /* ProfileViewController.swift in Sources */,
 				1B187A5B268F654300BB0122 /* SceneDelegate.swift in Sources */,
+				1B5312522693779C00B88165 /* HomeViewController.swift in Sources */,
+				1B77591C2694775E000780BD /* BannerViewCell.swift in Sources */,
+				1B5312642693E66400B88165 /* PromotionViewController.swift in Sources */,
+				1B1C2E3426993C5B00F57122 /* Sets.swift in Sources */,
+				1B53126126937B9400B88165 /* ChatListViewController.swift in Sources */,
+				1B53125E26937B5F00B88165 /* ProductListViewController.swift in Sources */,
+				1B77591F269479FA000780BD /* UIView+Additions.swift in Sources */,
+				1B1C2E2D2698A77A00F57122 /* ProductsResponse.swift in Sources */,
+				1B531255269378C800B88165 /* UIColor+Extension.swift in Sources */,
+				1B5BC3BA2696086A004206AE /* LandingViewController.swift in Sources */,
+				1B3721D52695AF29006265D3 /* ProfileInformationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,6 +857,7 @@
 		};
 		1B187A80268F654500BB0122 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 04C10794411E313455108812 /* Pods-BlossomApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -443,7 +868,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.blossomclinic.blossomapp.BlossomApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.blossomclinic.blossomapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -452,6 +877,7 @@
 		};
 		1B187A81268F654500BB0122 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D25751402F8A9F2B68DBC1D7 /* Pods-BlossomApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -462,7 +888,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.blossomclinic.blossomapp.BlossomApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.blossomclinic.blossomapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -471,6 +897,7 @@
 		};
 		1B187A83268F654500BB0122 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 70D3E4488BE767A6AED10490 /* Pods-BlossomAppTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -493,6 +920,7 @@
 		};
 		1B187A84268F654500BB0122 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 11854E474C24F89B9529054F /* Pods-BlossomAppTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -515,6 +943,7 @@
 		};
 		1B187A86268F654500BB0122 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 63D346E429FF2FB1D0B3AF7D /* Pods-BlossomApp-BlossomAppUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -535,6 +964,7 @@
 		};
 		1B187A87268F654500BB0122 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8B5F2BDDB301D5C4E86CCAFA /* Pods-BlossomApp-BlossomAppUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
