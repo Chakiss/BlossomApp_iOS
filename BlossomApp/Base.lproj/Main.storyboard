@@ -1206,6 +1206,9 @@
                                                     <rect key="frame" x="329" y="39.5" width="65" height="30"/>
                                                     <color key="backgroundColor" red="0.97647058819999999" green="0.69411764710000001" blue="0.65098039220000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <state key="normal" title="ใส่ตระกร้า"/>
+                                                    <connections>
+                                                        <action selector="addToCart:" destination="Dw1-EJ-xvT" eventType="touchUpInside" id="jD1-SU-kzc"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>

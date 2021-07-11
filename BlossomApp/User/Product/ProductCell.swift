@@ -7,11 +7,17 @@
 
 import UIKit
 
+protocol ProductCellDelegate: AnyObject {
+    func productCellDidAddToCart(cell: ProductCell)
+}
+
 class ProductCell: UITableViewCell {
     
     @IBOutlet weak var productNameLabel: UILabel!
     @IBOutlet weak var productPriceLabel: UILabel!
     @IBOutlet weak var productImageView: UIImageView!
+    
+    weak var delegate: ProductCellDelegate?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,4 +30,8 @@ class ProductCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    @IBAction func addToCart(_ sender: Any) {
+        delegate?.productCellDidAddToCart(cell: self)
+    }
+    
 }

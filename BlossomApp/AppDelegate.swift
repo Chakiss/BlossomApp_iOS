@@ -8,9 +8,14 @@
 import UIKit
 import Firebase
 
+enum Deeplinking {
+    case orderList
+}
+
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    var deeplinking: Deeplinking?
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -21,6 +26,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         configUI()
         
         return true
+        
+    }
+    
+    func handleDeeplinking() {
+        
+        guard let tabbarController = window?.rootViewController as? UITabBarController,
+              let deeplinking = deeplinking else {
+            return
+        }
+        
+        switch deeplinking {
+        case .orderList:
+            tabbarController.selectedIndex = 2
+        }
         
     }
     

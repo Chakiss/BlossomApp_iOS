@@ -15,7 +15,22 @@ class AppointmentListViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        gotoOrderList()
+    }
+    
+    func gotoOrderList() {
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+           let deeplinking = appDelegate.deeplinking {
+            switch deeplinking {
+            case .orderList:
+                debugPrint("go to order list")
+            }            
+            appDelegate.deeplinking = nil
+        }
+    }
+    
     /*
     // MARK: - Navigation
 

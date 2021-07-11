@@ -39,4 +39,9 @@ extension UIColor {
     public static var blossomGreen: UIColor {
         return UIColor(red: 0.13, green: 0.47, blue: 0.30, alpha: 1.00)
     }
+    
+    public static var backgroundColor: UIColor {
+        return UIColor(red: 0.99, green: 0.98, blue: 0.97, alpha: 1.00)
+    }
 }
+

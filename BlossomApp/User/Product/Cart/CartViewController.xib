@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CartViewController" customModule="BlossomApp" customModuleProvider="target">
+            <connections>
+                <outlet property="checkoutButton" destination="Bkq-ec-iC4" id="w3T-MS-XXG"/>
+                <outlet property="tableView" destination="9v0-BJ-E3B" id="smr-4h-wv3"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9v0-BJ-E3B">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="782"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bkq-ec-iC4">
+                    <rect key="frame" x="40" y="798" width="334" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="xnI-UT-5Nj"/>
+                    </constraints>
+                    <state key="normal" title="Button"/>
+                    <connections>
+                        <action selector="checkoutCart:" destination="-1" eventType="touchUpInside" id="nBe-kx-nJr"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="Bkq-ec-iC4" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" constant="-20" id="64Z-nb-HcH"/>
+                <constraint firstItem="Bkq-ec-iC4" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="40" id="6v1-bO-515"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Bkq-ec-iC4" secondAttribute="trailing" constant="40" id="FnM-aA-emb"/>
+                <constraint firstAttribute="trailing" secondItem="9v0-BJ-E3B" secondAttribute="trailing" id="Pjt-DQ-PFy"/>
+                <constraint firstItem="Bkq-ec-iC4" firstAttribute="top" secondItem="9v0-BJ-E3B" secondAttribute="bottom" constant="16" id="ghV-LH-r7Y"/>
+                <constraint firstItem="9v0-BJ-E3B" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="jIm-Hj-Hgu"/>
+                <constraint firstItem="9v0-BJ-E3B" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="wRj-Iy-8Fd"/>
+            </constraints>
+            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+            <point key="canvasLocation" x="20" y="50"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

@@ -12,7 +12,8 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 */
 
 import Foundation
-struct Products : Codable {
+struct Product : Codable {
+    
 	let id : Int?
 	let product_id : Int?
 	let name : String?
@@ -73,4 +74,14 @@ struct Products : Codable {
 		subproducts = try values.decodeIfPresent([Subproducts].self, forKey: .subproducts)
 	}
 
+}
+
+extension Product {
+    
+    func priceInSatang() -> Int {
+        let baht = price?.components(separatedBy: CharacterSet(charactersIn: ",")).joined() ?? ""
+        let bahtValue = Double(baht) ?? 0.0
+        return Int(bahtValue*100)
+    }
+    
 }

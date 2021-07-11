@@ -9,7 +9,7 @@ import UIKit
 
 class ProductDetailViewController: UIViewController {
 
-    var product:Products? = nil
+    var product:Product? = nil
     
     @IBOutlet weak var productNameLabel: UILabel!
     @IBOutlet weak var productPriceLabel: UILabel!

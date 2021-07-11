@@ -10,7 +10,7 @@ import Foundation
 
 struct ProductsResponse: Codable {
     let paginate : Paginate?
-    let products : [Products]?
+    let products : [Product]?
     let sets : [Sets]?
     let options : Options?
 
@@ -25,7 +25,7 @@ struct ProductsResponse: Codable {
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         paginate = try values.decodeIfPresent(Paginate.self, forKey: .paginate)
-        products = try values.decodeIfPresent([Products].self, forKey: .products)
+        products = try values.decodeIfPresent([Product].self, forKey: .products)
         sets = try values.decodeIfPresent([Sets].self, forKey: .sets)
         options = try values.decodeIfPresent(Options.self, forKey: .options)
     }
