@@ -50,7 +50,7 @@ class CartViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.title = "ใบสั่งยา"
+        self.title = "ตะกร้าสินค้า"
         
         // Mock order data
         let model = CartHeaderTableViewCell.Model(

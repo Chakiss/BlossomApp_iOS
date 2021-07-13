@@ -8,7 +8,7 @@
 import UIKit
 import DLRadioButton
 import FirebaseFunctions
-
+import Firebase
 
 class RegisterViewController: UIViewController {
 
@@ -82,22 +82,53 @@ class RegisterViewController: UIViewController {
                     if error.domain == FunctionsErrorDomain {
                         let code = FunctionsErrorCode(rawValue: error.code)
                         let message = error.localizedDescription
-                        let details = error.userInfo[FunctionsErrorDetailsKey]
                         
-                        let alert = UIAlertController(title: "Alert", message: message, preferredStyle: UIAlertController.Style.alert)
+                        let alert = UIAlertController(title: "Alert \(String(describing: code))", message: message, preferredStyle: UIAlertController.Style.alert)
                         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
                         self.present(alert, animated: true, completion: nil)
                     }
                     // ...
                 }
-                if let data = result?.data as? [String: Any], let text = data["text"] as? String {
+                if let data = result?.data as? [String: Any]{
                     //self.resultField.text = text
-                    print(data)
+                    
+                    if let email = data["email"] as? String , let password = data["password"] as? String {
+                        Auth.auth().signIn(withEmail: email , password: password ) { authResult, error in
+                            ProgressHUD.dismiss()
+                            
+                            authResult?.user.getIDTokenResult(completion: { (result, error) in
+                                
+                                let alert = UIAlertController(title: "สำเร็จ ", message: "ลงทะเบียนสำเร็จ ระบบกำลังนำคุณเข้าสู่ระบบ", preferredStyle: UIAlertController.Style.alert)
+                                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                                self.present(alert, animated: true, completion: nil)
+                                
+                                guard let role = result?.claims["role"] as? String else {
+                                    // Show regular user UI.
+                                    //showRegularUI()
+                                    self.navigationController?.dismiss(animated: true, completion: nil)
+                                    return
+                                }
+                                if role == "doctor" {
+                                    if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
+                                       appDelegate.setDoctorUI()
+                                    }
+                                } else {
+                                    if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
+                                       appDelegate.setDoctorUI()
+                                    }
+                                }
+                            })
+                            
+                        }
+                    }
+                    
                 }
             }
             
         }
     }
+    
+    
     
     /*
     // MARK: - Navigation

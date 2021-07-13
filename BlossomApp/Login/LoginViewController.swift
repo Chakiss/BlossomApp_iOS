@@ -31,12 +31,28 @@ class LoginViewController: UIViewController {
 
     @IBAction func loginButtonTapped() {
         ProgressHUD.show()
+    
         Auth.auth().signIn(withEmail: emailTextField.text ?? "", password: passwordTextField.text ?? "") { authResult, error in
             ProgressHUD.dismiss()
-            self.navigationController?.dismiss(animated: true, completion: nil)
-        }
-
+            
+            authResult?.user.getIDTokenResult(completion: { (result, error) in
+                guard let role = result?.claims["role"] as? String else {
+                    self.navigationController?.dismiss(animated: true, completion: nil)
+                    return
+                }
+                if role == "doctor" {
+                    if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
+                       appDelegate.setDoctorUI()
+                    }
+                } else {
+                    if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
+                       appDelegate.setDoctorUI()
+                    }
+                }
+            })
        
+        }
+        
     }
     
     @IBAction func facebookButtonTapped() {

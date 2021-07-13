@@ -729,7 +729,7 @@
                                                                             <constraint firstAttribute="height" constant="38" id="Xrf-9c-XaP"/>
                                                                         </constraints>
                                                                         <fontDescription key="fontDescription" name="SukhumvitSet-Medium" family="Sukhumvit Set" pointSize="12"/>
-                                                                        <textInputTraits key="textInputTraits"/>
+                                                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                                     </textField>
                                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Jfr-XX-w7i">
                                                                         <rect key="frame" x="10" y="136" width="354" height="38"/>
@@ -738,7 +738,7 @@
                                                                             <constraint firstAttribute="height" constant="38" id="hep-WK-uHe"/>
                                                                         </constraints>
                                                                         <fontDescription key="fontDescription" name="SukhumvitSet-Medium" family="Sukhumvit Set" pointSize="12"/>
-                                                                        <textInputTraits key="textInputTraits"/>
+                                                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                                     </textField>
                                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dRa-re-AU0">
                                                                         <rect key="frame" x="10" y="194" width="354" height="38"/>
@@ -957,7 +957,7 @@
                                                                             <constraint firstAttribute="height" constant="38" id="yk2-wO-tap"/>
                                                                         </constraints>
                                                                         <fontDescription key="fontDescription" name="SukhumvitSet-Medium" family="Sukhumvit Set" pointSize="12"/>
-                                                                        <textInputTraits key="textInputTraits"/>
+                                                                        <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                                                                     </textField>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FBD-jL-YIa">
                                                                         <rect key="frame" x="20" y="282" width="334" height="44"/>
@@ -1111,7 +1111,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="I8c-VS-imn">
             <objects>
-                <tabBarController id="32d-DZ-4yK" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="CustomerTabbar" id="32d-DZ-4yK" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="cTi-2c-Yee">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1203,8 +1203,11 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MCK-Pd-v4P">
-                                                    <rect key="frame" x="329" y="39.5" width="65" height="30"/>
+                                                    <rect key="frame" x="314" y="39.5" width="80" height="30"/>
                                                     <color key="backgroundColor" red="0.97647058819999999" green="0.69411764710000001" blue="0.65098039220000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="E4Q-KG-Dd8"/>
+                                                    </constraints>
                                                     <state key="normal" title="ใส่ตระกร้า"/>
                                                     <connections>
                                                         <action selector="addToCart:" destination="Dw1-EJ-xvT" eventType="touchUpInside" id="jD1-SU-kzc"/>
@@ -1225,10 +1228,10 @@
                                                 <constraint firstItem="moD-Hz-VGf" firstAttribute="leading" secondItem="Fem-qb-djd" secondAttribute="leading" id="ZTx-wJ-nMb"/>
                                                 <constraint firstAttribute="trailing" secondItem="MCK-Pd-v4P" secondAttribute="trailing" constant="20" id="gto-ye-ScT"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Nht-Cr-BDJ" secondAttribute="trailing" constant="20" symbolic="YES" id="kpc-qi-BeK"/>
-                                                <constraint firstItem="MCK-Pd-v4P" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="oRo-7i-6rc" secondAttribute="trailing" constant="8" symbolic="YES" id="sXL-tu-AlJ"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="addToCartButton" destination="MCK-Pd-v4P" id="1fd-2B-hez"/>
                                             <outlet property="productImageView" destination="oRo-7i-6rc" id="Lhx-o1-4fl"/>
                                             <outlet property="productNameLabel" destination="neb-00-pDw" id="dvc-iQ-FWQ"/>
                                             <outlet property="productPriceLabel" destination="SgO-lh-AuS" id="6To-DA-HJ5"/>
@@ -1252,6 +1255,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="m2q-H7-5eY"/>
                     <connections>
+                        <outlet property="addToCartButton" destination="MCK-Pd-v4P" id="fhK-7y-fUH"/>
                         <outlet property="tableView" destination="oLw-YY-ZTT" id="YhH-gk-li2"/>
                     </connections>
                 </viewController>
@@ -1664,14 +1668,11 @@
                                                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8eh-O8-hxb">
-                                                                        <rect key="frame" x="20" y="376" width="334" height="181"/>
+                                                                    <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8eh-O8-hxb">
+                                                                        <rect key="frame" x="20" y="376" width="334" height="51"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <color key="tintColor" red="0.97647058819999999" green="0.69411764710000001" blue="0.65098039220000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                        <constraints>
-                                                                            <constraint firstAttribute="height" constant="181" id="YOb-iA-I2s"/>
-                                                                        </constraints>
-                                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="14"/>
                                                                         <textInputTraits key="textInputTraits"/>
                                                                     </textField>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="meM-wv-GWX">
@@ -1816,7 +1817,7 @@
                                                                     <constraint firstItem="Ed8-db-QRe" firstAttribute="leading" secondItem="tb0-aC-1H4" secondAttribute="leading" id="YXZ-I4-9cy"/>
                                                                     <constraint firstItem="Ed8-db-QRe" firstAttribute="top" secondItem="bWh-Kj-PGZ" secondAttribute="bottom" constant="20" id="Yl7-go-wTV"/>
                                                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="tb0-aC-1H4" secondAttribute="trailing" constant="20" symbolic="YES" id="cKj-ej-vyV"/>
-                                                                    <constraint firstAttribute="bottom" secondItem="8eh-O8-hxb" secondAttribute="bottom" constant="20" id="f4u-px-kNJ"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="8eh-O8-hxb" secondAttribute="bottom" constant="150" id="f4u-px-kNJ"/>
                                                                     <constraint firstItem="Ed8-db-QRe" firstAttribute="leading" secondItem="8eh-O8-hxb" secondAttribute="leading" id="inh-jJ-0OP"/>
                                                                     <constraint firstItem="Ed8-db-QRe" firstAttribute="leading" secondItem="aJX-z6-wpX" secondAttribute="leading" id="mi4-wc-V9U"/>
                                                                     <constraint firstItem="Ed8-db-QRe" firstAttribute="top" secondItem="5dz-Rq-CP1" secondAttribute="top" constant="264.5" id="oaW-9j-Qw2"/>

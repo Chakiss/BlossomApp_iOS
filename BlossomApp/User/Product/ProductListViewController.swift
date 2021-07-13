@@ -13,6 +13,8 @@ class ProductListViewController: UIViewController, UITableViewDataSource, UITabl
     
     @IBOutlet weak var tableView: UITableView!
     
+    
+    
     var products: [Product] = []
     
     override func viewDidLoad() {
@@ -21,6 +23,9 @@ class ProductListViewController: UIViewController, UITableViewDataSource, UITabl
         // Do any additional setup after loading the view.
         let button = UIBarButtonItem(title: "Cart", style: .plain, target: self, action: #selector(ProductListViewController.showCartDetail))
         self.navigationItem.rightBarButtonItem = button
+        
+       
+        
     }
     
     @objc

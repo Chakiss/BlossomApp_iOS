@@ -44,6 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private func configUI() {
+        
         let tabBarItemAppearance = UITabBarItem.appearance()
         let tabAttributes = [NSAttributedString.Key.font:UIFont(name: "SukhumvitSet-SemiBold", size: 10)]
         tabBarItemAppearance.setTitleTextAttributes(tabAttributes as [NSAttributedString.Key : Any], for: .normal)
@@ -58,7 +59,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         BarButtonItemAppearance.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.clear], for: .highlighted)
         
     }
+    
+    // MARK: -
+    
+    func setCustomerUI(){
+        
+        let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let customerTabbar = mainStoryboard.instantiateViewController(withIdentifier: "CustomerTabbar")
+        self.window!.rootViewController = customerTabbar
+    }
 
+    func setDoctorUI(){
+        
+        let mainStoryboard: UIStoryboard = UIStoryboard(name: "Doctor", bundle: nil)
+        let customerTabbar = mainStoryboard.instantiateViewController(withIdentifier: "DoctorTabbar")
+        self.window!.rootViewController = customerTabbar
+    }
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {

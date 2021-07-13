@@ -16,12 +16,13 @@ class ProductCell: UITableViewCell {
     @IBOutlet weak var productNameLabel: UILabel!
     @IBOutlet weak var productPriceLabel: UILabel!
     @IBOutlet weak var productImageView: UIImageView!
-    
+    @IBOutlet weak var addToCartButton: UIButton!
     weak var delegate: ProductCellDelegate?
 
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        self.addToCartButton.layer.cornerRadius = 22
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
