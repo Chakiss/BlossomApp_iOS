@@ -56,6 +56,7 @@
 		1B77591C2694775E000780BD /* BannerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7759182694775E000780BD /* BannerViewCell.swift */; };
 		1B77591F269479FA000780BD /* UIView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B77591E269479FA000780BD /* UIView+Additions.swift */; };
 		1B775922269491A4000780BD /* Promotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B775921269491A4000780BD /* Promotion.swift */; };
+		1BE101E3269D575D00F7323E /* Doctor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE101E2269D575D00F7323E /* Doctor.swift */; };
 		3C7D5E4B269ADC76002E5AB9 /* Cart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7D5E4A269ADC76002E5AB9 /* Cart.swift */; };
 		3C7D5E4E269AE48D002E5AB9 /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7D5E4C269AE48D002E5AB9 /* CartViewController.swift */; };
 		3C7D5E4F269AE48D002E5AB9 /* CartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C7D5E4D269AE48D002E5AB9 /* CartViewController.xib */; };
@@ -142,6 +143,7 @@
 		1B7759182694775E000780BD /* BannerViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerViewCell.swift; sourceTree = "<group>"; };
 		1B77591E269479FA000780BD /* UIView+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Additions.swift"; sourceTree = "<group>"; };
 		1B775921269491A4000780BD /* Promotion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Promotion.swift; sourceTree = "<group>"; };
+		1BE101E2269D575D00F7323E /* Doctor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doctor.swift; sourceTree = "<group>"; };
 		3C7D5E4A269ADC76002E5AB9 /* Cart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cart.swift; sourceTree = "<group>"; };
 		3C7D5E4C269AE48D002E5AB9 /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
 		3C7D5E4D269AE48D002E5AB9 /* CartViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CartViewController.xib; sourceTree = "<group>"; };
@@ -450,6 +452,7 @@
 			isa = PBXGroup;
 			children = (
 				1B775921269491A4000780BD /* Promotion.swift */,
+				1BE101E2269D575D00F7323E /* Doctor.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -748,6 +751,7 @@
 				1B3721D226959645006265D3 /* ProfileViewController.swift in Sources */,
 				1B187A5B268F654300BB0122 /* SceneDelegate.swift in Sources */,
 				1B5312522693779C00B88165 /* HomeViewController.swift in Sources */,
+				1BE101E3269D575D00F7323E /* Doctor.swift in Sources */,
 				1B77591C2694775E000780BD /* BannerViewCell.swift in Sources */,
 				3C7D5E56269AF9F5002E5AB9 /* CartItemTableViewCell.swift in Sources */,
 				1B5312642693E66400B88165 /* PromotionViewController.swift in Sources */,

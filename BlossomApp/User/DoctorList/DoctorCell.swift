@@ -20,6 +20,12 @@ class DoctorCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         containerView.addConerRadiusAndShadow()
+        
+        doctorImageView.layer.cornerRadius = doctorImageView.bounds.height / 2
+        doctorImageView.layer.shadowColor = UIColor.black.cgColor
+        doctorImageView.layer.shadowOffset = CGSize(width: 3, height: 3)
+        doctorImageView.layer.shadowOpacity = 0.1
+        doctorImageView.layer.shadowRadius = 4.0
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
