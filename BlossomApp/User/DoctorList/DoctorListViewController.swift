@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Firebase
+
 
 class DoctorListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -13,11 +15,23 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
 
     @IBOutlet weak var tableView: UITableView!
     
+    let db = Firestore.firestore()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "แพทย์"
         // Do any additional setup after loading the view.
+        let docRef = db.collection("doctors")
+        
+        let query = docRef.getDocuments { snapshot, error in
+            print(snapshot)
+            print(error)
+            print("xxxxxx")
+        }
+        
+
     }
+    
     
     
    

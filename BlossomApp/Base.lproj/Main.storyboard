@@ -1255,7 +1255,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="m2q-H7-5eY"/>
                     <connections>
-                        <outlet property="addToCartButton" destination="MCK-Pd-v4P" id="fhK-7y-fUH"/>
                         <outlet property="tableView" destination="oLw-YY-ZTT" id="YhH-gk-li2"/>
                     </connections>
                 </viewController>
