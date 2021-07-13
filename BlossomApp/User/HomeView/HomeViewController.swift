@@ -36,9 +36,6 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
         let barButton = UIBarButtonItem(customView: button)
         self.navigationItem.leftBarButtonItem = barButton
                 
-        multiBannerView.delegate = self
-        multiBannerView.objects = [Promotion(),Promotion(),Promotion()]
-        multiBannerView.reload()
         
         doctorAppointmentView.addConerRadiusAndShadow()
         
@@ -48,6 +45,11 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        
+        multiBannerView.delegate = self
+        multiBannerView.objects = [Promotion(),Promotion(),Promotion()]
+        multiBannerView.reload()
+        
         user = Auth.auth().currentUser
       
     }

@@ -49,4 +49,5 @@ struct Doctor: Codable {
         updatedAt = try values.decodeIfPresent(String.self, forKey: .updatedAt)
         displayPhoto = try values.decodeIfPresent(String.self, forKey: .displayPhoto)
     }
+    
 }

@@ -16,6 +16,7 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet weak var tableView: UITableView!
     
     var doctorList: [Doctor] = []
+    var reviewList: [Reviews] = []
     
     let db = Firestore.firestore()
     let storage = Storage.storage()
@@ -25,7 +26,13 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
         self.title = "แพทย์"
         // Do any additional setup after loading the view.
     
+        getDoctorData()
+      
+        getReviewsData()
     
+    }
+    
+    func getDoctorData() {
         db.collection("doctors").addSnapshotListener { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else {
                 print("No documents")
@@ -50,10 +57,33 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
             }
             self.tableView.reloadData()
         }
-    
     }
     
-    
+    func getReviewsData(){
+        db.collection("reviews").addSnapshotListener { (querySnapshot, error) in
+            guard let documents = querySnapshot?.documents else {
+                print("No documents")
+                return
+            }
+            self.reviewList = documents.map { queryDocumentSnapshot -> Reviews in
+                let data = queryDocumentSnapshot.data()
+                
+                let id = queryDocumentSnapshot.documentID
+                let appointmentReference = data["appointmentReference"] as? String ?? ""
+                let comment = data["comment"] as? String ?? ""
+                let createdAt = data["createdAt"] as? String ?? ""
+                let doctorReference = data["doctorReference"] as? String ?? ""
+                let score = data["score"] as? String ?? ""
+                let type = data["type"] as? String ?? ""
+                let updatedAt = data["updatedAt"] as? String ?? ""
+                let patientReference = data["patientReference"] as? String ?? ""
+                
+                return Reviews(id: id, appointmentReference: appointmentReference, comment: comment, createdAt: createdAt, doctorReference: doctorReference, score: score, type: type, updatedAt: updatedAt, patientReference: patientReference)
+                
+            }
+            self.tableView.reloadData()
+        }
+    }
     
    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -82,37 +112,14 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
             }
         }
         
+        cell.doctorStarLabel.text = "2.0"
+        cell.doctorReviewLabel.text = ""
         
         return cell
     }
 
-    func downloadImageUserFromFirebase(Link:String) {
-        
-//        let storageRef = Storage.storage().reference(forURL: Link)
-//
-//        storageRef.getData(maxSize: 2 * 1024 * 1024) { (data, error) in
-//            if error == nil {
-//
-//                if let imgData = data {
-//                    if let img = UIImage(data: imgData) {
-//                        print("got imagedata \(String(describing: imgData))")
-//                        //                        objectsToShare.append(img)
-//                        print("image downloaded")
-//                    }
-//                }
-//            } else {
-//                print("ERROR DOWNLOADING IMAGE : \(String(describing: error))")
-//            }
-//        }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
