@@ -8,7 +8,7 @@
 import UIKit
 import Firebase
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, UINavigationControllerDelegate {
 
     lazy var functions = Functions.functions()
     
@@ -49,10 +49,37 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         self.title = "Profile"
 
+        let newBackButton = UIBarButtonItem(image: UIImage(named: "back"), style: .plain, target: self, action: #selector(self.back(sender:)))
+        self.navigationItem.leftBarButtonItem = newBackButton
+        NotificationCenter.default.addObserver(self, selector: #selector(self.profileChanged), name:Notification.Name("BlossomProfileChanged"), object: nil)
+    }
+    
+    @objc func back(sender: UIBarButtonItem) {
+
+        if self.barButton.isEnabled == true {
+            
+            let alert = UIAlertController(title: "โปรไฟล์มีการแก้ไข", message: "คุณค้องการแก้ไขโปรไฟล์หรือไม่​ ?",         preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "ยกเลิก", style: .cancel, handler: { _ in
+                //Cancel Action
+            }))
+            alert.addAction(UIAlertAction(title: "ตกลง", style: .default, handler: {(_: UIAlertAction!) in
+                self.saveUserData()
+            }))
+            
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            self.navigationController?.popViewController(animated: true)
+        }
+    
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
         setupView()
         
-        barButton = UIBarButtonItem(title: "บันทึก", style: .plain, target: self, action: Selector(("saveUserData")))
-        
+        barButton = UIBarButtonItem(title: "บันทึก", style: .plain, target: self, action: #selector(self.saveUserData))
+
         barButton.setTitleTextAttributes([
             NSAttributedString.Key.font : UIFont(name: "SukhumvitSet-Bold", size: 14)!,
             NSAttributedString.Key.foregroundColor : UIColor.white,
@@ -65,30 +92,28 @@ class ProfileViewController: UIViewController {
         barButton.isEnabled = false
         self.navigationItem.rightBarButtonItem = barButton
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.profileChanged), name:Notification.Name("BlossomProfileChanged"), object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(true)
+        super.viewWillDisappear(animated)
         
-        if barButton.isEnabled == true {
-            let alert = UIAlertController(title: "โปรไฟล์มีการแก้ไข", message: "คุณค้องการแก้ไขโปรไฟล์หรือไม่​ ?",         preferredStyle: .alert)
-            
-            alert.addAction(UIAlertAction(title: "ยกเลิก", style: .cancel, handler: { _ in
-                //Cancel Action
-            }))
-            alert.addAction(UIAlertAction(title: "ตกลง", style: .default, handler: {(_: UIAlertAction!) in
-                self.saveUserData()
-            }))
-            
-            self.present(alert, animated: true, completion: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("BlossomProfileChanged"), object: nil)
+        
+    }
+    override func willMove(toParent parent: UIViewController?)
+    {
+        super.willMove(toParent: parent)
+        if parent == nil
+        {
+          
         }
     }
     
+    
     @objc func saveUserData(){
         
-        
-        let payload = ["birthDate": profileInformationViewController.birthDayTextField.text!,
+        ProgressHUD.show()
+        let payload = ["birthDate": profileInformationViewController.birthDayString,
                        "firstName": profileInformationViewController.nameTextField.text!,
                        "lastName": profileInformationViewController.surNameTextField.text!,
                        "gender": profileInformationViewController.genderString,
@@ -99,6 +124,9 @@ class ProfileViewController: UIViewController {
                        "zipcodeID": ""]
         
         functions.httpsCallable("app-users-updateProfile").call(payload) { result, error in
+            Auth.auth().currentUser?.reload()
+            ProgressHUD.dismiss()
+            self.navigationController?.popViewController(animated: true)
             
         }
          

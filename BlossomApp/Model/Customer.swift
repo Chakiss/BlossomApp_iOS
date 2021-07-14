@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import FirebaseFirestore
+import Firebase
 
 
 struct Customer: Codable {

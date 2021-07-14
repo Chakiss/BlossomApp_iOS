@@ -15,7 +15,13 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var surNameTextField: UITextField!
+    
     @IBOutlet weak var birthDayTextField: UITextField!
+    let datePicker = UIDatePicker()
+    var birthDayString: String = ""
+    var birthDayDisplayString: String = ""
+    
+    
     @IBOutlet weak var addressTextField: UITextField!
     
     @IBOutlet weak var emailTextField: UITextField!
@@ -38,7 +44,9 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+
+        
+        birthDayTextField.addInputViewDatePicker(target: self, selector: #selector(doneButtonPressed))
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -74,10 +82,22 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate {
                 let referenceShipnityID = documentData["referenceShipnityID"] as? String ?? ""
                 let updatedAt = documentData["updatedAt"] as? String ?? ""
                 let gender = documentData["gender"] as? String ?? ""
+                let birthDateTimestamp = documentData["birthDate"] as? Timestamp
+                var birthDay = ""
+                if let birthDate = birthDateTimestamp?.dateValue() {
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "YYYY-MM-dd"
+                    birthDay = dateFormatter.string(from: birthDate)
+                    dateFormatter.dateStyle = .medium
+                    self.birthDayDisplayString = dateFormatter.string(from: birthDate)
+                }
                 
+                let addressDic =  documentData["address"] as? [String: String] ?? [:]
+                let address = addressDic["address"] ?? ""
+        
                 self.genderString = gender
                 
-                return Customer(id: id, createdAt: createdAt, displayName: displayName, email: email, firstName: firstName, isEmailVerified: isEmailVerified, isPhoneVerified: isPhoneVerified, lastName: lastName, phoneNumber: phoneNumber, platform: platform, referenceConnectyCubeID: referenceConnectyCubeID, referenceShipnityID: referenceShipnityID, updatedAt: updatedAt, gender: gender)
+                return Customer(id: id, createdAt: createdAt, displayName: displayName, email: email, firstName: firstName, isEmailVerified: isEmailVerified, isPhoneVerified: isPhoneVerified, lastName: lastName, phoneNumber: phoneNumber, platform: platform, referenceConnectyCubeID: referenceConnectyCubeID, referenceShipnityID: referenceShipnityID, updatedAt: updatedAt, gender: gender, birthDate: birthDay)
             })
             
             self.displayInformation()
@@ -119,6 +139,10 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate {
             manButton.otherButtons[1].isSelected = true
         }
         
+        
+        self.birthDayTextField.text = birthDayDisplayString
+        
+        
     }
 
     @objc @IBAction private func logSelectedButton(radioButton : DLRadioButton) {
@@ -130,6 +154,7 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate {
         } else {
             self.genderString = ""
         }
+        NotificationCenter.default.post(name: Notification.Name("BlossomProfileChanged"), object: nil)
         print(self.genderString)
     }
   
@@ -181,6 +206,10 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate {
             if textField.text != customer?.lastName {
                 NotificationCenter.default.post(name: Notification.Name("BlossomProfileChanged"), object: nil)
             }
+        } else if textField == birthDayTextField {
+            if textField.text != birthDayString {
+                NotificationCenter.default.post(name: Notification.Name("BlossomProfileChanged"), object: nil)
+            }
         }
         
     }
@@ -189,6 +218,17 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate {
         self.view.endEditing(true)
         return false
     }
+  
+    @objc func doneButtonPressed() {
+        if let  datePicker = self.birthDayTextField.inputView as? UIDatePicker {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "YYYY-MM-dd"
+            birthDayString = dateFormatter.string(from: datePicker.date)
+            dateFormatter.dateStyle = .medium
+            self.birthDayTextField.text = dateFormatter.string(from: datePicker.date)
+        }
+        self.birthDayTextField.resignFirstResponder()
+     }
     
 }
 
@@ -201,4 +241,29 @@ extension UITextField {
         borderStyle = .none
         layer.addSublayer(bottomLine)
     }
+    
+    func addInputViewDatePicker(target: Any, selector: Selector) {
+        
+        let screenWidth = UIScreen.main.bounds.width
+        
+        //Add DatePicker as inputView
+        let datePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 216))
+        datePicker.preferredDatePickerStyle = .wheels
+        datePicker.datePickerMode = .date
+        self.inputView = datePicker
+        
+        //Add Tool Bar as input AccessoryView
+        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 44))
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let cancelBarButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelPressed))
+        let doneBarButton = UIBarButtonItem(title: "Done", style: .plain, target: target, action: selector)
+        toolBar.setItems([cancelBarButton, flexibleSpace, doneBarButton], animated: false)
+        
+        self.inputAccessoryView = toolBar
+    }
+    
+    @objc func cancelPressed() {
+        self.resignFirstResponder()
+    }
+    
 }

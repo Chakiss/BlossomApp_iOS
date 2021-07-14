@@ -60,9 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().titleTextAttributes = navAttributes as [NSAttributedString.Key : Any]
         UINavigationBar.appearance().barTintColor = UIColor.blossomPrimary3
 
-        let BarButtonItemAppearance = UIBarButtonItem.appearance()
-        BarButtonItemAppearance.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.clear], for: .normal)
-        BarButtonItemAppearance.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.clear], for: .highlighted)
+        
         
         
     }

@@ -37,7 +37,7 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
         self.navigationItem.leftBarButtonItem = barButton
                 
         
-        doctorAppointmentView.addConerRadiusAndShadow()
+       // doctorAppointmentView.addConerRadiusAndShadow()
         
         
     }
