@@ -23,7 +23,10 @@ struct Customer: Codable {
     var referenceShipnityID: String?
     var updatedAt: String?
     
-    init(id: String, createdAt: String, displayName: String, email: String, firstName: String, isEmailVerified: Bool, isPhoneVerified: Bool, lastName: String, phoneNumber: String, platform: String, referenceConnectyCubeID: String, referenceShipnityID: String, updatedAt: String ) {
+    var gender: String?
+    var birthDate: String?
+    
+    init(id: String, createdAt: String, displayName: String, email: String, firstName: String, isEmailVerified: Bool, isPhoneVerified: Bool, lastName: String, phoneNumber: String, platform: String, referenceConnectyCubeID: String, referenceShipnityID: String, updatedAt: String, gender: String, birthDate: String ) {
         self.id = id
         self.createdAt = createdAt
         self.displayName = displayName
@@ -38,6 +41,8 @@ struct Customer: Codable {
         self.referenceShipnityID = referenceShipnityID
         self.updatedAt = updatedAt
         
+        self.gender = gender
+        self.birthDate = birthDate
     }
     
 }

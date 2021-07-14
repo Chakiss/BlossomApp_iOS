@@ -10,10 +10,14 @@ import Firebase
 
 class ProfileViewController: UIViewController {
 
-    @IBOutlet weak var containerView: UIView!
-    @IBOutlet var segmentedControl: UISegmentedControl!
+    lazy var functions = Functions.functions()
     
-    @IBOutlet var nameLabel: UILabel!
+    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
+    
+    @IBOutlet weak var nameLabel: UILabel!
+    
+    var barButton:UIBarButtonItem = UIBarButtonItem()
 
     private lazy var profileInformationViewController: ProfileInformationViewController = {
         // Load Storyboard
@@ -47,18 +51,63 @@ class ProfileViewController: UIViewController {
 
         setupView()
         
+        barButton = UIBarButtonItem(title: "บันทึก", style: .plain, target: self, action: Selector(("saveUserData")))
         
-        let button: UIButton = UIButton(type: UIButton.ButtonType.custom)
-        button.setImage(UIImage(named: "logout"), for: .normal)
-        button.addTarget(self, action: #selector(self.logoutButtonTapped), for: .touchUpInside)
-        button.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        let barButton = UIBarButtonItem(customView: button)
+        barButton.setTitleTextAttributes([
+            NSAttributedString.Key.font : UIFont(name: "SukhumvitSet-Bold", size: 14)!,
+            NSAttributedString.Key.foregroundColor : UIColor.white,
+        ], for: .normal)
+        barButton.setTitleTextAttributes([
+            NSAttributedString.Key.font : UIFont(name: "SukhumvitSet-Bold", size: 14)!,
+            NSAttributedString.Key.foregroundColor : UIColor(white: 1.0, alpha: 0.3),
+        ], for: .disabled)
+        
+        barButton.isEnabled = false
         self.navigationItem.rightBarButtonItem = barButton
         
-        
-        // Do any additional setup after loading the view.
+        NotificationCenter.default.addObserver(self, selector: #selector(self.profileChanged), name:Notification.Name("BlossomProfileChanged"), object: nil)
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        
+        if barButton.isEnabled == true {
+            let alert = UIAlertController(title: "โปรไฟล์มีการแก้ไข", message: "คุณค้องการแก้ไขโปรไฟล์หรือไม่​ ?",         preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "ยกเลิก", style: .cancel, handler: { _ in
+                //Cancel Action
+            }))
+            alert.addAction(UIAlertAction(title: "ตกลง", style: .default, handler: {(_: UIAlertAction!) in
+                self.saveUserData()
+            }))
+            
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    @objc func saveUserData(){
+        
+        
+        let payload = ["birthDate": profileInformationViewController.birthDayTextField.text!,
+                       "firstName": profileInformationViewController.nameTextField.text!,
+                       "lastName": profileInformationViewController.surNameTextField.text!,
+                       "gender": profileInformationViewController.genderString,
+                       "address": profileInformationViewController.addressTextField.text!,
+                       "provinceID": "",
+                       "districtID": "",
+                       "subDistrictID": "",
+                       "zipcodeID": ""]
+        
+        functions.httpsCallable("app-users-updateProfile").call(payload) { result, error in
+            
+        }
+         
+    }
+    
+    @objc private func profileChanged(notification: NSNotification){
+        //do stuff using the userInfo property of the notification object
+        barButton.isEnabled = true
+    }
     private func setupView() {
         add(asChildViewController: profileInformationViewController)
         setupSegmentedControl()
@@ -120,22 +169,5 @@ class ProfileViewController: UIViewController {
         viewController.removeFromParent()
     }
     
-    @objc func logoutButtonTapped() {
-        let firebaseAuth = Auth.auth()
-        do {
-            try firebaseAuth.signOut()
-            
-            self.navigationController?.popToRootViewController(animated: true)
-            
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let viewController = storyboard.instantiateViewController(withIdentifier: "LandingViewController") as! LandingViewController
-           
-            let regsterNavigationController = UINavigationController(rootViewController: viewController)
-            regsterNavigationController.modalPresentationStyle = .fullScreen
-            regsterNavigationController.navigationBar.tintColor = UIColor.white
-            self.navigationController?.present(regsterNavigationController, animated: true, completion:nil)
-        } catch let signOutError as NSError {
-            print("Error signing out: %@", signOutError)
-        }
-    }
+
 }

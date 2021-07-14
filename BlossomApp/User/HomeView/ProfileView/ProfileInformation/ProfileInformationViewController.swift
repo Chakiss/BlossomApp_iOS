@@ -9,7 +9,7 @@ import UIKit
 import DLRadioButton
 import Firebase
 
-class ProfileInformationViewController: UIViewController {
+class ProfileInformationViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var informationView: UIView!
     
@@ -26,7 +26,11 @@ class ProfileInformationViewController: UIViewController {
     
     @IBOutlet weak var gendorView: UIView!
     @IBOutlet weak var manButton: DLRadioButton!
+    var genderString:String = ""
     
+    @IBOutlet weak var connectFacebookButton: UIButton!
+    @IBOutlet weak var connectAppleButton: UIButton!
+    @IBOutlet weak var signOutButton: UIButton!
     
     let user = Auth.auth().currentUser
     let db = Firestore.firestore()
@@ -41,14 +45,18 @@ class ProfileInformationViewController: UIViewController {
         super.viewWillAppear(true)
         
         informationView.addConerRadiusAndShadow()
-        
         nameTextField.addBottomBorder()
         surNameTextField.addBottomBorder()
         birthDayTextField.addBottomBorder()
         addressTextField.addBottomBorder()
-        emailTextField.addBottomBorder()
-        phoneTextField.addBottomBorder()
         
+        phoneVerifyButton.layer.cornerRadius = 15
+        emailVerifyButton.layer.cornerRadius = 15
+        connectFacebookButton.layer.cornerRadius = 15
+        connectAppleButton.layer.cornerRadius = 15
+        signOutButton.layer.cornerRadius = 22
+        
+        //NotificationCenter.default.post(name: Notification.Name("BlossomProfileChanged"), object: nil)
         
         db.collection("customers").document(user?.uid ?? "").addSnapshotListener { snapshot, error in
             self.customer = snapshot?.data().map({ documentData -> Customer in
@@ -65,8 +73,11 @@ class ProfileInformationViewController: UIViewController {
                 let referenceConnectyCubeID = documentData["referenceConnectyCubeID"] as? String ?? ""
                 let referenceShipnityID = documentData["referenceShipnityID"] as? String ?? ""
                 let updatedAt = documentData["updatedAt"] as? String ?? ""
-
-                return Customer(id: id, createdAt: createdAt, displayName: displayName, email: email, firstName: firstName, isEmailVerified: isEmailVerified, isPhoneVerified: isPhoneVerified, lastName: lastName, phoneNumber: phoneNumber, platform: platform, referenceConnectyCubeID: referenceConnectyCubeID, referenceShipnityID: referenceShipnityID, updatedAt: updatedAt)
+                let gender = documentData["gender"] as? String ?? ""
+                
+                self.genderString = gender
+                
+                return Customer(id: id, createdAt: createdAt, displayName: displayName, email: email, firstName: firstName, isEmailVerified: isEmailVerified, isPhoneVerified: isPhoneVerified, lastName: lastName, phoneNumber: phoneNumber, platform: platform, referenceConnectyCubeID: referenceConnectyCubeID, referenceShipnityID: referenceShipnityID, updatedAt: updatedAt, gender: gender)
             })
             
             self.displayInformation()
@@ -76,8 +87,8 @@ class ProfileInformationViewController: UIViewController {
         
     }
     
-    
     func displayInformation(){
+        
         self.nameTextField.text = self.customer?.firstName
         self.surNameTextField.text = self.customer?.lastName
         
@@ -100,25 +111,85 @@ class ProfileInformationViewController: UIViewController {
             self.emailVerifyButton.isEnabled = false
         }
         
+        if self.genderString == "male" {
+            manButton.isSelected = true
+        } else if self.genderString == "female" {
+            manButton.otherButtons[0].isSelected = true
+        } else {
+            manButton.otherButtons[1].isSelected = true
+        }
         
     }
 
     @objc @IBAction private func logSelectedButton(radioButton : DLRadioButton) {
         
-        print(String(format: "%@ is selected.\n", radioButton.selected()!.titleLabel!.text!));
+        if radioButton.tag == 1 {
+            self.genderString = "male"
+        } else if radioButton.tag == 2 {
+            self.genderString = "female"
+        } else {
+            self.genderString = ""
+        }
+        print(self.genderString)
+    }
+  
+    
+    @IBAction func logoutButtonTapped() {
+        let alert = UIAlertController(title: "ออกจากระบบ ?", message: "คุณค้องการออกจากระบบหรือไม่​ ?",         preferredStyle: .alert)
         
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
+            //Cancel Action
+        }))
+        alert.addAction(UIAlertAction(title: "Sign out", style: .destructive, handler: {(_: UIAlertAction!) in
+            //Sign out action
+            let firebaseAuth = Auth.auth()
+            do {
+                try firebaseAuth.signOut()
+                
+                self.navigationController?.popToRootViewController(animated: true)
+                
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let viewController = storyboard.instantiateViewController(withIdentifier: "LandingViewController") as! LandingViewController
+                
+                let regsterNavigationController = UINavigationController(rootViewController: viewController)
+                regsterNavigationController.modalPresentationStyle = .fullScreen
+                regsterNavigationController.navigationBar.tintColor = UIColor.white
+                self.navigationController?.present(regsterNavigationController, animated: true, completion:nil)
+            } catch let signOutError as NSError {
+                print("Error signing out: %@", signOutError)
+            }
+            
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
         
     }
-    /*
-     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == nameTextField {
+            if textField.text != customer?.firstName {
+                NotificationCenter.default.post(name: Notification.Name("BlossomProfileChanged"), object: nil)
+            }
+        }
+        else if textField == surNameTextField {
+            if textField.text != customer?.lastName {
+                NotificationCenter.default.post(name: Notification.Name("BlossomProfileChanged"), object: nil)
+            }
+        }
+        else if textField == addressTextField {
+            if textField.text != customer?.lastName {
+                NotificationCenter.default.post(name: Notification.Name("BlossomProfileChanged"), object: nil)
+            }
+        }
+        
     }
-    */
-
+        
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
+    }
+    
 }
 
 

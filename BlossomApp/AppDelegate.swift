@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import ConnectyCube
 
 enum Deeplinking {
     case orderList
@@ -23,6 +24,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
        
         FirebaseApp.configure()
        
+        Settings.applicationID = 4655
+        Settings.authKey = "88p8mWQ9NMcx4SL"
+        Settings.authSecret = "XPnwQ5uR5FFJAXj"
+        Settings.accountKey = "sdfhdfy2329763buiyi"
+        
         configUI()
         
         return true
@@ -57,6 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let BarButtonItemAppearance = UIBarButtonItem.appearance()
         BarButtonItemAppearance.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.clear], for: .normal)
         BarButtonItemAppearance.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.clear], for: .highlighted)
+        
         
     }
     

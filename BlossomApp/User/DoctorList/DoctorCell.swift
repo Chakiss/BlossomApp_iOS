@@ -33,5 +33,9 @@ class DoctorCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    func calculateReview(reviews: [Reviews]){
+        
+    }
 
 }

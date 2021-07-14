@@ -114,6 +114,7 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
         
         cell.doctorStarLabel.text = "2.0"
         cell.doctorReviewLabel.text = ""
+        cell.calculateReview(reviews: reviewList)
         
         return cell
     }

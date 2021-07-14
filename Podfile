@@ -26,6 +26,7 @@ target 'BlossomApp' do
   
   pod 'DLRadioButton', '~> 1.4'
   
+  pod 'ConnectyCube'
 
   target 'BlossomAppTests' do
     inherit! :search_paths
@@ -36,4 +37,10 @@ target 'BlossomApp' do
     # Pods for testing
   end
 
+end
+
+post_install do |installer|
+  installer.pods_project.build_configurations.each do |config|
+    config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
+  end
 end
