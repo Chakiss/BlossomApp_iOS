@@ -570,9 +570,12 @@
                                             <constraint firstAttribute="height" constant="17" id="l0M-pr-GBo"/>
                                         </constraints>
                                         <state key="normal" image="camera"/>
+                                        <connections>
+                                            <action selector="selectImagePicker" destination="xD1-96-ojf" eventType="touchUpInside" id="0j9-pJ-9tW"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ชื่อจริง  นามสกุล" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4sP-Er-kN9">
-                                        <rect key="frame" x="153" y="108" width="108" height="19"/>
+                                        <rect key="frame" x="152.5" y="108" width="109" height="25.5"/>
                                         <fontDescription key="fontDescription" name="SukhumvitSet-Bold" family="Sukhumvit Set" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -619,7 +622,9 @@
                     <connections>
                         <outlet property="containerView" destination="ZWb-3u-ov9" id="BGU-cC-2q6"/>
                         <outlet property="nameLabel" destination="4sP-Er-kN9" id="lDB-yF-UPq"/>
+                        <outlet property="profileImageView" destination="bLf-OZ-k9F" id="Jwq-xH-Xma"/>
                         <outlet property="segmentedControl" destination="BiE-Cs-TGh" id="aVw-8V-c3G"/>
+                        <outlet property="selectImageButton" destination="xKh-NX-8oY" id="dp7-tr-wcO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pv4-Vy-oxP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

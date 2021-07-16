@@ -8,7 +8,7 @@
 import UIKit
 import Firebase
 
-class ProfileViewController: UIViewController, UINavigationControllerDelegate {
+class ProfileViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
     lazy var functions = Functions.functions()
     
@@ -16,6 +16,10 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate {
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     
     @IBOutlet weak var nameLabel: UILabel!
+    
+    @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var selectImageButton: UIButton!
+    
     
     var barButton:UIBarButtonItem = UIBarButtonItem()
 
@@ -128,6 +132,34 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate {
         //do stuff using the userInfo property of the notification object
         barButton.isEnabled = true
     }
+    
+    // MARK:- Update Profile Picture
+    // app-users-uploadAvatar
+    @IBAction func selectImagePicker(){
+
+        ImagePickerManager().pickImage(self){ image in
+            //here is the image
+        }
+    }
+    
+    
+    @objc func uploadAvatar(){
+        
+        ProgressHUD.show()
+        let payload = ["type": "customer",
+                       "dataURI": "data:image/jpeg;base64,",
+                      ]
+        
+        functions.httpsCallable("app-users-uploadAvatar").call(payload) { result, error in
+            Auth.auth().currentUser?.reload()
+            ProgressHUD.dismiss()
+            self.navigationController?.popViewController(animated: true)
+            
+        }
+         
+    }
+    
+    
     private func setupView() {
         add(asChildViewController: profileInformationViewController)
         setupSegmentedControl()
@@ -188,6 +220,7 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate {
         // Notify Child View Controller
         viewController.removeFromParent()
     }
+    
     
     
     
