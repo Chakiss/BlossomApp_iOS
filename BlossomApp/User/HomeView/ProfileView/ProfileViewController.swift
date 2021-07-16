@@ -100,14 +100,6 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate {
         NotificationCenter.default.removeObserver(self, name: Notification.Name("BlossomProfileChanged"), object: nil)
         
     }
-    override func willMove(toParent parent: UIViewController?)
-    {
-        super.willMove(toParent: parent)
-        if parent == nil
-        {
-          
-        }
-    }
     
     
     @objc func saveUserData(){
@@ -118,10 +110,10 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate {
                        "lastName": profileInformationViewController.surNameTextField.text!,
                        "gender": profileInformationViewController.genderString,
                        "address": profileInformationViewController.addressTextField.text!,
-                       "provinceID": "",
-                       "districtID": "",
-                       "subDistrictID": "",
-                       "zipcodeID": ""]
+                       "provinceID": "0",
+                       "districtID": "0",
+                       "subDistrictID": "0",
+                       "zipcodeID": "0"]
         
         functions.httpsCallable("app-users-updateProfile").call(payload) { result, error in
             Auth.auth().currentUser?.reload()
@@ -196,6 +188,8 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate {
         // Notify Child View Controller
         viewController.removeFromParent()
     }
+    
+    
     
 
 }

@@ -9,7 +9,7 @@ import UIKit
 import DLRadioButton
 import Firebase
 
-class ProfileInformationViewController: UIViewController, UITextFieldDelegate {
+class ProfileInformationViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
 
     @IBOutlet weak var informationView: UIView!
     
@@ -22,7 +22,7 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate {
     var birthDayDisplayString: String = ""
     
     
-    @IBOutlet weak var addressTextField: UITextField!
+    @IBOutlet weak var addressTextField: UITextView!
     
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var phoneTextField: UITextField!
@@ -57,14 +57,15 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate {
         surNameTextField.addBottomBorder()
         birthDayTextField.addBottomBorder()
         addressTextField.addBottomBorder()
+        //        let attributedString = NSMutableAttributedString(string: addressTextField.text ?? "")
+        //        addressTextField.linkTextAttributes = [NSAttributedString.Key(rawValue: NSAttributedString.Key.underlineStyle.rawValue): NSUnderlineStyle.single.rawValue] as [NSAttributedString.Key: Any]?
+        //        addressTextField.attributedText = attributedString
         
         phoneVerifyButton.layer.cornerRadius = 15
         emailVerifyButton.layer.cornerRadius = 15
         connectFacebookButton.layer.cornerRadius = 15
         connectAppleButton.layer.cornerRadius = 15
         signOutButton.layer.cornerRadius = 22
-        
-        //NotificationCenter.default.post(name: Notification.Name("BlossomProfileChanged"), object: nil)
         
         db.collection("customers").document(user?.uid ?? "").addSnapshotListener { snapshot, error in
             self.customer = snapshot?.data().map({ documentData -> Customer in
@@ -87,17 +88,20 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate {
                 if let birthDate = birthDateTimestamp?.dateValue() {
                     let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = "YYYY-MM-dd"
+                    self.birthDayString = dateFormatter.string(from: birthDate)
                     birthDay = dateFormatter.string(from: birthDate)
                     dateFormatter.dateStyle = .medium
                     self.birthDayDisplayString = dateFormatter.string(from: birthDate)
                 }
                 
-                let addressDic =  documentData["address"] as? [String: String] ?? [:]
-                let address = addressDic["address"] ?? ""
+                let tmpAddress = documentData["address"] as? [String : Any] ?? [:]
+                var address = Address()
+                address.address = tmpAddress["address"] as? String ?? ""
+                
         
                 self.genderString = gender
                 
-                return Customer(id: id, createdAt: createdAt, displayName: displayName, email: email, firstName: firstName, isEmailVerified: isEmailVerified, isPhoneVerified: isPhoneVerified, lastName: lastName, phoneNumber: phoneNumber, platform: platform, referenceConnectyCubeID: referenceConnectyCubeID, referenceShipnityID: referenceShipnityID, updatedAt: updatedAt, gender: gender, birthDate: birthDay)
+                return Customer(id: id, createdAt: createdAt, displayName: displayName, email: email, firstName: firstName, isEmailVerified: isEmailVerified, isPhoneVerified: isPhoneVerified, lastName: lastName, phoneNumber: phoneNumber, platform: platform, referenceConnectyCubeID: referenceConnectyCubeID, referenceShipnityID: referenceShipnityID, updatedAt: updatedAt, gender: gender, birthDate: birthDay, address: address)
             })
             
             self.displayInformation()
@@ -143,6 +147,9 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate {
         self.birthDayTextField.text = birthDayDisplayString
         
         
+        self.addressTextField.text = customer?.address?.address
+        
+            
     }
 
     @objc @IBAction private func logSelectedButton(radioButton : DLRadioButton) {
@@ -213,12 +220,37 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate {
         }
         
     }
-        
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
         return false
     }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView == addressTextField {
+            if textView.text != customer?.address?.address {
+                NotificationCenter.default.post(name: Notification.Name("BlossomProfileChanged"), object: nil)
+            }
+        }
+    }
   
+    // hides text views
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if (text == "\n") {
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
+    }
+    // hides text fields
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if (string == "\n") {
+            textField.resignFirstResponder()
+            return false
+        }
+        return true
+    }
+    
     @objc func doneButtonPressed() {
         if let  datePicker = self.birthDayTextField.inputView as? UIDatePicker {
             let dateFormatter = DateFormatter()
@@ -232,7 +264,14 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate {
     
 }
 
-
+extension UITextView {
+    func addBottomBorder(){
+        let bottomLine = CALayer()
+        bottomLine.frame = CGRect(x: 0, y: self.frame.size.height - 1, width: self.frame.size.width, height: 1)
+        bottomLine.backgroundColor = UIColor.blossomLightGray.cgColor
+        layer.addSublayer(bottomLine)
+    }
+}
 extension UITextField {
     func addBottomBorder(){
         let bottomLine = CALayer()
