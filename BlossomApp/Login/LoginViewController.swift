@@ -7,6 +7,8 @@
 
 import UIKit
 import Firebase
+import FBSDKLoginKit
+import AuthenticationServices
 
 class LoginViewController: UIViewController {
     
@@ -34,8 +36,14 @@ class LoginViewController: UIViewController {
     
         Auth.auth().signIn(withEmail: emailTextField.text ?? "", password: passwordTextField.text ?? "") { authResult, error in
             ProgressHUD.dismiss()
-            
+            if error != nil {
+                let alert = UIAlertController(title: "ข้อมูลของคุณไม่ถูกต้อง", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                
+            }
             authResult?.user.getIDTokenResult(completion: { (result, error) in
+                
                 guard let role = result?.claims["role"] as? String else {
                     self.navigationController?.dismiss(animated: true, completion: nil)
                     return
@@ -46,7 +54,7 @@ class LoginViewController: UIViewController {
                     }
                 } else {
                     if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
-                       appDelegate.setDoctorUI()
+                       appDelegate.setCustomerUI()
                     }
                 }
             })
@@ -56,7 +64,49 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func facebookButtonTapped() {
-        
+        ProgressHUD.show()
+        LoginManager.init().logIn(permissions: [Permission.publicProfile, Permission.email], viewController: self) { (loginResult) in
+          switch loginResult {
+          case .success:
+            let credential = FacebookAuthProvider
+                .credential(withAccessToken: AccessToken.current!.tokenString)
+            Auth.auth().signIn(with: credential) { authResult, error in
+                ProgressHUD.dismiss()
+                if error != nil {
+                    let alert = UIAlertController(title: "กรุณาตรวจสอบ", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                } else {
+                    authResult?.user.getIDTokenResult(completion: { (result, error) in
+                        
+                        guard let role = result?.claims["role"] as? String else {
+                            self.navigationController?.dismiss(animated: true, completion: nil)
+                            return
+                        }
+                        if role == "doctor" {
+                            if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
+                               appDelegate.setDoctorUI()
+                            }
+                        } else {
+                            if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
+                               appDelegate.setCustomerUI()
+                            }
+                        }
+                    })
+                }
+            }
+            
+          case .cancelled:
+            ProgressHUD.dismiss()
+              print("Login: cancelled.")
+          case .failed(let error):
+            ProgressHUD.dismiss()
+            print("Login with error: \(error.localizedDescription)")
+            let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+          }
+        }
     }
     
     @IBAction func appleButtonTapped() {

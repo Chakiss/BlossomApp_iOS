@@ -27,7 +27,13 @@ class Customer: Codable {
     
     var gender: String?
     var birthDate: String?
+    var birthDayString: String?
+    var birthDayDisplayString: String?
     var address: Address?
+    
+    var displayPhoto: String?
+    
+    var genderString: String?
     
     private enum CodingKeys: String, CodingKey {
         case createdAt
@@ -46,10 +52,12 @@ class Customer: Codable {
         case gender
         case birthDate
         case address
+        
+        case displayPhoto
     }
 
     
-    init(id: String, createdAt: String, displayName: String, email: String, firstName: String, isEmailVerified: Bool, isPhoneVerified: Bool, lastName: String, phoneNumber: String, platform: String, referenceConnectyCubeID: String, referenceShipnityID: String, updatedAt: String, gender: String, birthDate: String, address: Address ) {
+    init(id: String, createdAt: String, displayName: String, email: String, firstName: String, isEmailVerified: Bool, isPhoneVerified: Bool, lastName: String, phoneNumber: String, platform: String, referenceConnectyCubeID: String, referenceShipnityID: String, updatedAt: String, gender: String, genderString: String, birthDate: String, birthDayDisplayString:String, birthDayString: String, address: Address,displayPhoto: String ) {
         self.id = id
         self.createdAt = createdAt
         self.displayName = displayName
@@ -66,7 +74,11 @@ class Customer: Codable {
         
         self.gender = gender
         self.birthDate = birthDate
+        self.birthDayString = birthDayString
+        self.birthDayDisplayString = birthDayDisplayString
         self.address = address
+        
+        self.displayPhoto = displayPhoto
     }
     
     
@@ -88,6 +100,8 @@ class Customer: Codable {
         gender = try values.decode(String.self, forKey: .gender)
         birthDate = try values.decode(String.self, forKey: .birthDate)
         address =  try values.decode(Address.self, forKey: .address)
+        
+        displayPhoto = try values.decode(String.self, forKey: .displayPhoto)
     }
 }
 

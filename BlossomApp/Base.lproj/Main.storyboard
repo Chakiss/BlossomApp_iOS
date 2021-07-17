@@ -1938,6 +1938,12 @@
                                                                             <outlet property="delegate" destination="Cle-S5-b8D" id="iPu-G3-QOr"/>
                                                                         </connections>
                                                                     </textView>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ชื่อ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vXP-sy-RjA">
+                                                                        <rect key="frame" x="70" y="736.5" width="16.5" height="22.5"/>
+                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Bold" family="Sukhumvit Set" pointSize="14"/>
+                                                                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
                                                                 </subviews>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
@@ -1945,12 +1951,14 @@
                                                                     <constraint firstItem="tb0-aC-1H4" firstAttribute="top" secondItem="aJX-z6-wpX" secondAttribute="bottom" constant="30" id="0tB-ZX-5xm"/>
                                                                     <constraint firstItem="Vu7-UH-2yw" firstAttribute="leading" secondItem="wQf-dh-YrY" secondAttribute="leading" id="1a1-Kf-13u"/>
                                                                     <constraint firstItem="wQf-dh-YrY" firstAttribute="top" secondItem="bG7-6p-K14" secondAttribute="bottom" constant="20" id="1an-Hf-dDc"/>
+                                                                    <constraint firstItem="vXP-sy-RjA" firstAttribute="centerY" secondItem="hZC-r1-9qT" secondAttribute="centerY" id="1fe-Ua-Ghe"/>
                                                                     <constraint firstItem="Q5Y-se-57f" firstAttribute="leading" secondItem="5dz-Rq-CP1" secondAttribute="leading" constant="20" id="2EO-YF-aUw"/>
                                                                     <constraint firstItem="aJj-ZZ-2HW" firstAttribute="top" secondItem="JhN-Ei-cwc" secondAttribute="bottom" constant="20" id="2cR-Iy-L5c"/>
                                                                     <constraint firstItem="Ed8-db-QRe" firstAttribute="leading" secondItem="JhN-Ei-cwc" secondAttribute="leading" id="3AT-IS-3uK"/>
                                                                     <constraint firstAttribute="trailing" secondItem="pfH-X9-zt2" secondAttribute="trailing" constant="20" symbolic="YES" id="3s9-bi-glw"/>
                                                                     <constraint firstItem="4vc-2G-n5b" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5dz-Rq-CP1" secondAttribute="leading" constant="20" symbolic="YES" id="4UG-KS-wHx"/>
                                                                     <constraint firstItem="bG7-6p-K14" firstAttribute="leading" secondItem="JhN-Ei-cwc" secondAttribute="leading" id="4uD-AO-Lpu"/>
+                                                                    <constraint firstItem="vXP-sy-RjA" firstAttribute="leading" secondItem="hZC-r1-9qT" secondAttribute="trailing" constant="15" id="8d2-U1-PB2"/>
                                                                     <constraint firstAttribute="trailing" secondItem="aJX-z6-wpX" secondAttribute="trailing" constant="20" id="BwS-s2-eUV"/>
                                                                     <constraint firstItem="Vu7-UH-2yw" firstAttribute="top" secondItem="gbA-x6-aog" secondAttribute="bottom" constant="20" id="Chw-Gw-Df0"/>
                                                                     <constraint firstAttribute="trailing" secondItem="Q5Y-se-57f" secondAttribute="trailing" constant="20" id="D0Q-8t-5Zf"/>
@@ -2060,6 +2068,7 @@
                         <outlet property="connectFacebookButton" destination="9UW-AR-SwG" id="5m1-Pc-WsC"/>
                         <outlet property="emailTextField" destination="gbA-x6-aog" id="vvW-pl-JrX"/>
                         <outlet property="emailVerifyButton" destination="4vc-2G-n5b" id="luR-ZX-Hhe"/>
+                        <outlet property="facebookNameLabel" destination="vXP-sy-RjA" id="NVE-HL-oSQ"/>
                         <outlet property="gendorView" destination="meM-wv-GWX" id="sgQ-FA-Blj"/>
                         <outlet property="informationView" destination="5dz-Rq-CP1" id="a3S-EO-YRl"/>
                         <outlet property="manButton" destination="nxi-XP-hxV" id="zLs-9S-nUu"/>

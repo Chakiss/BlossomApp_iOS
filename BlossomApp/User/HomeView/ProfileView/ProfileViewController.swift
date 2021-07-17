@@ -22,6 +22,11 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
     
     
     var barButton:UIBarButtonItem = UIBarButtonItem()
+    
+    let storage = Storage.storage()
+    let user = Auth.auth().currentUser
+    let db = Firestore.firestore()
+    var customer:Customer?
 
     private lazy var profileInformationViewController: ProfileInformationViewController = {
         // Load Storyboard
@@ -29,7 +34,6 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
 
         // Instantiate View Controller
         var viewController = storyboard.instantiateViewController(withIdentifier: "ProfileInformationViewController") as! ProfileInformationViewController
-
         // Add View Controller as Child View Controller
         //self.add(asChildViewController: viewController)
 
@@ -53,24 +57,24 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
         super.viewDidLoad()
         self.title = "Profile"
 
+        setupView()
+        
         let newBackButton = UIBarButtonItem(image: UIImage(named: "back"), style: .plain, target: self, action: #selector(self.back(sender:)))
         self.navigationItem.leftBarButtonItem = newBackButton
         NotificationCenter.default.addObserver(self, selector: #selector(self.profileChanged), name:Notification.Name("BlossomProfileChanged"), object: nil)
     }
+    
     
     @objc func back(sender: UIBarButtonItem) {
 
         if self.barButton.isEnabled == true {
             
             let alert = UIAlertController(title: "โปรไฟล์มีการแก้ไข", message: "คุณค้องการแก้ไขโปรไฟล์หรือไม่​ ?",         preferredStyle: .alert)
-            
             alert.addAction(UIAlertAction(title: "ยกเลิก", style: .cancel, handler: { _ in
-                //Cancel Action
             }))
             alert.addAction(UIAlertAction(title: "ตกลง", style: .default, handler: {(_: UIAlertAction!) in
                 self.saveUserData()
             }))
-            
             self.present(alert, animated: true, completion: nil)
         } else {
             self.navigationController?.popViewController(animated: true)
@@ -80,7 +84,11 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        setupView()
+        getCustomer()
+        
+        
+        self.profileImageView.circleView()
+        self.profileImageView.addShadow()
         
         barButton = UIBarButtonItem(title: "บันทึก", style: .plain, target: self, action: #selector(self.saveUserData))
 
@@ -95,7 +103,75 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
         
         barButton.isEnabled = false
         self.navigationItem.rightBarButtonItem = barButton
+
         
+    }
+    
+    func getCustomer(){
+        
+        db.collection("customers").document(user?.uid ?? "").addSnapshotListener { snapshot, error in
+            self.customer = snapshot?.data().map({ documentData -> Customer in
+                let id = snapshot?.documentID ?? ""
+                let createdAt = documentData["createdAt"] as? String ?? ""
+                let displayName = documentData["displayName"] as? String ?? ""
+                let email = documentData["email"] as? String ?? ""
+                let firstName = documentData["firstName"] as? String ?? ""
+                let isEmailVerified: Bool = (documentData["isEmailVerified"] ?? false) as! Bool
+                let isPhoneVerified: Bool = (documentData["isPhoneVerified"] ?? false) as! Bool
+                let lastName = documentData["lastName"] as? String ?? ""
+                let phoneNumber = documentData["phoneNumber"] as? String ?? ""
+                let platform = documentData["platform"] as? String ?? ""
+                let referenceConnectyCubeID = documentData["referenceConnectyCubeID"] as? String ?? ""
+                let referenceShipnityID = documentData["referenceShipnityID"] as? String ?? ""
+                let updatedAt = documentData["updatedAt"] as? String ?? ""
+                let gender = documentData["gender"] as? String ?? ""
+                let birthDateTimestamp = documentData["birthDate"] as? Timestamp
+                var birthDay = ""
+                var birthDayString = ""
+                var birthDayDisplayString = ""
+                if let birthDate = birthDateTimestamp?.dateValue() {
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "YYYY-MM-dd"
+                    birthDayString = dateFormatter.string(from: birthDate)
+                    birthDay = dateFormatter.string(from: birthDate)
+                    dateFormatter.dateStyle = .medium
+                    birthDayDisplayString = dateFormatter.string(from: birthDate)
+                }
+                
+                let tmpAddress = documentData["address"] as? [String : Any] ?? [:]
+                var address = Address()
+                address.address = tmpAddress["address"] as? String ?? ""
+                
+    
+                let genderString = gender
+                
+                let displayPhoto = documentData["displayPhoto"] as? String ?? ""
+                
+                return Customer(id: id, createdAt: createdAt, displayName: displayName, email: email, firstName: firstName, isEmailVerified: isEmailVerified, isPhoneVerified: isPhoneVerified, lastName: lastName, phoneNumber: phoneNumber, platform: platform, referenceConnectyCubeID: referenceConnectyCubeID, referenceShipnityID: referenceShipnityID, updatedAt: updatedAt, gender: gender,genderString: genderString, birthDate: birthDay,birthDayDisplayString: birthDayDisplayString, birthDayString: birthDayString, address: address, displayPhoto: displayPhoto
+                )
+            })
+            self.profileInformationViewController.customer = self.customer
+            self.profileInformationViewController.displayInformation()
+            self.displayInformation()
+        }
+    }
+    
+    
+    func displayInformation() {
+        
+        let imageRef = storage.reference(withPath: customer?.displayPhoto ?? "")
+        imageRef.getData(maxSize: 2 * 1024 * 1024) { (data, error) in
+            if error == nil {
+                if let imgData = data {
+                    if let img = UIImage(data: imgData) {
+                        self.profileImageView.image = img
+                    }
+                }
+            } else {
+                self.profileImageView.image = UIImage(named: "placeholder")
+                
+            }
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -109,10 +185,10 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
     @objc func saveUserData(){
         
         ProgressHUD.show()
-        let payload = ["birthDate": profileInformationViewController.birthDayString,
+        let payload = ["birthDate": customer?.birthDayString,
                        "firstName": profileInformationViewController.nameTextField.text!,
                        "lastName": profileInformationViewController.surNameTextField.text!,
-                       "gender": profileInformationViewController.genderString,
+                       "gender": customer?.genderString,
                        "address": profileInformationViewController.addressTextField.text!,
                        "provinceID": "0",
                        "districtID": "0",
@@ -139,24 +215,46 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
 
         ImagePickerManager().pickImage(self){ image in
             //here is the image
+            self.uploadAvatar(image: image)
+            
         }
+        
+        
     }
     
     
-    @objc func uploadAvatar(){
+    @objc func uploadAvatar(image: UIImage){
         
-        ProgressHUD.show()
-        let payload = ["type": "customer",
-                       "dataURI": "data:image/jpeg;base64,",
-                      ]
-        
-        functions.httpsCallable("app-users-uploadAvatar").call(payload) { result, error in
-            Auth.auth().currentUser?.reload()
-            ProgressHUD.dismiss()
-            self.navigationController?.popViewController(animated: true)
+        if let imageData = image.jpeg(.low) {
+            print(imageData.count)
+            let strBase64:String = imageData.base64EncodedString(options: .lineLength64Characters)
             
+            ProgressHUD.show()
+            let payload = ["type": "customer",
+                           "dataURI": "data:image/jpeg;base64, \(strBase64)"
+            ]
+            
+            functions.httpsCallable("app-users-uploadAvatar").call(payload) { result, error in
+                let data = result?.data as! [String : String]
+                let imageURL = data["imageUrl"] ?? ""
+                let imageRef = self.storage.reference(withPath:imageURL)
+                imageRef.getData(maxSize: 2 * 1024 * 1024) { (data, error) in
+                    if error == nil {
+                        if let imgData = data {
+                            self.profileImageView.image = UIImage(data: imgData)
+                            
+                        }
+                    } else {
+                        self.profileImageView.image = UIImage(named: "placeholder")
+                        
+                    }
+                }
+                ProgressHUD.dismiss()
+                
+            }
         }
-         
+        
+        
     }
     
     
@@ -225,4 +323,22 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
     
     
 
+}
+
+
+extension UIImage {
+    enum JPEGQuality: CGFloat {
+        case lowest  = 0
+        case low     = 0.25
+        case medium  = 0.5
+        case high    = 0.75
+        case highest = 1
+    }
+
+    /// Returns the data for the specified image in JPEG format.
+    /// If the image object’s underlying image data has been purged, calling this function forces that data to be reloaded into memory.
+    /// - returns: A data object containing the JPEG data, or nil if there was a problem generating the data. This function may return nil if the image has no data or if the underlying CGImageRef contains data in an unsupported bitmap format.
+    func jpeg(_ jpegQuality: JPEGQuality) -> Data? {
+        return jpegData(compressionQuality: jpegQuality.rawValue)
+    }
 }

@@ -46,8 +46,9 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        multiBannerView.delegate = self
+        
         multiBannerView.objects = [Promotion(),Promotion(),Promotion()]
+        multiBannerView.delegate = self
         multiBannerView.reload()
         
         user = Auth.auth().currentUser

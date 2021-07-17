@@ -8,8 +8,14 @@
 import UIKit
 import DLRadioButton
 import Firebase
+import FBSDKLoginKit
+import AuthenticationServices
+import CryptoKit
 
-class ProfileInformationViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
+class ProfileInformationViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, ASAuthorizationControllerPresentationContextProviding {
+    
+    
+   
 
     @IBOutlet weak var informationView: UIView!
     
@@ -18,8 +24,7 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
     
     @IBOutlet weak var birthDayTextField: UITextField!
     let datePicker = UIDatePicker()
-    var birthDayString: String = ""
-    var birthDayDisplayString: String = ""
+
     
     
     @IBOutlet weak var addressTextField: UITextView!
@@ -32,15 +37,22 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
     
     @IBOutlet weak var gendorView: UIView!
     @IBOutlet weak var manButton: DLRadioButton!
-    var genderString:String = ""
     
     @IBOutlet weak var connectFacebookButton: UIButton!
+    @IBOutlet weak var facebookNameLabel: UILabel!
     @IBOutlet weak var connectAppleButton: UIButton!
     @IBOutlet weak var signOutButton: UIButton!
     
+
     let user = Auth.auth().currentUser
     let db = Firestore.firestore()
     var customer:Customer?
+    
+    var isLinkFacebook: Bool = false
+    var isLinkApple: Bool = false
+    
+    fileprivate var currentNonce: String?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,9 +69,7 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
         surNameTextField.addBottomBorder()
         birthDayTextField.addBottomBorder()
         addressTextField.addBottomBorder()
-        //        let attributedString = NSMutableAttributedString(string: addressTextField.text ?? "")
-        //        addressTextField.linkTextAttributes = [NSAttributedString.Key(rawValue: NSAttributedString.Key.underlineStyle.rawValue): NSUnderlineStyle.single.rawValue] as [NSAttributedString.Key: Any]?
-        //        addressTextField.attributedText = attributedString
+        
         
         phoneVerifyButton.layer.cornerRadius = 15
         emailVerifyButton.layer.cornerRadius = 15
@@ -67,45 +77,6 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
         connectAppleButton.layer.cornerRadius = 15
         signOutButton.layer.cornerRadius = 22
         
-        db.collection("customers").document(user?.uid ?? "").addSnapshotListener { snapshot, error in
-            self.customer = snapshot?.data().map({ documentData -> Customer in
-                let id = snapshot?.documentID ?? ""
-                let createdAt = documentData["createdAt"] as? String ?? ""
-                let displayName = documentData["displayName"] as? String ?? ""
-                let email = documentData["email"] as? String ?? ""
-                let firstName = documentData["firstName"] as? String ?? ""
-                let isEmailVerified: Bool = (documentData["isEmailVerified"] ?? false) as! Bool
-                let isPhoneVerified: Bool = (documentData["isPhoneVerified"] ?? false) as! Bool
-                let lastName = documentData["lastName"] as? String ?? ""
-                let phoneNumber = documentData["phoneNumber"] as? String ?? ""
-                let platform = documentData["platform"] as? String ?? ""
-                let referenceConnectyCubeID = documentData["referenceConnectyCubeID"] as? String ?? ""
-                let referenceShipnityID = documentData["referenceShipnityID"] as? String ?? ""
-                let updatedAt = documentData["updatedAt"] as? String ?? ""
-                let gender = documentData["gender"] as? String ?? ""
-                let birthDateTimestamp = documentData["birthDate"] as? Timestamp
-                var birthDay = ""
-                if let birthDate = birthDateTimestamp?.dateValue() {
-                    let dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "YYYY-MM-dd"
-                    self.birthDayString = dateFormatter.string(from: birthDate)
-                    birthDay = dateFormatter.string(from: birthDate)
-                    dateFormatter.dateStyle = .medium
-                    self.birthDayDisplayString = dateFormatter.string(from: birthDate)
-                }
-                
-                let tmpAddress = documentData["address"] as? [String : Any] ?? [:]
-                var address = Address()
-                address.address = tmpAddress["address"] as? String ?? ""
-                
-        
-                self.genderString = gender
-                
-                return Customer(id: id, createdAt: createdAt, displayName: displayName, email: email, firstName: firstName, isEmailVerified: isEmailVerified, isPhoneVerified: isPhoneVerified, lastName: lastName, phoneNumber: phoneNumber, platform: platform, referenceConnectyCubeID: referenceConnectyCubeID, referenceShipnityID: referenceShipnityID, updatedAt: updatedAt, gender: gender, birthDate: birthDay, address: address)
-            })
-            
-            self.displayInformation()
-        }
         
         
         
@@ -135,36 +106,209 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
             self.emailVerifyButton.isEnabled = false
         }
         
-        if self.genderString == "male" {
+        if self.customer?.gender == "male" {
             manButton.isSelected = true
-        } else if self.genderString == "female" {
+        } else if self.customer?.gender == "female" {
             manButton.otherButtons[0].isSelected = true
         } else {
             manButton.otherButtons[1].isSelected = true
         }
         
         
-        self.birthDayTextField.text = birthDayDisplayString
-        
+        self.birthDayTextField.text = customer?.birthDayDisplayString
         
         self.addressTextField.text = customer?.address?.address
         
+        
+        let userInfoList: [UserInfo] = user?.providerData ?? []
+        for userInfo in userInfoList {
+            print(userInfo.providerID)
+            if userInfo.providerID.contains("facebook") {
+                isLinkFacebook = true
+            } else if userInfo.providerID.contains("apple") {
+                isLinkApple = true
+            }
+        }
+        
+        checkLinkAccount()
             
     }
+    
+    
+    
+    func checkLinkAccount(){
+        if isLinkFacebook {
+            self.connectFacebookButton.setTitle("Unlink", for: .normal)
+            self.connectFacebookButton.addTarget(self, action: #selector(self.unLinkAccountFacebook), for: .touchUpInside)
+            if let accessToken  = AccessToken.current {
+                let r = GraphRequest(graphPath: "me",
+                                          parameters: ["fields": "email,name"],
+                                          tokenString: AccessToken.current!.tokenString,
+                                          version: nil,
+                                          httpMethod: HTTPMethod.get)
 
+                r.start { test, result, error in
+                    if error == nil {
+                        guard let json = result as? NSDictionary else { return }
+                        self.facebookNameLabel.text = json["name"] as? String ?? ""
+                    }
+                }
+            } else {
+
+                let userInfoList: [UserInfo] = self.user?.providerData ?? []
+                for userInfo in userInfoList {
+                    if userInfo.providerID.contains("facebook") {
+                        Auth.auth().currentUser?.unlink(fromProvider: userInfo.providerID) { user, error in
+                            ProgressHUD.dismiss()
+                            self.isLinkFacebook = false
+                            self.connectFacebookButton.removeTarget(self, action: #selector(self.unLinkAccountFacebook), for: .touchUpInside)
+                            self.displayInformation()
+                        }
+                    }
+                }
+            }
+           
+        } else {
+            self.facebookNameLabel.text = ""
+            self.connectFacebookButton.setTitle("Link", for: .normal)
+            self.connectFacebookButton.addTarget(self, action: #selector(self.linkAccountFacebook), for: .touchUpInside)
+
+        }
+        
+        if isLinkApple {
+            self.connectAppleButton.setTitle("Unlink", for: .normal)
+            self.connectAppleButton.addTarget(self, action: #selector(self.unLinkAccountApple), for: .touchUpInside)
+        } else {
+            self.connectAppleButton.setTitle("Link", for: .normal)
+            self.connectAppleButton.addTarget(self, action: #selector(self.linkAccountApple), for: .touchUpInside)
+        }
+    }
+    
+    
+    @objc func linkAccountFacebook(){
+       
+        ProgressHUD.show()
+        
+        LoginManager.init().logIn(permissions: [Permission.publicProfile, Permission.email], viewController: self) { (loginResult) in
+          switch loginResult {
+          case .success:
+            let credential = FacebookAuthProvider
+                .credential(withAccessToken: AccessToken.current!.tokenString)
+            self.user?.link(with: credential) { authResult, error in
+                ProgressHUD.dismiss()
+                if error != nil {
+                    let alert = UIAlertController(title: "กรุณาตรวจสอบ", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                } else {
+                    self.isLinkFacebook = true
+                    self.connectFacebookButton.removeTarget(self, action: #selector(self.linkAccountFacebook), for: .touchUpInside)
+                    self.displayInformation()
+                }
+            }
+            
+          case .cancelled:
+            ProgressHUD.dismiss()
+              print("Login: cancelled.")
+          case .failed(let error):
+            ProgressHUD.dismiss()
+            print("Login with error: \(error.localizedDescription)")
+            let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+          }
+        }
+    }
+    
+    @objc func unLinkAccountFacebook() {
+        let alert = UIAlertController(title: "โปรไฟล์มีการแก้ไข", message: "คุณค้องการยกเลิกการเชื่อมต่อบัญชีกับ facebook หรือไม่​ ?",         preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "ยกเลิก", style: .cancel, handler: { _ in
+        }))
+        alert.addAction(UIAlertAction(title: "ตกลง", style: .destructive, handler: {(_: UIAlertAction!) in
+            ProgressHUD.show()
+            let userInfoList: [UserInfo] = self.user?.providerData ?? []
+            for userInfo in userInfoList {
+                if userInfo.providerID.contains("facebook") {
+                    Auth.auth().currentUser?.unlink(fromProvider: userInfo.providerID) { user, error in
+                        ProgressHUD.dismiss()
+                        self.isLinkFacebook = false
+                        self.connectFacebookButton.removeTarget(self, action: #selector(self.unLinkAccountFacebook), for: .touchUpInside)
+                        self.displayInformation()
+                    }
+                }
+            }
+        }))
+        self.present(alert, animated: true, completion: nil)
+        
+    }
+    
+    @objc func linkAccountApple(){
+        
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        let request = appleIDProvider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+
+        // Generate nonce for validation after authentication successful
+        self.currentNonce = randomNonceString()
+        // Set the SHA256 hashed nonce to ASAuthorizationAppleIDRequest
+        request.nonce = sha256(currentNonce!)
+
+        // Present Apple authorization form
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        authorizationController.delegate = self
+        authorizationController.presentationContextProvider = self
+        authorizationController.performRequests()
+        
+       
+    }
+    
+    @objc func unLinkAccountApple(){
+        let alert = UIAlertController(title: "โปรไฟล์มีการแก้ไข", message: "คุณค้องการยกเลิกการเชื่อมต่อบัญชีกับ Apple หรือไม่​ ?",         preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "ยกเลิก", style: .cancel, handler: { _ in
+        }))
+        alert.addAction(UIAlertAction(title: "ตกลง", style: .destructive, handler: {(_: UIAlertAction!) in
+            ProgressHUD.show()
+            let userInfoList: [UserInfo] = self.user?.providerData ?? []
+            for userInfo in userInfoList {
+                if userInfo.providerID.contains("apple") {
+                    // Clear saved user ID
+                    Auth.auth().currentUser?.unlink(fromProvider: userInfo.providerID) { user, error in
+                        ProgressHUD.dismiss()
+                        UserDefaults.standard.set(nil, forKey: "appleAuthorizedUserIdKey")
+                        self.isLinkApple = false
+                        self.connectAppleButton.removeTarget(self, action: #selector(self.unLinkAccountApple), for: .touchUpInside)
+                        self.displayInformation()// ...
+                    }
+                    
+                }
+                
+              
+            }
+        }))
+        self.present(alert, animated: true, completion: nil)
+        
+            // Perform sign out from Firebase
+            
+    }
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return self.view.window!
+    }
+    
+    
+    
     @objc @IBAction private func logSelectedButton(radioButton : DLRadioButton) {
         
         if radioButton.tag == 1 {
-            self.genderString = "male"
+            self.customer?.genderString = "male"
         } else if radioButton.tag == 2 {
-            self.genderString = "female"
+            self.customer?.genderString = "female"
         } else {
-            self.genderString = ""
+            self.customer?.genderString = ""
         }
         NotificationCenter.default.post(name: Notification.Name("BlossomProfileChanged"), object: nil)
-        print(self.genderString)
+        
     }
-  
+    
     
     @IBAction func logoutButtonTapped() {
         let alert = UIAlertController(title: "ออกจากระบบ ?", message: "คุณค้องการออกจากระบบหรือไม่​ ?",         preferredStyle: .alert)
@@ -214,7 +358,7 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
                 NotificationCenter.default.post(name: Notification.Name("BlossomProfileChanged"), object: nil)
             }
         } else if textField == birthDayTextField {
-            if textField.text != birthDayString {
+            if textField.text != customer?.birthDayString {
                 NotificationCenter.default.post(name: Notification.Name("BlossomProfileChanged"), object: nil)
             }
         }
@@ -233,7 +377,7 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
             }
         }
     }
-  
+    
     // hides text views
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if (text == "\n") {
@@ -255,14 +399,112 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
         if let  datePicker = self.birthDayTextField.inputView as? UIDatePicker {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "YYYY-MM-dd"
-            birthDayString = dateFormatter.string(from: datePicker.date)
+            customer?.birthDayString = dateFormatter.string(from: datePicker.date)
             dateFormatter.dateStyle = .medium
             self.birthDayTextField.text = dateFormatter.string(from: datePicker.date)
         }
         self.birthDayTextField.resignFirstResponder()
      }
     
+  
+    private func randomNonceString(length: Int = 32) -> String {
+        precondition(length > 0)
+        let charset: Array<Character> =
+            Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
+        var result = ""
+        var remainingLength = length
+        
+        while remainingLength > 0 {
+            let randoms: [UInt8] = (0 ..< 16).map { _ in
+                var random: UInt8 = 0
+                let errorCode = SecRandomCopyBytes(kSecRandomDefault, 1, &random)
+                if errorCode != errSecSuccess {
+                    fatalError("Unable to generate nonce. SecRandomCopyBytes failed with OSStatus \(errorCode)")
+                }
+                return random
+            }
+            
+            randoms.forEach { random in
+                if remainingLength == 0 {
+                    return
+                }
+                
+                if random < charset.count {
+                    result.append(charset[Int(random)])
+                    remainingLength -= 1
+                }
+            }
+        }
+        
+        return result
+    }
+    
+    private func sha256(_ input: String) -> String {
+        let inputData = Data(input.utf8)
+        let hashedData = SHA256.hash(data: inputData)
+        let hashString = hashedData.compactMap {
+            return String(format: "%02x", $0)
+        }.joined()
+        
+        return hashString
+    }
 }
+
+
+extension ProfileInformationViewController: ASAuthorizationControllerDelegate {
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            // Do something with the credential...
+            UserDefaults.standard.set(appleIDCredential.user, forKey: "appleAuthorizedUserIdKey")
+            
+            guard let nonce = currentNonce else {
+                fatalError("Invalid state: A login callback was received, but no login request was sent.")
+            }
+
+            // Retrieve Apple identity token
+            guard let appleIDToken = appleIDCredential.identityToken else {
+                print("Failed to fetch identity token")
+                return
+            }
+
+            // Convert Apple identity token to string
+            guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
+                print("Failed to decode identity token")
+                return
+            }
+
+            // Initialize a Firebase credential using secure nonce and Apple identity token
+            let firebaseCredential = OAuthProvider.credential(withProviderID: "apple.com",
+                                                              idToken: idTokenString,
+                                                              rawNonce: nonce)
+            
+            self.user?.link(with: firebaseCredential) { authResult, error in
+                ProgressHUD.dismiss()
+                if error != nil {
+                    let alert = UIAlertController(title: "กรุณาตรวจสอบ", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                } else {
+                    self.isLinkApple = true
+                    self.connectAppleButton.removeTarget(self, action: #selector(self.linkAccountApple), for: .touchUpInside)
+                    self.displayInformation()
+                }
+            }
+      
+        }
+        
+        
+    }
+
+
+  func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+    // Handle error.
+    print("Sign in with Apple errored: \(error)")
+  }
+
+}
+
 
 extension UITextView {
     func addBottomBorder(){
