@@ -416,19 +416,19 @@
                                                             <constraint firstAttribute="height" constant="200" id="uc8-PX-V3K"/>
                                                         </constraints>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OFa-Im-nkZ" userLabel="Description">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OFa-Im-nkZ" userLabel="Description">
                                                         <rect key="frame" x="0.0" y="200" width="414" height="628"/>
                                                         <subviews>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vRz-9L-7PL">
+                                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vRz-9L-7PL">
                                                                 <rect key="frame" x="20" y="10" width="374" height="608"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="รายละเอียดโปรโมชั่น" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L7i-CJ-p6r">
-                                                                        <rect key="frame" x="10" y="10" width="115" height="22.5"/>
+                                                                        <rect key="frame" x="10" y="10" width="122.5" height="16.5"/>
                                                                         <fontDescription key="fontDescription" name="SukhumvitSet-Bold" family="Sukhumvit Set" pointSize="14"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="odO-ud-ZZg">
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" ambiguous="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="odO-ud-ZZg">
                                                                         <rect key="frame" x="10" y="41" width="354" height="557"/>
                                                                         <string key="text">ฟินิกซ์รีวิวบร็อคโคลี เยอร์บีร่าซิ่งสไปเดอร์ ธรรมาภิบาล เดี้ยงอะมุมมอง เฟรชเทอร์โบ มาร์ตริกเตอร์คลิป อึ้ม คอนเทนเนอร์สันทนาการคันธาระนางแบบคอนเทนเนอร์ ปาร์ตี้โทรโข่งฮีโร่คอมเมนต์เอนทรานซ์ ซัพพลายเออร์ เสกสรรค์หลินจือบึมเวเฟอร์ สุริยยาตรเด้อมาร์กเบนโตะ หน่อมแน้มนิวส์ก๋ากั่นแลนด์ อึ๋มวาริชศาสตร์ สามแยกโลโก้ เทอร์โบ
 
@@ -458,19 +458,19 @@
                                                             <constraint firstAttribute="bottom" secondItem="vRz-9L-7PL" secondAttribute="bottom" constant="10" id="p7K-qq-kGl"/>
                                                         </constraints>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lce-t1-P79" userLabel="termcon">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lce-t1-P79" userLabel="termcon">
                                                         <rect key="frame" x="0.0" y="828" width="414" height="628"/>
                                                         <subviews>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2aS-gm-sw7">
+                                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2aS-gm-sw7">
                                                                 <rect key="frame" x="20" y="10" width="374" height="598"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ข้อกำหนดและเงื่อนไขการใช้งาน" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mUr-Fs-Ad1">
-                                                                        <rect key="frame" x="10" y="10" width="177.5" height="22.5"/>
+                                                                        <rect key="frame" x="10" y="10" width="183" height="16.5"/>
                                                                         <fontDescription key="fontDescription" name="SukhumvitSet-Bold" family="Sukhumvit Set" pointSize="14"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="isl-e6-Bca">
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" ambiguous="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="isl-e6-Bca">
                                                                         <rect key="frame" x="10" y="41" width="354" height="547"/>
                                                                         <string key="text">ฟินิกซ์รีวิวบร็อคโคลี เยอร์บีร่าซิ่งสไปเดอร์ ธรรมาภิบาล เดี้ยงอะมุมมอง เฟรชเทอร์โบ มาร์ตริกเตอร์คลิป อึ้ม คอนเทนเนอร์สันทนาการคันธาระนางแบบคอนเทนเนอร์ ปาร์ตี้โทรโข่งฮีโร่คอมเมนต์เอนทรานซ์ ซัพพลายเออร์ เสกสรรค์หลินจือบึมเวเฟอร์ สุริยยาตรเด้อมาร์กเบนโตะ หน่อมแน้มนิวส์ก๋ากั่นแลนด์ อึ๋มวาริชศาสตร์ สามแยกโลโก้ เทอร์โบ
 
@@ -1944,6 +1944,12 @@
                                                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ชื่อ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1br-WH-oK1">
+                                                                        <rect key="frame" x="70" y="791" width="16.5" height="22.5"/>
+                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Bold" family="Sukhumvit Set" pointSize="14"/>
+                                                                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
                                                                 </subviews>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
@@ -1987,6 +1993,7 @@
                                                                     <constraint firstItem="kw8-tx-G0h" firstAttribute="bottom" secondItem="bG7-6p-K14" secondAttribute="bottom" id="VXM-CK-xSq"/>
                                                                     <constraint firstItem="Ed8-db-QRe" firstAttribute="top" secondItem="bWh-Kj-PGZ" secondAttribute="bottom" constant="20" id="Vwq-dT-87y"/>
                                                                     <constraint firstItem="Itu-3g-3TI" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5dz-Rq-CP1" secondAttribute="leading" constant="20" symbolic="YES" id="Xi1-dB-nnI"/>
+                                                                    <constraint firstItem="1br-WH-oK1" firstAttribute="centerY" secondItem="tFk-Mw-KkS" secondAttribute="centerY" id="Y78-sb-tPP"/>
                                                                     <constraint firstItem="Ed8-db-QRe" firstAttribute="leading" secondItem="tb0-aC-1H4" secondAttribute="leading" id="YXZ-I4-9cy"/>
                                                                     <constraint firstItem="NqC-0f-KBe" firstAttribute="leading" secondItem="gbA-x6-aog" secondAttribute="leading" id="arw-gO-E0b"/>
                                                                     <constraint firstItem="bG7-6p-K14" firstAttribute="top" secondItem="aJj-ZZ-2HW" secondAttribute="bottom" constant="20" id="bQ9-uv-HKk"/>
@@ -1994,6 +2001,7 @@
                                                                     <constraint firstItem="Q5Y-se-57f" firstAttribute="top" secondItem="SV3-nf-hay" secondAttribute="bottom" constant="20" id="dbI-PL-CxL"/>
                                                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="wQf-dh-YrY" secondAttribute="trailing" constant="20" symbolic="YES" id="dxQ-1v-JS5"/>
                                                                     <constraint firstAttribute="trailing" secondItem="NVv-6m-ccE" secondAttribute="trailing" constant="20" symbolic="YES" id="eVY-Ys-j4F"/>
+                                                                    <constraint firstItem="1br-WH-oK1" firstAttribute="leading" secondItem="tFk-Mw-KkS" secondAttribute="trailing" constant="15" id="ek3-RX-AVF"/>
                                                                     <constraint firstItem="bWh-Kj-PGZ" firstAttribute="leading" secondItem="gbA-x6-aog" secondAttribute="leading" id="g8W-uD-Izu"/>
                                                                     <constraint firstAttribute="bottom" secondItem="pfH-X9-zt2" secondAttribute="bottom" constant="20" id="gi3-zs-zBg"/>
                                                                     <constraint firstItem="tFk-Mw-KkS" firstAttribute="leading" secondItem="5dz-Rq-CP1" secondAttribute="leading" constant="20" id="iVy-UQ-OkC"/>
@@ -2063,6 +2071,7 @@
                     <size key="freeformSize" width="414" height="1200"/>
                     <connections>
                         <outlet property="addressTextField" destination="Q5Y-se-57f" id="5iR-jB-Jca"/>
+                        <outlet property="appleNameLabel" destination="1br-WH-oK1" id="UeK-7R-kTy"/>
                         <outlet property="birthDayTextField" destination="bWh-Kj-PGZ" id="Dv4-8Z-gmO"/>
                         <outlet property="connectAppleButton" destination="NVv-6m-ccE" id="NMZ-R9-Olq"/>
                         <outlet property="connectFacebookButton" destination="9UW-AR-SwG" id="5m1-Pc-WsC"/>

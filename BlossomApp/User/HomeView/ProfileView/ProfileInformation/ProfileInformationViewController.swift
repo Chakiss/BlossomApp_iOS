@@ -41,6 +41,7 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
     @IBOutlet weak var connectFacebookButton: UIButton!
     @IBOutlet weak var facebookNameLabel: UILabel!
     @IBOutlet weak var connectAppleButton: UIButton!
+    @IBOutlet weak var appleNameLabel: UILabel!
     @IBOutlet weak var signOutButton: UIButton!
     
 
@@ -176,9 +177,11 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
         }
         
         if isLinkApple {
+            self.appleNameLabel.text = "เชื่อมต่อแล้ว"
             self.connectAppleButton.setTitle("Unlink", for: .normal)
             self.connectAppleButton.addTarget(self, action: #selector(self.unLinkAccountApple), for: .touchUpInside)
         } else {
+            self.appleNameLabel.text = ""
             self.connectAppleButton.setTitle("Link", for: .normal)
             self.connectAppleButton.addTarget(self, action: #selector(self.linkAccountApple), for: .touchUpInside)
         }
@@ -249,9 +252,9 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
         request.requestedScopes = [.fullName, .email]
 
         // Generate nonce for validation after authentication successful
-        self.currentNonce = randomNonceString()
+        self.currentNonce = Nonce().randomNonceString()
         // Set the SHA256 hashed nonce to ASAuthorizationAppleIDRequest
-        request.nonce = sha256(currentNonce!)
+        request.nonce = Nonce().sha256(currentNonce!)
 
         // Present Apple authorization form
         let authorizationController = ASAuthorizationController(authorizationRequests: [request])
@@ -406,48 +409,6 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
         self.birthDayTextField.resignFirstResponder()
      }
     
-  
-    private func randomNonceString(length: Int = 32) -> String {
-        precondition(length > 0)
-        let charset: Array<Character> =
-            Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
-        var result = ""
-        var remainingLength = length
-        
-        while remainingLength > 0 {
-            let randoms: [UInt8] = (0 ..< 16).map { _ in
-                var random: UInt8 = 0
-                let errorCode = SecRandomCopyBytes(kSecRandomDefault, 1, &random)
-                if errorCode != errSecSuccess {
-                    fatalError("Unable to generate nonce. SecRandomCopyBytes failed with OSStatus \(errorCode)")
-                }
-                return random
-            }
-            
-            randoms.forEach { random in
-                if remainingLength == 0 {
-                    return
-                }
-                
-                if random < charset.count {
-                    result.append(charset[Int(random)])
-                    remainingLength -= 1
-                }
-            }
-        }
-        
-        return result
-    }
-    
-    private func sha256(_ input: String) -> String {
-        let inputData = Data(input.utf8)
-        let hashedData = SHA256.hash(data: inputData)
-        let hashString = hashedData.compactMap {
-            return String(format: "%02x", $0)
-        }.joined()
-        
-        return hashString
-    }
 }
 
 
