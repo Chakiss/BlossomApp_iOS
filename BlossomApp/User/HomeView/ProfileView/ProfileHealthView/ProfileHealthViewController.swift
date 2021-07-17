@@ -6,15 +6,41 @@
 //
 
 import UIKit
+import DLRadioButton
 
 class ProfileHealthViewController: UIViewController {
 
+    @IBOutlet weak var informationView: UIView!
+    
+    @IBOutlet weak var acneTypeView: UIView!
+    @IBOutlet weak var acneType: DLRadioButton!
+    
+    @IBOutlet weak var skinTypeView: UIView!
+    @IBOutlet weak var skinType: DLRadioButton!
+    
+    @IBOutlet weak var allergicDrugView: UIView!
+    @IBOutlet weak var allergicDrugType: DLRadioButton!
+    @IBOutlet weak var allergicDrugTextField: UITextField!
+    
+    @IBOutlet weak var acneCaredDescriptionView: UIView!
+    @IBOutlet weak var acneCaredType: DLRadioButton!
+    @IBOutlet weak var acneCaredTextField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        informationView.addConerRadiusAndShadow()
+    
+        
+        
+        
+    }
 
     /*
     // MARK: - Navigation

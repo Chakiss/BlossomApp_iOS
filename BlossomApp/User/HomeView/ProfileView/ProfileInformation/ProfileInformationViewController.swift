@@ -14,9 +14,6 @@ import CryptoKit
 
 class ProfileInformationViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, ASAuthorizationControllerPresentationContextProviding {
     
-    
-   
-
     @IBOutlet weak var informationView: UIView!
     
     @IBOutlet weak var nameTextField: UITextField!
@@ -47,7 +44,9 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
 
     let user = Auth.auth().currentUser
     let db = Firestore.firestore()
+    lazy var functions = Functions.functions()
     var customer:Customer?
+    
     
     var isLinkFacebook: Bool = false
     var isLinkApple: Bool = false
@@ -88,15 +87,17 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
         self.nameTextField.text = self.customer?.firstName
         self.surNameTextField.text = self.customer?.lastName
         
-        self.phoneTextField.text = self.customer?.phoneNumber
+        if (self.customer?.phoneNumber!.count)! > 0 {
+            self.phoneTextField.text = self.customer?.phoneNumber?.phonenumberformat()
+        }
         self.emailTextField.text = self.customer?.email
         
         if self.customer?.isPhoneVerified == true {
-            self.phoneVerifyButton.setTitle("ยืนยันแล้ว", for: .normal)
-            self.phoneVerifyButton.isEnabled = false
+            self.phoneVerifyButton.setTitle("ยืนยันแล้ว ต้องการเปลี่ยนเบอร์", for: .normal)
+            self.phoneVerifyButton.addTarget(self, action: #selector(self.changePhoneNumberButtonTapped), for: .touchUpInside)
         } else {
             self.phoneVerifyButton.setTitle("ยังไม่ได้ยืนยัน", for: .normal)
-            self.phoneVerifyButton.isEnabled = false
+            self.phoneVerifyButton.addTarget(self, action: #selector(self.phoneNumberVerifyButtonTapped), for: .touchUpInside)
         }
         
         if self.customer?.isEmailVerified == true {
@@ -104,7 +105,7 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
             self.emailVerifyButton.isEnabled = false
         } else {
             self.emailVerifyButton.setTitle("ยังไม่ได้ยืนยัน", for: .normal)
-            self.emailVerifyButton.isEnabled = false
+            self.emailVerifyButton.isEnabled = true
         }
         
         if self.customer?.gender == "male" {
@@ -135,6 +136,42 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
             
     }
     
+    @IBAction func phoneNumberVerifyButtonTapped() {
+        
+        PhoneAuthProvider.provider()
+            .verifyPhoneNumber(self.phoneTextField.text!, uiDelegate: nil) { verificationID, error in
+                if error != nil {
+                    let alert = UIAlertController(title: "กรุณาตรวจสอบ", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                }
+                else {
+                    print(verificationID)
+                }
+                // Sign in using the verificationID and the code sent to the user
+                // ...
+            }
+        
+    }
+    
+    @IBAction func changePhoneNumberButtonTapped() {
+        //app-users-updatePhoneNumber
+        ProgressHUD.show()
+        
+        let payload = ["phoneNumber": phoneTextField.text]
+        
+        functions.httpsCallable("app-users-updatePhoneNumber").call(payload) { result, error in
+            ProgressHUD.dismiss()
+            if error != nil {
+                let alert = UIAlertController(title: "กรุณาตรวจสอบ", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+            else {
+                
+            }
+        }
+    }
     
     
     func checkLinkAccount(){

@@ -62,19 +62,37 @@ class RegisterViewController: UIViewController {
     
     @IBAction func registerButtonTapped() {
       
+
+        if phoneNumberTextField.text!.count > 0 {
+            if phoneNumberTextField.text?.first != "0" {
+                let alert = UIAlertController(title: "แจ้งเตือน", message: "กรุณาแก้ไขเบอร์โทรศัพท์ให้ถูกต้อง", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                return
+            }
+            
+           
+        }
+        
         if passwordTextField.text != confirmPasswordTextField.text {
-            let alert = UIAlertController(title: "Alert", message: "กรุณาตรวจสอบพาสเวิร์ดอีกครั้ง", preferredStyle: UIAlertController.Style.alert)
+            let alert = UIAlertController(title: "แจ้งเตือน", message: "กรุณาตรวจสอบพาสเวิร์ดอีกครั้ง", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
             
-        } else {
+        }
+        else {
             ProgressHUD.show()
-            
+            var phoneNumber = phoneNumberTextField.text
+            if phoneNumber?.count == 10 {
+                if phoneNumber?.first == "0" {
+                    phoneNumber = phoneNumberTextField.text?.addCountryCode()
+                }
+            }
             let payload = ["email": emailTextField.text,
                            "password": passwordTextField.text,
                            "firstName": nameTextField.text,
                            "lastName": sueNameTextField.text,
-                           "phoneNumber": phoneNumberTextField.text]
+                           "phoneNumber": phoneNumber]
             
             functions.httpsCallable("app-users-signUpWithEmailAndPassword").call(payload) { result, error in
                 ProgressHUD.dismiss()
@@ -114,7 +132,7 @@ class RegisterViewController: UIViewController {
                                     }
                                 } else {
                                     if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
-                                       appDelegate.setDoctorUI()
+                                       appDelegate.setCustomerUI()
                                     }
                                 }
                             })
@@ -130,14 +148,5 @@ class RegisterViewController: UIViewController {
     
     
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+    
 }

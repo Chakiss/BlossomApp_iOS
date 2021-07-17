@@ -61,6 +61,7 @@
 		1BE101E3269D575D00F7323E /* Doctor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE101E2269D575D00F7323E /* Doctor.swift */; };
 		1BE101E5269DC63200F7323E /* Reviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE101E4269DC63200F7323E /* Reviews.swift */; };
 		1BE101E7269DD2DD00F7323E /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE101E6269DD2DD00F7323E /* Customer.swift */; };
+		1BF479C326A3482900E9BC23 /* PhoneNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF479C226A3482900E9BC23 /* PhoneNumberFormatter.swift */; };
 		3C7D5E4B269ADC76002E5AB9 /* Cart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7D5E4A269ADC76002E5AB9 /* Cart.swift */; };
 		3C7D5E4E269AE48D002E5AB9 /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7D5E4C269AE48D002E5AB9 /* CartViewController.swift */; };
 		3C7D5E4F269AE48D002E5AB9 /* CartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C7D5E4D269AE48D002E5AB9 /* CartViewController.xib */; };
@@ -153,6 +154,7 @@
 		1BE101E2269D575D00F7323E /* Doctor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doctor.swift; sourceTree = "<group>"; };
 		1BE101E4269DC63200F7323E /* Reviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reviews.swift; sourceTree = "<group>"; };
 		1BE101E6269DD2DD00F7323E /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
+		1BF479C226A3482900E9BC23 /* PhoneNumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberFormatter.swift; sourceTree = "<group>"; };
 		3C7D5E4A269ADC76002E5AB9 /* Cart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cart.swift; sourceTree = "<group>"; };
 		3C7D5E4C269AE48D002E5AB9 /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
 		3C7D5E4D269AE48D002E5AB9 /* CartViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CartViewController.xib; sourceTree = "<group>"; };
@@ -456,6 +458,7 @@
 				1B77591E269479FA000780BD /* UIView+Additions.swift */,
 				1B13E6ED269B2F3F00131105 /* ProgressView.swift */,
 				3CFE6376269B44BF005235F1 /* UIViewController+Additions.swift */,
+				1BF479C226A3482900E9BC23 /* PhoneNumberFormatter.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -767,6 +770,7 @@
 				1BE101E5269DC63200F7323E /* Reviews.swift in Sources */,
 				3CFE6377269B44BF005235F1 /* UIViewController+Additions.swift in Sources */,
 				1B3721D226959645006265D3 /* ProfileViewController.swift in Sources */,
+				1BF479C326A3482900E9BC23 /* PhoneNumberFormatter.swift in Sources */,
 				1B187A5B268F654300BB0122 /* SceneDelegate.swift in Sources */,
 				1B5312522693779C00B88165 /* HomeViewController.swift in Sources */,
 				1BE101E3269D575D00F7323E /* Doctor.swift in Sources */,
