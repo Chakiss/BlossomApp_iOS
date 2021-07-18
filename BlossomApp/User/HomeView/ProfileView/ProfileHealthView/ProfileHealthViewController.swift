@@ -43,6 +43,8 @@ class ProfileHealthViewController: UIViewController,UITextFieldDelegate {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.allergicDrugString = self.customer?.allergicDrug ?? ""
+        self.acneCaredString = self.customer?.acneCaredDescription ?? ""
         displayInformation()
     }
     

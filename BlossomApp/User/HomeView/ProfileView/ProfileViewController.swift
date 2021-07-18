@@ -45,7 +45,7 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
         self.title = "Profile"
 
         setupView()
-        
+        getCustomer()
         let newBackButton = UIBarButtonItem(image: UIImage(named: "back"), style: .plain, target: self, action: #selector(self.back(sender:)))
         self.navigationItem.leftBarButtonItem = newBackButton
         NotificationCenter.default.addObserver(self, selector: #selector(self.profileChanged), name:Notification.Name("BlossomProfileChanged"), object: nil)
@@ -73,7 +73,7 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        getCustomer()
+       
         
         
         self.profileImageView.circleView()
@@ -201,10 +201,30 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
     }
     
     func saveHealtData(){
-        let payloadHealth = ["skinType": profileHealthViewController.skinTypeString,
-                             "acneType": profileHealthViewController.acneTypeString,
-                             "acneCaredDescription": profileHealthViewController.acneCaredTextField.text ?? customer?.acneCaredDescription! ?? "",
-                             "allergicDrug": profileHealthViewController.allergicDrugTextField.text ?? customer?.allergicDrug! ?? ""]
+        var acneCaredString = customer?.acneCaredDescription
+        if (profileHealthViewController.acneCaredTextField != nil) {
+            acneCaredString = profileHealthViewController.acneCaredTextField.text
+        }
+        
+        var allergicDrugString = customer?.allergicDrug
+        if (profileHealthViewController.allergicDrugTextField != nil) {
+            allergicDrugString = profileHealthViewController.allergicDrugTextField.text
+        }
+        
+        var skinTypeString = customer?.skinType
+        if !profileHealthViewController.skinTypeString.isEmpty {
+            skinTypeString = profileHealthViewController.skinTypeString
+        }
+        
+        var acneTypeString = customer?.acneType
+        if !profileHealthViewController.acneTypeString.isEmpty {
+            acneTypeString = profileHealthViewController.acneTypeString
+        }
+        
+        let payloadHealth = ["skinType": skinTypeString,
+                             "acneType": acneTypeString,
+                             "acneCaredDescription": acneCaredString,
+                             "allergicDrug": allergicDrugString]
         
         functions.httpsCallable("app-users-updateMedicalProfile").call(payloadHealth) { result, error in
             Auth.auth().currentUser?.reload()

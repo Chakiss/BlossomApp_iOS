@@ -52,12 +52,19 @@
 		1B5BC3BC269636D4004206AE /* DoctorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5BC3BB269636D4004206AE /* DoctorCell.swift */; };
 		1B69AD4D26A402C800910679 /* DoctorHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B69AD4C26A402C800910679 /* DoctorHomeViewController.swift */; };
 		1B69AD5026A40D8B00910679 /* DoctorProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B69AD4F26A40D8B00910679 /* DoctorProfileViewController.swift */; };
+		1B69AD5326A4601400910679 /* DoctorDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B69AD5226A4601400910679 /* DoctorDetailViewController.swift */; };
+		1B69AD5626A4791A00910679 /* ConnectyCubeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B69AD5526A4791A00910679 /* ConnectyCubeManager.swift */; };
+		1B69AD5826A47C8400910679 /* CustomerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B69AD5726A47C8400910679 /* CustomerManager.swift */; };
+		1B69AD5A26A489CB00910679 /* DailogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B69AD5926A489CB00910679 /* DailogCell.swift */; };
 		1B7759192694775E000780BD /* MultiBannerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B7759152694775E000780BD /* MultiBannerView.xib */; };
 		1B77591A2694775E000780BD /* MultiBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7759162694775E000780BD /* MultiBannerView.swift */; };
 		1B77591B2694775E000780BD /* BannerViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B7759172694775E000780BD /* BannerViewCell.xib */; };
 		1B77591C2694775E000780BD /* BannerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7759182694775E000780BD /* BannerViewCell.swift */; };
 		1B77591F269479FA000780BD /* UIView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B77591E269479FA000780BD /* UIView+Additions.swift */; };
 		1B775922269491A4000780BD /* Promotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B775921269491A4000780BD /* Promotion.swift */; };
+		1B8D860F26A49A7500A2ED57 /* SenderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8D860E26A49A7500A2ED57 /* SenderCell.swift */; };
+		1B8D861126A49B8400A2ED57 /* ReceiverCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8D861026A49B8400A2ED57 /* ReceiverCell.swift */; };
+		1B8D861426A49C0B00A2ED57 /* MessageingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8D861326A49C0B00A2ED57 /* MessageingViewController.swift */; };
 		1BC3B21926A1CFA1006EDD29 /* ImagePickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC3B21826A1CFA1006EDD29 /* ImagePickerManager.swift */; };
 		1BC3B21C26A2ADA5006EDD29 /* Nonce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC3B21B26A2ADA5006EDD29 /* Nonce.swift */; };
 		1BE101E3269D575D00F7323E /* Doctor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE101E2269D575D00F7323E /* Doctor.swift */; };
@@ -146,12 +153,19 @@
 		1B5BC3BB269636D4004206AE /* DoctorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorCell.swift; sourceTree = "<group>"; };
 		1B69AD4C26A402C800910679 /* DoctorHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorHomeViewController.swift; sourceTree = "<group>"; };
 		1B69AD4F26A40D8B00910679 /* DoctorProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorProfileViewController.swift; sourceTree = "<group>"; };
+		1B69AD5226A4601400910679 /* DoctorDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorDetailViewController.swift; sourceTree = "<group>"; };
+		1B69AD5526A4791A00910679 /* ConnectyCubeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectyCubeManager.swift; sourceTree = "<group>"; };
+		1B69AD5726A47C8400910679 /* CustomerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerManager.swift; sourceTree = "<group>"; };
+		1B69AD5926A489CB00910679 /* DailogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailogCell.swift; sourceTree = "<group>"; };
 		1B7759152694775E000780BD /* MultiBannerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MultiBannerView.xib; sourceTree = "<group>"; };
 		1B7759162694775E000780BD /* MultiBannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiBannerView.swift; sourceTree = "<group>"; };
 		1B7759172694775E000780BD /* BannerViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BannerViewCell.xib; sourceTree = "<group>"; };
 		1B7759182694775E000780BD /* BannerViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerViewCell.swift; sourceTree = "<group>"; };
 		1B77591E269479FA000780BD /* UIView+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Additions.swift"; sourceTree = "<group>"; };
 		1B775921269491A4000780BD /* Promotion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Promotion.swift; sourceTree = "<group>"; };
+		1B8D860E26A49A7500A2ED57 /* SenderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SenderCell.swift; sourceTree = "<group>"; };
+		1B8D861026A49B8400A2ED57 /* ReceiverCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiverCell.swift; sourceTree = "<group>"; };
+		1B8D861326A49C0B00A2ED57 /* MessageingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageingViewController.swift; sourceTree = "<group>"; };
 		1BC3B21826A1CFA1006EDD29 /* ImagePickerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerManager.swift; sourceTree = "<group>"; };
 		1BC3B21A26A297C0006EDD29 /* BlossomApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BlossomApp.entitlements; sourceTree = "<group>"; };
 		1BC3B21B26A2ADA5006EDD29 /* Nonce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nonce.swift; sourceTree = "<group>"; };
@@ -405,6 +419,7 @@
 			children = (
 				1B53125726937AF300B88165 /* DoctorListViewController.swift */,
 				1B5BC3BB269636D4004206AE /* DoctorCell.swift */,
+				1B69AD5126A45FFD00910679 /* Doctor Detail */,
 			);
 			path = DoctorList;
 			sourceTree = "<group>";
@@ -433,6 +448,8 @@
 			isa = PBXGroup;
 			children = (
 				1B53126026937B9400B88165 /* ChatListViewController.swift */,
+				1B69AD5926A489CB00910679 /* DailogCell.swift */,
+				1B8D861226A49BE400A2ED57 /* MessageView */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -453,6 +470,7 @@
 				1B13E6E4269ADC0000131105 /* RegisterViewController.swift */,
 				1B13E6E6269ADC2100131105 /* LoginViewController.swift */,
 				1BC3B21B26A2ADA5006EDD29 /* Nonce.swift */,
+				1B69AD5526A4791A00910679 /* ConnectyCubeManager.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -482,6 +500,14 @@
 			path = "Doctor-Profile";
 			sourceTree = "<group>";
 		};
+		1B69AD5126A45FFD00910679 /* Doctor Detail */ = {
+			isa = PBXGroup;
+			children = (
+				1B69AD5226A4601400910679 /* DoctorDetailViewController.swift */,
+			);
+			path = "Doctor Detail";
+			sourceTree = "<group>";
+		};
 		1B77591D269479EB000780BD /* Helper */ = {
 			isa = PBXGroup;
 			children = (
@@ -500,8 +526,19 @@
 				1BE101E2269D575D00F7323E /* Doctor.swift */,
 				1BE101E4269DC63200F7323E /* Reviews.swift */,
 				1BE101E6269DD2DD00F7323E /* Customer.swift */,
+				1B69AD5726A47C8400910679 /* CustomerManager.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		1B8D861226A49BE400A2ED57 /* MessageView */ = {
+			isa = PBXGroup;
+			children = (
+				1B8D861326A49C0B00A2ED57 /* MessageingViewController.swift */,
+				1B8D860E26A49A7500A2ED57 /* SenderCell.swift */,
+				1B8D861026A49B8400A2ED57 /* ReceiverCell.swift */,
+			);
+			path = MessageView;
 			sourceTree = "<group>";
 		};
 		3C7D5E49269ADC67002E5AB9 /* Cart */ = {
@@ -532,6 +569,7 @@
 				1B187A52268F654300BB0122 /* Frameworks */,
 				1B187A53268F654300BB0122 /* Resources */,
 				E19A73ABACA83310888AD454 /* [CP] Embed Pods Frameworks */,
+				1B69AD5426A4769B00910679 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -665,6 +703,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1B69AD5426A4769B00910679 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n#bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/ConnectyCube.framework/strip-framework.sh\"\n";
+		};
 		2273273D0EE05DC344053D7F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -772,28 +827,34 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B69AD5326A4601400910679 /* DoctorDetailViewController.swift in Sources */,
 				1B1C2E3926993C5B00F57122 /* Product.swift in Sources */,
+				1B69AD5626A4791A00910679 /* ConnectyCubeManager.swift in Sources */,
 				1B1C2E3726993C5B00F57122 /* Paginate.swift in Sources */,
 				1B187A5D268F654300BB0122 /* ViewController.swift in Sources */,
 				1B1C2E2B2698867400F57122 /* Landing.swift in Sources */,
 				1BC3B21926A1CFA1006EDD29 /* ImagePickerManager.swift in Sources */,
 				1BC3B21C26A2ADA5006EDD29 /* Nonce.swift in Sources */,
+				1B8D860F26A49A7500A2ED57 /* SenderCell.swift in Sources */,
 				3C7D5E4E269AE48D002E5AB9 /* CartViewController.swift in Sources */,
 				1B1C2E3826993C5B00F57122 /* Product_set_items.swift in Sources */,
 				1B1C2E3C269944C200F57122 /* ProductCell.swift in Sources */,
 				1B53125826937AF300B88165 /* DoctorListViewController.swift in Sources */,
 				3C7D5E4B269ADC76002E5AB9 /* Cart.swift in Sources */,
+				1B69AD5826A47C8400910679 /* CustomerManager.swift in Sources */,
 				1B69AD5026A40D8B00910679 /* DoctorProfileViewController.swift in Sources */,
 				1B3721D82695AF46006265D3 /* ProfileHealthViewController.swift in Sources */,
 				1B1C2E3626993C5B00F57122 /* Options.swift in Sources */,
 				1B775922269491A4000780BD /* Promotion.swift in Sources */,
 				1B69AD4D26A402C800910679 /* DoctorHomeViewController.swift in Sources */,
 				1B5BC3BC269636D4004206AE /* DoctorCell.swift in Sources */,
+				1B8D861126A49B8400A2ED57 /* ReceiverCell.swift in Sources */,
 				1B13E6E5269ADC0000131105 /* RegisterViewController.swift in Sources */,
 				1B77591A2694775E000780BD /* MultiBannerView.swift in Sources */,
 				1BE101E7269DD2DD00F7323E /* Customer.swift in Sources */,
 				1B13E6E7269ADC2100131105 /* LoginViewController.swift in Sources */,
 				1B13E6EA269AE79E00131105 /* WebViewViewController.swift in Sources */,
+				1B8D861426A49C0B00A2ED57 /* MessageingViewController.swift in Sources */,
 				3C7D5E52269AE888002E5AB9 /* CartHeaderTableViewCell.swift in Sources */,
 				1B187A59268F654300BB0122 /* AppDelegate.swift in Sources */,
 				1B1C2E3E26994FF700F57122 /* ProductDetailViewController.swift in Sources */,
@@ -812,6 +873,7 @@
 				1B1C2E3426993C5B00F57122 /* Sets.swift in Sources */,
 				1B53126126937B9400B88165 /* ChatListViewController.swift in Sources */,
 				1B53125E26937B5F00B88165 /* ProductListViewController.swift in Sources */,
+				1B69AD5A26A489CB00910679 /* DailogCell.swift in Sources */,
 				1B77591F269479FA000780BD /* UIView+Additions.swift in Sources */,
 				1B1C2E2D2698A77A00F57122 /* ProductsResponse.swift in Sources */,
 				3CFE6374269B350E005235F1 /* PaymentMethodViewController.swift in Sources */,

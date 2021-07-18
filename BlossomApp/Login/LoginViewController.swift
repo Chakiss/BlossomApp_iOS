@@ -61,6 +61,7 @@ class LoginViewController: UIViewController, ASAuthorizationControllerPresentati
                        appDelegate.setCustomerUI()
                     }
                 }
+                ConnectyCubeManager().login()
             })
        
         }
@@ -97,7 +98,9 @@ class LoginViewController: UIViewController, ASAuthorizationControllerPresentati
                                appDelegate.setCustomerUI()
                             }
                         }
+                        ConnectyCubeManager().login()
                     })
+                    
                 }
             }
             
@@ -215,6 +218,8 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                            appDelegate.setCustomerUI()
                         }
                     }
+                    
+                    ConnectyCubeManager().login()
                 })
             }
       

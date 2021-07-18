@@ -20,8 +20,9 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
     @IBOutlet weak var appointmentView: UIView!
     @IBOutlet weak var doctorAppointmentView: UIView!
     
-    var user: User!
+    var user: Firebase.User!
 
+    
     var handle: AuthStateDidChangeListenerHandle?
     
     override func viewDidLoad() {
@@ -37,7 +38,7 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
         self.navigationItem.leftBarButtonItem = barButton
                 
         
-       // doctorAppointmentView.addConerRadiusAndShadow()
+       
         
         
     }
@@ -52,7 +53,9 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
         multiBannerView.reload()
         
         user = Auth.auth().currentUser
-      
+        doctorAppointmentView.addConerRadiusAndShadow()
+        
+       
     }
     // MARK: - Action on Promotion
     

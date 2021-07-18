@@ -27,6 +27,7 @@ target 'BlossomApp' do
   pod 'DLRadioButton', '~> 1.4'
   
   pod 'ConnectyCube'
+  pod 'CommonKeyboard'
 
   target 'BlossomAppTests' do
     inherit! :search_paths

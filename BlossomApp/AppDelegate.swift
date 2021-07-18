@@ -9,6 +9,7 @@ import UIKit
 import Firebase
 import ConnectyCube
 import FBSDKCoreKit
+import CommonKeyboard
 
 enum Deeplinking {
     case orderList
@@ -30,9 +31,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Settings.authKey = "88p8mWQ9NMcx4SL"
         Settings.authSecret = "XPnwQ5uR5FFJAXj"
         Settings.accountKey = "sdfhdfy2329763buiyi"
+        Settings.autoReconnectEnabled = true
         
         configUI()
-        
+        CommonKeyboard.shared.enabled = true
        
         return true
         
@@ -110,5 +112,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 
+    func applicationWillTerminate(_ application: UIApplication) {
+        Chat.instance.disconnect { (error) in
+        }
+    }
+
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        Chat.instance.disconnect { (error) in
+        }
+    }
+
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        Chat.instance.connect(withUserID: 2746, password: "password") { (error) in
+        }
+    }
 }
 
