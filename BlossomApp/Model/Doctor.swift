@@ -8,7 +8,7 @@
 import Foundation
 
 
-struct Doctor: Codable {
+class Doctor: Codable {
     var id: String?
     var displayName: String?
     var email: String?
@@ -20,9 +20,10 @@ struct Doctor: Codable {
     var createdAt: String?
     var updatedAt: String?
     var displayPhoto: String?
+    var currentScore: String?
     
     
-    init(id: String, displayName: String, email: String, firstName: String, lastName: String, phonenumber: String, connectyCubeID: String, story: String, createdAt: String, updatedAt: String, displayPhoto: String) {
+    init(id: String, displayName: String, email: String, firstName: String, lastName: String, phonenumber: String, connectyCubeID: String, story: String, createdAt: String, updatedAt: String, displayPhoto: String, currentScore: String) {
         self.id = id
         self.displayName = displayName
         self.email = email
@@ -34,8 +35,10 @@ struct Doctor: Codable {
         self.createdAt = createdAt
         self.updatedAt = updatedAt
         self.displayPhoto = displayPhoto
+        self.currentScore = currentScore
     }
-    init(from decoder: Decoder) throws {
+    
+    required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         id = try values.decodeIfPresent(String.self, forKey: .id)
         displayName = try values.decodeIfPresent(String.self, forKey: .displayName)
@@ -48,6 +51,8 @@ struct Doctor: Codable {
         createdAt = try values.decodeIfPresent(String.self, forKey: .createdAt)
         updatedAt = try values.decodeIfPresent(String.self, forKey: .updatedAt)
         displayPhoto = try values.decodeIfPresent(String.self, forKey: .displayPhoto)
+        currentScore = try values.decodeIfPresent(String.self, forKey: .currentScore)
     }
+    
     
 }

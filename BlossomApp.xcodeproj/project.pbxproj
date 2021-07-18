@@ -50,6 +50,8 @@
 		1B5312642693E66400B88165 /* PromotionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5312632693E66400B88165 /* PromotionViewController.swift */; };
 		1B5BC3BA2696086A004206AE /* LandingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5BC3B92696086A004206AE /* LandingViewController.swift */; };
 		1B5BC3BC269636D4004206AE /* DoctorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5BC3BB269636D4004206AE /* DoctorCell.swift */; };
+		1B69AD4D26A402C800910679 /* DoctorHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B69AD4C26A402C800910679 /* DoctorHomeViewController.swift */; };
+		1B69AD5026A40D8B00910679 /* DoctorProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B69AD4F26A40D8B00910679 /* DoctorProfileViewController.swift */; };
 		1B7759192694775E000780BD /* MultiBannerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B7759152694775E000780BD /* MultiBannerView.xib */; };
 		1B77591A2694775E000780BD /* MultiBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7759162694775E000780BD /* MultiBannerView.swift */; };
 		1B77591B2694775E000780BD /* BannerViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B7759172694775E000780BD /* BannerViewCell.xib */; };
@@ -142,6 +144,8 @@
 		1B5312632693E66400B88165 /* PromotionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionViewController.swift; sourceTree = "<group>"; };
 		1B5BC3B92696086A004206AE /* LandingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingViewController.swift; sourceTree = "<group>"; };
 		1B5BC3BB269636D4004206AE /* DoctorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorCell.swift; sourceTree = "<group>"; };
+		1B69AD4C26A402C800910679 /* DoctorHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorHomeViewController.swift; sourceTree = "<group>"; };
+		1B69AD4F26A40D8B00910679 /* DoctorProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorProfileViewController.swift; sourceTree = "<group>"; };
 		1B7759152694775E000780BD /* MultiBannerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MultiBannerView.xib; sourceTree = "<group>"; };
 		1B7759162694775E000780BD /* MultiBannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiBannerView.swift; sourceTree = "<group>"; };
 		1B7759172694775E000780BD /* BannerViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BannerViewCell.xib; sourceTree = "<group>"; };
@@ -270,6 +274,7 @@
 				1B77592026949185000780BD /* Model */,
 				1B5BC3B82696084E004206AE /* Login */,
 				1B53124F2693777400B88165 /* User */,
+				1B69AD4A26A4029300910679 /* Doctor */,
 				1B187A61268F654500BB0122 /* Assets.xcassets */,
 				1B187A63268F654500BB0122 /* LaunchScreen.storyboard */,
 				1B187A66268F654500BB0122 /* Info.plist */,
@@ -450,6 +455,31 @@
 				1BC3B21B26A2ADA5006EDD29 /* Nonce.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		1B69AD4A26A4029300910679 /* Doctor */ = {
+			isa = PBXGroup;
+			children = (
+				1B69AD4B26A402B200910679 /* Doctor-Home */,
+			);
+			path = Doctor;
+			sourceTree = "<group>";
+		};
+		1B69AD4B26A402B200910679 /* Doctor-Home */ = {
+			isa = PBXGroup;
+			children = (
+				1B69AD4C26A402C800910679 /* DoctorHomeViewController.swift */,
+				1B69AD4E26A40D7600910679 /* Doctor-Profile */,
+			);
+			path = "Doctor-Home";
+			sourceTree = "<group>";
+		};
+		1B69AD4E26A40D7600910679 /* Doctor-Profile */ = {
+			isa = PBXGroup;
+			children = (
+				1B69AD4F26A40D8B00910679 /* DoctorProfileViewController.swift */,
+			);
+			path = "Doctor-Profile";
 			sourceTree = "<group>";
 		};
 		1B77591D269479EB000780BD /* Helper */ = {
@@ -753,9 +783,11 @@
 				1B1C2E3C269944C200F57122 /* ProductCell.swift in Sources */,
 				1B53125826937AF300B88165 /* DoctorListViewController.swift in Sources */,
 				3C7D5E4B269ADC76002E5AB9 /* Cart.swift in Sources */,
+				1B69AD5026A40D8B00910679 /* DoctorProfileViewController.swift in Sources */,
 				1B3721D82695AF46006265D3 /* ProfileHealthViewController.swift in Sources */,
 				1B1C2E3626993C5B00F57122 /* Options.swift in Sources */,
 				1B775922269491A4000780BD /* Promotion.swift in Sources */,
+				1B69AD4D26A402C800910679 /* DoctorHomeViewController.swift in Sources */,
 				1B5BC3BC269636D4004206AE /* DoctorCell.swift in Sources */,
 				1B13E6E5269ADC0000131105 /* RegisterViewController.swift in Sources */,
 				1B77591A2694775E000780BD /* MultiBannerView.swift in Sources */,
@@ -974,6 +1006,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blossomclinic.blossomapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -998,6 +1031,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blossomclinic.blossomapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";

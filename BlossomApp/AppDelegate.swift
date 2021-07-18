@@ -33,6 +33,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         configUI()
         
+        let user = Auth.auth().currentUser
+        user?.getIDTokenResult(completion: { (result, error) in
+    
+            guard let role = result?.claims["role"] as? String else {
+                return
+            }
+            if role == "doctor" {
+                if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
+                   appDelegate.setDoctorUI()
+                }
+            } else {
+                if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
+                   appDelegate.setCustomerUI()
+                }
+            }
+        })
+        
         return true
         
     }
@@ -74,7 +91,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().barTintColor = UIColor.blossomPrimary3
 
         
-        
+       
         
     }
     

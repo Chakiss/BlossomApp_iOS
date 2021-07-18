@@ -52,7 +52,8 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
                 let createdAt = data["createdAt"] as? String ?? ""
                 let updatedAt = data["updatedAt"] as? String ?? ""
                 let displayPhoto = data["displayPhoto"] as? String ?? ""
-                return Doctor(id: id, displayName: displayName, email: email, firstName: firstName, lastName: lastName, phonenumber: phoneNumber, connectyCubeID: referenceConnectyCubeID, story: story, createdAt: createdAt, updatedAt: updatedAt, displayPhoto: displayPhoto)
+                let currentScore = data["currentScore"] as? String ?? ""
+                return Doctor(id: id, displayName: displayName, email: email, firstName: firstName, lastName: lastName, phonenumber: phoneNumber, connectyCubeID: referenceConnectyCubeID, story: story, createdAt: createdAt, updatedAt: updatedAt, displayPhoto: displayPhoto, currentScore: currentScore)
                 
             }
             self.tableView.reloadData()

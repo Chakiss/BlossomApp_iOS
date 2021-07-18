@@ -8,6 +8,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="SukhumvitSet-Bold.ttf">
+            <string>SukhumvitSet-Bold</string>
+        </array>
         <array key="SukhumvitSet-Medium.ttf">
             <string>SukhumvitSet-Medium</string>
         </array>
@@ -150,10 +153,10 @@
             </objects>
             <point key="canvasLocation" x="713.04347826086962" y="302.00892857142856"/>
         </scene>
-        <!--Home View Controller-->
+        <!--Doctor Home View Controller-->
         <scene sceneID="513-XI-llY">
             <objects>
-                <viewController storyboardIdentifier="HomeViewController" id="EM1-Lf-IC8" customClass="HomeViewController" customModule="BlossomApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DoctorHomeViewController" id="EM1-Lf-IC8" customClass="DoctorHomeViewController" customModule="BlossomApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6qG-47-frd">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -171,15 +174,18 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="735"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="LyP-a1-JpP">
-                                                                <rect key="frame" x="0.0" y="0.0" width="414" height="735"/>
+                                                                <rect key="frame" x="107" y="40" width="200" height="200"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="200" id="DKJ-to-WeF"/>
+                                                                    <constraint firstAttribute="width" constant="200" id="wy3-Dh-yTr"/>
+                                                                </constraints>
                                                             </imageView>
                                                         </subviews>
                                                         <color key="backgroundColor" red="0.98823529409999999" green="0.97647058819999999" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="bottom" secondItem="LyP-a1-JpP" secondAttribute="bottom" id="5by-mt-AHd"/>
-                                                            <constraint firstItem="LyP-a1-JpP" firstAttribute="top" secondItem="Qhz-iZ-eVM" secondAttribute="top" id="drd-6T-Iyj"/>
-                                                            <constraint firstItem="LyP-a1-JpP" firstAttribute="leading" secondItem="Qhz-iZ-eVM" secondAttribute="leading" id="e4c-RM-SMC"/>
-                                                            <constraint firstAttribute="trailing" secondItem="LyP-a1-JpP" secondAttribute="trailing" id="seo-Bm-RS5"/>
+                                                            <constraint firstAttribute="bottom" secondItem="LyP-a1-JpP" secondAttribute="bottom" constant="495" id="8JM-dB-Yny"/>
+                                                            <constraint firstItem="LyP-a1-JpP" firstAttribute="centerX" secondItem="Qhz-iZ-eVM" secondAttribute="centerX" id="ZT2-vI-77A"/>
+                                                            <constraint firstItem="LyP-a1-JpP" firstAttribute="top" secondItem="Qhz-iZ-eVM" secondAttribute="top" constant="40" id="q3T-Yb-lw7"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
@@ -216,6 +222,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="nIj-ZS-0R9"/>
+                    <connections>
+                        <outlet property="doctorImageView" destination="LyP-a1-JpP" id="iTR-pU-K0H"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yXa-5J-xx3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -315,12 +324,1246 @@
             </objects>
             <point key="canvasLocation" x="713" y="1051"/>
         </scene>
+        <!--Profile View Controller-->
+        <scene sceneID="KJg-rv-mYB">
+            <objects>
+                <viewController storyboardIdentifier="ProfileViewController" id="tsc-Jc-lDi" customClass="ProfileViewController" customModule="BlossomApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wAg-4C-i2F">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rQp-ub-xGK">
+                                <rect key="frame" x="0.0" y="88" width="414" height="190"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="MgI-02-uEi">
+                                        <rect key="frame" x="169.5" y="20" width="75" height="75"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="75" id="nUa-Fl-hQC"/>
+                                            <constraint firstAttribute="height" constant="75" id="xgy-XB-A9b"/>
+                                        </constraints>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eUp-TX-w3N">
+                                        <rect key="frame" x="233" y="78" width="20" height="17"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="17" id="VvQ-qo-sM4"/>
+                                            <constraint firstAttribute="width" constant="20" id="wnr-S4-dKG"/>
+                                        </constraints>
+                                        <state key="normal" image="camera"/>
+                                        <connections>
+                                            <action selector="selectImagePicker" destination="tsc-Jc-lDi" eventType="touchUpInside" id="Sp8-zg-2lt"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ชื่อจริง  นามสกุล" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xO1-2Y-DN1">
+                                        <rect key="frame" x="152.5" y="108" width="109" height="25.5"/>
+                                        <fontDescription key="fontDescription" name="SukhumvitSet-Bold" family="Sukhumvit Set" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="qBg-a4-Xld">
+                                        <rect key="frame" x="20" y="139" width="374" height="32"/>
+                                        <segments>
+                                            <segment title="ข้อมูลส่วนตัว"/>
+                                            <segment title="ข้อมูลสุขภาพ"/>
+                                        </segments>
+                                    </segmentedControl>
+                                </subviews>
+                                <color key="backgroundColor" red="0.98823529409999999" green="0.90588235289999997" blue="0.89411764709999997" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="xO1-2Y-DN1" firstAttribute="top" secondItem="MgI-02-uEi" secondAttribute="bottom" constant="13" id="CeH-mT-HCr"/>
+                                    <constraint firstItem="eUp-TX-w3N" firstAttribute="top" secondItem="MgI-02-uEi" secondAttribute="bottom" constant="-17" id="Cf3-oB-QpN"/>
+                                    <constraint firstAttribute="trailing" secondItem="qBg-a4-Xld" secondAttribute="trailing" constant="20" id="DlU-Ks-GI5"/>
+                                    <constraint firstAttribute="height" constant="190" id="FWf-ZJ-9Cb"/>
+                                    <constraint firstItem="xO1-2Y-DN1" firstAttribute="centerX" secondItem="rQp-ub-xGK" secondAttribute="centerX" id="KT6-HL-hTD"/>
+                                    <constraint firstItem="qBg-a4-Xld" firstAttribute="leading" secondItem="rQp-ub-xGK" secondAttribute="leading" constant="20" id="gIF-in-WDT"/>
+                                    <constraint firstItem="eUp-TX-w3N" firstAttribute="leading" secondItem="MgI-02-uEi" secondAttribute="trailing" constant="-11.5" id="geC-Pp-NVC"/>
+                                    <constraint firstAttribute="bottom" secondItem="qBg-a4-Xld" secondAttribute="bottom" constant="20" id="jG9-Ot-b9S"/>
+                                    <constraint firstItem="MgI-02-uEi" firstAttribute="top" secondItem="rQp-ub-xGK" secondAttribute="top" constant="20" id="noy-g1-k41"/>
+                                    <constraint firstItem="MgI-02-uEi" firstAttribute="centerX" secondItem="rQp-ub-xGK" secondAttribute="centerX" id="wfT-WD-Nn2"/>
+                                </constraints>
+                            </view>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7r6-Nd-D3O">
+                                <rect key="frame" x="0.0" y="278" width="414" height="618"/>
+                            </containerView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="j3D-it-HnO"/>
+                        <color key="backgroundColor" red="0.98823529409999999" green="0.97647058819999999" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="rQp-ub-xGK" firstAttribute="trailing" secondItem="j3D-it-HnO" secondAttribute="trailing" id="5Mh-Rl-Nl0"/>
+                            <constraint firstItem="rQp-ub-xGK" firstAttribute="top" secondItem="j3D-it-HnO" secondAttribute="top" id="8hA-Q8-ji5"/>
+                            <constraint firstItem="7r6-Nd-D3O" firstAttribute="top" secondItem="rQp-ub-xGK" secondAttribute="bottom" id="E84-hX-XJ8"/>
+                            <constraint firstAttribute="bottom" secondItem="7r6-Nd-D3O" secondAttribute="bottom" id="bHc-6L-9dG"/>
+                            <constraint firstItem="7r6-Nd-D3O" firstAttribute="leading" secondItem="j3D-it-HnO" secondAttribute="leading" id="j8M-0V-jMK"/>
+                            <constraint firstItem="rQp-ub-xGK" firstAttribute="leading" secondItem="j3D-it-HnO" secondAttribute="leading" id="ms3-wM-6WC"/>
+                            <constraint firstItem="7r6-Nd-D3O" firstAttribute="trailing" secondItem="j3D-it-HnO" secondAttribute="trailing" id="yCM-3s-RcM"/>
+                        </constraints>
+                    </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="containerView" destination="7r6-Nd-D3O" id="KRy-Fp-8LY"/>
+                        <outlet property="nameLabel" destination="xO1-2Y-DN1" id="sd9-jO-Utb"/>
+                        <outlet property="profileImageView" destination="MgI-02-uEi" id="MoQ-lX-PKQ"/>
+                        <outlet property="segmentedControl" destination="qBg-a4-Xld" id="dSe-ok-7g7"/>
+                        <outlet property="selectImageButton" destination="eUp-TX-w3N" id="kTP-6Q-UgC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aT2-ZF-DXO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1886" y="-909"/>
+        </scene>
+        <!--Profile Information View Controller-->
+        <scene sceneID="Iud-oE-gg9">
+            <objects>
+                <viewController storyboardIdentifier="ProfileInformationViewController" id="zOj-oj-9c4" customClass="ProfileInformationViewController" customModule="BlossomApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4qb-rm-uIe">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="1200"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="luT-s9-QvA">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="1166"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wEo-H5-dBK" userLabel="Content View">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="970"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Qhr-bv-9rY">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="970"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bjj-zH-yQ6">
+                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="970"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TbF-Sy-ukT">
+                                                                <rect key="frame" x="20" y="20" width="374" height="930"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ชื่อ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="upC-1Y-iWx">
+                                                                        <rect key="frame" x="20" y="20" width="16.5" height="22.5"/>
+                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Bold" family="Sukhumvit Set" pointSize="14"/>
+                                                                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <textField opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="ชื่อ" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Iaz-Ik-kP7">
+                                                                        <rect key="frame" x="20" y="52.5" width="334" height="22"/>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <color key="tintColor" red="0.97647058819999999" green="0.69411764710000001" blue="0.65098039220000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="22" id="lZ6-qP-tXS"/>
+                                                                        </constraints>
+                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="14"/>
+                                                                        <textInputTraits key="textInputTraits"/>
+                                                                        <connections>
+                                                                            <outlet property="delegate" destination="zOj-oj-9c4" id="UKu-EU-3MT"/>
+                                                                        </connections>
+                                                                    </textField>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="นามสกุล" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mRo-55-ifL">
+                                                                        <rect key="frame" x="20" y="104.5" width="50" height="22.5"/>
+                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Bold" family="Sukhumvit Set" pointSize="14"/>
+                                                                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="นามสกุล" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="010-dd-BsK">
+                                                                        <rect key="frame" x="20" y="147" width="334" height="22"/>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <color key="tintColor" red="0.97647058819999999" green="0.69411764710000001" blue="0.65098039220000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="22" id="QJA-2y-wZF"/>
+                                                                        </constraints>
+                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="14"/>
+                                                                        <textInputTraits key="textInputTraits"/>
+                                                                        <connections>
+                                                                            <outlet property="delegate" destination="zOj-oj-9c4" id="NzF-sI-Yxp"/>
+                                                                        </connections>
+                                                                    </textField>
+                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="วันเดือนปีเกิด" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LdW-J1-zLC">
+                                                                        <rect key="frame" x="20" y="397.5" width="334" height="35"/>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <color key="tintColor" red="0.97647058819999999" green="0.69411764710000001" blue="0.65098039220000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="14"/>
+                                                                        <textInputTraits key="textInputTraits"/>
+                                                                        <connections>
+                                                                            <outlet property="delegate" destination="zOj-oj-9c4" id="19F-5z-O1L"/>
+                                                                        </connections>
+                                                                    </textField>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="เพศ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xey-3t-ScK">
+                                                                        <rect key="frame" x="20" y="452.5" width="23.5" height="22.5"/>
+                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Bold" family="Sukhumvit Set" pointSize="14"/>
+                                                                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ที่อยู่" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Rm-kH-htX">
+                                                                        <rect key="frame" x="20" y="545.5" width="26" height="22.5"/>
+                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Bold" family="Sukhumvit Set" pointSize="14"/>
+                                                                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L6f-OV-fBQ">
+                                                                        <rect key="frame" x="20" y="495" width="334" height="35"/>
+                                                                        <subviews>
+                                                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4aR-tk-ldJ" customClass="DLRadioButton">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="70" height="35"/>
+                                                                                <constraints>
+                                                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="DKH-Nd-1u6"/>
+                                                                                </constraints>
+                                                                                <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="14"/>
+                                                                                <state key="normal" title="ชาย">
+                                                                                    <color key="titleColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.54901960780000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                </state>
+                                                                                <userDefinedRuntimeAttributes>
+                                                                                    <userDefinedRuntimeAttribute type="number" keyPath="iconSize">
+                                                                                        <real key="value" value="16"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                    <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                                                                        <color key="value" red="0.96470588239999999" green="0.59215686270000001" blue="0.56078431370000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                    <userDefinedRuntimeAttribute type="number" keyPath="iconStrokeWidth">
+                                                                                        <real key="value" value="2"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                    <userDefinedRuntimeAttribute type="number" keyPath="indicatorSize">
+                                                                                        <real key="value" value="8"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                    <userDefinedRuntimeAttribute type="color" keyPath="indicatorColor">
+                                                                                        <color key="value" red="0.96470588239999999" green="0.59215686270000001" blue="0.56078431370000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                    <userDefinedRuntimeAttribute type="number" keyPath="marginWidth">
+                                                                                        <real key="value" value="8"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                </userDefinedRuntimeAttributes>
+                                                                                <connections>
+                                                                                    <action selector="logSelectedButtonWithRadioButton:" destination="zOj-oj-9c4" eventType="touchUpInside" id="TIp-eO-CcH"/>
+                                                                                    <outletCollection property="otherButtons" destination="tYf-mv-oXb" id="Wse-2d-dPg"/>
+                                                                                    <outletCollection property="otherButtons" destination="1hf-dw-0md" id="NBc-tm-hfm"/>
+                                                                                </connections>
+                                                                            </button>
+                                                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tYf-mv-oXb" customClass="DLRadioButton">
+                                                                                <rect key="frame" x="90" y="0.0" width="70" height="35"/>
+                                                                                <constraints>
+                                                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="1kG-kw-KBc"/>
+                                                                                </constraints>
+                                                                                <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="14"/>
+                                                                                <state key="normal" title="หญิง">
+                                                                                    <color key="titleColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.54901960780000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                </state>
+                                                                                <userDefinedRuntimeAttributes>
+                                                                                    <userDefinedRuntimeAttribute type="number" keyPath="iconSize">
+                                                                                        <real key="value" value="16"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                    <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                                                                        <color key="value" red="0.96470588239999999" green="0.59215686270000001" blue="0.56078431370000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                    <userDefinedRuntimeAttribute type="number" keyPath="iconStrokeWidth">
+                                                                                        <real key="value" value="2"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                    <userDefinedRuntimeAttribute type="number" keyPath="indicatorSize">
+                                                                                        <real key="value" value="8"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                    <userDefinedRuntimeAttribute type="color" keyPath="indicatorColor">
+                                                                                        <color key="value" red="0.96470588239999999" green="0.59215686270000001" blue="0.56078431370000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                    <userDefinedRuntimeAttribute type="number" keyPath="marginWidth">
+                                                                                        <real key="value" value="8"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                </userDefinedRuntimeAttributes>
+                                                                                <connections>
+                                                                                    <action selector="logSelectedButtonWithRadioButton:" destination="zOj-oj-9c4" eventType="touchUpInside" id="Yq4-Ad-uuG"/>
+                                                                                </connections>
+                                                                            </button>
+                                                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1hf-dw-0md" customClass="DLRadioButton">
+                                                                                <rect key="frame" x="180" y="0.0" width="70" height="35"/>
+                                                                                <constraints>
+                                                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="D7U-AL-jRm"/>
+                                                                                </constraints>
+                                                                                <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="14"/>
+                                                                                <state key="normal" title="ไม่ระบุ">
+                                                                                    <color key="titleColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.54901960780000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                </state>
+                                                                                <userDefinedRuntimeAttributes>
+                                                                                    <userDefinedRuntimeAttribute type="number" keyPath="iconSize">
+                                                                                        <real key="value" value="16"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                    <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                                                                        <color key="value" red="0.96470588239999999" green="0.59215686270000001" blue="0.56078431370000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                    <userDefinedRuntimeAttribute type="number" keyPath="iconStrokeWidth">
+                                                                                        <real key="value" value="2"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                    <userDefinedRuntimeAttribute type="number" keyPath="indicatorSize">
+                                                                                        <real key="value" value="8"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                    <userDefinedRuntimeAttribute type="color" keyPath="indicatorColor">
+                                                                                        <color key="value" red="0.96470588239999999" green="0.59215686270000001" blue="0.56078431370000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                    <userDefinedRuntimeAttribute type="number" keyPath="marginWidth">
+                                                                                        <real key="value" value="8"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                </userDefinedRuntimeAttributes>
+                                                                                <connections>
+                                                                                    <action selector="logSelectedButtonWithRadioButton:" destination="zOj-oj-9c4" eventType="touchUpInside" id="7yS-x0-JlE"/>
+                                                                                </connections>
+                                                                            </button>
+                                                                        </subviews>
+                                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                        <constraints>
+                                                                            <constraint firstItem="4aR-tk-ldJ" firstAttribute="top" secondItem="L6f-OV-fBQ" secondAttribute="top" id="OqL-CU-Wz3"/>
+                                                                            <constraint firstItem="4aR-tk-ldJ" firstAttribute="leading" secondItem="L6f-OV-fBQ" secondAttribute="leading" id="VMh-Wn-2FZ"/>
+                                                                            <constraint firstAttribute="height" constant="35" id="cna-sp-eoE"/>
+                                                                            <constraint firstItem="tYf-mv-oXb" firstAttribute="top" secondItem="L6f-OV-fBQ" secondAttribute="top" id="dnL-Jp-5bc"/>
+                                                                            <constraint firstItem="1hf-dw-0md" firstAttribute="top" secondItem="L6f-OV-fBQ" secondAttribute="top" id="eMd-39-oux"/>
+                                                                            <constraint firstItem="1hf-dw-0md" firstAttribute="leading" secondItem="tYf-mv-oXb" secondAttribute="trailing" constant="20" id="f8V-Ze-n9s"/>
+                                                                            <constraint firstItem="tYf-mv-oXb" firstAttribute="leading" secondItem="4aR-tk-ldJ" secondAttribute="trailing" constant="20" id="j36-bN-g6d"/>
+                                                                            <constraint firstAttribute="bottom" secondItem="tYf-mv-oXb" secondAttribute="bottom" id="mP1-vT-dox"/>
+                                                                            <constraint firstAttribute="bottom" secondItem="4aR-tk-ldJ" secondAttribute="bottom" id="r8f-gb-teu"/>
+                                                                            <constraint firstAttribute="bottom" secondItem="1hf-dw-0md" secondAttribute="bottom" id="rA0-gs-8WK"/>
+                                                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1hf-dw-0md" secondAttribute="trailing" constant="20" symbolic="YES" id="ye6-jZ-Anz"/>
+                                                                        </constraints>
+                                                                    </view>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="เบอร์ติดต่อ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nVQ-2e-vMi">
+                                                                        <rect key="frame" x="20" y="189" width="64" height="22.5"/>
+                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Bold" family="Sukhumvit Set" pointSize="14"/>
+                                                                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="เบอร์ติดต่อ" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iLl-fX-DyO">
+                                                                        <rect key="frame" x="20" y="231.5" width="231" height="18"/>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <color key="tintColor" red="0.97647058819999999" green="0.69411764710000001" blue="0.65098039220000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="14"/>
+                                                                        <textInputTraits key="textInputTraits"/>
+                                                                        <connections>
+                                                                            <outlet property="delegate" destination="zOj-oj-9c4" id="5le-r1-sNu"/>
+                                                                        </connections>
+                                                                    </textField>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qxn-hr-ftE">
+                                                                        <rect key="frame" x="271" y="225.5" width="83" height="30"/>
+                                                                        <color key="backgroundColor" red="0.95686274510000002" green="0.50196078430000002" blue="0.45098039220000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="30" id="HfR-Q2-ac3"/>
+                                                                        </constraints>
+                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="12"/>
+                                                                        <inset key="contentEdgeInsets" minX="10" minY="2" maxX="10" maxY="2"/>
+                                                                        <state key="normal" title="ยังไม่ได้ยืนยัน">
+                                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        </state>
+                                                                    </button>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="อีเมลล์" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VZ4-8p-Ass">
+                                                                        <rect key="frame" x="20" y="269.5" width="38" height="22.5"/>
+                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Bold" family="Sukhumvit Set" pointSize="14"/>
+                                                                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="อีเมลล์" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gIs-36-dJU">
+                                                                        <rect key="frame" x="20" y="288" width="218" height="18"/>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <color key="tintColor" red="0.97647058819999999" green="0.69411764710000001" blue="0.65098039220000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="14"/>
+                                                                        <textInputTraits key="textInputTraits"/>
+                                                                        <connections>
+                                                                            <outlet property="delegate" destination="zOj-oj-9c4" id="lLY-Ve-ywL"/>
+                                                                        </connections>
+                                                                    </textField>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0YB-3Q-q5P">
+                                                                        <rect key="frame" x="271" y="308.5" width="83" height="30"/>
+                                                                        <color key="backgroundColor" red="0.95686274510000002" green="0.50196078430000002" blue="0.45098039220000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="30" id="Nec-p9-bY3"/>
+                                                                        </constraints>
+                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="12"/>
+                                                                        <inset key="contentEdgeInsets" minX="10" minY="2" maxX="10" maxY="2"/>
+                                                                        <state key="normal" title="ยังไม่ได้ยืนยัน">
+                                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        </state>
+                                                                    </button>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="บัญชี" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZsP-84-P41">
+                                                                        <rect key="frame" x="20" y="692" width="30" height="22.5"/>
+                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Bold" family="Sukhumvit Set" pointSize="14"/>
+                                                                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="วันเดือนปีเกิด" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bWd-Ss-a89">
+                                                                        <rect key="frame" x="20" y="355" width="76.5" height="22.5"/>
+                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Bold" family="Sukhumvit Set" pointSize="14"/>
+                                                                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="facebook_circle" translatesAutoresizingMaskIntoConstraints="NO" id="5bQ-96-XQq">
+                                                                        <rect key="frame" x="20" y="730" width="35" height="35"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="35" id="4aP-MJ-LOc"/>
+                                                                            <constraint firstAttribute="width" constant="35" id="Eg3-63-bSb"/>
+                                                                        </constraints>
+                                                                    </imageView>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zm4-hL-gLt">
+                                                                        <rect key="frame" x="295" y="732.5" width="59" height="30"/>
+                                                                        <color key="backgroundColor" red="0.95686274510000002" green="0.50196078430000002" blue="0.45098039220000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="30" id="M5S-4W-MYW"/>
+                                                                        </constraints>
+                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="12"/>
+                                                                        <inset key="contentEdgeInsets" minX="10" minY="2" maxX="10" maxY="2"/>
+                                                                        <state key="normal" title="เชื่อมต่อ"/>
+                                                                    </button>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WVm-C2-vc8">
+                                                                        <rect key="frame" x="295" y="787.5" width="59" height="30"/>
+                                                                        <color key="backgroundColor" red="0.95686274510000002" green="0.50196078430000002" blue="0.45098039220000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="30" id="TMu-pK-hc3"/>
+                                                                        </constraints>
+                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="12"/>
+                                                                        <inset key="contentEdgeInsets" minX="10" minY="2" maxX="10" maxY="2"/>
+                                                                        <state key="normal" title="เชื่อมต่อ"/>
+                                                                    </button>
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="apple_circle" translatesAutoresizingMaskIntoConstraints="NO" id="CYp-ZU-zAZ">
+                                                                        <rect key="frame" x="20" y="785" width="35" height="35"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" constant="35" id="C6N-VY-zug"/>
+                                                                            <constraint firstAttribute="height" constant="35" id="gB3-ZD-CdD"/>
+                                                                        </constraints>
+                                                                    </imageView>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gDt-8t-x8h">
+                                                                        <rect key="frame" x="20" y="866" width="334" height="44"/>
+                                                                        <color key="backgroundColor" red="0.95686274510000002" green="0.50196078430000002" blue="0.45098039220000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="44" id="aPf-me-P0g"/>
+                                                                        </constraints>
+                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Bold" family="Sukhumvit Set" pointSize="16"/>
+                                                                        <state key="normal" title="ออกจากระบบ"/>
+                                                                        <connections>
+                                                                            <action selector="logoutButtonTapped" destination="zOj-oj-9c4" eventType="touchUpInside" id="XYe-4b-zdc"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wiC-86-xLT">
+                                                                        <rect key="frame" x="20" y="248.5" width="231" height="1"/>
+                                                                        <color key="backgroundColor" red="0.90980392160000001" green="0.90980392160000001" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="1" id="rG6-bi-3Q0"/>
+                                                                        </constraints>
+                                                                    </view>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iBK-Lq-4Nf">
+                                                                        <rect key="frame" x="20" y="334" width="231" height="1"/>
+                                                                        <color key="backgroundColor" red="0.90980392160000001" green="0.90980392160000001" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="1" id="KUo-1z-pgh"/>
+                                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="RQj-cc-WzK"/>
+                                                                        </constraints>
+                                                                    </view>
+                                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P4P-qc-209">
+                                                                        <rect key="frame" x="20" y="588" width="334" height="84"/>
+                                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                        <color key="tintColor" red="0.95686274510000002" green="0.50196078430000002" blue="0.45098039220000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="84" id="HrG-JG-e6Z"/>
+                                                                        </constraints>
+                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="14"/>
+                                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                                        <connections>
+                                                                            <outlet property="delegate" destination="zOj-oj-9c4" id="hdV-CW-jtH"/>
+                                                                        </connections>
+                                                                    </textView>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ชื่อ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lcy-ic-VhO">
+                                                                        <rect key="frame" x="70" y="736.5" width="16.5" height="22.5"/>
+                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Bold" family="Sukhumvit Set" pointSize="14"/>
+                                                                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ชื่อ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Jr-dX-cJ6">
+                                                                        <rect key="frame" x="70" y="791.5" width="16.5" height="22.5"/>
+                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Bold" family="Sukhumvit Set" pointSize="14"/>
+                                                                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                <constraints>
+                                                                    <constraint firstItem="iLl-fX-DyO" firstAttribute="leading" secondItem="010-dd-BsK" secondAttribute="leading" id="1AM-n3-Rw7"/>
+                                                                    <constraint firstItem="Xey-3t-ScK" firstAttribute="leading" secondItem="upC-1Y-iWx" secondAttribute="leading" id="1FS-oB-c9z"/>
+                                                                    <constraint firstItem="gDt-8t-x8h" firstAttribute="top" secondItem="CYp-ZU-zAZ" secondAttribute="bottom" constant="46" id="1kk-Sx-gxZ"/>
+                                                                    <constraint firstItem="P4P-qc-209" firstAttribute="top" secondItem="5Rm-kH-htX" secondAttribute="bottom" constant="20" id="4ab-sY-aVw"/>
+                                                                    <constraint firstItem="gDt-8t-x8h" firstAttribute="leading" secondItem="TbF-Sy-ukT" secondAttribute="leading" constant="20" symbolic="YES" id="61S-jA-wHh"/>
+                                                                    <constraint firstItem="wiC-86-xLT" firstAttribute="leading" secondItem="iLl-fX-DyO" secondAttribute="leading" id="6US-LO-Yrv"/>
+                                                                    <constraint firstItem="CYp-ZU-zAZ" firstAttribute="top" secondItem="5bQ-96-XQq" secondAttribute="bottom" constant="20" id="8m5-HE-Loh"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="L6f-OV-fBQ" secondAttribute="trailing" constant="20" symbolic="YES" id="8zZ-bc-MzH"/>
+                                                                    <constraint firstItem="Xey-3t-ScK" firstAttribute="top" secondItem="LdW-J1-zLC" secondAttribute="bottom" constant="20" id="9TX-Qf-8k7"/>
+                                                                    <constraint firstItem="wiC-86-xLT" firstAttribute="trailing" secondItem="iBK-Lq-4Nf" secondAttribute="trailing" id="Az0-qF-uyr"/>
+                                                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="bWd-Ss-a89" secondAttribute="trailing" constant="20" symbolic="YES" id="E1V-Ja-xI6"/>
+                                                                    <constraint firstItem="lcy-ic-VhO" firstAttribute="leading" secondItem="5bQ-96-XQq" secondAttribute="trailing" constant="15" id="Eab-zI-aQa"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="qxn-hr-ftE" secondAttribute="trailing" constant="20" id="FWL-qu-LBv"/>
+                                                                    <constraint firstItem="5bQ-96-XQq" firstAttribute="top" secondItem="ZsP-84-P41" secondAttribute="bottom" constant="15.5" id="FdT-H4-Eos"/>
+                                                                    <constraint firstItem="P4P-qc-209" firstAttribute="leading" secondItem="TbF-Sy-ukT" secondAttribute="leading" constant="20" id="Glo-sx-t7L"/>
+                                                                    <constraint firstItem="Xey-3t-ScK" firstAttribute="leading" secondItem="010-dd-BsK" secondAttribute="leading" id="Hko-1z-vI7"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="Iaz-Ik-kP7" secondAttribute="trailing" constant="20" id="JZ2-C1-dtV"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="gDt-8t-x8h" secondAttribute="bottom" constant="20" id="MYX-An-dRR"/>
+                                                                    <constraint firstItem="Zm4-hL-gLt" firstAttribute="centerY" secondItem="5bQ-96-XQq" secondAttribute="centerY" id="MiW-YT-exr"/>
+                                                                    <constraint firstItem="010-dd-BsK" firstAttribute="top" secondItem="mRo-55-ifL" secondAttribute="bottom" constant="20" id="OP1-7h-z9V"/>
+                                                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="mRo-55-ifL" secondAttribute="trailing" constant="20" symbolic="YES" id="Ohm-or-kBR"/>
+                                                                    <constraint firstItem="nVQ-2e-vMi" firstAttribute="leading" secondItem="mRo-55-ifL" secondAttribute="leading" id="PlJ-Hh-iez"/>
+                                                                    <constraint firstItem="gIs-36-dJU" firstAttribute="leading" secondItem="iLl-fX-DyO" secondAttribute="leading" id="QHG-Vq-f41"/>
+                                                                    <constraint firstItem="Xey-3t-ScK" firstAttribute="leading" secondItem="Iaz-Ik-kP7" secondAttribute="leading" id="QPx-8M-ez5"/>
+                                                                    <constraint firstItem="upC-1Y-iWx" firstAttribute="top" secondItem="TbF-Sy-ukT" secondAttribute="top" constant="20" id="QRo-PR-Uqe"/>
+                                                                    <constraint firstItem="iBK-Lq-4Nf" firstAttribute="leading" secondItem="gIs-36-dJU" secondAttribute="leading" id="QyD-s7-jm4"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="WVm-C2-vc8" secondAttribute="trailing" constant="20" symbolic="YES" id="SC2-B6-q3a"/>
+                                                                    <constraint firstItem="gIs-36-dJU" firstAttribute="top" secondItem="VZ4-8p-Ass" secondAttribute="bottom" constant="20" id="SF1-1r-Htt"/>
+                                                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="5Rm-kH-htX" secondAttribute="trailing" constant="20" symbolic="YES" id="SL9-Dd-Ux0"/>
+                                                                    <constraint firstItem="nVQ-2e-vMi" firstAttribute="top" secondItem="010-dd-BsK" secondAttribute="bottom" constant="20" id="UHw-Q0-jLt"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="gDt-8t-x8h" secondAttribute="trailing" constant="20" symbolic="YES" id="Ulq-PP-LWv"/>
+                                                                    <constraint firstItem="Xey-3t-ScK" firstAttribute="leading" secondItem="5Rm-kH-htX" secondAttribute="leading" id="UxW-PS-iE3"/>
+                                                                    <constraint firstItem="5Rm-kH-htX" firstAttribute="top" secondItem="L6f-OV-fBQ" secondAttribute="bottom" constant="15.5" id="VQ2-uk-cKy"/>
+                                                                    <constraint firstItem="0YB-3Q-q5P" firstAttribute="trailing" secondItem="qxn-hr-ftE" secondAttribute="trailing" id="VjD-uW-fTm"/>
+                                                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="nVQ-2e-vMi" secondAttribute="trailing" constant="20" symbolic="YES" id="W8Q-Q9-WSQ"/>
+                                                                    <constraint firstItem="bWd-Ss-a89" firstAttribute="leading" secondItem="VZ4-8p-Ass" secondAttribute="leading" id="Wpd-Gb-DNm"/>
+                                                                    <constraint firstItem="VZ4-8p-Ass" firstAttribute="top" secondItem="iLl-fX-DyO" secondAttribute="bottom" constant="20" id="Xan-Kw-2WB"/>
+                                                                    <constraint firstItem="iBK-Lq-4Nf" firstAttribute="bottom" secondItem="gIs-36-dJU" secondAttribute="bottom" id="ZDb-Of-TTJ"/>
+                                                                    <constraint firstItem="0YB-3Q-q5P" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="TbF-Sy-ukT" secondAttribute="leading" constant="20" symbolic="YES" id="Zyr-Uy-vsv"/>
+                                                                    <constraint firstItem="mRo-55-ifL" firstAttribute="top" secondItem="Iaz-Ik-kP7" secondAttribute="bottom" constant="30" id="aE2-CD-YfU"/>
+                                                                    <constraint firstItem="qxn-hr-ftE" firstAttribute="centerY" secondItem="iLl-fX-DyO" secondAttribute="centerY" id="b4M-AP-buz"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="P4P-qc-209" secondAttribute="trailing" constant="20" id="bT4-eP-ZaN"/>
+                                                                    <constraint firstItem="L6f-OV-fBQ" firstAttribute="top" secondItem="Xey-3t-ScK" secondAttribute="bottom" constant="20" id="cRE-XF-dMr"/>
+                                                                    <constraint firstItem="0YB-3Q-q5P" firstAttribute="leading" secondItem="iBK-Lq-4Nf" secondAttribute="trailing" constant="20" id="dci-NI-bzJ"/>
+                                                                    <constraint firstItem="iLl-fX-DyO" firstAttribute="top" secondItem="nVQ-2e-vMi" secondAttribute="bottom" constant="20" id="dm4-VT-oVe"/>
+                                                                    <constraint firstItem="LdW-J1-zLC" firstAttribute="leading" secondItem="gIs-36-dJU" secondAttribute="leading" id="efj-aD-iwe"/>
+                                                                    <constraint firstItem="WVm-C2-vc8" firstAttribute="centerY" secondItem="CYp-ZU-zAZ" secondAttribute="centerY" id="eld-lM-Cbl"/>
+                                                                    <constraint firstItem="wiC-86-xLT" firstAttribute="top" secondItem="nVQ-2e-vMi" secondAttribute="bottom" constant="37" id="ey4-V7-gMr"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="LdW-J1-zLC" secondAttribute="trailing" constant="20" id="eyC-GS-Lo7"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="010-dd-BsK" secondAttribute="trailing" constant="20" id="fQq-Zi-Cqm"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="Zm4-hL-gLt" secondAttribute="trailing" constant="20" symbolic="YES" id="gNc-X0-NIn"/>
+                                                                    <constraint firstItem="LdW-J1-zLC" firstAttribute="top" secondItem="bWd-Ss-a89" secondAttribute="bottom" constant="20" id="gZD-h9-bPk"/>
+                                                                    <constraint firstItem="CYp-ZU-zAZ" firstAttribute="leading" secondItem="TbF-Sy-ukT" secondAttribute="leading" constant="20" id="gay-Qr-w07"/>
+                                                                    <constraint firstItem="5bQ-96-XQq" firstAttribute="leading" secondItem="TbF-Sy-ukT" secondAttribute="leading" constant="20" id="gcW-3Y-VvP"/>
+                                                                    <constraint firstItem="L6f-OV-fBQ" firstAttribute="leading" secondItem="TbF-Sy-ukT" secondAttribute="leading" constant="20" symbolic="YES" id="jv8-EE-NCt"/>
+                                                                    <constraint firstItem="ZsP-84-P41" firstAttribute="top" secondItem="P4P-qc-209" secondAttribute="bottom" constant="20" id="jw1-Uy-f14"/>
+                                                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="VZ4-8p-Ass" secondAttribute="trailing" constant="20" symbolic="YES" id="liu-7S-6Zg"/>
+                                                                    <constraint firstItem="Xey-3t-ScK" firstAttribute="leading" secondItem="mRo-55-ifL" secondAttribute="leading" id="mGi-0t-Mkk"/>
+                                                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="upC-1Y-iWx" secondAttribute="trailing" constant="20" symbolic="YES" id="myG-Jp-rOV"/>
+                                                                    <constraint firstItem="Iaz-Ik-kP7" firstAttribute="top" secondItem="upC-1Y-iWx" secondAttribute="bottom" constant="10" id="o6c-kU-JW4"/>
+                                                                    <constraint firstItem="0YB-3Q-q5P" firstAttribute="centerY" secondItem="gIs-36-dJU" secondAttribute="centerY" id="oii-pY-a0v"/>
+                                                                    <constraint firstItem="1Jr-dX-cJ6" firstAttribute="leading" secondItem="CYp-ZU-zAZ" secondAttribute="trailing" constant="15" id="q3v-3E-97T"/>
+                                                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Xey-3t-ScK" secondAttribute="trailing" constant="20" symbolic="YES" id="qJx-R0-UDV"/>
+                                                                    <constraint firstItem="wiC-86-xLT" firstAttribute="bottom" secondItem="iLl-fX-DyO" secondAttribute="bottom" id="rGb-gH-Vws"/>
+                                                                    <constraint firstItem="bWd-Ss-a89" firstAttribute="top" secondItem="gIs-36-dJU" secondAttribute="bottom" constant="20" id="tFT-g6-JV4"/>
+                                                                    <constraint firstItem="lcy-ic-VhO" firstAttribute="centerY" secondItem="5bQ-96-XQq" secondAttribute="centerY" id="two-LE-lKo"/>
+                                                                    <constraint firstItem="ZsP-84-P41" firstAttribute="leading" secondItem="TbF-Sy-ukT" secondAttribute="leading" constant="20" id="x19-KM-Y8l"/>
+                                                                    <constraint firstItem="Xey-3t-ScK" firstAttribute="leading" secondItem="TbF-Sy-ukT" secondAttribute="leading" constant="20" id="xRj-np-45j"/>
+                                                                    <constraint firstItem="1Jr-dX-cJ6" firstAttribute="centerY" secondItem="CYp-ZU-zAZ" secondAttribute="centerY" id="xS6-uC-NqK"/>
+                                                                    <constraint firstItem="wiC-86-xLT" firstAttribute="trailing" secondItem="iLl-fX-DyO" secondAttribute="trailing" id="yHH-fn-h5Q"/>
+                                                                    <constraint firstItem="qxn-hr-ftE" firstAttribute="leading" secondItem="iLl-fX-DyO" secondAttribute="trailing" constant="20" id="zQY-NN-TLT"/>
+                                                                    <constraint firstItem="VZ4-8p-Ass" firstAttribute="leading" secondItem="iLl-fX-DyO" secondAttribute="leading" id="zWZ-qD-6YE"/>
+                                                                </constraints>
+                                                            </view>
+                                                        </subviews>
+                                                        <color key="backgroundColor" red="0.98823529409999999" green="0.97647058819999999" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="trailing" secondItem="TbF-Sy-ukT" secondAttribute="trailing" constant="20" id="7at-c3-lO3"/>
+                                                            <constraint firstItem="TbF-Sy-ukT" firstAttribute="top" secondItem="bjj-zH-yQ6" secondAttribute="top" constant="20" id="LEd-Wg-1Vc"/>
+                                                            <constraint firstAttribute="bottom" secondItem="TbF-Sy-ukT" secondAttribute="bottom" constant="20" id="Mzk-LS-5ed"/>
+                                                            <constraint firstItem="TbF-Sy-ukT" firstAttribute="leading" secondItem="bjj-zH-yQ6" secondAttribute="leading" constant="20" id="dTB-aM-PiI"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="Qhr-bv-9rY" firstAttribute="top" secondItem="wEo-H5-dBK" secondAttribute="top" id="8XU-J3-LH6"/>
+                                            <constraint firstItem="Qhr-bv-9rY" firstAttribute="leading" secondItem="wEo-H5-dBK" secondAttribute="leading" id="RZS-sH-iR9"/>
+                                            <constraint firstAttribute="trailing" secondItem="Qhr-bv-9rY" secondAttribute="trailing" id="gYp-Ym-70U"/>
+                                            <constraint firstAttribute="bottom" secondItem="Qhr-bv-9rY" secondAttribute="bottom" id="sxa-Jx-ab7"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="wEo-H5-dBK" firstAttribute="trailing" secondItem="FA3-xK-HNb" secondAttribute="trailing" id="9cR-cl-HAW"/>
+                                    <constraint firstItem="wEo-H5-dBK" firstAttribute="width" secondItem="luT-s9-QvA" secondAttribute="width" id="KZY-pt-upe"/>
+                                    <constraint firstItem="wEo-H5-dBK" firstAttribute="bottom" secondItem="FA3-xK-HNb" secondAttribute="bottom" id="UzK-vD-wqY"/>
+                                    <constraint firstItem="FA3-xK-HNb" firstAttribute="top" secondItem="wEo-H5-dBK" secondAttribute="top" id="dBc-3h-dSW"/>
+                                    <constraint firstItem="wEo-H5-dBK" firstAttribute="leading" secondItem="FA3-xK-HNb" secondAttribute="leading" id="hPS-te-oID"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="FA3-xK-HNb"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="gfc-4l-wmh"/>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="t6Q-ss-DBj"/>
+                        <constraints>
+                            <constraint firstItem="luT-s9-QvA" firstAttribute="top" secondItem="4qb-rm-uIe" secondAttribute="top" id="9KB-UN-GDp"/>
+                            <constraint firstItem="luT-s9-QvA" firstAttribute="bottom" secondItem="4qb-rm-uIe" secondAttribute="bottom" constant="-34" id="Zpj-Xn-fab"/>
+                            <constraint firstItem="luT-s9-QvA" firstAttribute="trailing" secondItem="4qb-rm-uIe" secondAttribute="trailing" id="g3p-en-Jeg"/>
+                            <constraint firstItem="luT-s9-QvA" firstAttribute="leading" secondItem="4qb-rm-uIe" secondAttribute="leading" id="qEj-FB-Ivk"/>
+                        </constraints>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="414" height="1200"/>
+                    <connections>
+                        <outlet property="addressTextField" destination="P4P-qc-209" id="hea-Y3-hj5"/>
+                        <outlet property="appleNameLabel" destination="1Jr-dX-cJ6" id="BAP-zf-Bqt"/>
+                        <outlet property="birthDayTextField" destination="LdW-J1-zLC" id="CT8-gs-9fy"/>
+                        <outlet property="connectAppleButton" destination="WVm-C2-vc8" id="PWc-1w-tWz"/>
+                        <outlet property="connectFacebookButton" destination="Zm4-hL-gLt" id="3z3-Iv-Kh6"/>
+                        <outlet property="emailTextField" destination="gIs-36-dJU" id="vUC-Y8-JoW"/>
+                        <outlet property="emailVerifyButton" destination="0YB-3Q-q5P" id="MYC-TT-JCv"/>
+                        <outlet property="facebookNameLabel" destination="lcy-ic-VhO" id="mYG-jP-ajF"/>
+                        <outlet property="gendorView" destination="L6f-OV-fBQ" id="nA7-8k-Mpd"/>
+                        <outlet property="informationView" destination="TbF-Sy-ukT" id="sQX-Ma-HAp"/>
+                        <outlet property="manButton" destination="4aR-tk-ldJ" id="SRw-US-p0h"/>
+                        <outlet property="nameTextField" destination="Iaz-Ik-kP7" id="SX3-Pe-qfM"/>
+                        <outlet property="phoneTextField" destination="iLl-fX-DyO" id="7ck-Ua-z0t"/>
+                        <outlet property="phoneVerifyButton" destination="qxn-hr-ftE" id="V8D-7M-jS9"/>
+                        <outlet property="signOutButton" destination="gDt-8t-x8h" id="5ez-6Z-eLu"/>
+                        <outlet property="surNameTextField" destination="010-dd-BsK" id="yYR-s3-r5O"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Qs-Lj-qTr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2806" y="-1089"/>
+        </scene>
+        <!--Profile Health View Controller-->
+        <scene sceneID="83u-MT-fUZ">
+            <objects>
+                <viewController storyboardIdentifier="ProfileHealthViewController" id="Upz-lA-pwU" customClass="ProfileHealthViewController" customModule="BlossomApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5hP-f1-dYG">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BVm-fS-Xew">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="axI-jb-IH3" userLabel="Content View">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="800"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="tWS-de-dLC">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="800"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rJw-BP-xzr">
+                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="800"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="83c-Ob-874">
+                                                                <rect key="frame" x="20" y="20" width="374" height="853"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ลักษณะผิว" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jLF-io-lb9">
+                                                                        <rect key="frame" x="20" y="20" width="334" height="22.5"/>
+                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Bold" family="Sukhumvit Set" pointSize="14"/>
+                                                                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1vg-Ts-GTb">
+                                                                        <rect key="frame" x="20" y="62.5" width="334" height="170"/>
+                                                                        <subviews>
+                                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="0lM-n8-lRx">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="334" height="170"/>
+                                                                                <subviews>
+                                                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2tw-fD-yPM" customClass="DLRadioButton">
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="334" height="35"/>
+                                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="14"/>
+                                                                                        <state key="normal" title="ผิวแห้ง">
+                                                                                            <color key="titleColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.54901960780000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                        </state>
+                                                                                        <userDefinedRuntimeAttributes>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="iconSize">
+                                                                                                <real key="value" value="16"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                                                                                <color key="value" red="0.96470588239999999" green="0.59215686270000001" blue="0.56078431370000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="iconStrokeWidth">
+                                                                                                <real key="value" value="2"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="indicatorSize">
+                                                                                                <real key="value" value="8"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="color" keyPath="indicatorColor">
+                                                                                                <color key="value" red="0.96470588239999999" green="0.59215686270000001" blue="0.56078431370000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="marginWidth">
+                                                                                                <real key="value" value="8"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                        </userDefinedRuntimeAttributes>
+                                                                                        <connections>
+                                                                                            <action selector="skinTypeSelectedButtonWithRadioButton:" destination="Upz-lA-pwU" eventType="touchUpInside" id="tZc-ne-wrB"/>
+                                                                                            <outletCollection property="otherButtons" destination="lZR-JZ-7pI" id="vsn-Fz-CYn"/>
+                                                                                            <outletCollection property="otherButtons" destination="3gn-nu-Bnl" id="7eU-n0-QUP"/>
+                                                                                            <outletCollection property="otherButtons" destination="THW-Kr-xJo" id="lMb-tG-f2D"/>
+                                                                                        </connections>
+                                                                                    </button>
+                                                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lZR-JZ-7pI" customClass="DLRadioButton">
+                                                                                        <rect key="frame" x="0.0" y="45" width="334" height="35"/>
+                                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="14"/>
+                                                                                        <state key="normal" title="ผิวมันทั่วใบหน้า">
+                                                                                            <color key="titleColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.54901960780000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                        </state>
+                                                                                        <userDefinedRuntimeAttributes>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="iconSize">
+                                                                                                <real key="value" value="16"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                                                                                <color key="value" red="0.96470588239999999" green="0.59215686270000001" blue="0.56078431370000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="iconStrokeWidth">
+                                                                                                <real key="value" value="2"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="indicatorSize">
+                                                                                                <real key="value" value="8"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="color" keyPath="indicatorColor">
+                                                                                                <color key="value" red="0.96470588239999999" green="0.59215686270000001" blue="0.56078431370000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="marginWidth">
+                                                                                                <real key="value" value="8"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                        </userDefinedRuntimeAttributes>
+                                                                                        <connections>
+                                                                                            <action selector="logSelectedButtonWithRadioButton:" destination="zOj-oj-9c4" eventType="touchUpInside" id="IxR-ZO-PaO"/>
+                                                                                            <action selector="skinTypeSelectedButtonWithRadioButton:" destination="Upz-lA-pwU" eventType="touchUpInside" id="wBy-fh-vHo"/>
+                                                                                        </connections>
+                                                                                    </button>
+                                                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3gn-nu-Bnl" customClass="DLRadioButton">
+                                                                                        <rect key="frame" x="0.0" y="90" width="334" height="35"/>
+                                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="14"/>
+                                                                                        <state key="normal" title="ผิวมันผสม, มันเฉพาะ T zone">
+                                                                                            <color key="titleColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.54901960780000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                        </state>
+                                                                                        <userDefinedRuntimeAttributes>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="iconSize">
+                                                                                                <real key="value" value="16"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                                                                                <color key="value" red="0.96470588239999999" green="0.59215686270000001" blue="0.56078431370000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="iconStrokeWidth">
+                                                                                                <real key="value" value="2"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="indicatorSize">
+                                                                                                <real key="value" value="8"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="color" keyPath="indicatorColor">
+                                                                                                <color key="value" red="0.96470588239999999" green="0.59215686270000001" blue="0.56078431370000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="marginWidth">
+                                                                                                <real key="value" value="8"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                        </userDefinedRuntimeAttributes>
+                                                                                        <connections>
+                                                                                            <action selector="logSelectedButtonWithRadioButton:" destination="zOj-oj-9c4" eventType="touchUpInside" id="dmm-Eu-H6D"/>
+                                                                                            <action selector="skinTypeSelectedButtonWithRadioButton:" destination="Upz-lA-pwU" eventType="touchUpInside" id="VOj-18-k88"/>
+                                                                                        </connections>
+                                                                                    </button>
+                                                                                    <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="THW-Kr-xJo" customClass="DLRadioButton">
+                                                                                        <rect key="frame" x="0.0" y="135" width="334" height="35"/>
+                                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="14"/>
+                                                                                        <state key="normal" title="ผิวแพ้ง่าย">
+                                                                                            <color key="titleColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.54901960780000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                        </state>
+                                                                                        <userDefinedRuntimeAttributes>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="iconSize">
+                                                                                                <real key="value" value="16"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                                                                                <color key="value" red="0.96470588239999999" green="0.59215686270000001" blue="0.56078431370000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="iconStrokeWidth">
+                                                                                                <real key="value" value="2"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="indicatorSize">
+                                                                                                <real key="value" value="8"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="color" keyPath="indicatorColor">
+                                                                                                <color key="value" red="0.96470588239999999" green="0.59215686270000001" blue="0.56078431370000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="marginWidth">
+                                                                                                <real key="value" value="8"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                        </userDefinedRuntimeAttributes>
+                                                                                        <connections>
+                                                                                            <action selector="skinTypeSelectedButtonWithRadioButton:" destination="Upz-lA-pwU" eventType="touchUpInside" id="mvA-jA-rbf"/>
+                                                                                        </connections>
+                                                                                    </button>
+                                                                                </subviews>
+                                                                                <constraints>
+                                                                                    <constraint firstAttribute="trailing" secondItem="3gn-nu-Bnl" secondAttribute="trailing" id="6bw-Mo-kmu"/>
+                                                                                    <constraint firstAttribute="trailing" secondItem="THW-Kr-xJo" secondAttribute="trailing" id="CfA-fb-kqC"/>
+                                                                                    <constraint firstAttribute="trailing" secondItem="2tw-fD-yPM" secondAttribute="trailing" id="XTL-qM-5gz"/>
+                                                                                    <constraint firstAttribute="trailing" secondItem="lZR-JZ-7pI" secondAttribute="trailing" id="qDN-HC-yd0"/>
+                                                                                </constraints>
+                                                                            </stackView>
+                                                                        </subviews>
+                                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                        <constraints>
+                                                                            <constraint firstItem="0lM-n8-lRx" firstAttribute="leading" secondItem="1vg-Ts-GTb" secondAttribute="leading" id="51U-K1-Snw"/>
+                                                                            <constraint firstAttribute="trailing" secondItem="0lM-n8-lRx" secondAttribute="trailing" id="ABy-dH-l3a"/>
+                                                                            <constraint firstItem="0lM-n8-lRx" firstAttribute="top" secondItem="1vg-Ts-GTb" secondAttribute="top" id="E9s-0K-5hr"/>
+                                                                            <constraint firstAttribute="bottom" secondItem="0lM-n8-lRx" secondAttribute="bottom" id="XKC-g7-Yzr"/>
+                                                                        </constraints>
+                                                                    </view>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ลักษณะสิว" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eRu-kl-UHM">
+                                                                        <rect key="frame" x="20" y="252.5" width="59.5" height="22.5"/>
+                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Bold" family="Sukhumvit Set" pointSize="14"/>
+                                                                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nsr-3R-lBt">
+                                                                        <rect key="frame" x="20" y="295" width="334" height="215"/>
+                                                                        <subviews>
+                                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="QW5-qK-WRm">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="334" height="215"/>
+                                                                                <subviews>
+                                                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pd2-o1-rKD" customClass="DLRadioButton">
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="334" height="35"/>
+                                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="14"/>
+                                                                                        <state key="normal" title="สิวอุดตัน">
+                                                                                            <color key="titleColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.54901960780000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                        </state>
+                                                                                        <userDefinedRuntimeAttributes>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="iconSize">
+                                                                                                <real key="value" value="16"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                                                                                <color key="value" red="0.96470588239999999" green="0.59215686270000001" blue="0.56078431370000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="iconStrokeWidth">
+                                                                                                <real key="value" value="2"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="indicatorSize">
+                                                                                                <real key="value" value="8"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="color" keyPath="indicatorColor">
+                                                                                                <color key="value" red="0.96470588239999999" green="0.59215686270000001" blue="0.56078431370000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="marginWidth">
+                                                                                                <real key="value" value="8"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                        </userDefinedRuntimeAttributes>
+                                                                                        <connections>
+                                                                                            <action selector="acneTypeSelectedButtonWithRadioButton:" destination="Upz-lA-pwU" eventType="touchUpInside" id="yxe-Bc-cyD"/>
+                                                                                            <outletCollection property="otherButtons" destination="py7-FX-A5y" id="JY6-Zf-3uu"/>
+                                                                                            <outletCollection property="otherButtons" destination="HBL-DU-3Rb" id="hgO-8V-iVa"/>
+                                                                                            <outletCollection property="otherButtons" destination="Ea2-Xc-ZxV" id="wLx-cR-grm"/>
+                                                                                            <outletCollection property="otherButtons" destination="JLu-gx-N21" id="txF-iT-DRV"/>
+                                                                                        </connections>
+                                                                                    </button>
+                                                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="py7-FX-A5y" customClass="DLRadioButton">
+                                                                                        <rect key="frame" x="0.0" y="45" width="334" height="35"/>
+                                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="14"/>
+                                                                                        <state key="normal" title="สิวอักเสบ">
+                                                                                            <color key="titleColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.54901960780000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                        </state>
+                                                                                        <userDefinedRuntimeAttributes>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="iconSize">
+                                                                                                <real key="value" value="16"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                                                                                <color key="value" red="0.96470588239999999" green="0.59215686270000001" blue="0.56078431370000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="iconStrokeWidth">
+                                                                                                <real key="value" value="2"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="indicatorSize">
+                                                                                                <real key="value" value="8"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="color" keyPath="indicatorColor">
+                                                                                                <color key="value" red="0.96470588239999999" green="0.59215686270000001" blue="0.56078431370000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="marginWidth">
+                                                                                                <real key="value" value="8"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                        </userDefinedRuntimeAttributes>
+                                                                                        <connections>
+                                                                                            <action selector="acneTypeSelectedButtonWithRadioButton:" destination="Upz-lA-pwU" eventType="touchUpInside" id="9rx-TH-mph"/>
+                                                                                        </connections>
+                                                                                    </button>
+                                                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HBL-DU-3Rb" customClass="DLRadioButton">
+                                                                                        <rect key="frame" x="0.0" y="90" width="334" height="35"/>
+                                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="14"/>
+                                                                                        <state key="normal" title="สิวอักเสบ สัมพันธ์กับรอบเดือน">
+                                                                                            <color key="titleColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.54901960780000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                        </state>
+                                                                                        <userDefinedRuntimeAttributes>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="iconSize">
+                                                                                                <real key="value" value="16"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                                                                                <color key="value" red="0.96470588239999999" green="0.59215686270000001" blue="0.56078431370000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="iconStrokeWidth">
+                                                                                                <real key="value" value="2"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="indicatorSize">
+                                                                                                <real key="value" value="8"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="color" keyPath="indicatorColor">
+                                                                                                <color key="value" red="0.96470588239999999" green="0.59215686270000001" blue="0.56078431370000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="marginWidth">
+                                                                                                <real key="value" value="8"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                        </userDefinedRuntimeAttributes>
+                                                                                        <connections>
+                                                                                            <action selector="acneTypeSelectedButtonWithRadioButton:" destination="Upz-lA-pwU" eventType="touchUpInside" id="hTc-Z4-fvX"/>
+                                                                                        </connections>
+                                                                                    </button>
+                                                                                    <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ea2-Xc-ZxV" customClass="DLRadioButton">
+                                                                                        <rect key="frame" x="0.0" y="135" width="334" height="35"/>
+                                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="14"/>
+                                                                                        <state key="normal" title="รอยสิว">
+                                                                                            <color key="titleColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.54901960780000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                        </state>
+                                                                                        <userDefinedRuntimeAttributes>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="iconSize">
+                                                                                                <real key="value" value="16"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                                                                                <color key="value" red="0.96470588239999999" green="0.59215686270000001" blue="0.56078431370000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="iconStrokeWidth">
+                                                                                                <real key="value" value="2"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="indicatorSize">
+                                                                                                <real key="value" value="8"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="color" keyPath="indicatorColor">
+                                                                                                <color key="value" red="0.96470588239999999" green="0.59215686270000001" blue="0.56078431370000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="marginWidth">
+                                                                                                <real key="value" value="8"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                        </userDefinedRuntimeAttributes>
+                                                                                        <connections>
+                                                                                            <action selector="acneTypeSelectedButtonWithRadioButton:" destination="Upz-lA-pwU" eventType="touchUpInside" id="gLm-lf-Dpx"/>
+                                                                                        </connections>
+                                                                                    </button>
+                                                                                    <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JLu-gx-N21" customClass="DLRadioButton">
+                                                                                        <rect key="frame" x="0.0" y="180" width="334" height="35"/>
+                                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="14"/>
+                                                                                        <state key="normal" title="หลุมสิว">
+                                                                                            <color key="titleColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.54901960780000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                        </state>
+                                                                                        <userDefinedRuntimeAttributes>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="iconSize">
+                                                                                                <real key="value" value="16"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                                                                                <color key="value" red="0.96470588239999999" green="0.59215686270000001" blue="0.56078431370000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="iconStrokeWidth">
+                                                                                                <real key="value" value="2"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="indicatorSize">
+                                                                                                <real key="value" value="8"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="color" keyPath="indicatorColor">
+                                                                                                <color key="value" red="0.96470588239999999" green="0.59215686270000001" blue="0.56078431370000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="marginWidth">
+                                                                                                <real key="value" value="8"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                        </userDefinedRuntimeAttributes>
+                                                                                        <connections>
+                                                                                            <action selector="acneTypeSelectedButtonWithRadioButton:" destination="Upz-lA-pwU" eventType="touchUpInside" id="5JX-WE-BsP"/>
+                                                                                        </connections>
+                                                                                    </button>
+                                                                                </subviews>
+                                                                                <constraints>
+                                                                                    <constraint firstAttribute="trailing" secondItem="Pd2-o1-rKD" secondAttribute="trailing" id="0O6-HG-1bf"/>
+                                                                                    <constraint firstAttribute="trailing" secondItem="HBL-DU-3Rb" secondAttribute="trailing" id="S6p-lw-S4K"/>
+                                                                                    <constraint firstAttribute="bottom" secondItem="JLu-gx-N21" secondAttribute="bottom" id="WKV-oD-c36"/>
+                                                                                    <constraint firstAttribute="trailing" secondItem="py7-FX-A5y" secondAttribute="trailing" id="ai7-di-poW"/>
+                                                                                    <constraint firstItem="JLu-gx-N21" firstAttribute="leading" secondItem="QW5-qK-WRm" secondAttribute="leading" id="dcK-6D-FZC"/>
+                                                                                    <constraint firstAttribute="trailing" secondItem="Ea2-Xc-ZxV" secondAttribute="trailing" id="rXZ-BB-S0n"/>
+                                                                                    <constraint firstAttribute="trailing" secondItem="JLu-gx-N21" secondAttribute="trailing" id="svX-aK-Owt"/>
+                                                                                </constraints>
+                                                                            </stackView>
+                                                                        </subviews>
+                                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                        <constraints>
+                                                                            <constraint firstItem="QW5-qK-WRm" firstAttribute="leading" secondItem="Nsr-3R-lBt" secondAttribute="leading" id="Fyc-FR-0Qu"/>
+                                                                            <constraint firstAttribute="trailing" secondItem="QW5-qK-WRm" secondAttribute="trailing" id="PBi-vV-NVm"/>
+                                                                            <constraint firstAttribute="bottom" secondItem="QW5-qK-WRm" secondAttribute="bottom" id="gO7-J3-Wku"/>
+                                                                            <constraint firstItem="QW5-qK-WRm" firstAttribute="top" secondItem="Nsr-3R-lBt" secondAttribute="top" id="zwu-hQ-7ec"/>
+                                                                        </constraints>
+                                                                    </view>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ประวัติแพ้ยา" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bjs-fk-Pbk">
+                                                                        <rect key="frame" x="20" y="530" width="70" height="22.5"/>
+                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Bold" family="Sukhumvit Set" pointSize="14"/>
+                                                                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PaG-dW-e4Z">
+                                                                        <rect key="frame" x="20" y="572.5" width="334" height="35"/>
+                                                                        <subviews>
+                                                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="UGT-qF-ci7">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="334" height="35"/>
+                                                                                <subviews>
+                                                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DdN-xc-vLy" customClass="DLRadioButton">
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="164.5" height="35"/>
+                                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="14"/>
+                                                                                        <state key="normal" title="แพ้">
+                                                                                            <color key="titleColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.54901960780000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                        </state>
+                                                                                        <userDefinedRuntimeAttributes>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="iconSize">
+                                                                                                <real key="value" value="16"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                                                                                <color key="value" red="0.96470588239999999" green="0.59215686270000001" blue="0.56078431370000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="iconStrokeWidth">
+                                                                                                <real key="value" value="2"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="indicatorSize">
+                                                                                                <real key="value" value="8"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="color" keyPath="indicatorColor">
+                                                                                                <color key="value" red="0.96470588239999999" green="0.59215686270000001" blue="0.56078431370000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="marginWidth">
+                                                                                                <real key="value" value="8"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                        </userDefinedRuntimeAttributes>
+                                                                                        <connections>
+                                                                                            <action selector="logSelectedButtonWithRadioButton:" destination="zOj-oj-9c4" eventType="touchUpInside" id="tF5-78-UZX"/>
+                                                                                            <outletCollection property="otherButtons" destination="7XY-ml-n3M" id="cfJ-Uk-kSq"/>
+                                                                                        </connections>
+                                                                                    </button>
+                                                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7XY-ml-n3M" customClass="DLRadioButton">
+                                                                                        <rect key="frame" x="169.5" y="0.0" width="164.5" height="35"/>
+                                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="14"/>
+                                                                                        <state key="normal" title="ไม่แพ้">
+                                                                                            <color key="titleColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.54901960780000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                        </state>
+                                                                                        <userDefinedRuntimeAttributes>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="iconSize">
+                                                                                                <real key="value" value="16"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                                                                                <color key="value" red="0.96470588239999999" green="0.59215686270000001" blue="0.56078431370000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="iconStrokeWidth">
+                                                                                                <real key="value" value="2"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="indicatorSize">
+                                                                                                <real key="value" value="8"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="color" keyPath="indicatorColor">
+                                                                                                <color key="value" red="0.96470588239999999" green="0.59215686270000001" blue="0.56078431370000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="marginWidth">
+                                                                                                <real key="value" value="8"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                        </userDefinedRuntimeAttributes>
+                                                                                        <connections>
+                                                                                            <action selector="logSelectedButtonWithRadioButton:" destination="zOj-oj-9c4" eventType="touchUpInside" id="0nd-E6-CRq"/>
+                                                                                        </connections>
+                                                                                    </button>
+                                                                                </subviews>
+                                                                            </stackView>
+                                                                        </subviews>
+                                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                        <constraints>
+                                                                            <constraint firstItem="UGT-qF-ci7" firstAttribute="top" secondItem="PaG-dW-e4Z" secondAttribute="top" id="3FG-xo-OhH"/>
+                                                                            <constraint firstAttribute="bottom" secondItem="UGT-qF-ci7" secondAttribute="bottom" id="Xz9-TW-eCJ"/>
+                                                                            <constraint firstAttribute="trailing" secondItem="UGT-qF-ci7" secondAttribute="trailing" id="bDn-Te-yCB"/>
+                                                                            <constraint firstItem="UGT-qF-ci7" firstAttribute="leading" secondItem="PaG-dW-e4Z" secondAttribute="leading" id="nFu-Om-GCN"/>
+                                                                        </constraints>
+                                                                    </view>
+                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="ประวัติแพ้ยา" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="F66-gH-T11">
+                                                                        <rect key="frame" x="20" y="627.5" width="334" height="34"/>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <color key="tintColor" red="0.97647058819999999" green="0.69411764710000001" blue="0.65098039220000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="14"/>
+                                                                        <textInputTraits key="textInputTraits"/>
+                                                                        <connections>
+                                                                            <outlet property="delegate" destination="Upz-lA-pwU" id="LMG-9P-tDo"/>
+                                                                        </connections>
+                                                                    </textField>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="เคยรักษาสิว" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hwa-e3-H1J">
+                                                                        <rect key="frame" x="20" y="681.5" width="68.5" height="22.5"/>
+                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Bold" family="Sukhumvit Set" pointSize="14"/>
+                                                                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="เคยรักษาสิว" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="g3b-UA-JRy">
+                                                                        <rect key="frame" x="20" y="779" width="334" height="34"/>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <color key="tintColor" red="0.97647058819999999" green="0.69411764710000001" blue="0.65098039220000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="14"/>
+                                                                        <textInputTraits key="textInputTraits"/>
+                                                                        <connections>
+                                                                            <outlet property="delegate" destination="Upz-lA-pwU" id="pFi-oC-UQP"/>
+                                                                        </connections>
+                                                                    </textField>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XOJ-rX-ugf">
+                                                                        <rect key="frame" x="20" y="724" width="334" height="35"/>
+                                                                        <subviews>
+                                                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="BGb-ex-XdI">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="334" height="35"/>
+                                                                                <subviews>
+                                                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="67m-KW-8zO" customClass="DLRadioButton">
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="164.5" height="35"/>
+                                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="14"/>
+                                                                                        <state key="normal" title="เคย">
+                                                                                            <color key="titleColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.54901960780000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                        </state>
+                                                                                        <userDefinedRuntimeAttributes>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="iconSize">
+                                                                                                <real key="value" value="16"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                                                                                <color key="value" red="0.96470588239999999" green="0.59215686270000001" blue="0.56078431370000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="iconStrokeWidth">
+                                                                                                <real key="value" value="2"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="indicatorSize">
+                                                                                                <real key="value" value="8"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="color" keyPath="indicatorColor">
+                                                                                                <color key="value" red="0.96470588239999999" green="0.59215686270000001" blue="0.56078431370000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="marginWidth">
+                                                                                                <real key="value" value="8"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                        </userDefinedRuntimeAttributes>
+                                                                                        <connections>
+                                                                                            <action selector="logSelectedButtonWithRadioButton:" destination="zOj-oj-9c4" eventType="touchUpInside" id="PE9-lX-K3E"/>
+                                                                                            <outletCollection property="otherButtons" destination="spx-Zt-qG7" id="LTy-mr-WBS"/>
+                                                                                        </connections>
+                                                                                    </button>
+                                                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="spx-Zt-qG7" customClass="DLRadioButton">
+                                                                                        <rect key="frame" x="169.5" y="0.0" width="164.5" height="35"/>
+                                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="14"/>
+                                                                                        <state key="normal" title="ไม่เคย">
+                                                                                            <color key="titleColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.54901960780000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                        </state>
+                                                                                        <userDefinedRuntimeAttributes>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="iconSize">
+                                                                                                <real key="value" value="16"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
+                                                                                                <color key="value" red="0.96470588239999999" green="0.59215686270000001" blue="0.56078431370000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="iconStrokeWidth">
+                                                                                                <real key="value" value="2"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="indicatorSize">
+                                                                                                <real key="value" value="8"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="color" keyPath="indicatorColor">
+                                                                                                <color key="value" red="0.96470588239999999" green="0.59215686270000001" blue="0.56078431370000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="marginWidth">
+                                                                                                <real key="value" value="8"/>
+                                                                                            </userDefinedRuntimeAttribute>
+                                                                                        </userDefinedRuntimeAttributes>
+                                                                                        <connections>
+                                                                                            <action selector="logSelectedButtonWithRadioButton:" destination="zOj-oj-9c4" eventType="touchUpInside" id="IXa-53-WDL"/>
+                                                                                        </connections>
+                                                                                    </button>
+                                                                                </subviews>
+                                                                            </stackView>
+                                                                        </subviews>
+                                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                        <constraints>
+                                                                            <constraint firstItem="BGb-ex-XdI" firstAttribute="leading" secondItem="XOJ-rX-ugf" secondAttribute="leading" id="eKc-Ip-nR4"/>
+                                                                            <constraint firstItem="BGb-ex-XdI" firstAttribute="top" secondItem="XOJ-rX-ugf" secondAttribute="top" id="iXL-Ce-qDK"/>
+                                                                            <constraint firstAttribute="trailing" secondItem="BGb-ex-XdI" secondAttribute="trailing" id="kWt-Av-Z0V"/>
+                                                                            <constraint firstAttribute="bottom" secondItem="BGb-ex-XdI" secondAttribute="bottom" id="ptQ-pE-uLI"/>
+                                                                        </constraints>
+                                                                    </view>
+                                                                </subviews>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                <constraints>
+                                                                    <constraint firstItem="g3b-UA-JRy" firstAttribute="leading" secondItem="83c-Ob-874" secondAttribute="leading" constant="20" id="0nF-WH-0wS"/>
+                                                                    <constraint firstItem="jLF-io-lb9" firstAttribute="top" secondItem="83c-Ob-874" secondAttribute="top" constant="20" id="1qP-cg-ucw"/>
+                                                                    <constraint firstItem="XOJ-rX-ugf" firstAttribute="leading" secondItem="83c-Ob-874" secondAttribute="leading" constant="20" id="3cq-TO-irw"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="g3b-UA-JRy" secondAttribute="trailing" constant="20" id="5p3-b7-9sp"/>
+                                                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Bjs-fk-Pbk" secondAttribute="trailing" constant="20" symbolic="YES" id="6n7-ZH-2jQ"/>
+                                                                    <constraint firstItem="PaG-dW-e4Z" firstAttribute="top" secondItem="Bjs-fk-Pbk" secondAttribute="bottom" constant="20" id="7Dy-ar-brN"/>
+                                                                    <constraint firstItem="Nsr-3R-lBt" firstAttribute="leading" secondItem="83c-Ob-874" secondAttribute="leading" constant="20" id="8bN-LC-zJP"/>
+                                                                    <constraint firstItem="Bjs-fk-Pbk" firstAttribute="top" secondItem="Nsr-3R-lBt" secondAttribute="bottom" constant="20" id="Ays-66-kwG"/>
+                                                                    <constraint firstItem="XOJ-rX-ugf" firstAttribute="top" secondItem="hwa-e3-H1J" secondAttribute="bottom" constant="20" id="G1S-Hs-acx"/>
+                                                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="hwa-e3-H1J" secondAttribute="trailing" constant="20" symbolic="YES" id="Mfo-We-bte"/>
+                                                                    <constraint firstItem="1vg-Ts-GTb" firstAttribute="leading" secondItem="83c-Ob-874" secondAttribute="leading" constant="20" id="Nsl-o6-N0x"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="Nsr-3R-lBt" secondAttribute="trailing" constant="20" id="PTc-uO-yks"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="F66-gH-T11" secondAttribute="trailing" constant="20" id="RRn-bc-YR9"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="PaG-dW-e4Z" secondAttribute="trailing" constant="20" id="SIU-fi-OOq"/>
+                                                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="eRu-kl-UHM" secondAttribute="trailing" constant="20" symbolic="YES" id="SYr-eH-YyS"/>
+                                                                    <constraint firstItem="F66-gH-T11" firstAttribute="top" secondItem="PaG-dW-e4Z" secondAttribute="bottom" constant="20" id="Wja-Mu-0dJ"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="1vg-Ts-GTb" secondAttribute="trailing" constant="20" id="X7W-2c-9X8"/>
+                                                                    <constraint firstItem="F66-gH-T11" firstAttribute="leading" secondItem="83c-Ob-874" secondAttribute="leading" constant="20" id="YHa-Xg-IiY"/>
+                                                                    <constraint firstItem="eRu-kl-UHM" firstAttribute="leading" secondItem="83c-Ob-874" secondAttribute="leading" constant="20" id="a3L-dB-um8"/>
+                                                                    <constraint firstItem="hwa-e3-H1J" firstAttribute="leading" secondItem="83c-Ob-874" secondAttribute="leading" constant="20" id="cRh-Vi-HHL"/>
+                                                                    <constraint firstItem="Bjs-fk-Pbk" firstAttribute="leading" secondItem="83c-Ob-874" secondAttribute="leading" constant="20" id="dAr-ZS-PlR"/>
+                                                                    <constraint firstItem="Nsr-3R-lBt" firstAttribute="top" secondItem="eRu-kl-UHM" secondAttribute="bottom" constant="20" id="e9B-rp-KXg"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="g3b-UA-JRy" secondAttribute="bottom" constant="40" id="eYR-Je-kgt"/>
+                                                                    <constraint firstItem="g3b-UA-JRy" firstAttribute="top" secondItem="XOJ-rX-ugf" secondAttribute="bottom" constant="20" id="pAe-rg-aWG"/>
+                                                                    <constraint firstItem="1vg-Ts-GTb" firstAttribute="top" secondItem="jLF-io-lb9" secondAttribute="bottom" constant="20" id="pcx-wu-MhE"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="jLF-io-lb9" secondAttribute="trailing" constant="20" symbolic="YES" id="qoA-OT-OMT"/>
+                                                                    <constraint firstItem="eRu-kl-UHM" firstAttribute="top" secondItem="1vg-Ts-GTb" secondAttribute="bottom" constant="20" id="ucY-8T-MzP"/>
+                                                                    <constraint firstItem="PaG-dW-e4Z" firstAttribute="leading" secondItem="83c-Ob-874" secondAttribute="leading" constant="20" id="uhj-zo-fbd"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="XOJ-rX-ugf" secondAttribute="trailing" constant="20" id="xOz-zK-uP2"/>
+                                                                    <constraint firstItem="jLF-io-lb9" firstAttribute="leading" secondItem="83c-Ob-874" secondAttribute="leading" constant="20" id="xbD-TB-l4R"/>
+                                                                    <constraint firstItem="hwa-e3-H1J" firstAttribute="top" secondItem="F66-gH-T11" secondAttribute="bottom" constant="20" id="z7B-1P-eAk"/>
+                                                                </constraints>
+                                                            </view>
+                                                        </subviews>
+                                                        <color key="backgroundColor" red="0.98823529409999999" green="0.97647058819999999" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstItem="83c-Ob-874" firstAttribute="leading" secondItem="rJw-BP-xzr" secondAttribute="leading" constant="20" id="1ly-3Q-8QQ"/>
+                                                            <constraint firstItem="83c-Ob-874" firstAttribute="top" secondItem="rJw-BP-xzr" secondAttribute="top" constant="20" id="YoF-Iq-hfi"/>
+                                                            <constraint firstAttribute="trailing" secondItem="83c-Ob-874" secondAttribute="trailing" constant="20" id="rQC-0a-Whe"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="tWS-de-dLC" firstAttribute="top" secondItem="axI-jb-IH3" secondAttribute="top" id="34N-uy-r7A"/>
+                                            <constraint firstAttribute="height" constant="800" id="KNe-fD-DMC"/>
+                                            <constraint firstAttribute="trailing" secondItem="tWS-de-dLC" secondAttribute="trailing" id="fSl-qN-OyJ"/>
+                                            <constraint firstItem="tWS-de-dLC" firstAttribute="leading" secondItem="axI-jb-IH3" secondAttribute="leading" id="fbq-nK-fov"/>
+                                            <constraint firstAttribute="bottom" secondItem="tWS-de-dLC" secondAttribute="bottom" id="lZ6-HJ-0Be"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="axI-jb-IH3" firstAttribute="bottom" secondItem="FJe-PG-ZDg" secondAttribute="bottom" id="EoZ-39-y9Y"/>
+                                    <constraint firstItem="FJe-PG-ZDg" firstAttribute="top" secondItem="axI-jb-IH3" secondAttribute="top" id="WhH-PA-uOY"/>
+                                    <constraint firstItem="axI-jb-IH3" firstAttribute="leading" secondItem="FJe-PG-ZDg" secondAttribute="leading" id="XZQ-YH-Nrg"/>
+                                    <constraint firstItem="axI-jb-IH3" firstAttribute="width" secondItem="BVm-fS-Xew" secondAttribute="width" id="Ztc-wK-Rrs"/>
+                                    <constraint firstItem="axI-jb-IH3" firstAttribute="trailing" secondItem="FJe-PG-ZDg" secondAttribute="trailing" id="ub7-oO-dJX"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="FJe-PG-ZDg"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="y9L-UI-tMM"/>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="BZR-LB-1Je"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="BVm-fS-Xew" firstAttribute="top" secondItem="5hP-f1-dYG" secondAttribute="top" id="0nV-10-Tt3"/>
+                            <constraint firstAttribute="bottom" secondItem="BVm-fS-Xew" secondAttribute="bottom" id="8b2-7I-5ac"/>
+                            <constraint firstItem="BVm-fS-Xew" firstAttribute="trailing" secondItem="BZR-LB-1Je" secondAttribute="trailing" id="xfV-tS-dgW"/>
+                            <constraint firstItem="BVm-fS-Xew" firstAttribute="leading" secondItem="BZR-LB-1Je" secondAttribute="leading" id="yV8-wi-mhW"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="acneCaredDescriptionView" destination="XOJ-rX-ugf" id="tdV-0T-EqE"/>
+                        <outlet property="acneCaredTextField" destination="g3b-UA-JRy" id="r59-HM-mNI"/>
+                        <outlet property="acneCaredType" destination="67m-KW-8zO" id="SK0-ol-q9b"/>
+                        <outlet property="acneType" destination="Pd2-o1-rKD" id="zaN-AK-fvS"/>
+                        <outlet property="acneTypeView" destination="Nsr-3R-lBt" id="78J-DH-zGA"/>
+                        <outlet property="allergicDrugTextField" destination="F66-gH-T11" id="3o0-Rk-b73"/>
+                        <outlet property="allergicDrugType" destination="DdN-xc-vLy" id="deN-Gy-5LO"/>
+                        <outlet property="allergicDrugView" destination="PaG-dW-e4Z" id="CH1-hE-Tni"/>
+                        <outlet property="informationView" destination="83c-Ob-874" id="k4G-4I-r8o"/>
+                        <outlet property="skinTypeButton" destination="2tw-fD-yPM" id="IkP-T5-eUy"/>
+                        <outlet property="skinTypeView" destination="1vg-Ts-GTb" id="iXV-95-Ifo"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YYH-Hb-gku" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3622" y="-1191"/>
+        </scene>
     </scenes>
     <color key="tintColor" red="0.98823529409999999" green="0.97647058819999999" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
     <resources>
+        <image name="apple_circle" width="980" height="980"/>
         <image name="arrow_green" width="8" height="16"/>
         <image name="calendar_icon" width="18" height="20"/>
+        <image name="camera" width="26" height="22"/>
         <image name="chat_icon" width="20" height="20"/>
+        <image name="facebook_circle" width="512" height="512"/>
         <image name="home_icon" width="26" height="27"/>
         <image name="placeholder" width="343" height="309"/>
         <image name="star" width="15" height="15"/>
