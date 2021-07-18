@@ -21,6 +21,15 @@ class DoctorHomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.title = "หน้าแรก"
+
+        let button: UIButton = UIButton(type: UIButton.ButtonType.custom)
+        button.setImage(UIImage(named: "user"), for: .normal)
+        button.addTarget(self, action: #selector(self.profileButtonTapped), for: .touchUpInside)
+        button.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        let barButton = UIBarButtonItem(customView: button)
+        self.navigationItem.leftBarButtonItem = barButton
+        
         // Do any additional setup after loading the view.
     }
     
@@ -72,6 +81,31 @@ class DoctorHomeViewController: UIViewController {
         }
     }
 
+    
+    
+    @objc func profileButtonTapped() {
+        
+        if (user == nil) {
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let viewController = storyboard.instantiateViewController(withIdentifier: "LandingViewController") as! LandingViewController
+           
+            let regsterNavigationController = UINavigationController(rootViewController: viewController)
+            regsterNavigationController.modalPresentationStyle = .fullScreen
+            regsterNavigationController.navigationBar.tintColor = UIColor.white
+            self.navigationController?.present(regsterNavigationController, animated: true, completion:nil)
+            
+        } else {
+            print("Log in already")
+            let storyboard = UIStoryboard(name: "Doctor", bundle: nil)
+            let viewController = storyboard.instantiateViewController(withIdentifier: "DoctorProfileViewController") as! DoctorProfileViewController
+            viewController.doctor = self.doctor
+            viewController.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }
+
+    }
+    
     /*
     // MARK: - Navigation
 

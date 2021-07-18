@@ -33,26 +33,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         configUI()
         
-        let user = Auth.auth().currentUser
-        user?.getIDTokenResult(completion: { (result, error) in
-    
-            guard let role = result?.claims["role"] as? String else {
-                return
-            }
-            if role == "doctor" {
-                if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
-                   appDelegate.setDoctorUI()
-                }
-            } else {
-                if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
-                   appDelegate.setCustomerUI()
-                }
-            }
-        })
-        
+       
         return true
         
     }
+    
     
     func application( _ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:] ) -> Bool {
         

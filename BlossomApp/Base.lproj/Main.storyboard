@@ -644,7 +644,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qgm-j2-qSp" customClass="MultiBannerView" customModule="BlossomApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="138" width="414" height="358.5"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="34v-7x-UuM">
                                 <rect key="frame" x="20" y="612" width="374" height="44"/>
@@ -674,7 +674,7 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="2Av-yb-ElP"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="34v-7x-UuM" firstAttribute="centerY" secondItem="2Av-yb-ElP" secondAttribute="centerY" multiplier="1.4" id="01l-ql-iY0"/>
                             <constraint firstItem="qgm-j2-qSp" firstAttribute="height" secondItem="fPG-pf-7JY" secondAttribute="height" multiplier="0.4" id="5x2-jb-mzC"/>
@@ -2777,7 +2777,7 @@
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="lCj-EQ-26p"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="l7n-oM-ZRy" firstAttribute="centerX" secondItem="lCj-EQ-26p" secondAttribute="centerX" id="iGq-NP-JEh"/>
                             <constraint firstItem="l7n-oM-ZRy" firstAttribute="centerY" secondItem="lCj-EQ-26p" secondAttribute="centerY" id="vyz-Uf-sYY"/>

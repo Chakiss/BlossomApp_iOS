@@ -138,8 +138,7 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
     
     @IBAction func phoneNumberVerifyButtonTapped() {
         
-        var phoneNumber = self.customer?.phoneNumber
-        phoneNumber = "+66633709461"
+        let phoneNumber = self.customer?.phoneNumber
         PhoneAuthProvider.provider()
             .verifyPhoneNumber(phoneNumber!, uiDelegate: nil) { verificationID, error in
                 if error != nil {
