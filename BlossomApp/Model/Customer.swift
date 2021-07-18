@@ -35,6 +35,12 @@ class Customer: Codable {
     
     var genderString: String?
     
+    var skinType: String?
+    var acneType: String?
+    var acneCaredDescription: String?
+    var allergicDrug: String?
+    
+    
     private enum CodingKeys: String, CodingKey {
         case createdAt
         case displayName
@@ -54,10 +60,15 @@ class Customer: Codable {
         case address
         
         case displayPhoto
+        
+        case skinType
+        case acneType
+        case acneCaredDescription
+        case allergicDrug
     }
 
     
-    init(id: String, createdAt: String, displayName: String, email: String, firstName: String, isEmailVerified: Bool, isPhoneVerified: Bool, lastName: String, phoneNumber: String, platform: String, referenceConnectyCubeID: String, referenceShipnityID: String, updatedAt: String, gender: String, genderString: String, birthDate: String, birthDayDisplayString:String, birthDayString: String, address: Address,displayPhoto: String ) {
+    init(id: String, createdAt: String, displayName: String, email: String, firstName: String, isEmailVerified: Bool, isPhoneVerified: Bool, lastName: String, phoneNumber: String, platform: String, referenceConnectyCubeID: String, referenceShipnityID: String, updatedAt: String, gender: String, genderString: String, birthDate: String, birthDayDisplayString:String, birthDayString: String, address: Address,displayPhoto: String, skinType: String, acneType: String, acneCaredDescription: String, allergicDrug: String   ) {
         self.id = id
         self.createdAt = createdAt
         self.displayName = displayName
@@ -79,6 +90,12 @@ class Customer: Codable {
         self.address = address
         
         self.displayPhoto = displayPhoto
+        
+        self.skinType = skinType
+        self.acneType = acneType
+        self.acneCaredDescription = acneCaredDescription
+        self.allergicDrug = allergicDrug
+        
     }
     
     
@@ -102,6 +119,11 @@ class Customer: Codable {
         address =  try values.decode(Address.self, forKey: .address)
         
         displayPhoto = try values.decode(String.self, forKey: .displayPhoto)
+        
+        skinType = try values.decode(String.self, forKey: .skinType)
+        acneType = try values.decode(String.self, forKey: .acneType)
+        acneCaredDescription = try values.decode(String.self, forKey: .acneCaredDescription)
+        allergicDrug = try values.decode(String.self, forKey: .allergicDrug)
     }
 }
 

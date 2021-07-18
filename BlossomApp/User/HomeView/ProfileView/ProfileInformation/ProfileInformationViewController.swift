@@ -87,7 +87,7 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
         self.nameTextField.text = self.customer?.firstName
         self.surNameTextField.text = self.customer?.lastName
         
-        if (self.customer?.phoneNumber!.count)! > 0 {
+        if self.customer?.phoneNumber?.count ?? 0 > 0 {
             self.phoneTextField.text = self.customer?.phoneNumber?.phonenumberformat()
         }
         self.emailTextField.text = self.customer?.email
@@ -138,8 +138,10 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
     
     @IBAction func phoneNumberVerifyButtonTapped() {
         
+        var phoneNumber = self.customer?.phoneNumber
+        phoneNumber = "+66633709461"
         PhoneAuthProvider.provider()
-            .verifyPhoneNumber(self.phoneTextField.text!, uiDelegate: nil) { verificationID, error in
+            .verifyPhoneNumber(phoneNumber!, uiDelegate: nil) { verificationID, error in
                 if error != nil {
                     let alert = UIAlertController(title: "กรุณาตรวจสอบ", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))

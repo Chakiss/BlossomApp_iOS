@@ -22,7 +22,7 @@ class ProductCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        self.addToCartButton.layer.cornerRadius = 22
+        self.addToCartButton.layer.cornerRadius = 15
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

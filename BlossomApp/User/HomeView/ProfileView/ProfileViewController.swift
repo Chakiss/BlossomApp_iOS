@@ -29,27 +29,14 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
     var customer:Customer?
 
     private lazy var profileInformationViewController: ProfileInformationViewController = {
-        // Load Storyboard
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-
-        // Instantiate View Controller
         var viewController = storyboard.instantiateViewController(withIdentifier: "ProfileInformationViewController") as! ProfileInformationViewController
-        // Add View Controller as Child View Controller
-        //self.add(asChildViewController: viewController)
-
         return viewController
     }()
 
     private lazy var profileHealthViewController: ProfileHealthViewController = {
-        // Load Storyboard
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-
-        // Instantiate View Controller
         var viewController = storyboard.instantiateViewController(withIdentifier: "ProfileHealthViewController") as! ProfileHealthViewController
-
-        // Add View Controller as Child View Controller
-        //self.add(asChildViewController: viewController)
-
         return viewController
     }()
     
@@ -62,6 +49,8 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
         let newBackButton = UIBarButtonItem(image: UIImage(named: "back"), style: .plain, target: self, action: #selector(self.back(sender:)))
         self.navigationItem.leftBarButtonItem = newBackButton
         NotificationCenter.default.addObserver(self, selector: #selector(self.profileChanged), name:Notification.Name("BlossomProfileChanged"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.profileChanged), name:Notification.Name("BlossomHealthChanged"), object: nil)
     }
     
     
@@ -147,11 +136,18 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
                 
                 let displayPhoto = documentData["displayPhoto"] as? String ?? ""
                 
-                return Customer(id: id, createdAt: createdAt, displayName: displayName, email: email, firstName: firstName, isEmailVerified: isEmailVerified, isPhoneVerified: isPhoneVerified, lastName: lastName, phoneNumber: phoneNumber, platform: platform, referenceConnectyCubeID: referenceConnectyCubeID, referenceShipnityID: referenceShipnityID, updatedAt: updatedAt, gender: gender,genderString: genderString, birthDate: birthDay,birthDayDisplayString: birthDayDisplayString, birthDayString: birthDayString, address: address, displayPhoto: displayPhoto
+                let skinType = documentData["skinType"] as? String ?? ""
+                let acneType = documentData["acneType"] as? String ?? ""
+                let acneCaredDescription = documentData["acneCaredDescription"] as? String ?? ""
+                let allergicDrug = documentData["allergicDrug"] as? String ?? ""
+                
+               
+                return Customer(id: id, createdAt: createdAt, displayName: displayName, email: email, firstName: firstName, isEmailVerified: isEmailVerified, isPhoneVerified: isPhoneVerified, lastName: lastName, phoneNumber: phoneNumber, platform: platform, referenceConnectyCubeID: referenceConnectyCubeID, referenceShipnityID: referenceShipnityID, updatedAt: updatedAt, gender: gender,genderString: genderString, birthDate: birthDay,birthDayDisplayString: birthDayDisplayString, birthDayString: birthDayString, address: address, displayPhoto: displayPhoto,skinType: skinType, acneType: acneType, acneCaredDescription: acneCaredDescription, allergicDrug: allergicDrug
                 )
             })
             self.profileInformationViewController.customer = self.customer
             self.profileInformationViewController.displayInformation()
+            self.profileHealthViewController.customer = self.customer
             self.displayInformation()
         }
     }
@@ -178,6 +174,7 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
         super.viewWillDisappear(animated)
         
         NotificationCenter.default.removeObserver(self, name: Notification.Name("BlossomProfileChanged"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("BlossomHealthChanged"), object: nil)
         
     }
     
@@ -197,11 +194,24 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
         
         functions.httpsCallable("app-users-updateProfile").call(payload) { result, error in
             Auth.auth().currentUser?.reload()
+            self.saveHealtData()
+            
+        }
+        
+    }
+    
+    func saveHealtData(){
+        let payloadHealth = ["skinType": profileHealthViewController.skinTypeString,
+                             "acneType": profileHealthViewController.acneTypeString,
+                             "acneCaredDescription": profileHealthViewController.acneCaredTextField.text ?? customer?.acneCaredDescription! ?? "",
+                             "allergicDrug": profileHealthViewController.allergicDrugTextField.text ?? customer?.allergicDrug! ?? ""]
+        
+        functions.httpsCallable("app-users-updateMedicalProfile").call(payloadHealth) { result, error in
+            Auth.auth().currentUser?.reload()
             ProgressHUD.dismiss()
             self.navigationController?.popViewController(animated: true)
             
         }
-         
     }
     
     @objc private func profileChanged(notification: NSNotification){
@@ -259,6 +269,7 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
     
     
     private func setupView() {
+        
         add(asChildViewController: profileInformationViewController)
         setupSegmentedControl()
         
