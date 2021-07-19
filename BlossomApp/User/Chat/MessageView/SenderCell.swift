@@ -11,10 +11,13 @@ class SenderCell: UITableViewCell {
 
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var borderView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        borderView.layer.cornerRadius = 10
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

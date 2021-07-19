@@ -46,7 +46,7 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
             let chat = Chat.instance
             chat.addDelegate(self)
             chat.connect(withUserID: userID!, password: "123456") { error in
-               print(error)
+               
             }
         }
     }
@@ -56,7 +56,7 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
     
         Request.dialogs(with: Paginator.limit(100, skip: 0), extendedRequest: nil, successBlock: { (dialogs, usersIDs, paginator) in
             self.dialogList = dialogs
-            self.dialogList.sort(by: { $0.createdAt!.compare($1.createdAt!) == ComparisonResult.orderedDescending })
+            self.dialogList.sort(by: { $0.createdAt!.compare($1.createdAt!) == ComparisonResult.orderedAscending })
             self.tableView.reloadData()
            
             
@@ -83,12 +83,6 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        
-        
-        //let cell = tableView.dequeueReusableCell(withIdentifier: "DailogCell", for: indexPath) as! DailogCell
-        //cell.nameLabel?.text = dailog.name
-        //cell.messageLabel?.text = dailog.lastMessageText
-        //cell.timeLabel?.text = dailog.lastMessageDate?.timeAgoDisplay()
-        
         let dialog = self.dialogList[indexPath.row]
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "DialogCell", for: indexPath) as! DialogCell
@@ -96,7 +90,6 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
         //cell.setTitle(title: dialog.name, imageUrl: "")
         cell.titleLabel.text = dialog.name
         cell.setLastMessageText(lastMessageText: dialog.lastMessageText, date: dialog.updatedAt!, unreadMessageCount:dialog.unreadMessagesCount)
-        
         return cell
     }
     

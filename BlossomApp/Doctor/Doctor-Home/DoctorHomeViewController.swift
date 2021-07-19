@@ -54,7 +54,7 @@ class DoctorHomeViewController: UIViewController {
                 let email = documentData["email"] as? String ?? ""
                 let referenceConnectyCubeID = documentData["referenceConnectyCubeID"] as? String ?? ""
                 let lastName = documentData["lastName"] as? String ?? ""
-                let currentScore = documentData["currentScore"] as? String ?? ""
+                let currentScore = documentData["currentScore"] as? Double ?? 0.0
                 
                 return Doctor(id: id, displayName: displayName, email: email, firstName: firstName, lastName: lastName, phonenumber: phoneNumber, connectyCubeID: referenceConnectyCubeID, story: story, createdAt: createdAt, updatedAt: updatedAt, displayPhoto: displayPhoto,currentScore: currentScore)
             })

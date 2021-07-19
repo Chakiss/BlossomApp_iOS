@@ -52,7 +52,7 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
                 let createdAt = data["createdAt"] as? String ?? ""
                 let updatedAt = data["updatedAt"] as? String ?? ""
                 let displayPhoto = data["displayPhoto"] as? String ?? ""
-                let currentScore = data["currentScore"] as? String ?? ""
+                let currentScore = data["currentScore"] as? Double ?? 0
                 return Doctor(id: id, displayName: displayName, email: email, firstName: firstName, lastName: lastName, phonenumber: phoneNumber, connectyCubeID: referenceConnectyCubeID, story: story, createdAt: createdAt, updatedAt: updatedAt, displayPhoto: displayPhoto, currentScore: currentScore)
                 
             }
@@ -113,7 +113,7 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
             }
         }
         
-        cell.doctorStarLabel.text = "2.0"
+        cell.doctorStarLabel.text = String(format: "%.2f",doctor.currentScore as! CVarArg)
         cell.doctorReviewLabel.text = ""
         cell.calculateReview(reviews: reviewList)
         

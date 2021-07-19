@@ -8,6 +8,7 @@
 import UIKit
 import ConnectyCube
 import CommonKeyboard
+import SwiftDate
 
 class MessageingViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ChatDelegate {
 
@@ -56,7 +57,7 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
                             self.chatMessageList = messages
                             self.chatMessageList.sort(by: { $0.createdAt!.compare($1.createdAt!) == ComparisonResult.orderedAscending })
                             self.tableView.reloadData()
-                            
+                            self.scrollToBottom()
                          }) { (error) in
             
         }
@@ -79,20 +80,20 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
         if  chatMessage.senderID == chatdialog?.userID {
             let cell = tableView.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath) as! SenderCell
             cell.messageLabel.text = chatMessage.text
-            cell.timeLabel.text = chatMessage.dateSent?.timeAgoDisplay()
+            cell.timeLabel.text = chatMessage.dateSent?.toRelative(style: RelativeFormatter.defaultStyle(), locale: Locales.current)
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "ReceiverCell", for: indexPath) as! ReceiverCell
             cell.messageLabel.text = chatMessage.text
-            cell.timeLabel.text = chatMessage.dateSent?.timeAgoDisplay()
+            cell.timeLabel.text = chatMessage.dateSent?.toRelative(style: RelativeFormatter.defaultStyle(), locale: Locales.current)
             return cell
         }
        
     }
     
     func chatDidReceive(_ message: ChatMessage) {
-        print("message")
-        //requestMessages()
+        
+        
         self.chatMessageList.append(message)
         self.tableView.reloadData()
         self.scrollToBottom()

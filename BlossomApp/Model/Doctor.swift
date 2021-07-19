@@ -20,10 +20,10 @@ class Doctor: Codable {
     var createdAt: String?
     var updatedAt: String?
     var displayPhoto: String?
-    var currentScore: String?
+    var currentScore: Double?
     
     
-    init(id: String, displayName: String, email: String, firstName: String, lastName: String, phonenumber: String, connectyCubeID: String, story: String, createdAt: String, updatedAt: String, displayPhoto: String, currentScore: String) {
+    init(id: String, displayName: String, email: String, firstName: String, lastName: String, phonenumber: String, connectyCubeID: String, story: String, createdAt: String, updatedAt: String, displayPhoto: String, currentScore: Double) {
         self.id = id
         self.displayName = displayName
         self.email = email
@@ -51,7 +51,7 @@ class Doctor: Codable {
         createdAt = try values.decodeIfPresent(String.self, forKey: .createdAt)
         updatedAt = try values.decodeIfPresent(String.self, forKey: .updatedAt)
         displayPhoto = try values.decodeIfPresent(String.self, forKey: .displayPhoto)
-        currentScore = try values.decodeIfPresent(String.self, forKey: .currentScore)
+        currentScore = try values.decodeIfPresent(Double.self, forKey: .currentScore)
     }
     
     
