@@ -56,7 +56,7 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
     
         Request.dialogs(with: Paginator.limit(100, skip: 0), extendedRequest: nil, successBlock: { (dialogs, usersIDs, paginator) in
             self.dialogList = dialogs
-            self.dialogList.sort(by: { $0.createdAt!.compare($1.createdAt!) == ComparisonResult.orderedAscending })
+            self.dialogList.sort(by: { $0.lastMessageDate!.compare($1.lastMessageDate!) == ComparisonResult.orderedDescending })
             self.tableView.reloadData()
            
             
