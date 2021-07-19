@@ -31,6 +31,8 @@
 		1B1C2E3926993C5B00F57122 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C2E3326993C5B00F57122 /* Product.swift */; };
 		1B1C2E3C269944C200F57122 /* ProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C2E3B269944C200F57122 /* ProductCell.swift */; };
 		1B1C2E3E26994FF700F57122 /* ProductDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C2E3D26994FF700F57122 /* ProductDetailViewController.swift */; };
+		1B27FDC226A5EA11000E8609 /* SlotDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B27FDC126A5EA11000E8609 /* SlotDateCell.swift */; };
+		1B27FDC426A5F01A000E8609 /* SlotDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B27FDC326A5F01A000E8609 /* SlotDay.swift */; };
 		1B29A3D32697E92300556A55 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1B29A3D22697E92300556A55 /* GoogleService-Info.plist */; };
 		1B3721D226959645006265D3 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3721D126959645006265D3 /* ProfileViewController.swift */; };
 		1B3721D52695AF29006265D3 /* ProfileInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3721D42695AF29006265D3 /* ProfileInformationViewController.swift */; };
@@ -134,6 +136,8 @@
 		1B1C2E3326993C5B00F57122 /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		1B1C2E3B269944C200F57122 /* ProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCell.swift; sourceTree = "<group>"; };
 		1B1C2E3D26994FF700F57122 /* ProductDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailViewController.swift; sourceTree = "<group>"; };
+		1B27FDC126A5EA11000E8609 /* SlotDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotDateCell.swift; sourceTree = "<group>"; };
+		1B27FDC326A5F01A000E8609 /* SlotDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotDay.swift; sourceTree = "<group>"; };
 		1B29A3D22697E92300556A55 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1B3721D126959645006265D3 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		1B3721D42695AF29006265D3 /* ProfileInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInformationViewController.swift; sourceTree = "<group>"; };
@@ -533,6 +537,7 @@
 				1BE101E4269DC63200F7323E /* Reviews.swift */,
 				1BE101E6269DD2DD00F7323E /* Customer.swift */,
 				1B69AD5726A47C8400910679 /* CustomerManager.swift */,
+				1B27FDC326A5F01A000E8609 /* SlotDay.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -541,6 +546,7 @@
 			isa = PBXGroup;
 			children = (
 				1B7EFC2926A5E2E800C0F7E1 /* SlotTimeViewController.swift */,
+				1B27FDC126A5EA11000E8609 /* SlotDateCell.swift */,
 			);
 			path = SlotTime;
 			sourceTree = "<group>";
@@ -845,6 +851,7 @@
 				1B1C2E3926993C5B00F57122 /* Product.swift in Sources */,
 				1B69AD5626A4791A00910679 /* ConnectyCubeManager.swift in Sources */,
 				1B1C2E3726993C5B00F57122 /* Paginate.swift in Sources */,
+				1B27FDC426A5F01A000E8609 /* SlotDay.swift in Sources */,
 				1B187A5D268F654300BB0122 /* ViewController.swift in Sources */,
 				1B1C2E2B2698867400F57122 /* Landing.swift in Sources */,
 				1BC3B21926A1CFA1006EDD29 /* ImagePickerManager.swift in Sources */,
@@ -857,6 +864,7 @@
 				3C7D5E4B269ADC76002E5AB9 /* Cart.swift in Sources */,
 				1B69AD5826A47C8400910679 /* CustomerManager.swift in Sources */,
 				1B69AD5026A40D8B00910679 /* DoctorProfileViewController.swift in Sources */,
+				1B27FDC226A5EA11000E8609 /* SlotDateCell.swift in Sources */,
 				1B3721D82695AF46006265D3 /* ProfileHealthViewController.swift in Sources */,
 				1B1C2E3626993C5B00F57122 /* Options.swift in Sources */,
 				1B775922269491A4000780BD /* Promotion.swift in Sources */,

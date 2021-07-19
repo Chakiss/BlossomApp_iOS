@@ -80,6 +80,11 @@ class DoctorDetailViewController: UIViewController, UITableViewDelegate, UITable
     
     @IBAction func consultButtonTapped() {
         
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let viewController = storyboard.instantiateViewController(withIdentifier: "SlotTimeViewController") as! SlotTimeViewController
+        viewController.doctor = doctor
+        viewController.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(viewController, animated: true)
     }
     
     
