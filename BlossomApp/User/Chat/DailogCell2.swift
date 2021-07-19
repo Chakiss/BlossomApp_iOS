@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DailogCell: UITableViewCell {
+class DailogCell2: UITableViewCell {
     
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!

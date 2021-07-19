@@ -28,7 +28,12 @@ target 'BlossomApp' do
   
   pod 'ConnectyCube'
   pod 'CommonKeyboard'
-
+  pod 'SwiftDate', '~> 5.1.0'
+  pod 'BadgeSwift', '~> 7.0.0'
+#  pod 'LetterAvatarKit', '~> 1.1.7'
+#  pod 'PINRemoteImage', '~> 2.1.4'
+#  pod 'Reusable', '~> 4.0.5'
+  
   target 'BlossomAppTests' do
     inherit! :search_paths
     # Pods for testing

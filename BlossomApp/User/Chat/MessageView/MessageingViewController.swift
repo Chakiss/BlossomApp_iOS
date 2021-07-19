@@ -9,8 +9,9 @@ import UIKit
 import ConnectyCube
 import CommonKeyboard
 
-class MessageingViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class MessageingViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ChatDelegate {
 
+    var customer: Customer?
     var chatdialog: ChatDialog?
     var chatMessageList: [ChatMessage] = []
     
@@ -38,21 +39,33 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
                 self?.view.layoutIfNeeded()
             })
         }
+        
+        
+        Chat.instance.addDelegate(self)
+    
+       
+       
         // Do any additional setup after loading the view.
     }
     
+    func requestMessages() {
+        Request.messages(withDialogID: chatdialog?.id ?? "",
+                         extendedRequest: ["date_sent[gt]":"1455098137"],
+                         paginator: Paginator.limit(2000, skip: 0),
+                         successBlock: { (messages, paginator) in
+                            self.chatMessageList = messages
+                            self.chatMessageList.sort(by: { $0.createdAt!.compare($1.createdAt!) == ComparisonResult.orderedAscending })
+                            self.tableView.reloadData()
+                            
+                         }) { (error) in
+            
+        }
+    }
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        Request .messages(withDialogID: chatdialog?.id ?? "",
-                          extendedRequest: ["date_sent[gt]":"1455098137"],
-                          paginator: Paginator.limit(200, skip: 0),
-                          successBlock: { (messages, paginator) in
-                            self.chatMessageList = messages
-                            self.tableView.reloadData()
-            
-        }) { (error) in
-
-        }
+        requestMessages()
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -61,30 +74,52 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let chatMessage = self.chatMessageList[indexPath.row]
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "DailogCell", for: indexPath) as! DailogCell
-        cell.nameLabel?.text = chatMessage.text
-        cell.messageLabel?.text = chatMessage.senderResource
-        cell.timeLabel?.text = chatMessage.dateSent?.timeAgoDisplay()
-        
-        return cell
+        if  chatMessage.senderID == chatdialog?.userID {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath) as! SenderCell
+            cell.messageLabel.text = chatMessage.text
+            cell.timeLabel.text = chatMessage.dateSent?.timeAgoDisplay()
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ReceiverCell", for: indexPath) as! ReceiverCell
+            cell.messageLabel.text = chatMessage.text
+            cell.timeLabel.text = chatMessage.dateSent?.timeAgoDisplay()
+            return cell
+        }
+       
     }
     
-    
+    func chatDidReceive(_ message: ChatMessage) {
+        print("message")
+        //requestMessages()
+        self.chatMessageList.append(message)
+        self.tableView.reloadData()
+        self.scrollToBottom()
+    }
 
     @IBAction func sendMessageButtonTapped() {
-        let message = ChatMessage()
-        message.text = "How are you today?"
-
-        chatdialog?.send(message, completionBlock: { error in
-            print(error)
-        })
+        if self.textField.text?.count ?? 0 > 0 {
+            let message = ChatMessage()
+            message.text = self.textField.text
+            
+            chatdialog?.send(message, completionBlock: { error in
+                self.textField.text = ""
+                self.chatMessageList.append(message)
+                self.tableView.reloadData()
+                self.scrollToBottom()
+                
+            })
+        }
         
-        //let privateDialog: ChatDialog = ChatDialog(dialogID: , type: <#T##ChatDialogType#>)
-        //privateDialog.send(message) { (error) in
-
-        //}
+    
+    }
+    
+    func scrollToBottom(){
+        DispatchQueue.main.async {
+            let indexPath = IndexPath(row: self.chatMessageList.count-1, section: 0)
+            self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        }
     }
     /*
     // MARK: - Navigation
