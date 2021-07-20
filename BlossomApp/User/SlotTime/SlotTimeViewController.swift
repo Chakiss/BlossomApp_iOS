@@ -17,12 +17,18 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     var slotDay: [SlotDay] = []
     
-    @IBOutlet weak var collectionView: UICollectionView!
+    var slotTime: [SlotTime] = []
+    
+    @IBOutlet weak var dayCollectionView: UICollectionView!
+    @IBOutlet weak var timeCollectionView: UICollectionView!
+    
+    @IBOutlet weak var makeAppointmentButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "เลือกเวลาปรึกษาแพทย์"
 
+        makeAppointmentButton.layer.cornerRadius = 22
         // Do any additional setup after loading the view.
     }
     
@@ -34,12 +40,12 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
             if error == nil {
                 self.slotDay = (daySlot!.documents.map { queryDocumentSnapshot -> SlotDay in
                     let id = queryDocumentSnapshot.documentID
-                    let data = queryDocumentSnapshot.data()
                     return SlotDay(id: id)
                 })
-                self.collectionView.reloadData()
+                self.dayCollectionView.reloadData()
                 if self.slotDay.count > 0 {
-                    self.getSlotTime(self.slotDay[0].id)
+                    self.slotDay[0].isSelected = true
+                    self.getSlotTime(dayID: self.slotDay[0].id!)
                 }
                 
             }
@@ -50,15 +56,19 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
     func getSlotTime(dayID: String) {
         db.collection("doctors").document((doctor?.id)!).collection("slots").document(dayID).collection("times").getDocuments { timeSlot, error in
             if error == nil {
-//                self.slotDay = (daySlot!.documents.map { queryDocumentSnapshot -> SlotDay in
-//                    let id = queryDocumentSnapshot.documentID
-//                    let data = queryDocumentSnapshot.data()
-//                    return SlotDay(id: id)
-//                })
-//                self.collectionView.reloadData()
-//                if self.slotDay.count > 0 {
-//                    self.getSlotTime(self.slotDay[0].id)
-//                }
+                
+                self.slotTime = (timeSlot!.documents.map { queryDocumentSnapshot -> SlotTime in
+                    let id = queryDocumentSnapshot.documentID
+                    //let data = queryDocumentSnapshot.data()
+                    return SlotTime(id: id)
+                })
+                //let data = queryDocumentSnapshot.data()
+                
+                if self.slotTime.count > 0 {
+                    self.slotTime[0].isSelected = true
+                }
+                self.timeCollectionView.reloadData()
+
                 
             }
         }
@@ -66,32 +76,78 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.slotDay.count
+        if collectionView == dayCollectionView {
+            return self.slotDay.count
+        } else {
+            return self.slotTime.count
+        }
+        
     }
-
-    
 
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SlotDateCell", for: indexPath) as! SlotDateCell
         
-        let region = Region(calendar: Calendars.gregorian, zone: Zones.asiaBangkok, locale: Locales.thai)
-        let date = self.slotDay[indexPath.row].id?.toDate(region: region)
-        let day : Int = date!.day
-        cell.dayLabel.text = String(day)
-        cell.monthLabel.text = date?.monthName(.short)
-        return cell
+        if collectionView == dayCollectionView {
+            
+            
+            let slotDay = self.slotDay[indexPath.row]
+            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SlotDateCell", for: indexPath) as! SlotDateCell
+            
+            let region = Region(calendar: Calendars.gregorian, zone: Zones.asiaBangkok, locale: Locales.thai)
+            let date = slotDay.id?.toDate(region: region)
+            let day : Int = date!.day
+            cell.dayLabel.text = String(day)
+            cell.monthLabel.text = date?.monthName(.short)
+            
+            if slotDay.isSelected == false {
+                cell.backgroundCellView.backgroundColor = UIColor.blossomPrimary
+                cell.removeShadow()
+            } else {
+                cell.backgroundCellView.backgroundColor = UIColor.red
+                cell.addShadow()
+            }
+            return cell
+            
+        } else {
+            
+            let slotTime = self.slotTime[indexPath.row]
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SlotTimeCell", for: indexPath) as! SlotTimeCell
+            cell.timeLabel.text = self.slotTime[indexPath.row].id
+            
+            if slotTime.isSelected == false {
+                cell.backgroundCellView.backgroundColor = UIColor.blossomPrimary
+                cell.removeShadow()
+            } else {
+                cell.backgroundCellView.backgroundColor = UIColor.red
+                cell.addShadow()
+            }
+            
+            return cell
+        }
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == dayCollectionView {
+            for index in 0...self.slotDay.count-1 {
+                self.slotDay[index].isSelected = false
+            }
+            self.slotDay[indexPath.row].isSelected = true
+            getSlotTime(dayID: self.slotDay[indexPath.row].id!)
+            collectionView.reloadData()
+        }
+        else {
+            
+            for index in 0...self.slotTime.count-1 {
+                self.slotTime[index].isSelected = false
+            }
+            self.slotTime[indexPath.row].isSelected = true
+            collectionView.reloadData()
+        }
     }
-    */
+
+    @IBAction func makeAppointmentButtonTapped() {
+        
+    }
 
 }

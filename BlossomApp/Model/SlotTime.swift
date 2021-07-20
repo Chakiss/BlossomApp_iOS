@@ -1,5 +1,5 @@
 //
-//  SlotDay.swift
+//  SlotTime.swift
 //  BlossomApp
 //
 //  Created by CHAKRIT PANIAM on 20/7/2564 BE.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class SlotDay: Codable {
+class SlotTime: Codable {
     
     var id: String?
     var isSelected: Bool = false

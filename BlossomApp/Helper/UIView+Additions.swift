@@ -29,6 +29,13 @@ extension UIView {
         self.layer.shadowRadius = 4.0
     }
     
+    func removeShadow()  {
+        self.layer.shadowColor = UIColor.clear.cgColor
+        self.layer.shadowOffset = CGSize(width: 0, height: 0)
+        self.layer.shadowOpacity = 0.0
+        self.layer.shadowRadius = 0.0
+    }
+    
     func circleView()  {
         self.layer.cornerRadius = self.bounds.height/2
         self.layer.borderWidth = 1

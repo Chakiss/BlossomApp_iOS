@@ -71,6 +71,8 @@
 		1B8D861426A49C0B00A2ED57 /* MessageingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8D861326A49C0B00A2ED57 /* MessageingViewController.swift */; };
 		1BC3B21926A1CFA1006EDD29 /* ImagePickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC3B21826A1CFA1006EDD29 /* ImagePickerManager.swift */; };
 		1BC3B21C26A2ADA5006EDD29 /* Nonce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC3B21B26A2ADA5006EDD29 /* Nonce.swift */; };
+		1BCE64EB26A70964002EE71F /* SlotTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCE64EA26A70964002EE71F /* SlotTime.swift */; };
+		1BCE64ED26A719CF002EE71F /* SlotTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCE64EC26A719CF002EE71F /* SlotTimeCell.swift */; };
 		1BE101E3269D575D00F7323E /* Doctor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE101E2269D575D00F7323E /* Doctor.swift */; };
 		1BE101E5269DC63200F7323E /* Reviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE101E4269DC63200F7323E /* Reviews.swift */; };
 		1BE101E7269DD2DD00F7323E /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE101E6269DD2DD00F7323E /* Customer.swift */; };
@@ -177,6 +179,8 @@
 		1BC3B21826A1CFA1006EDD29 /* ImagePickerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerManager.swift; sourceTree = "<group>"; };
 		1BC3B21A26A297C0006EDD29 /* BlossomApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BlossomApp.entitlements; sourceTree = "<group>"; };
 		1BC3B21B26A2ADA5006EDD29 /* Nonce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nonce.swift; sourceTree = "<group>"; };
+		1BCE64EA26A70964002EE71F /* SlotTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotTime.swift; sourceTree = "<group>"; };
+		1BCE64EC26A719CF002EE71F /* SlotTimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotTimeCell.swift; sourceTree = "<group>"; };
 		1BE101E2269D575D00F7323E /* Doctor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doctor.swift; sourceTree = "<group>"; };
 		1BE101E4269DC63200F7323E /* Reviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reviews.swift; sourceTree = "<group>"; };
 		1BE101E6269DD2DD00F7323E /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
@@ -538,6 +542,7 @@
 				1BE101E6269DD2DD00F7323E /* Customer.swift */,
 				1B69AD5726A47C8400910679 /* CustomerManager.swift */,
 				1B27FDC326A5F01A000E8609 /* SlotDay.swift */,
+				1BCE64EA26A70964002EE71F /* SlotTime.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -547,6 +552,7 @@
 			children = (
 				1B7EFC2926A5E2E800C0F7E1 /* SlotTimeViewController.swift */,
 				1B27FDC126A5EA11000E8609 /* SlotDateCell.swift */,
+				1BCE64EC26A719CF002EE71F /* SlotTimeCell.swift */,
 			);
 			path = SlotTime;
 			sourceTree = "<group>";
@@ -861,6 +867,7 @@
 				1B1C2E3826993C5B00F57122 /* Product_set_items.swift in Sources */,
 				1B1C2E3C269944C200F57122 /* ProductCell.swift in Sources */,
 				1B53125826937AF300B88165 /* DoctorListViewController.swift in Sources */,
+				1BCE64ED26A719CF002EE71F /* SlotTimeCell.swift in Sources */,
 				3C7D5E4B269ADC76002E5AB9 /* Cart.swift in Sources */,
 				1B69AD5826A47C8400910679 /* CustomerManager.swift in Sources */,
 				1B69AD5026A40D8B00910679 /* DoctorProfileViewController.swift in Sources */,
@@ -895,6 +902,7 @@
 				3C7D5E56269AF9F5002E5AB9 /* CartItemTableViewCell.swift in Sources */,
 				1B5312642693E66400B88165 /* PromotionViewController.swift in Sources */,
 				1B1C2E3426993C5B00F57122 /* Sets.swift in Sources */,
+				1BCE64EB26A70964002EE71F /* SlotTime.swift in Sources */,
 				1B53126126937B9400B88165 /* ChatListViewController.swift in Sources */,
 				1B53125E26937B5F00B88165 /* ProductListViewController.swift in Sources */,
 				1B69AD5A26A489CB00910679 /* DailogCell2.swift in Sources */,
@@ -1084,6 +1092,7 @@
 				CODE_SIGN_ENTITLEMENTS = BlossomApp/BlossomApp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = GZWLHGR8C3;
 				EXCLUDED_ARCHS = "";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
@@ -1110,6 +1119,7 @@
 				CODE_SIGN_ENTITLEMENTS = BlossomApp/BlossomApp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = GZWLHGR8C3;
 				EXCLUDED_ARCHS = "";
 				INFOPLIST_FILE = BlossomApp/Info.plist;

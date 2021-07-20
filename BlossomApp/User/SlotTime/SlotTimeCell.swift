@@ -1,5 +1,5 @@
 //
-//  SlotDateCell.swift
+//  SlotTimeCell.swift
 //  BlossomApp
 //
 //  Created by CHAKRIT PANIAM on 20/7/2564 BE.
@@ -7,12 +7,10 @@
 
 import UIKit
 
-class SlotDateCell: UICollectionViewCell {
+
+class SlotTimeCell: UICollectionViewCell {
     @IBOutlet weak var backgroundCellView: UIView!
-    @IBOutlet weak var dayLabel: UILabel!
-    @IBOutlet weak var monthLabel: UILabel!
-    
-    
+    @IBOutlet weak var timeLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
