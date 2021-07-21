@@ -180,6 +180,7 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
     @IBAction func makeAppointmentButtonTapped() {
         
         ProgressHUD.show()
+        /*
         let payload = ["doctorID": doctor?.id,
                        "slotID":self.slotDaySelected?.id,
                        "timeID":self.slotTimeSelected?.id ]
@@ -206,11 +207,30 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
             }
 
         }
+         */
+        self.makeAppointmentOrderPaid(orderID: ""   )
     }
     
     
     func makeAppointmentOrderPaid(orderID: String){
+     
+        ProgressHUD.show()
+        let payload = ["orderID": "APM-20210721014020" ]
         
+        functions.httpsCallable("app-orders-markAppointmentOrderPaid").call(payload) { result, error in
+        
+            ProgressHUD.dismiss()
+            if error != nil {
+                let alert = UIAlertController(title: "กรุณาตรวจสอบ", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+            else {
+                print(result?.data as Any)
+               
+            }
+
+        }
     }
 
 }
