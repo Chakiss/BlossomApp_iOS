@@ -10,7 +10,7 @@ import Foundation
 class SlotDay: Codable {
     
     var id: String?
-    var isSelected: Bool = false
+    
     
     private enum CodingKeys: String, CodingKey {
         case id

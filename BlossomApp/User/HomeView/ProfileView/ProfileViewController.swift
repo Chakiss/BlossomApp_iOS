@@ -10,7 +10,7 @@ import Firebase
 
 class ProfileViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
-    lazy var functions = Functions.functions()
+    
     
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
@@ -23,6 +23,7 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
     
     var barButton:UIBarButtonItem = UIBarButtonItem()
     
+    lazy var functions = Functions.functions()
     let storage = Storage.storage()
     let user = Auth.auth().currentUser
     let db = Firestore.firestore()

@@ -401,6 +401,7 @@
                                     <action selector="consultButtonTapped" destination="x78-iS-n7i" eventType="touchUpInside" id="p6G-fD-o01"/>
                                     <action selector="loginButtonTapped" destination="2vc-Gw-iCh" eventType="touchUpInside" id="va8-uC-Mew"/>
                                     <action selector="logoutButtonTapped" destination="Cle-S5-b8D" eventType="touchUpInside" id="rSP-S3-4SC"/>
+                                    <action selector="makeAppointmentButtonTapped" destination="ao5-Su-MdW" eventType="touchUpInside" id="GCE-PL-RTG"/>
                                 </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Tln-Al-3J2">
