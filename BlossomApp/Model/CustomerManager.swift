@@ -11,11 +11,11 @@ import Firebase
 class CustomerManager {
     
     static let sharedInstance = CustomerManager()
-    let storage = Storage.storage()
-    let user = Auth.auth().currentUser
-    let db = Firestore.firestore()
+    private weak var storage = Storage.storage()
+    private weak var user = Auth.auth().currentUser
+    private weak var db = Firestore.firestore()
     
-    var customer: Customer? = nil//{
+    private(set) var customer: Customer? = nil//{
         //get { counter += 1; return data; }
         //set { _data = customer; }
     //}
@@ -24,14 +24,19 @@ class CustomerManager {
     
     
     func getCustomer(completion: @escaping ()->Swift.Void )  {
+        if user == nil {
+            // Try to get user before fetching
+            user = Auth.auth().currentUser
+        }
+        
         guard user != nil else {
             completion()
             return
         }
         
-        db.collection("customers").document(user?.uid ?? "").addSnapshotListener { snapshot, error in
+        db?.collection("customers").document(user?.uid ?? "").addSnapshotListener { snapshot, error in
             
-            self.customer = (snapshot?.data().map({ documentData -> Customer in
+            let customer = (snapshot?.data().map({ documentData -> Customer in
                 let id = snapshot?.documentID ?? ""
                 let createdAt = documentData["createdAt"] as? String ?? ""
                 let displayName = documentData["displayName"] as? String ?? ""
@@ -78,8 +83,14 @@ class CustomerManager {
                 return Customer(id: id, createdAt: createdAt, displayName: displayName, email: email, firstName: firstName, isEmailVerified: isEmailVerified, isPhoneVerified: isPhoneVerified, lastName: lastName, phoneNumber: phoneNumber, platform: platform, referenceConnectyCubeID: referenceConnectyCubeID, referenceShipnityID: referenceShipnityID, updatedAt: updatedAt, gender: gender,genderString: genderString, birthDate: birthDay,birthDayDisplayString: birthDayDisplayString, birthDayString: birthDayString, address: address, displayPhoto: displayPhoto,skinType: skinType, acneType: acneType, acneCaredDescription: acneCaredDescription, allergicDrug: allergicDrug,documentReference: documentSnapshot!
                 )
                 
-            }))!
-         //   successCallback(customer!)
+            }))
+            
+            guard customer != nil else {
+                completion()
+                return
+            }
+            
+            self.customer = customer
             completion()
         }
     }

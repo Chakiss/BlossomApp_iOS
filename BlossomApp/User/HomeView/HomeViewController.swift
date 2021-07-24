@@ -113,12 +113,11 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
     
     func getAppointmentData(){
         
-        
         db.collection("appointments")
             .whereField("customerReference", isEqualTo: customer?.documentReference as Any)
             .whereField("isCompleted", isEqualTo: false)
-            .addSnapshotListener { snapshot, error in
-                self.appointments = (snapshot?.documents.map { queryDocumentSnapshot -> Appointment  in
+            .addSnapshotListener { [weak self] snapshot, error in
+                let appointments = (snapshot?.documents.map { queryDocumentSnapshot -> Appointment  in
                     let data = queryDocumentSnapshot.data()
                     let doctorRef = data["doctorReference"]  as? DocumentReference ?? nil
                     let timeRef = data["timeReference"]  as? DocumentReference ?? nil
@@ -127,10 +126,16 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
                     let sessionEnd = data["sessionEnd"]  as! Timestamp
                     
                     return Appointment(id: "", customerReference: cusRef!, doctorReference: doctorRef!, timeReference: timeRef!,sessionStart: sessionStart, sessionEnd: sessionEnd)
-                })!
+                })
+                
+                guard appointments != nil else {
+                    return
+                }
                
-                if self.appointments.count > 0 {
-                    self.displayAppointment()
+                self?.appointments = appointments!
+
+                if let count = self?.appointments.count, count > 0 {
+                    self?.displayAppointment()
                 }
             }
     }
