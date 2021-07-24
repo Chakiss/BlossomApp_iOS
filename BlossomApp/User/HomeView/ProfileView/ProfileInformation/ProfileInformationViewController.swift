@@ -22,7 +22,7 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
     @IBOutlet weak var birthDayTextField: UITextField!
     let datePicker = UIDatePicker()
 
-    
+    var showLogout: Bool = true
     
     @IBOutlet weak var addressTextField: UITextView!
     
@@ -57,7 +57,7 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
+        signOutButton.isHidden = !showLogout
         birthDayTextField.addInputViewDatePicker(target: self, selector: #selector(doneButtonPressed))
     }
     

@@ -45,6 +45,19 @@ class CartViewController: UIViewController {
         self.tableView.register(UINib(nibName: "CartHeaderTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "CartHeaderTableViewCell")
         self.tableView.register(UINib(nibName: "CartItemTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "CartItemTableViewCell")
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        let model = CartHeaderTableViewCell.Model(
+            dateString: String.today(),
+            priceText: "",
+            addressText: CustomerManager.sharedInstance.customer?.address?.address ?? "-"
+        )
+        self.cartHeaderModel = model
+        tableView.reloadData()
+        
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,11 +66,6 @@ class CartViewController: UIViewController {
         self.title = "ตะกร้าสินค้า"
         
         // Mock order data
-        let model = CartHeaderTableViewCell.Model(
-            dateString: String.today(),
-            priceText: "",
-            addressText: CustomerManager.sharedInstance.customer?.address?.address ?? "-")
-        self.cartHeaderModel = model
         updateTotalPrice()
         
         setupView()
@@ -99,7 +107,7 @@ class CartViewController: UIViewController {
         
         guard let address = customer.address?.address, !address.isEmpty else {
             showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณาระบุที่อยู่จัดส่ง") { [weak self] in
-                self?.showLoginView()
+                self?.showProfile()
             }
             return
         }
@@ -112,7 +120,7 @@ class CartViewController: UIViewController {
                                   contactMethod: "phone",
                                   email: customer.email ?? "",
                                   annotation: "",
-                                  tag: "",
+                                  tag: "app",
                                   shippingType: "EMS",
                                   shippingFee: 0,
                                   orderDiscount: 0,
@@ -256,7 +264,21 @@ extension CartViewController: CartItemTableViewCellDelegate {
 extension CartViewController: CartHeaderTableViewCellDelegate {
     
     func cartHeaderDidTapEditAddress() {
-        debugPrint(" edit address ")
+        guard CustomerManager.sharedInstance.customer != nil else {
+            showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณาเข้าสู่ระบบ") { [weak self] in
+                self?.showLoginView()
+            }
+            return
+        }
+        showProfile()
+    }
+    
+    private func showProfile() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let viewController = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
+        viewController.showLogout = false
+        viewController.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(viewController, animated: true)
     }
     
 }

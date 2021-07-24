@@ -9,8 +9,6 @@ import UIKit
 import Firebase
 
 class ProfileViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-
-    
     
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
@@ -20,7 +18,7 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var selectImageButton: UIButton!
     
-    
+    var showLogout: Bool = true
     var barButton:UIBarButtonItem = UIBarButtonItem()
     
     lazy var functions = Functions.functions()
@@ -32,6 +30,7 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
     private lazy var profileInformationViewController: ProfileInformationViewController = {
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         var viewController = storyboard.instantiateViewController(withIdentifier: "ProfileInformationViewController") as! ProfileInformationViewController
+        viewController.showLogout = showLogout
         return viewController
     }()
 
@@ -93,7 +92,6 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
         
         barButton.isEnabled = false
         self.navigationItem.rightBarButtonItem = barButton
-
         
     }
     
@@ -184,10 +182,13 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
                              "acneCaredDescription": acneCaredString,
                              "allergicDrug": allergicDrugString]
         
-        functions.httpsCallable("app-users-updateMedicalProfile").call(payloadHealth) { result, error in
+        functions.httpsCallable("app-users-updateMedicalProfile").call(payloadHealth) { [weak self] result, error in
             Auth.auth().currentUser?.reload()
-            ProgressHUD.dismiss()
-            self.navigationController?.popViewController(animated: true)
+            
+            CustomerManager.sharedInstance.getCustomer { [weak self] in
+                ProgressHUD.dismiss()
+                self?.navigationController?.popViewController(animated: true)
+            }
             
         }
     }
