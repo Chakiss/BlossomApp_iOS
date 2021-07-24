@@ -69,14 +69,13 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
         getCustomer()
         let projectId = "blossom-clinic-thailand"
         user?.getIDToken(completion: { token, error in
-            pri
+            Request.logIn(withFirebaseProjectID: projectId, accessToken: token!, successBlock: { (user) in
+                print(user)
+            }) { (error) in
+                print(error)
+            }
         })
       
-        Request.logIn(withFirebaseProjectID: projectId, accessToken: token!, successBlock: { (user) in
-            print(user)
-        }) { (error) in
-            print(error)
-        }
 
 //
 //        Chat.instance.connect(withUserID: 4554340, password: "123456") { (error) in
