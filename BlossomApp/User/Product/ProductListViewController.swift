@@ -6,8 +6,6 @@
 //
 
 import UIKit
-import Alamofire
-
 
 class ProductListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -106,19 +104,12 @@ extension ProductListViewController: ProductCellDelegate {
 // MARK: - Alamofire
 extension ProductListViewController {
     func fetchProduct(){
-        
-        let headers: HTTPHeaders = [
-            "Authorization": "Token token=Aq1p3BC8ZSyBb-IW2QEOxT_JppMvbjSB3DKWRC2E6ziaxgDeJRK00dSzkgcbCSS_AIpESUe-Rz47suWiX2MjqA, email=oaf@blossomclinic.com"
-        ]
-        
-        AF.request("https://www.shipnity.pro/api/v2/products?per_page=50",method: .get ,headers: headers)
-            .validate()
-            .responseDecodable(of: ProductsResponse.self) { (response) in
-                guard let productsResponse = response.value else { return }
-                self.products = productsResponse.products ?? []
-                self.tableView.reloadData()
-            }
-        
+        ProgressHUD.show()
+        APIProduct.list { response in
+            ProgressHUD.dismiss()
+            self.products = response?.products ?? []
+            self.tableView.reloadData()
+        }.request()        
     }
 }
 

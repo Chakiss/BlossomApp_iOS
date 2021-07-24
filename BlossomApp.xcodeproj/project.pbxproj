@@ -101,6 +101,10 @@
 		3C7D5E56269AF9F5002E5AB9 /* CartItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7D5E54269AF9F5002E5AB9 /* CartItemTableViewCell.swift */; };
 		3C7D5E57269AF9F5002E5AB9 /* CartItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C7D5E55269AF9F5002E5AB9 /* CartItemTableViewCell.xib */; };
 		3CF7B50526AC23C200F937DE /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF7B50426AC23C200F937DE /* String+Extension.swift */; };
+		3CF7B50726AC40B900F937DE /* APIProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF7B50626AC40B900F937DE /* APIProduct.swift */; };
+		3CF7B50A26AC43D900F937DE /* CreateOrderResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF7B50926AC43D900F937DE /* CreateOrderResponse.swift */; };
+		3CF7B50C26AC443700F937DE /* JSONEncodingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF7B50B26AC443700F937DE /* JSONEncodingHelper.swift */; };
+		3CF7B50E26AC456000F937DE /* CreateOrderRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF7B50D26AC456000F937DE /* CreateOrderRequest.swift */; };
 		3CFE6374269B350E005235F1 /* PaymentMethodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CFE6372269B350E005235F1 /* PaymentMethodViewController.swift */; };
 		3CFE6375269B350E005235F1 /* PaymentMethodViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CFE6373269B350E005235F1 /* PaymentMethodViewController.xib */; };
 		3CFE6377269B44BF005235F1 /* UIViewController+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CFE6376269B44BF005235F1 /* UIViewController+Additions.swift */; };
@@ -238,6 +242,10 @@
 		3C7D5E54269AF9F5002E5AB9 /* CartItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartItemTableViewCell.swift; sourceTree = "<group>"; };
 		3C7D5E55269AF9F5002E5AB9 /* CartItemTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CartItemTableViewCell.xib; sourceTree = "<group>"; };
 		3CF7B50426AC23C200F937DE /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		3CF7B50626AC40B900F937DE /* APIProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIProduct.swift; sourceTree = "<group>"; };
+		3CF7B50926AC43D900F937DE /* CreateOrderResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateOrderResponse.swift; sourceTree = "<group>"; };
+		3CF7B50B26AC443700F937DE /* JSONEncodingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONEncodingHelper.swift; sourceTree = "<group>"; };
+		3CF7B50D26AC456000F937DE /* CreateOrderRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateOrderRequest.swift; sourceTree = "<group>"; };
 		3CFE6372269B350E005235F1 /* PaymentMethodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodViewController.swift; sourceTree = "<group>"; };
 		3CFE6373269B350E005235F1 /* PaymentMethodViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentMethodViewController.xib; sourceTree = "<group>"; };
 		3CFE6376269B44BF005235F1 /* UIViewController+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Additions.swift"; sourceTree = "<group>"; };
@@ -504,11 +512,14 @@
 		1B53125C26937B4D00B88165 /* Product */ = {
 			isa = PBXGroup;
 			children = (
+				3CF7B50826AC43C900F937DE /* OrderResponse */,
 				3C7D5E49269ADC67002E5AB9 /* Cart */,
 				1B53125D26937B5F00B88165 /* ProductListViewController.swift */,
 				1B1C2E3D26994FF700F57122 /* ProductDetailViewController.swift */,
 				1B1C2E3B269944C200F57122 /* ProductCell.swift */,
 				1B1C2E3A269943AC00F57122 /* ProductResponse */,
+				3CF7B50626AC40B900F937DE /* APIProduct.swift */,
+				3CF7B50B26AC443700F937DE /* JSONEncodingHelper.swift */,
 			);
 			path = Product;
 			sourceTree = "<group>";
@@ -675,6 +686,15 @@
 				3CFE6373269B350E005235F1 /* PaymentMethodViewController.xib */,
 			);
 			path = Cart;
+			sourceTree = "<group>";
+		};
+		3CF7B50826AC43C900F937DE /* OrderResponse */ = {
+			isa = PBXGroup;
+			children = (
+				3CF7B50D26AC456000F937DE /* CreateOrderRequest.swift */,
+				3CF7B50926AC43D900F937DE /* CreateOrderResponse.swift */,
+			);
+			path = OrderResponse;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -973,6 +993,7 @@
 				1BCE64ED26A719CF002EE71F /* SlotTimeCell.swift in Sources */,
 				3C7D5E4B269ADC76002E5AB9 /* Cart.swift in Sources */,
 				1BCE64FD26A8C86C002EE71F /* PreFormViewController.swift in Sources */,
+				3CF7B50726AC40B900F937DE /* APIProduct.swift in Sources */,
 				1B69AD5826A47C8400910679 /* CustomerManager.swift in Sources */,
 				1B69AD5026A40D8B00910679 /* DoctorProfileViewController.swift in Sources */,
 				1BCE650C26ABF5A2002EE71F /* Appointment.swift in Sources */,
@@ -993,6 +1014,7 @@
 				1B13E6E7269ADC2100131105 /* LoginViewController.swift in Sources */,
 				1B7C910F26A5268600C341B6 /* DialogCell.swift in Sources */,
 				1B13E6EA269AE79E00131105 /* WebViewViewController.swift in Sources */,
+				3CF7B50A26AC43D900F937DE /* CreateOrderResponse.swift in Sources */,
 				1BCE64F426A84B79002EE71F /* HistoryAppointmentViewController.swift in Sources */,
 				1BCE650026A9A1D0002EE71F /* RemoteConnectionView.swift in Sources */,
 				1B8D861426A49C0B00A2ED57 /* MessageingViewController.swift in Sources */,
@@ -1003,6 +1025,7 @@
 				1B7EFC2A26A5E2E800C0F7E1 /* SlotTimeViewController.swift in Sources */,
 				1B1C2E3E26994FF700F57122 /* ProductDetailViewController.swift in Sources */,
 				1B53125B26937B3400B88165 /* AppointmentListViewController.swift in Sources */,
+				3CF7B50C26AC443700F937DE /* JSONEncodingHelper.swift in Sources */,
 				1B1C2E3526993C5B00F57122 /* Subproducts.swift in Sources */,
 				1BE101E5269DC63200F7323E /* Reviews.swift in Sources */,
 				3CFE6377269B44BF005235F1 /* UIViewController+Additions.swift in Sources */,
@@ -1028,6 +1051,7 @@
 				1B5BC3BA2696086A004206AE /* LandingViewController.swift in Sources */,
 				1B3721D52695AF29006265D3 /* ProfileInformationViewController.swift in Sources */,
 				1B13E6EE269B2F3F00131105 /* ProgressView.swift in Sources */,
+				3CF7B50E26AC456000F937DE /* CreateOrderRequest.swift in Sources */,
 				1BCE64F826A8543B002EE71F /* AppointmentCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

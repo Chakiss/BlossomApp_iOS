@@ -39,6 +39,8 @@ class LoginViewController: UIViewController, ASAuthorizationControllerPresentati
         ProgressHUD.show()
     
         Auth.auth().signIn(withEmail: emailTextField.text ?? "", password: passwordTextField.text ?? "") { authResult, error in
+            
+            CustomerManager.sharedInstance.getCustomer {}
             ProgressHUD.dismiss()
             if error != nil {
                 let alert = UIAlertController(title: "ข้อมูลของคุณไม่ถูกต้อง", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
@@ -77,6 +79,8 @@ class LoginViewController: UIViewController, ASAuthorizationControllerPresentati
             let credential = FacebookAuthProvider
                 .credential(withAccessToken: AccessToken.current!.tokenString)
             Auth.auth().signIn(with: credential) { authResult, error in
+                
+                CustomerManager.sharedInstance.getCustomer {}
                 ProgressHUD.dismiss()
                 if error != nil {
                     let alert = UIAlertController(title: "กรุณาตรวจสอบ", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
@@ -176,6 +180,7 @@ class LoginViewController: UIViewController, ASAuthorizationControllerPresentati
 extension LoginViewController: ASAuthorizationControllerDelegate {
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        
         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
             // Do something with the credential...
             UserDefaults.standard.set(appleIDCredential.user, forKey: "appleAuthorizedUserIdKey")
@@ -202,6 +207,8 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                                                               rawNonce: nonce)
             
             Auth.auth().signIn(with: firebaseCredential) { authResult, error in
+                
+                CustomerManager.sharedInstance.getCustomer {}
                 ProgressHUD.dismiss()
                 authResult?.user.getIDTokenResult(completion: { (result, error) in
                     
@@ -231,6 +238,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
 
   func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
     // Handle error.
+    ProgressHUD.dismiss()
     print("Sign in with Apple errored: \(error)")
   }
     

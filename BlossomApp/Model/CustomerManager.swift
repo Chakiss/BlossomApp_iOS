@@ -23,7 +23,12 @@ class CustomerManager {
     init() { }
     
     
-    func getCustomer()  {
+    func getCustomer(completion: @escaping ()->Swift.Void )  {
+        guard user != nil else {
+            completion()
+            return
+        }
+        
         db.collection("customers").document(user?.uid ?? "").addSnapshotListener { snapshot, error in
             
             self.customer = (snapshot?.data().map({ documentData -> Customer in
@@ -75,6 +80,7 @@ class CustomerManager {
                 
             }))!
          //   successCallback(customer!)
+            completion()
         }
     }
 }

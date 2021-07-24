@@ -54,7 +54,7 @@ class CartViewController: UIViewController {
         
         // Mock order data
         let model = CartHeaderTableViewCell.Model(
-            dateString: "dd/MM/yyyy",
+            dateString: String.today(),
             priceText: "",
             addressText: "xxx\nxxxx\nxxxxx")
         self.cartHeaderModel = model
@@ -89,8 +89,40 @@ class CartViewController: UIViewController {
     }
     
     private func createOrder() {
-        // if success
-        gotoPaymentMethod()
+        
+        guard let customer = CustomerManager.sharedInstance.customer else {
+            showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณาเข้าสู่ระบบ") { [weak self] in
+                self?.showLoginView()
+            }
+            return
+        }
+        
+        let name = (customer.firstName ?? "") + " " + (customer.lastName ?? "")
+        let order = PurchaseOrder(customer: Int(customer.id ?? "") ?? 0,
+                                  name: name,
+                                  address: "",
+                                  tel: customer.phoneNumber ?? "",
+                                  contactMethod: "phone",
+                                  email: customer.email ?? "",
+                                  annotation: "",
+                                  tag: "",
+                                  shippingType: "EMS",
+                                  shippingFee: 0,
+                                  orderDiscount: 0,
+                                  purchasesAttributes: cart?.getPurcahseAttributes() ?? [])
+        ProgressHUD.show()
+        APIProduct.createOrder(po: CreateOrderRequest(order: order)) { [weak self] response in
+            ProgressHUD.dismiss()
+            guard let response = response,
+                  let orderID = response.order?.id else {
+                self?.showAlertDialogue(title: "ผิดพลาด", message: "ไม่สามารถส่งคำสั่งซื้อได้ในขณะนี้", completion: {
+                })
+                return
+            }
+            // if success
+            debugPrint("Created order \(orderID)")
+            self?.gotoPaymentMethod()
+        }.request()
     }
     
     private func updateOrder() {

@@ -61,17 +61,14 @@ class RegisterViewController: UIViewController {
     }
     
     @IBAction func registerButtonTapped() {
-      
 
         if phoneNumberTextField.text!.count > 0 {
-            if phoneNumberTextField.text?.first != "0" {
+            if phoneNumberTextField.text?.first != "0" || phoneNumberTextField.text!.count != 10 {
                 let alert = UIAlertController(title: "แจ้งเตือน", message: "กรุณาแก้ไขเบอร์โทรศัพท์ให้ถูกต้อง", preferredStyle: UIAlertController.Style.alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
                 return
             }
-            
-           
         }
         
         if passwordTextField.text != confirmPasswordTextField.text {
@@ -112,6 +109,8 @@ class RegisterViewController: UIViewController {
                     
                     if let email = data["email"] as? String , let password = data["password"] as? String {
                         Auth.auth().signIn(withEmail: email , password: password ) { authResult, error in
+                            
+                            CustomerManager.sharedInstance.getCustomer {}
                             ProgressHUD.dismiss()
                             
                             authResult?.user.getIDTokenResult(completion: { (result, error) in

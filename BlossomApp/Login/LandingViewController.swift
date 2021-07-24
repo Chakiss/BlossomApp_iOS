@@ -12,7 +12,6 @@ class LandingViewController: UIViewController,MultiBannerViewDelegate {
     func openCampaign(promotion: Promotion) {
 
     }
-    
 
     @IBOutlet weak var multiBannerView: MultiBannerView!
     
@@ -30,9 +29,13 @@ class LandingViewController: UIViewController,MultiBannerViewDelegate {
         multiBannerView.reload()
         
         self.registerButton.layer.cornerRadius = 22
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(dismissLogin))
 
     }
     
+    @objc private func dismissLogin() {
+        dismiss(animated: true, completion: nil)
+    }
     
     @IBAction func registerButtonTapped() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)

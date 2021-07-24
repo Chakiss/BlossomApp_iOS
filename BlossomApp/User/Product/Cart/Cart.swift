@@ -76,6 +76,10 @@ class Cart {
         return items.map({ $0.product.priceInSatang() * $0.quantity }).reduce(0, +)
     }
     
+    public func getPurcahseAttributes() -> [PurchasesAttribute] {
+        return []
+    }
+    
 }
 
 extension Int {
