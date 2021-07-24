@@ -11,6 +11,7 @@ import Firebase
 import FBSDKLoginKit
 import AuthenticationServices
 import CryptoKit
+import ConnectyCube
 
 class ProfileInformationViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, ASAuthorizationControllerPresentationContextProviding {
     
@@ -368,6 +369,9 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
             let firebaseAuth = Auth.auth()
             do {
                 try firebaseAuth.signOut()
+                Chat.instance.disconnect { (error) in
+
+                }
                 
                 self.navigationController?.popToRootViewController(animated: true)
                 

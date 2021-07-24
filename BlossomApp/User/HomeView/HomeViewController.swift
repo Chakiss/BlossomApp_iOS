@@ -7,9 +7,9 @@
 
 import Foundation
 import UIKit
-
 import Firebase
 import ConnectyCube
+import SwiftDate
 
 class HomeViewController: UIViewController, MultiBannerViewDelegate {
    
@@ -68,22 +68,11 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
         
         user = Auth.auth().currentUser
         getCustomer()
-//
-//        let projectId = "blossom-clinic-thailand"
-//        user?.getIDToken(completion: { token, error in
-//
-//            Request.logIn(withFirebaseProjectID: projectId, accessToken: token!, successBlock: { (user) in
-//                print(user)
-//            }) { (error) in
-//                print(error)
-//            }
-//
-//        })
 
+        let token = Session.current.sessionDetails?.token
 
-        Chat.instance.connect(withUserID: 4554340, password: "123456") { (error) in
-            print(error)
-        }
+        
+
     }
     
     @objc func appointmentTapped(tapGestureRecognizer: UITapGestureRecognizer){
@@ -108,6 +97,12 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
             }
             
             self?.customer = customer
+            
+            let token = Session.current.sessionDetails!.token! as String
+            let userID = UInt(token)
+            Chat.instance.connect(withUserID: userID ?? 0, password: token) { (error) in
+
+            }
             self?.getAppointmentData()
             
         }
@@ -167,7 +162,12 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
                 }
                 
             
-                self.dateTimeLabel.text = "วันที่ 24 กรกฏาคม 2654 11:00 - 11:30"
+                let region = Region(calendar: Calendars.buddhist, zone: Zones.asiaBangkok, locale: Locales.thai)
+                let startDate = DateInRegion((appointment.sessionStart?.dateValue())!, region: region)
+                let endDate = DateInRegion((appointment.sessionEnd?.dateValue())!, region: region)
+                
+                self.dateTimeLabel.text = String(format: "วันที่ %2d %@ %d %.2d:%.2d - %.2d:%.2d",startDate.day,startDate.monthName(.default),startDate.year,startDate.hour,startDate.minute,endDate.hour,endDate.minute)
+                
                 
                 self.doctorProfileImageView.layer.cornerRadius = self.doctorProfileImageView.frame.size.width/2
                 self.doctorNickNameLabel.text = doctor?.displayName

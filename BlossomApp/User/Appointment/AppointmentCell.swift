@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import SwiftDate
 
 class AppointmentCell: UITableViewCell {
 
@@ -66,8 +67,13 @@ class AppointmentCell: UITableViewCell {
                     return Doctor(id: id, displayName: displayName, email: email, firstName: firstName, lastName: lastName, phonenumber: phoneNumber, connectyCubeID: referenceConnectyCubeID, story: story, createdAt: createdAt, updatedAt: updatedAt, displayPhoto: displayPhoto, currentScore: currentScore,documentReference: document.reference)
                 }
 
-
-                self.appointLabel.text = "วันที่ 24 กรกฏาคม 2654 11:00 - 11:30"
+                
+                
+                let region = Region(calendar: Calendars.buddhist, zone: Zones.asiaBangkok, locale: Locales.thai)
+                let startDate = DateInRegion((self.appointment?.sessionStart?.dateValue())!, region: region)
+                let endDate = DateInRegion((self.appointment?.sessionEnd?.dateValue())!, region: region)
+                
+                self.appointLabel.text = String(format: "วันที่ %2d %@ %d %.2d:%.2d - %.2d:%.2d",startDate.day,startDate.monthName(.default),startDate.year,startDate.hour,startDate.minute,endDate.hour,endDate.minute)
 
                 self.doctorImageView.layer.cornerRadius = self.doctorImageView.frame.size.width/2
                 self.doctorNickNameLabel.text = doctor?.displayName
