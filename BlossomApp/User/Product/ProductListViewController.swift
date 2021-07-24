@@ -31,8 +31,9 @@ class ProductListViewController: UIViewController, UITableViewDataSource, UITabl
     @objc
     private func showCartDetail() {
         
-        if CartManager.shared.currentCart == nil {
-            CartManager.shared.newCart()
+        guard CartManager.shared.currentCart != nil else {
+            showError(message: "ยังไม่มีสินค้าในตะกร้า")
+            return
         }
         
         let viewController = CartViewController.initializeInstance(cart: CartManager.shared.currentCart!)
@@ -90,6 +91,7 @@ extension ProductListViewController: ProductCellDelegate {
             return
         }
         
+        buttonHandlerAddToCart(cell.addToCartButton)
         let product = products[indexPath.row]
         CartManager.shared.addItem(product)
         
@@ -113,5 +115,43 @@ extension ProductListViewController {
                 self.tableView.reloadData()
             }
         
+    }
+}
+
+extension ProductListViewController {
+    
+    func buttonHandlerAddToCart(_ sender: UIButton) {
+            
+        let buttonPosition : CGPoint = sender.convert(sender.bounds.origin, to: self.tableView)
+        let indexPath = self.tableView.indexPathForRow(at: buttonPosition)!
+        let cell = tableView.cellForRow(at: indexPath) as! ProductCell
+        let imageViewPosition : CGPoint = cell.productImageView.convert(cell.productImageView.bounds.origin, to: self.view)
+        let imgViewTemp = UIImageView(frame: CGRect(x: imageViewPosition.x, y: imageViewPosition.y, width: cell.productImageView.frame.size.width, height: cell.productImageView.frame.size.height))
+        imgViewTemp.backgroundColor = .white
+        imgViewTemp.image = cell.productImageView.image
+        animation(tempView: imgViewTemp)
+        
+    }
+    
+    func animation(tempView : UIView)  {
+        self.navigationController?.view.addSubview(tempView)
+        UIView.animate(withDuration: 0.1,
+                       animations: {
+                        tempView.animationZoom(scaleX: 1.5, y: 1.5)
+        }, completion: { _ in
+            
+            UIView.animate(withDuration: 0.3, animations: {
+                
+                tempView.animationZoom(scaleX: 0.2, y: 0.2)
+                tempView.animationRotated(by: CGFloat(Double.pi))
+                
+                tempView.frame.origin.x = self.view.frame.width
+                tempView.frame.origin.y = 0
+                
+            }, completion: { _ in
+                tempView.removeFromSuperview()
+            })
+            
+        })
     }
 }

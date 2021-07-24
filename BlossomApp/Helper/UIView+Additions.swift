@@ -112,3 +112,13 @@ extension UIStackView {
     }
     
 }
+
+extension UIView{
+    func animationZoom(scaleX: CGFloat, y: CGFloat) {
+        self.transform = CGAffineTransform(scaleX: scaleX, y: y)
+    }
+    
+    func animationRotated(by angle : CGFloat) {
+        self.transform = self.transform.rotated(by: angle)
+    }
+}

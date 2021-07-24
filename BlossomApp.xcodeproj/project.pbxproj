@@ -90,6 +90,8 @@
 		1BE101E5269DC63200F7323E /* Reviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE101E4269DC63200F7323E /* Reviews.swift */; };
 		1BE101E7269DD2DD00F7323E /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE101E6269DD2DD00F7323E /* Customer.swift */; };
 		1BF479C326A3482900E9BC23 /* PhoneNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF479C226A3482900E9BC23 /* PhoneNumberFormatter.swift */; };
+		3C65030726AC10D100DAA98A /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C65030626AC10D100DAA98A /* Button.swift */; };
+		3C65030926AC11E900DAA98A /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C65030826AC11E900DAA98A /* UIFont+Extension.swift */; };
 		3C7D5E4B269ADC76002E5AB9 /* Cart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7D5E4A269ADC76002E5AB9 /* Cart.swift */; };
 		3C7D5E4E269AE48D002E5AB9 /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7D5E4C269AE48D002E5AB9 /* CartViewController.swift */; };
 		3C7D5E4F269AE48D002E5AB9 /* CartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C7D5E4D269AE48D002E5AB9 /* CartViewController.xib */; };
@@ -223,6 +225,8 @@
 		1BE101E4269DC63200F7323E /* Reviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reviews.swift; sourceTree = "<group>"; };
 		1BE101E6269DD2DD00F7323E /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
 		1BF479C226A3482900E9BC23 /* PhoneNumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberFormatter.swift; sourceTree = "<group>"; };
+		3C65030626AC10D100DAA98A /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
+		3C65030826AC11E900DAA98A /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		3C7D5E4A269ADC76002E5AB9 /* Cart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cart.swift; sourceTree = "<group>"; };
 		3C7D5E4C269AE48D002E5AB9 /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
 		3C7D5E4D269AE48D002E5AB9 /* CartViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CartViewController.xib; sourceTree = "<group>"; };
@@ -427,6 +431,7 @@
 				1B5312442693754200B88165 /* SukhumvitSet-SemiBold.ttf */,
 				1B5312482693754200B88165 /* SukhumvitSet-Text.ttf */,
 				1B5312432693754200B88165 /* SukhumvitSet-Thin.ttf */,
+				3C65030826AC11E900DAA98A /* UIFont+Extension.swift */,
 			);
 			path = font;
 			sourceTree = "<group>";
@@ -577,6 +582,7 @@
 				1B13E6ED269B2F3F00131105 /* ProgressView.swift */,
 				3CFE6376269B44BF005235F1 /* UIViewController+Additions.swift */,
 				1BF479C226A3482900E9BC23 /* PhoneNumberFormatter.swift */,
+				3C65030626AC10D100DAA98A /* Button.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -985,6 +991,7 @@
 				3C7D5E52269AE888002E5AB9 /* CartHeaderTableViewCell.swift in Sources */,
 				1B187A59268F654300BB0122 /* AppDelegate.swift in Sources */,
 				1BCE650A26ABCE83002EE71F /* ReviewCell.swift in Sources */,
+				3C65030726AC10D100DAA98A /* Button.swift in Sources */,
 				1B7EFC2A26A5E2E800C0F7E1 /* SlotTimeViewController.swift in Sources */,
 				1B1C2E3E26994FF700F57122 /* ProductDetailViewController.swift in Sources */,
 				1B53125B26937B3400B88165 /* AppointmentListViewController.swift in Sources */,
@@ -999,6 +1006,7 @@
 				1B77591C2694775E000780BD /* BannerViewCell.swift in Sources */,
 				3C7D5E56269AF9F5002E5AB9 /* CartItemTableViewCell.swift in Sources */,
 				1B5312642693E66400B88165 /* PromotionViewController.swift in Sources */,
+				3C65030926AC11E900DAA98A /* UIFont+Extension.swift in Sources */,
 				1B1C2E3426993C5B00F57122 /* Sets.swift in Sources */,
 				1BCE64EB26A70964002EE71F /* SlotTime.swift in Sources */,
 				1B53126126937B9400B88165 /* ChatListViewController.swift in Sources */,
