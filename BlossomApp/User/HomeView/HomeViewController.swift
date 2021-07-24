@@ -65,6 +65,11 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
     }
     
     func getCustomer()  {
+        
+        guard user != nil else {
+            return
+        }
+        
         db.collection("customers").document(user?.uid ?? "").addSnapshotListener { snapshot, error in
             
             self.customer = (snapshot?.data().map({ documentData -> Customer in
