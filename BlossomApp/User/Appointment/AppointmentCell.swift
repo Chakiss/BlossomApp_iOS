@@ -73,7 +73,7 @@ class AppointmentCell: UITableViewCell {
                 let startDate = DateInRegion((self.appointment?.sessionStart?.dateValue())!, region: region)
                 let endDate = DateInRegion((self.appointment?.sessionEnd?.dateValue())!, region: region)
                 
-                self.appointLabel.text = String(format: "วันที่ %2d %@ %d %.2d:%.2d - %.2d:%.2d",startDate.day,startDate.monthName(.default),startDate.year,startDate.hour,startDate.minute,endDate.hour,endDate.minute)
+                self.appointLabel.text = String(format: "วันที่ %2d %@ %d เวลา %.2d:%.2d - %.2d:%.2d",startDate.day,startDate.monthName(.default),startDate.year,startDate.hour,startDate.minute,endDate.hour,endDate.minute)
 
                 self.doctorImageView.layer.cornerRadius = self.doctorImageView.frame.size.width/2
                 self.doctorNickNameLabel.text = doctor?.displayName

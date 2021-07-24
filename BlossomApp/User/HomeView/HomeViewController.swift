@@ -166,7 +166,7 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
                 let startDate = DateInRegion((appointment.sessionStart?.dateValue())!, region: region)
                 let endDate = DateInRegion((appointment.sessionEnd?.dateValue())!, region: region)
                 
-                self.dateTimeLabel.text = String(format: "วันที่ %2d %@ %d %.2d:%.2d - %.2d:%.2d",startDate.day,startDate.monthName(.default),startDate.year,startDate.hour,startDate.minute,endDate.hour,endDate.minute)
+                self.dateTimeLabel.text = String(format: "วันที่ %2d %@ %d เวลา %.2d:%.2d - %.2d:%.2d",startDate.day,startDate.monthName(.default),startDate.year,startDate.hour,startDate.minute,endDate.hour,endDate.minute)
                 
                 
                 self.doctorProfileImageView.layer.cornerRadius = self.doctorProfileImageView.frame.size.width/2
