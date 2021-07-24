@@ -22,7 +22,7 @@ enum APIProduct {
         case .list:
             return "https://www.shipnity.pro/api/v2/products?per_page=50"
         case .createOrder:
-            return "https://www.shipnity.pro/api/v2/products?per_page=50"
+            return "https://www.shipnity.pro/api/v2/orders"
         }
     }
     
@@ -42,6 +42,7 @@ enum APIProduct {
             
         case let .createOrder(po, completion):
             let parameters = JSONAble<CreateOrderRequest>.toJSON(object: po)
+            debugPrint("\(endpoint()), \(parameters)")
             AF.request(endpoint(), method: .post, parameters: parameters, headers: headers)
                 .validate()
                 .responseDecodable(of: CreateOrderResponse.self) { (response) in

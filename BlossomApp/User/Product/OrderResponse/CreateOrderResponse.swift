@@ -16,30 +16,30 @@ struct CreateOrderResponse: Codable {
 struct Order: Codable {
     var id: Int?
     var invoiceNumber, taxInvoice: String?
-    var createdAt: Date?
+    var createdAt: String?
     var price: String?
     var paid: Bool?
     var shippingFee: String?
     var sendBill: Bool?
     var shippingType: String?
-    var orderBank, transferredAt, transferredDateField, transferredTimeField: JSONNull?
-    var closedNote, shopPrice, paymentSlipURL, cost: JSONNull?
-    var closedAt: JSONNull?
+    var orderBank, transferredAt, transferredDateField, transferredTimeField: String?
+    var closedNote, shopPrice, paymentSlipURL, cost: String?
+    var closedAt: String?
     var summaryText, annotation: String?
     var paymentAccepted, paymentRejected, readyToClose, closed: Bool?
     var printed: Bool?
     var stage: Int?
     var transferred, taxable, shippop, shippopReadyToShip: Bool?
     var orderDiscount: String?
-    var resellerOrderBank: JSONNull?
+    var resellerOrderBank: String?
     var reselled, customerInfoCompleted, readyToPack, canClose: Bool?
     var closedCost: String?
-    var closedDateField, closedTimeField: JSONNull?
+    var closedDateField, closedTimeField: String?
     var packed: Bool?
     var shopID: Int?
     var userCanDelete, userCanEdit, userCanTransfer, userCanClose: Bool?
     var userAcceptReject: Bool?
-    var resellerID: JSONNull?
+    var resellerID: String?
     var stockID: Int?
     var userPack, shopCheckProductBeforePack: Bool?
     var seller, sellerEmail: String?
@@ -47,14 +47,14 @@ struct Order: Codable {
     var discountType, slug, name: String?
     var holding: Bool?
     var address, addressWithoutZipcode: String?
-    var postcode: JSONNull?
+    var postcode: String?
     var tel, taxID, email, contactMethod: String?
     var tag: String?
     var duplicateOrders: [JSONAny]?
     var purchases: [Purchase]?
     var setPurchases, orderPayments: [JSONAny]?
     var customer: OrderCustomer?
-    var promoCode, claimedVoucher: JSONNull?
+    var promoCode, claimedVoucher: String?
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -126,11 +126,11 @@ struct Order: Codable {
 struct OrderCustomer: Codable {
     var id: Int?
     var name, tag, address, addressWithoutZipcode: String?
-    var postcode: JSONNull?
+    var postcode: String?
     var contactMethod, tel, email: String?
-    var taxID, customerCategoryID: JSONNull?
+    var taxID, customerCategoryID: String?
     var tags, tagsWithColor: [JSONAny]?
-    var facebookThreadID, facebookPageID, facebookID, facebookReadAt: JSONNull?
+    var facebookThreadID, facebookPageID, facebookID, facebookReadAt: String?
     var orderStatus: Int?
     var rewardLink: String?
     var rewardValue, customerNumber: String?

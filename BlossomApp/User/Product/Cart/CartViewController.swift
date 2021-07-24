@@ -56,7 +56,7 @@ class CartViewController: UIViewController {
         let model = CartHeaderTableViewCell.Model(
             dateString: String.today(),
             priceText: "",
-            addressText: "xxx\nxxxx\nxxxxx")
+            addressText: CustomerManager.sharedInstance.customer?.address?.address ?? "-")
         self.cartHeaderModel = model
         updateTotalPrice()
         
@@ -97,10 +97,17 @@ class CartViewController: UIViewController {
             return
         }
         
+        guard let address = customer.address?.address, !address.isEmpty else {
+            showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณาระบุที่อยู่จัดส่ง") { [weak self] in
+                self?.showLoginView()
+            }
+            return
+        }
+        
         let name = (customer.firstName ?? "") + " " + (customer.lastName ?? "")
-        let order = PurchaseOrder(customer: Int(customer.id ?? "") ?? 0,
+        let order = PurchaseOrder(customer: Int(customer.referenceShipnityID ?? "") ?? 0,
                                   name: name,
-                                  address: "",
+                                  address: address,
                                   tel: customer.phoneNumber ?? "",
                                   contactMethod: "phone",
                                   email: customer.email ?? "",

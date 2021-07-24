@@ -160,6 +160,6 @@ struct Address: Codable  {
         try container.encode(provinceID, forKey: .provinceID)
         try container.encode(subDistrictID, forKey: .subDistrictID)
         try container.encode(zipcodeID, forKey: .zipcodeID)
-
     }
+    
 }

@@ -77,7 +77,7 @@ class Cart {
     }
     
     public func getPurcahseAttributes() -> [PurchasesAttribute] {
-        return []
+        return items.map({ PurchasesAttribute(subproductID: $0.product.subproducts?.first?.id ?? 0, quantity: $0.quantity, price: Double($0.product.priceInSatang()) / 100.0, discount: 0) })
     }
     
 }

@@ -42,11 +42,10 @@ struct PurchaseOrder: Codable {
 
 // MARK: - PurchasesAttribute
 struct PurchasesAttribute: Codable {
-    let id: JSONNull?
-    let subproductID, quantity, price, discount: Int
+    let subproductID, quantity: Int
+    let price, discount: Double
 
     enum CodingKeys: String, CodingKey {
-        case id
         case subproductID = "subproduct_id"
         case quantity, price, discount
     }
