@@ -23,6 +23,7 @@ class Cart {
     
     let id: String = UUID().uuidString
     private(set) var items: [CartItem] = []
+    private(set) var purchaseOrder: Order?
     
     public func addItem(_ product: Product, quantity: Int = 1) {
         
@@ -78,6 +79,10 @@ class Cart {
     
     public func getPurcahseAttributes() -> [PurchasesAttribute] {
         return items.map({ PurchasesAttribute(subproductID: $0.product.subproducts?.first?.id ?? 0, quantity: $0.quantity, price: Double($0.product.priceInSatang()) / 100.0, discount: 0) })
+    }
+    
+    public func updatePO(_ purchaseOrder: Order) {
+        self.purchaseOrder = purchaseOrder
     }
     
 }

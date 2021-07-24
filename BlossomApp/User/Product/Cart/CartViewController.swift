@@ -129,13 +129,12 @@ class CartViewController: UIViewController {
         APIProduct.createOrder(po: CreateOrderRequest(order: order)) { [weak self] response in
             ProgressHUD.dismiss()
             guard let response = response,
-                  let orderID = response.order?.id else {
+                  let order = response.order else {
                 self?.showAlertDialogue(title: "ผิดพลาด", message: "ไม่สามารถส่งคำสั่งซื้อได้ในขณะนี้", completion: {
                 })
                 return
             }
-            // if success
-            debugPrint("Created order \(orderID)")
+            self?.cart?.updatePO(order)
             self?.gotoPaymentMethod()
         }.request()
     }

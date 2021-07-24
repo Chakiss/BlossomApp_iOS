@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseFunctions
+import Firebase
 
 class PaymentMethodViewController: UIViewController {
 
@@ -50,7 +52,28 @@ class PaymentMethodViewController: UIViewController {
     }
 
     @IBAction func qrPayment(_ sender: Any) {
-        mockPaymentSuccess()
+//        mockPaymentSuccess()
+        let amount = cart?.purchaseOrder?.price ?? ""
+        let payload: [String: Any] = [
+            "amount": Int(Double(amount) ?? 0),
+            "orderID": "\(cart?.purchaseOrder?.id ?? 0)",
+            "channel": "app"
+        ]
+        
+        ProgressHUD.show()
+        Functions.functions().httpsCallable("app-payments-generatePromptPayQR").call(payload) { [weak self] result, error in
+            ProgressHUD.dismiss()
+            
+            guard error == nil else {
+                self?.showAlertDialogue(title: "ไม่สามารถชำระเงินด้วย QR ได้\nERROR: ", message: "\(error!.localizedDescription)", completion: {
+                    
+                })
+                return
+            }
+            
+            debugPrint("result \(result)")
+        }
+        
     }
     
     @IBAction func creditCardPayment(_ sender: Any) {
