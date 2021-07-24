@@ -20,6 +20,8 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
     private var pushRegistry: PKPushRegistry!
     private var backgroundTask: UIBackgroundTaskIdentifier!
     
+    var appointments: [Appointment] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -34,35 +36,17 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
     
 
     
+    
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-         return 1
+        return appointments.count
      }
      
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
          //let doctor = self.doctorList[indexPath.row]
          
          let cell = tableView.dequeueReusableCell(withIdentifier: "AppointmentCell", for: indexPath) as! AppointmentCell
-//         cell.doctorNickNameLabel.text = doctor.displayName
-//         cell.doctorNameLabel.text = (doctor.firstName ?? "") + "  " + (doctor.lastName ?? "")
-//
-//
-//         let imageRef = storage.reference(withPath: doctor.displayPhoto ?? "")
-//         imageRef.getData(maxSize: 2 * 1024 * 1024) { (data, error) in
-//             if error == nil {
-//                 if let imgData = data {
-//                     if let img = UIImage(data: imgData) {
-//                         cell.doctorImageView.image = img
-//                     }
-//                 }
-//             } else {
-//                 cell.doctorImageView.image = UIImage(named: "placeholder")
-//
-//             }
-//         }
-//
-//         cell.doctorStarLabel.text = String(format: "%.2f",doctor.currentScore as! CVarArg)
-//         cell.doctorReviewLabel.text = ""
-//         cell.calculateReview(reviews: reviewList)
+        cell.appointment = self.appointments[indexPath.row]
+        cell.displayAppointment()
          
          return cell
      }
@@ -81,8 +65,14 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
 
         }))
     
-        alert.addAction(UIAlertAction(title: "แขท", style: .default , handler:{ (UIAlertAction)in
-            print("User click Delete button")
+        alert.addAction(UIAlertAction(title: "แชท", style: .default , handler:{ (UIAlertAction)in
+            if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                appDelegate.deeplinking = .chat
+                appDelegate.handleDeeplinking()
+                self.dismiss(animated: false, completion: {
+                    self.navigationController?.popToRootViewController(animated: false)
+                })
+            }
         }))
         
         alert.addAction(UIAlertAction(title: "ยกเลิก", style: .destructive, handler:{ (UIAlertAction)in

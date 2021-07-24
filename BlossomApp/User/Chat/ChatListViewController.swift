@@ -54,7 +54,7 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
            
             
         }) { (error) in
-            
+            print(error)
         }
     
     }

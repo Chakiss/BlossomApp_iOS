@@ -65,22 +65,25 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
         
         doctorAppointmentView.addConerRadiusAndShadow()
         
+        
         user = Auth.auth().currentUser
         getCustomer()
-        let projectId = "blossom-clinic-thailand"
-        user?.getIDToken(completion: { token, error in
-            Request.logIn(withFirebaseProjectID: projectId, accessToken: token!, successBlock: { (user) in
-                print(user)
-            }) { (error) in
-                print(error)
-            }
-        })
-      
+//
+//        let projectId = "blossom-clinic-thailand"
+//        user?.getIDToken(completion: { token, error in
+//
+//            Request.logIn(withFirebaseProjectID: projectId, accessToken: token!, successBlock: { (user) in
+//                print(user)
+//            }) { (error) in
+//                print(error)
+//            }
+//
+//        })
 
-//
-//        Chat.instance.connect(withUserID: 4554340, password: "123456") { (error) in
-//
-//        }
+
+        Chat.instance.connect(withUserID: 4554340, password: "123456") { (error) in
+            print(error)
+        }
     }
     
     @objc func appointmentTapped(tapGestureRecognizer: UITapGestureRecognizer){

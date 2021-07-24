@@ -14,6 +14,9 @@ class AppointmentListViewController: UIViewController {
     let db = Firestore.firestore()
     let storage = Storage.storage()
     
+    var customer: Customer?
+    var appointments: [Appointment] = []
+    
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     
@@ -41,10 +44,22 @@ class AppointmentListViewController: UIViewController {
         self.title = "ตารางนัดหมาย"
         
         setupView()
-        getAppointmentData()
+        getCustomer()
         // Do any additional setup after loading the view.
     }
     
+    func getCustomer()  {
+        CustomerManager.sharedInstance.getCustomer { [weak self] in
+            
+            guard let customer = CustomerManager.sharedInstance.customer else {
+                return
+            }
+            
+            self?.customer = customer
+            self?.getAppointmentData()
+        }
+        
+    }
     private func setupView() {
         
         add(asChildViewController: comingAppointmentViewController)
@@ -98,6 +113,8 @@ class AppointmentListViewController: UIViewController {
                 debugPrint("go to order list")
             case .appointment:
                 debugPrint("go to Appointment list")
+            case .chat:
+                debugPrint("go to Chat")
             }
             appDelegate.deeplinking = nil
         }
@@ -129,40 +146,88 @@ class AppointmentListViewController: UIViewController {
         viewController.removeFromParent()
     }
     
-    func getAppointmentData() {
-        //customers/fEdvG7leqyR8BavmGpyx3gWxRln1
-        //customerReference
+    func getAppointmentData(){
+        
         
         db.collection("appointments")
-            //.whereField("customerReference", isEqualTo:  )
-            .getDocuments { querySnapshot, error in
-       
-            guard let documents = querySnapshot?.documents else {
-                print("No documents")
-                return
+            .whereField("customerReference", isEqualTo: customer?.documentReference as Any)
+            .addSnapshotListener { snapshot, error in
+                self.appointments = (snapshot?.documents.map { queryDocumentSnapshot -> Appointment  in
+                    let data = queryDocumentSnapshot.data()
+                    let doctorRef = data["doctorReference"]  as? DocumentReference ?? nil
+                    let timeRef = data["timeReference"]  as? DocumentReference ?? nil
+                    let cusRef = data["customerReference"]  as? DocumentReference ?? nil
+                    let sessionStart = data["sessionStart"] as! Timestamp
+                    let sessionEnd = data["sessionEnd"]  as! Timestamp
+                    let isComplete = data["isCompleted"]  as! Bool
+                    
+                    var appointment = Appointment(id: queryDocumentSnapshot.documentID, customerReference: cusRef!, doctorReference: doctorRef!, timeReference: timeRef!,sessionStart: sessionStart, sessionEnd: sessionEnd)
+                    appointment.isComplete = isComplete
+                    
+                    return appointment
+                })!
+               
+                var inCompleteAppointment: [Appointment] = []
+                var completeAppointment: [Appointment] = []
+                
+                for appointment in self.appointments {
+                    if appointment.isComplete == false {
+                        inCompleteAppointment.append(appointment)
+                    } else {
+                        completeAppointment.append(appointment)
+                    }
+                 }
+                
+                self.comingAppointmentViewController.appointments = inCompleteAppointment
+                self.comingAppointmentViewController.tableView.reloadData()
+                
+                self.historyAppointmentViewController.appointments = completeAppointment
+
             }
-            print(documents)
-            print("xxxxxx")
-//            self.doctorList = documents.map { queryDocumentSnapshot -> Doctor in
-//                let data = queryDocumentSnapshot.data()
+    }
+
+    func displayAppointment() {
 //
-//                let id = queryDocumentSnapshot.documentID
-//                let firstName = data["firstName"] as? String ?? ""
-//                let displayName = data["displayName"] as? String ?? ""
-//                let email = data["email"] as? String ?? ""
-//                let lastName = data["lastName"] as? String ?? ""
-//                let phoneNumber = data["phoneNumber"] as? String ?? ""
-//                let referenceConnectyCubeID = data["referenceConnectyCubeID"] as? String ?? ""
-//                let story = data["story"] as? String ?? ""
-//                let createdAt = data["createdAt"] as? String ?? ""
-//                let updatedAt = data["updatedAt"] as? String ?? ""
-//                let displayPhoto = data["displayPhoto"] as? String ?? ""
-//                let currentScore = data["currentScore"] as? Double ?? 0
-//                return Doctor(id: id, displayName: displayName, email: email, firstName: firstName, lastName: lastName, phonenumber: phoneNumber, connectyCubeID: referenceConnectyCubeID, story: story, createdAt: createdAt, updatedAt: updatedAt, displayPhoto: displayPhoto, currentScore: currentScore)
+//        db.collection("doctors")
+//            .document(appointment.doctorReference!.documentID)
+//            .addSnapshotListener { snapshot, error in
+//               let doctor =  snapshot.map { document -> Doctor in
+//                    let data = document.data()
+//                    let id = document.documentID
+//                    let firstName = data?["firstName"] as? String ?? ""
+//                    let displayName = data?["displayName"] as? String ?? ""
+//                    let email = data?["email"] as? String ?? ""
+//                    let lastName = data?["lastName"] as? String ?? ""
+//                    let phoneNumber = data?["phoneNumber"] as? String ?? ""
+//                    let referenceConnectyCubeID = data?["referenceConnectyCubeID"] as? String ?? ""
+//                    let story = data?["story"] as? String ?? ""
+//                    let createdAt = data?["createdAt"] as? String ?? ""
+//                    let updatedAt = data?["updatedAt"] as? String ?? ""
+//                    let displayPhoto = data?["displayPhoto"] as? String ?? ""
+//                    let currentScore = data?["currentScore"] as? Double ?? 0
+//                    return Doctor(id: id, displayName: displayName, email: email, firstName: firstName, lastName: lastName, phonenumber: phoneNumber, connectyCubeID: referenceConnectyCubeID, story: story, createdAt: createdAt, updatedAt: updatedAt, displayPhoto: displayPhoto, currentScore: currentScore,documentReference: document.reference)
+//                }
 //
+//
+//                self.dateTimeLabel.text = "วันที่ 24 กรกฏาคม 2654 11:00 - 11:30"
+//
+//                self.doctorProfileImageView.layer.cornerRadius = self.doctorProfileImageView.frame.size.width/2
+//                self.doctorNickNameLabel.text = doctor?.displayName
+//                self.doctorNameLabel.text = (doctor?.firstName ?? "") + "  " + (doctor?.lastName ?? "")
+//                let imageRef = self.storage.reference(withPath: doctor?.displayPhoto ?? "")
+//                imageRef.getData(maxSize: 2 * 1024 * 1024) { (data, error) in
+//                    if error == nil {
+//                        if let imgData = data {
+//                            if let img = UIImage(data: imgData) {
+//                                self.doctorProfileImageView.image = img
+//                            }
+//                        }
+//                    } else {
+//                        self.doctorProfileImageView.image = UIImage(named: "placeholder")
+//
+//                    }
+//                }
 //            }
-//            self.tableView.reloadData()
-        }
     }
     
     /*

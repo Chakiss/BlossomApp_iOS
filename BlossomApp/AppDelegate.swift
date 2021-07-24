@@ -15,6 +15,7 @@ import CommonKeyboard
 enum Deeplinking {
     case orderList
     case appointment
+    case chat
 }
 
 @main
@@ -74,6 +75,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             tabbarController.selectedIndex = 2
         case .appointment:
             tabbarController.selectedIndex = 2
+        case .chat:
+            tabbarController.selectedIndex = 4
         }
         
         
