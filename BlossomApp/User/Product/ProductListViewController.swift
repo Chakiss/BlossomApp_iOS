@@ -12,20 +12,25 @@ import Alamofire
 class ProductListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
-    
-    
-    
+
     var products: [Product] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "ยา"
         // Do any additional setup after loading the view.
-        let button = UIBarButtonItem(title: "Cart", style: .plain, target: self, action: #selector(ProductListViewController.showCartDetail))
-        self.navigationItem.rightBarButtonItem = button
-        
-       
-        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        updateCartButton()
+    }
+    
+    private func updateCartButton() {
+        let count = CartManager.shared.currentCart?.items.count ?? 0
+        let icon = count > 0 ? "cart.fill" : "cart"
+        let cartButton = UIBarButtonItem(image: UIImage(systemName: icon), style: .plain, target: self, action: #selector(showCartDetail))
+        self.navigationItem.rightBarButtonItem = cartButton
     }
     
     @objc
@@ -94,6 +99,7 @@ extension ProductListViewController: ProductCellDelegate {
         buttonHandlerAddToCart(cell.addToCartButton)
         let product = products[indexPath.row]
         CartManager.shared.addItem(product)
+        updateCartButton()
         
     }
     
@@ -145,8 +151,8 @@ extension ProductListViewController {
                 tempView.animationZoom(scaleX: 0.2, y: 0.2)
                 tempView.animationRotated(by: CGFloat(Double.pi))
                 
-                tempView.frame.origin.x = self.view.frame.width
-                tempView.frame.origin.y = 0
+                tempView.frame.origin.x = self.view.frame.width - 40
+                tempView.frame.origin.y = self.navigationController?.navigationBar.frame.height ?? 0 - 10
                 
             }, completion: { _ in
                 tempView.removeFromSuperview()
