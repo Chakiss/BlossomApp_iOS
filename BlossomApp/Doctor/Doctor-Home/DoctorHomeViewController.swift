@@ -55,8 +55,9 @@ class DoctorHomeViewController: UIViewController {
                 let referenceConnectyCubeID = documentData["referenceConnectyCubeID"] as? String ?? ""
                 let lastName = documentData["lastName"] as? String ?? ""
                 let currentScore = documentData["currentScore"] as? Double ?? 0.0
+                let reference = snapshot?.reference
                 
-                return Doctor(id: id, displayName: displayName, email: email, firstName: firstName, lastName: lastName, phonenumber: phoneNumber, connectyCubeID: referenceConnectyCubeID, story: story, createdAt: createdAt, updatedAt: updatedAt, displayPhoto: displayPhoto,currentScore: currentScore)
+                return Doctor(id: id, displayName: displayName, email: email, firstName: firstName, lastName: lastName, phonenumber: phoneNumber, connectyCubeID: referenceConnectyCubeID, story: story, createdAt: createdAt, updatedAt: updatedAt, displayPhoto: displayPhoto,currentScore: currentScore,documentReference: reference!)
             })
             
             self.displayInformation()

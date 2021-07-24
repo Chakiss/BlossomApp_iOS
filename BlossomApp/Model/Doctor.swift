@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import Firebase
 
 class Doctor: Codable {
     var id: String?
@@ -22,8 +22,29 @@ class Doctor: Codable {
     var displayPhoto: String?
     var currentScore: Double?
     
+    var documentReference: DocumentReference?
     
-    init(id: String, displayName: String, email: String, firstName: String, lastName: String, phonenumber: String, connectyCubeID: String, story: String, createdAt: String, updatedAt: String, displayPhoto: String, currentScore: Double) {
+    
+    private enum CodingKeys: String, CodingKey {
+        case id
+        case displayName
+        case email
+        case firstName
+        case lastName
+        case phoneNumber
+        case referenceConnectyCubeID
+        case story
+        case createdAt
+        case updatedAt
+        case displayPhoto
+        case currentScore
+        
+        
+    }
+
+    
+    
+    init(id: String, displayName: String, email: String, firstName: String, lastName: String, phonenumber: String, connectyCubeID: String, story: String, createdAt: String, updatedAt: String, displayPhoto: String, currentScore: Double,documentReference: DocumentReference ) {
         self.id = id
         self.displayName = displayName
         self.email = email
@@ -36,6 +57,8 @@ class Doctor: Codable {
         self.updatedAt = updatedAt
         self.displayPhoto = displayPhoto
         self.currentScore = currentScore
+        
+        self.documentReference = documentReference
     }
     
     required init(from decoder: Decoder) throws {
@@ -52,7 +75,9 @@ class Doctor: Codable {
         updatedAt = try values.decodeIfPresent(String.self, forKey: .updatedAt)
         displayPhoto = try values.decodeIfPresent(String.self, forKey: .displayPhoto)
         currentScore = try values.decodeIfPresent(Double.self, forKey: .currentScore)
+        
+        
     }
-    
+
     
 }

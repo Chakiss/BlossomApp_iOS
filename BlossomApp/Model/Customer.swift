@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import FirebaseFirestore
 import Firebase
 
 
@@ -40,6 +39,8 @@ class Customer: Codable {
     var acneCaredDescription: String?
     var allergicDrug: String?
     
+    var documentReference: DocumentReference?
+    
     
     private enum CodingKeys: String, CodingKey {
         case createdAt
@@ -65,10 +66,14 @@ class Customer: Codable {
         case acneType
         case acneCaredDescription
         case allergicDrug
+        
     }
 
+    init(id: String) {
+        self.id = id
+    }
     
-    init(id: String, createdAt: String, displayName: String, email: String, firstName: String, isEmailVerified: Bool, isPhoneVerified: Bool, lastName: String, phoneNumber: String, platform: String, referenceConnectyCubeID: String, referenceShipnityID: String, updatedAt: String, gender: String, genderString: String, birthDate: String, birthDayDisplayString:String, birthDayString: String, address: Address,displayPhoto: String, skinType: String, acneType: String, acneCaredDescription: String, allergicDrug: String   ) {
+    init(id: String, createdAt: String, displayName: String, email: String, firstName: String, isEmailVerified: Bool, isPhoneVerified: Bool, lastName: String, phoneNumber: String, platform: String, referenceConnectyCubeID: String, referenceShipnityID: String, updatedAt: String, gender: String, genderString: String, birthDate: String, birthDayDisplayString:String, birthDayString: String, address: Address,displayPhoto: String, skinType: String, acneType: String, acneCaredDescription: String, allergicDrug: String,documentReference: DocumentReference   ) {
         self.id = id
         self.createdAt = createdAt
         self.displayName = displayName
@@ -96,6 +101,7 @@ class Customer: Codable {
         self.acneCaredDescription = acneCaredDescription
         self.allergicDrug = allergicDrug
         
+        self.documentReference = documentReference
     }
     
     

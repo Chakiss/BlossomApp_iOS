@@ -10,14 +10,23 @@ import Firebase
 
 class CustomerManager {
     
+    static let sharedInstance = CustomerManager()
     let storage = Storage.storage()
     let user = Auth.auth().currentUser
     let db = Firestore.firestore()
     
-    func getCustomer(successCallback: @escaping (Customer) -> Void)  {
+    var customer: Customer? = nil//{
+        //get { counter += 1; return data; }
+        //set { _data = customer; }
+    //}
+
+    init() { }
+    
+    
+    func getCustomer()  {
         db.collection("customers").document(user?.uid ?? "").addSnapshotListener { snapshot, error in
             
-            let customer = snapshot?.data().map({ documentData -> Customer in
+            self.customer = (snapshot?.data().map({ documentData -> Customer in
                 let id = snapshot?.documentID ?? ""
                 let createdAt = documentData["createdAt"] as? String ?? ""
                 let displayName = documentData["displayName"] as? String ?? ""
@@ -59,12 +68,13 @@ class CustomerManager {
                 let acneCaredDescription = documentData["acneCaredDescription"] as? String ?? ""
                 let allergicDrug = documentData["allergicDrug"] as? String ?? ""
                 
+                let documentSnapshot = snapshot?.reference
                 
-                return Customer(id: id, createdAt: createdAt, displayName: displayName, email: email, firstName: firstName, isEmailVerified: isEmailVerified, isPhoneVerified: isPhoneVerified, lastName: lastName, phoneNumber: phoneNumber, platform: platform, referenceConnectyCubeID: referenceConnectyCubeID, referenceShipnityID: referenceShipnityID, updatedAt: updatedAt, gender: gender,genderString: genderString, birthDate: birthDay,birthDayDisplayString: birthDayDisplayString, birthDayString: birthDayString, address: address, displayPhoto: displayPhoto,skinType: skinType, acneType: acneType, acneCaredDescription: acneCaredDescription, allergicDrug: allergicDrug
+                return Customer(id: id, createdAt: createdAt, displayName: displayName, email: email, firstName: firstName, isEmailVerified: isEmailVerified, isPhoneVerified: isPhoneVerified, lastName: lastName, phoneNumber: phoneNumber, platform: platform, referenceConnectyCubeID: referenceConnectyCubeID, referenceShipnityID: referenceShipnityID, updatedAt: updatedAt, gender: gender,genderString: genderString, birthDate: birthDay,birthDayDisplayString: birthDayDisplayString, birthDayString: birthDayString, address: address, displayPhoto: displayPhoto,skinType: skinType, acneType: acneType, acneCaredDescription: acneCaredDescription, allergicDrug: allergicDrug,documentReference: documentSnapshot!
                 )
                 
-            })
-            successCallback(customer!)
+            }))!
+         //   successCallback(customer!)
         }
     }
 }

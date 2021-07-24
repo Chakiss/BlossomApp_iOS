@@ -42,9 +42,9 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
         }
         
         
-        Chat.instance.addDelegate(self)
-    
        
+        Chat.instance.addDelegate(self)
+        
        
         // Do any additional setup after loading the view.
     }
@@ -105,10 +105,12 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
             message.text = self.textField.text
             
             chatdialog?.send(message, completionBlock: { error in
-                self.textField.text = ""
-                self.chatMessageList.append(message)
-                self.tableView.reloadData()
-                self.scrollToBottom()
+                if error == nil {
+                    self.textField.text = ""
+                    self.chatMessageList.append(message)
+                    self.tableView.reloadData()
+                    self.scrollToBottom()
+                }
                 
             })
         }

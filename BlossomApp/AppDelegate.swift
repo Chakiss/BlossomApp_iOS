@@ -8,11 +8,13 @@
 import UIKit
 import Firebase
 import ConnectyCube
+import ConnectyCubeCalls
 import FBSDKCoreKit
 import CommonKeyboard
 
 enum Deeplinking {
     case orderList
+    case appointment
 }
 
 @main
@@ -62,7 +64,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         switch deeplinking {
         case .orderList:
             tabbarController.selectedIndex = 2
+        case .appointment:
+            tabbarController.selectedIndex = 2
         }
+        
         
     }
     
@@ -123,8 +128,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
-        Chat.instance.connect(withUserID: 2746, password: "password") { (error) in
-        }
+       
     }
 }
 

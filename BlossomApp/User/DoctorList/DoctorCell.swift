@@ -16,6 +16,8 @@ class DoctorCell: UITableViewCell {
     @IBOutlet weak var doctorStarLabel: UILabel!
     @IBOutlet weak var doctorReviewLabel: UILabel!
     
+    var doctor: Doctor?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -36,6 +38,14 @@ class DoctorCell: UITableViewCell {
     
     func calculateReview(reviews: [Reviews]){
         
+        var count = 0
+        for review in reviews {
+            if review.doctorReference == doctor?.documentReference {
+                count += 1
+            }
+        }
+        
+        self.doctorReviewLabel.text = "\(count) รีวิว"
     }
 
 }

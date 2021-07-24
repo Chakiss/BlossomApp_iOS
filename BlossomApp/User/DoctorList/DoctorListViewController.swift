@@ -38,8 +38,10 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
                 print("No documents")
                 return
             }
+
             self.doctorList = documents.map { queryDocumentSnapshot -> Doctor in
                 let data = queryDocumentSnapshot.data()
+                
                 
                 let id = queryDocumentSnapshot.documentID
                 let firstName = data["firstName"] as? String ?? ""
@@ -53,7 +55,7 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
                 let updatedAt = data["updatedAt"] as? String ?? ""
                 let displayPhoto = data["displayPhoto"] as? String ?? ""
                 let currentScore = data["currentScore"] as? Double ?? 0
-                return Doctor(id: id, displayName: displayName, email: email, firstName: firstName, lastName: lastName, phonenumber: phoneNumber, connectyCubeID: referenceConnectyCubeID, story: story, createdAt: createdAt, updatedAt: updatedAt, displayPhoto: displayPhoto, currentScore: currentScore)
+                return Doctor(id: id, displayName: displayName, email: email, firstName: firstName, lastName: lastName, phonenumber: phoneNumber, connectyCubeID: referenceConnectyCubeID, story: story, createdAt: createdAt, updatedAt: updatedAt, displayPhoto: displayPhoto, currentScore: currentScore,documentReference: queryDocumentSnapshot.reference)
                 
             }
             self.tableView.reloadData()
@@ -61,6 +63,7 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func getReviewsData(){
+        
         db.collection("reviews").addSnapshotListener { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else {
                 print("No documents")
@@ -70,14 +73,14 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
                 let data = queryDocumentSnapshot.data()
                 
                 let id = queryDocumentSnapshot.documentID
-                let appointmentReference = data["appointmentReference"] as? String ?? ""
+                let appointmentReference = data["appointmentReference"] as! DocumentReference
                 let comment = data["comment"] as? String ?? ""
                 let createdAt = data["createdAt"] as? String ?? ""
-                let doctorReference = data["doctorReference"] as? String ?? ""
-                let score = data["score"] as? String ?? ""
+                let doctorReference = data["doctorReference"] as! DocumentReference
+                let score = data["score"] as? Int ?? 0
                 let type = data["type"] as? String ?? ""
                 let updatedAt = data["updatedAt"] as? String ?? ""
-                let patientReference = data["patientReference"] as? String ?? ""
+                let patientReference = data["patientReference"] as! DocumentReference
                 
                 return Reviews(id: id, appointmentReference: appointmentReference, comment: comment, createdAt: createdAt, doctorReference: doctorReference, score: score, type: type, updatedAt: updatedAt, patientReference: patientReference)
                 
@@ -95,6 +98,7 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
         let doctor = self.doctorList[indexPath.row]
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "DoctorCell", for: indexPath) as! DoctorCell
+        cell.doctor = doctor
         cell.doctorNickNameLabel.text = doctor.displayName
         cell.doctorNameLabel.text = (doctor.firstName ?? "") + "  " + (doctor.lastName ?? "")
         
@@ -113,7 +117,7 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
             }
         }
         
-        cell.doctorStarLabel.text = String(format: "%.2f",doctor.currentScore as! CVarArg)
+        cell.doctorStarLabel.text = String(format: "%.2f",doctor.currentScore!)
         cell.doctorReviewLabel.text = ""
         cell.calculateReview(reviews: reviewList)
         
@@ -125,11 +129,12 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
         tableView.deselectRow(at: indexPath, animated: true)
         
         let doctor = self.doctorList[indexPath.row]
-        
+    
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let viewController = storyboard.instantiateViewController(withIdentifier: "DoctorDetailViewController") as! DoctorDetailViewController
         viewController.doctor = doctor
         viewController.hidesBottomBarWhenPushed = true
+        viewController.reviewList = reviewList
         self.navigationController?.pushViewController(viewController, animated: true)
     }
 }

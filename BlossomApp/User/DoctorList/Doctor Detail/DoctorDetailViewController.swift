@@ -13,6 +13,7 @@ class DoctorDetailViewController: UIViewController, UITableViewDelegate, UITable
 
     var doctor: Doctor?
     var reviewList: [Reviews] = []
+    var filterdReviews: [Reviews] = []
     
     let db = Firestore.firestore()
     let storage = Storage.storage()
@@ -54,8 +55,9 @@ class DoctorDetailViewController: UIViewController, UITableViewDelegate, UITable
         }
         self.doctorNickNameLabel.text = doctor?.displayName
         self.doctorNameLabel.text = (doctor?.firstName ?? "") + "  " + (doctor?.lastName ?? "")
-        self.doctorCurrentScoreLabel.text = String(format: "%.2f",doctor?.currentScore as! CVarArg)
-        self.doctorReviewNumberLabel.text = ""
+        let score = (doctor?.currentScore)! as Double
+        self.doctorCurrentScoreLabel.text = "\(score)"
+        
         
         // Do any additional setup after loading the view.
     }
@@ -63,19 +65,16 @@ class DoctorDetailViewController: UIViewController, UITableViewDelegate, UITable
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        let fieldDoctpr = "doctors/" + (self.doctor?.id)!
-        db.collection("reviews").whereField("doctorReference", isEqualTo: fieldDoctpr)
-            .getDocuments() { (querySnapshot, err) in
-                if let err = err {
-                    print("Error getting documents: \(err)")
-                } else {
-                    print(querySnapshot)
-                    print("xxxxxxx")
-                    for document in querySnapshot!.documents {
-                        print("\(document.documentID) => \(document.data())")
-                    }
-                }
+        
+        for review in self.reviewList {
+            if review.doctorReference == doctor?.documentReference {
+                filterdReviews.append(review)
+            }
         }
+        let reviewNumber = filterdReviews.count as Int
+        self.doctorReviewNumberLabel.text = "\(reviewNumber) รีวิว"
+        self.tableView.reloadData()
+        
     }
     
     @IBAction func consultButtonTapped() {
@@ -90,18 +89,24 @@ class DoctorDetailViewController: UIViewController, UITableViewDelegate, UITable
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return reviewList.count + 1
+        return filterdReviews.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
-            let cell = UITableViewCell(style: .default, reuseIdentifier: "")
-            cell.textLabel?.text = "Header"
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "DoctorProfileCell", for: indexPath) as! DoctorProfileCell
+            cell.profileLabel.text = doctor?.story
             return cell
         }
-        let doctor = self.reviewList[indexPath.row]
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "DoctorCell", for: indexPath) as! DoctorCell
+        let review = self.filterdReviews[indexPath.row - 1]
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ReviewCell", for: indexPath) as! ReviewCell
+        var score = review.score! as Int
+        cell.scoreLabel.text = "\(score)"
+        cell.commentLabel.text = review.comment
+        cell.dateLabel.text = review.createdAt
         
         
         return cell
@@ -110,14 +115,7 @@ class DoctorDetailViewController: UIViewController, UITableViewDelegate, UITable
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-//
-//        let doctor = self.doctorList[indexPath.row]
-//
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        let viewController = storyboard.instantiateViewController(withIdentifier: "DoctorDetailViewController") as! DoctorDetailViewController
-//        viewController.doctor = doctor
-//        viewController.hidesBottomBarWhenPushed = true
-//        self.navigationController?.pushViewController(viewController, animated: true)
+
     }
 
 

@@ -39,16 +39,9 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
         super.viewDidLoad()
         self.title = "แชท"
         
-        
-        CustomerManager().getCustomer { customer in
-            self.customer = customer
-            let userID = UInt(self.customer?.referenceConnectyCubeID ?? "0")
-            let chat = Chat.instance
-            chat.addDelegate(self)
-            chat.connect(withUserID: userID!, password: "123456") { error in
-               
-            }
-        }
+        self.customer = CustomerManager().customer
+   
+
     }
     
     override func viewWillAppear(_ animated: Bool) {

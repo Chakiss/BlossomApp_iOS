@@ -26,6 +26,7 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
     @IBOutlet weak var timeCollectionView: UICollectionView!
     
     @IBOutlet weak var makeAppointmentButton: UIButton!
+    @IBOutlet weak var salePriceLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +38,7 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
         makeAppointmentButton.backgroundColor = UIColor.blossomLightGray
         makeAppointmentButton.isEnabled = false
         
-        
+        salePriceLabel.text = ""
         // Do any additional setup after loading the view.
     }
     
@@ -168,9 +169,12 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
 
     func checkAppointmentButton() {
         if self.slotTimeSelected?.isBooked == false && self.slotTimeSelected?.isCompleted == false && self.slotTimeSelected?.isLocked == false && self.slotTimeSelected?.isPaid == false {
+            let price = (self.slotTimeSelected?.salePrice!)! as Int
+            salePriceLabel.text = ("\(price) บาท")
             makeAppointmentButton.backgroundColor = UIColor.blossomPrimary
             makeAppointmentButton.isEnabled = true
         } else {
+            
             makeAppointmentButton.backgroundColor = UIColor.blossomLightGray
             makeAppointmentButton.isEnabled = false
         }
@@ -180,7 +184,7 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
     @IBAction func makeAppointmentButtonTapped() {
         
         ProgressHUD.show()
-        /*
+    
         let payload = ["doctorID": doctor?.id,
                        "slotID":self.slotDaySelected?.id,
                        "timeID":self.slotTimeSelected?.id ]
@@ -197,25 +201,25 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
                 print(result?.data as Any)
                 let order = result?.data as? [String : String] ?? ["":""]
                 if self.slotTimeSelected?.salePrice == 0 {
-                    if let orderID = order["id"] {
+                    if let orderID = order["orderID"] {
                         self.makeAppointmentOrderPaid(orderID: orderID)
                     }
                     
                 } else {
+                  // Make Payment
                     
                 }
             }
 
         }
-         */
-        self.makeAppointmentOrderPaid(orderID: ""   )
+      
     }
     
     
     func makeAppointmentOrderPaid(orderID: String){
      
         ProgressHUD.show()
-        let payload = ["orderID": "APM-20210721014020" ]
+        let payload = ["orderID": orderID]
         
         functions.httpsCallable("app-orders-markAppointmentOrderPaid").call(payload) { result, error in
         
@@ -226,8 +230,18 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
                 self.present(alert, animated: true, completion: nil)
             }
             else {
-                print(result?.data as Any)
-               
+                let appointment = result?.data as? [String : String] ?? ["":""]
+                if let appointmentID = appointment["appointmentID"] {
+                    
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let viewController = storyboard.instantiateViewController(withIdentifier: "PreFormViewController") as! PreFormViewController
+                    viewController.modalPresentationStyle = .fullScreen
+                    viewController.appointmentID = appointmentID
+                    self.navigationController?.present(viewController, animated: true, completion: nil)
+                }
+                
+
+                
             }
 
         }

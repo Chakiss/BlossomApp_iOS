@@ -27,6 +27,7 @@ target 'BlossomApp' do
   pod 'DLRadioButton', '~> 1.4'
   
   pod 'ConnectyCube'
+  pod 'ConnectyCubeCalls'
   pod 'CommonKeyboard'
   pod 'SwiftDate', '~> 5.1.0'
   pod 'BadgeSwift', '~> 7.0.0'
