@@ -30,7 +30,7 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
     @IBOutlet weak var phoneTextField: UITextField!
     
     @IBOutlet weak var phoneVerifyButton: UIButton!
-    @IBOutlet weak var emailVerifyButton: UIButton!
+    //@IBOutlet weak var emailVerifyButton: UIButton!
     
     @IBOutlet weak var gendorView: UIView!
     @IBOutlet weak var manButton: DLRadioButton!
@@ -72,7 +72,7 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
         
         
         phoneVerifyButton.layer.cornerRadius = 15
-        emailVerifyButton.layer.cornerRadius = 15
+       // emailVerifyButton.layer.cornerRadius = 15
         connectFacebookButton.layer.cornerRadius = 15
         connectAppleButton.layer.cornerRadius = 15
         signOutButton.layer.cornerRadius = 22
@@ -100,13 +100,14 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
             self.phoneVerifyButton.addTarget(self, action: #selector(self.phoneNumberVerifyButtonTapped), for: .touchUpInside)
         }
         
+        /*
         if self.customer?.isEmailVerified == true {
             self.emailVerifyButton.setTitle("ยืนยันแล้ว", for: .normal)
             self.emailVerifyButton.isEnabled = false
         } else {
             self.emailVerifyButton.setTitle("ยังไม่ได้ยืนยัน", for: .normal)
             self.emailVerifyButton.isEnabled = true
-        }
+        }*/
         
         if self.customer?.gender == "male" {
             manButton.isSelected = true
@@ -148,6 +149,11 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
                 }
                 else {
                     print(verificationID)
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let viewController = storyboard.instantiateViewController(withIdentifier: "VerifyPhoneNumberViewController") as! VerifyPhoneNumberViewController
+                    viewController.verificationID = verificationID!
+                    viewController.phoneNumber = phoneNumber!
+                    self.navigationController?.present(viewController, animated: true, completion: nil)
                 }
                 // Sign in using the verificationID and the code sent to the user
                 // ...

@@ -18,13 +18,19 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
     @IBOutlet weak var multiBannerView: MultiBannerView!
     
     @IBOutlet weak var appointmentView: UIView!
+    @IBOutlet weak var doctorProfileImageView: UIImageView!
+    @IBOutlet weak var dateTimeLabel: UILabel!
+    @IBOutlet weak var doctorNickNameLabel: UILabel!
+    @IBOutlet weak var doctorNameLabel: UILabel!
     @IBOutlet weak var doctorAppointmentView: UIView!
     
     var user = Auth.auth().currentUser
     let db = Firestore.firestore()
+    let storage = Storage.storage()
     var customer:Customer?
-
-
+    
+    var appointments: [Appointment] = []
+    
     
     var handle: AuthStateDidChangeListenerHandle?
     
@@ -52,17 +58,44 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
         multiBannerView.delegate = self
         multiBannerView.reload()
         
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(appointmentTapped(tapGestureRecognizer:)))
+        appointmentView.isUserInteractionEnabled = true
+        appointmentView.addGestureRecognizer(tapGestureRecognizer)
+        appointmentView.isHidden = true
         
         doctorAppointmentView.addConerRadiusAndShadow()
         
         user = Auth.auth().currentUser
-        
         getCustomer()
-        
-        Chat.instance.connect(withUserID: 4554340, password: "123456") { (error) in
-
+        let projectId = "blossom-clinic-thailand"
+        user?.getIDToken(completion: { token, error in
+            pri
+        })
+      
+        Request.logIn(withFirebaseProjectID: projectId, accessToken: token!, successBlock: { (user) in
+            print(user)
+        }) { (error) in
+            print(error)
         }
+
+//
+//        Chat.instance.connect(withUserID: 4554340, password: "123456") { (error) in
+//
+//        }
     }
+    
+    @objc func appointmentTapped(tapGestureRecognizer: UITapGestureRecognizer){
+      
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            appDelegate.deeplinking = .appointment
+            appDelegate.handleDeeplinking()
+            self.dismiss(animated: false, completion: {
+                self.navigationController?.popToRootViewController(animated: false)
+            })
+        }
+    
+    }
+    
     
     func getCustomer()  {
         
@@ -125,22 +158,78 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
     }
     
     func getAppointmentData(){
-        print(customer?.documentReference)
         
-        db.collection("appointments").getDocuments { snapshot, error in
-           // let appointmnet = (snapshot?.data().map({ documentData -> Customer in
-            
-            //})
-            //if review.doctorReference == customer?.documentReference {
-            //   count += 1
-           // }
-        }
-        //db.collection("appointments").whereField("customerReference", isEqualTo: customer?.documentReference).addSnapshotListener { snapshot, error in
-          //  print(snapshot)
-           // print("xxxxx")
-        //}
+        
+        db.collection("appointments")
+            .whereField("customerReference", isEqualTo: customer?.documentReference as Any)
+            .whereField("isCompleted", isEqualTo: false)
+            .addSnapshotListener { snapshot, error in
+                self.appointments = (snapshot?.documents.map { queryDocumentSnapshot -> Appointment  in
+                    let data = queryDocumentSnapshot.data()
+                    let doctorRef = data["doctorReference"]  as? DocumentReference ?? nil
+                    let timeRef = data["timeReference"]  as? DocumentReference ?? nil
+                    let cusRef = data["customerReference"]  as? DocumentReference ?? nil
+                    let sessionStart = data["sessionStart"] as! Timestamp
+                    let sessionEnd = data["sessionEnd"]  as! Timestamp
+                    
+                    return Appointment(id: "", customerReference: cusRef!, doctorReference: doctorRef!, timeReference: timeRef!,sessionStart: sessionStart, sessionEnd: sessionEnd)
+                })!
+               
+                if self.appointments.count > 0 {
+                    self.displayAppointment()
+                }
+            }
     }
 
+    func displayAppointment() {
+        self.appointmentView.isHidden = false
+        let appointment = self.appointments[0]
+        db.collection("doctors")
+            .document(appointment.doctorReference!.documentID)
+            .addSnapshotListener { snapshot, error in
+               let doctor =  snapshot.map { document -> Doctor in
+                    let data = document.data()
+                    let id = document.documentID
+                    let firstName = data?["firstName"] as? String ?? ""
+                    let displayName = data?["displayName"] as? String ?? ""
+                    let email = data?["email"] as? String ?? ""
+                    let lastName = data?["lastName"] as? String ?? ""
+                    let phoneNumber = data?["phoneNumber"] as? String ?? ""
+                    let referenceConnectyCubeID = data?["referenceConnectyCubeID"] as? String ?? ""
+                    let story = data?["story"] as? String ?? ""
+                    let createdAt = data?["createdAt"] as? String ?? ""
+                    let updatedAt = data?["updatedAt"] as? String ?? ""
+                    let displayPhoto = data?["displayPhoto"] as? String ?? ""
+                    let currentScore = data?["currentScore"] as? Double ?? 0
+                    return Doctor(id: id, displayName: displayName, email: email, firstName: firstName, lastName: lastName, phonenumber: phoneNumber, connectyCubeID: referenceConnectyCubeID, story: story, createdAt: createdAt, updatedAt: updatedAt, displayPhoto: displayPhoto, currentScore: currentScore,documentReference: document.reference)
+                }
+                
+            
+                self.dateTimeLabel.text = "วันที่ 24 กรกฏาคม 2654 11:00 - 11:30"
+                
+                self.doctorProfileImageView.layer.cornerRadius = self.doctorProfileImageView.frame.size.width/2
+                self.doctorNickNameLabel.text = doctor?.displayName
+                self.doctorNameLabel.text = (doctor?.firstName ?? "") + "  " + (doctor?.lastName ?? "")
+                let imageRef = self.storage.reference(withPath: doctor?.displayPhoto ?? "")
+                imageRef.getData(maxSize: 2 * 1024 * 1024) { (data, error) in
+                    if error == nil {
+                        if let imgData = data {
+                            if let img = UIImage(data: imgData) {
+                                self.doctorProfileImageView.image = img
+                            }
+                        }
+                    } else {
+                        self.doctorProfileImageView.image = UIImage(named: "placeholder")
+                        
+                    }
+                }
+                
+                
+                
+            }
+
+        
+    }
     // MARK: - Action on Promotion
     
     func openCampaign(promotion: Promotion) {

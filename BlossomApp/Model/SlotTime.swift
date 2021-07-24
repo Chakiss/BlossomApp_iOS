@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Firebase
 
 class SlotTime: Codable {
     
@@ -16,6 +17,9 @@ class SlotTime: Codable {
     var isPaid: Bool?
     var period: Int?
     var salePrice: Int?
+    var start: String?
+    var end: String?
+    
     
     private enum CodingKeys: String, CodingKey {
         case id
@@ -25,9 +29,11 @@ class SlotTime: Codable {
         case isPaid
         case period
         case salePrice
+        case start
+        case end
     }
 
-    init(id: String, isBooked: Bool, isCompleted: Bool, isLocked: Bool, isPaid: Bool, period: Int, salePrice: Int){
+    init(id: String, isBooked: Bool, isCompleted: Bool, isLocked: Bool, isPaid: Bool, period: Int, salePrice: Int,start: String, end: String){
         self.id = id
         self.isBooked = isBooked
         self.isCompleted = isCompleted
@@ -35,6 +41,8 @@ class SlotTime: Codable {
         self.isPaid = isPaid
         self.period = period
         self.salePrice = salePrice
+        self.start = start
+        self.end = end
         
     }
     required init(from decoder:Decoder) throws {
@@ -47,6 +55,8 @@ class SlotTime: Codable {
         period = try values.decode(Int.self, forKey: .period)
         salePrice = try values.decode(Int.self, forKey: .salePrice)
         
+        start =  try values.decode(String.self, forKey: .start)
+        end =  try values.decode(String.self, forKey: .end)
     }
 }
 

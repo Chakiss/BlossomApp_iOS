@@ -86,6 +86,7 @@
 		1BCE650826ABB69E002EE71F /* DoctorProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCE650726ABB69E002EE71F /* DoctorProfileCell.swift */; };
 		1BCE650A26ABCE83002EE71F /* ReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCE650926ABCE82002EE71F /* ReviewCell.swift */; };
 		1BCE650C26ABF5A2002EE71F /* Appointment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCE650B26ABF5A2002EE71F /* Appointment.swift */; };
+		1BCE650E26AC4F3C002EE71F /* VerifyPhoneNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCE650D26AC4F3C002EE71F /* VerifyPhoneNumberViewController.swift */; };
 		1BE101E3269D575D00F7323E /* Doctor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE101E2269D575D00F7323E /* Doctor.swift */; };
 		1BE101E5269DC63200F7323E /* Reviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE101E4269DC63200F7323E /* Reviews.swift */; };
 		1BE101E7269DD2DD00F7323E /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE101E6269DD2DD00F7323E /* Customer.swift */; };
@@ -222,6 +223,7 @@
 		1BCE650726ABB69E002EE71F /* DoctorProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorProfileCell.swift; sourceTree = "<group>"; };
 		1BCE650926ABCE82002EE71F /* ReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCell.swift; sourceTree = "<group>"; };
 		1BCE650B26ABF5A2002EE71F /* Appointment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appointment.swift; sourceTree = "<group>"; };
+		1BCE650D26AC4F3C002EE71F /* VerifyPhoneNumberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPhoneNumberViewController.swift; sourceTree = "<group>"; };
 		1BE101E2269D575D00F7323E /* Doctor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doctor.swift; sourceTree = "<group>"; };
 		1BE101E4269DC63200F7323E /* Reviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reviews.swift; sourceTree = "<group>"; };
 		1BE101E6269DD2DD00F7323E /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
@@ -403,6 +405,7 @@
 			isa = PBXGroup;
 			children = (
 				1B3721D42695AF29006265D3 /* ProfileInformationViewController.swift */,
+				1BCE650D26AC4F3C002EE71F /* VerifyPhoneNumberViewController.swift */,
 			);
 			path = ProfileInformation;
 			sourceTree = "<group>";
@@ -962,6 +965,7 @@
 				1BC3B21926A1CFA1006EDD29 /* ImagePickerManager.swift in Sources */,
 				1BC3B21C26A2ADA5006EDD29 /* Nonce.swift in Sources */,
 				1B8D860F26A49A7500A2ED57 /* SenderCell.swift in Sources */,
+				1BCE650E26AC4F3C002EE71F /* VerifyPhoneNumberViewController.swift in Sources */,
 				3C7D5E4E269AE48D002E5AB9 /* CartViewController.swift in Sources */,
 				1B1C2E3826993C5B00F57122 /* Product_set_items.swift in Sources */,
 				1B1C2E3C269944C200F57122 /* ProductCell.swift in Sources */,

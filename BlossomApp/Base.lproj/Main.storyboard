@@ -869,7 +869,11 @@
                     <navigationItem key="navigationItem" id="Sqx-KT-7Qa"/>
                     <connections>
                         <outlet property="appointmentView" destination="00t-gR-Ba6" id="dFr-ba-caX"/>
+                        <outlet property="dateTimeLabel" destination="YYs-b0-eHA" id="Tpb-zA-p3y"/>
                         <outlet property="doctorAppointmentView" destination="tDd-0L-gGM" id="g8e-sW-erL"/>
+                        <outlet property="doctorNameLabel" destination="CYP-cq-j60" id="KoG-NL-Txi"/>
+                        <outlet property="doctorNickNameLabel" destination="ECG-hr-lSS" id="u7m-vF-2AJ"/>
+                        <outlet property="doctorProfileImageView" destination="TKc-Rb-sqJ" id="y2F-T7-515"/>
                         <outlet property="multiBannerView" destination="MUb-BB-PEU" id="fFD-nN-LTP"/>
                     </connections>
                 </viewController>
@@ -2380,7 +2384,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="269" translatesAutoresizingMaskIntoConstraints="NO" id="4WQ-qn-dwf">
-                                                    <rect key="frame" x="73" y="30.5" width="300.5" height="34"/>
+                                                    <rect key="frame" x="73" y="30.5" width="313.5" height="34"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="34" id="7EN-j5-2n4"/>
@@ -2401,7 +2405,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oDA-GW-Tqu" customClass="BadgeSwift" customModule="BadgeSwift">
-                                                    <rect key="frame" x="381.5" y="37.5" width="22.5" height="20"/>
+                                                    <rect key="frame" x="394.5" y="37.5" width="9.5" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="lgx-cT-baV"/>
                                                     </constraints>
@@ -2626,16 +2630,6 @@
                                                                             <outlet property="delegate" destination="Cle-S5-b8D" id="Nuc-wB-F60"/>
                                                                         </connections>
                                                                     </textField>
-                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="วันเดือนปีเกิด" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bWh-Kj-PGZ">
-                                                                        <rect key="frame" x="20" y="397.5" width="334" height="35"/>
-                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                        <color key="tintColor" red="0.97647058819999999" green="0.69411764710000001" blue="0.65098039220000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="14"/>
-                                                                        <textInputTraits key="textInputTraits"/>
-                                                                        <connections>
-                                                                            <outlet property="delegate" destination="Cle-S5-b8D" id="z2E-kp-ucD"/>
-                                                                        </connections>
-                                                                    </textField>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="เพศ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ed8-db-QRe">
                                                                         <rect key="frame" x="20" y="452.5" width="23.5" height="22.5"/>
                                                                         <fontDescription key="fontDescription" name="SukhumvitSet-Bold" family="Sukhumvit Set" pointSize="14"/>
@@ -2774,7 +2768,7 @@
                                                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="เบอร์ติดต่อ" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bG7-6p-K14">
+                                                                    <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="เบอร์ติดต่อ" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bG7-6p-K14">
                                                                         <rect key="frame" x="20" y="231.5" width="231" height="18"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <color key="tintColor" red="0.97647058819999999" green="0.69411764710000001" blue="0.65098039220000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2784,7 +2778,7 @@
                                                                             <outlet property="delegate" destination="Cle-S5-b8D" id="2iT-Pg-gcK"/>
                                                                         </connections>
                                                                     </textField>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Itu-3g-3TI">
+                                                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Itu-3g-3TI">
                                                                         <rect key="frame" x="271" y="225.5" width="83" height="30"/>
                                                                         <color key="backgroundColor" red="0.95686274510000002" green="0.50196078430000002" blue="0.45098039220000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <constraints>
@@ -2802,8 +2796,8 @@
                                                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="อีเมลล์" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gbA-x6-aog">
-                                                                        <rect key="frame" x="20" y="288" width="218" height="18"/>
+                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="อีเมลล์" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gbA-x6-aog">
+                                                                        <rect key="frame" x="20" y="312" width="36" height="24"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <color key="tintColor" red="0.97647058819999999" green="0.69411764710000001" blue="0.65098039220000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="14"/>
@@ -2812,18 +2806,6 @@
                                                                             <outlet property="delegate" destination="Cle-S5-b8D" id="GOD-aD-wnG"/>
                                                                         </connections>
                                                                     </textField>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4vc-2G-n5b">
-                                                                        <rect key="frame" x="271" y="308.5" width="83" height="30"/>
-                                                                        <color key="backgroundColor" red="0.95686274510000002" green="0.50196078430000002" blue="0.45098039220000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                        <constraints>
-                                                                            <constraint firstAttribute="height" constant="30" id="rZX-d3-rh4"/>
-                                                                        </constraints>
-                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="12"/>
-                                                                        <inset key="contentEdgeInsets" minX="10" minY="2" maxX="10" maxY="2"/>
-                                                                        <state key="normal" title="ยังไม่ได้ยืนยัน">
-                                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                        </state>
-                                                                    </button>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="บัญชี" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OF3-9O-NWC">
                                                                         <rect key="frame" x="20" y="692" width="30" height="22.5"/>
                                                                         <fontDescription key="fontDescription" name="SukhumvitSet-Bold" family="Sukhumvit Set" pointSize="14"/>
@@ -2831,7 +2813,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="วันเดือนปีเกิด" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vu7-UH-2yw">
-                                                                        <rect key="frame" x="20" y="355" width="76.5" height="22.5"/>
+                                                                        <rect key="frame" x="20" y="356" width="76.5" height="22.5"/>
                                                                         <fontDescription key="fontDescription" name="SukhumvitSet-Bold" family="Sukhumvit Set" pointSize="14"/>
                                                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <nil key="highlightedColor"/>
@@ -2883,15 +2865,15 @@
                                                                             <action selector="logoutButtonTapped" destination="Cle-S5-b8D" eventType="touchUpInside" id="LVl-B2-wfp"/>
                                                                         </connections>
                                                                     </button>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kw8-tx-G0h">
+                                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kw8-tx-G0h">
                                                                         <rect key="frame" x="20" y="248.5" width="231" height="1"/>
                                                                         <color key="backgroundColor" red="0.90980392160000001" green="0.90980392160000001" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="1" id="jIg-4z-QBb"/>
                                                                         </constraints>
                                                                     </view>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NqC-0f-KBe">
-                                                                        <rect key="frame" x="20" y="334" width="231" height="1"/>
+                                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NqC-0f-KBe">
+                                                                        <rect key="frame" x="20" y="335" width="231" height="1"/>
                                                                         <color key="backgroundColor" red="0.90980392160000001" green="0.90980392160000001" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="56Z-97-yBb"/>
@@ -2923,6 +2905,16 @@
                                                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
+                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="วันเดือนปีเกิด" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bWh-Kj-PGZ">
+                                                                        <rect key="frame" x="20" y="398.5" width="334" height="34"/>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <color key="tintColor" red="0.97647058819999999" green="0.69411764710000001" blue="0.65098039220000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="14"/>
+                                                                        <textInputTraits key="textInputTraits"/>
+                                                                        <connections>
+                                                                            <outlet property="delegate" destination="Cle-S5-b8D" id="z2E-kp-ucD"/>
+                                                                        </connections>
+                                                                    </textField>
                                                                 </subviews>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
@@ -2934,7 +2926,6 @@
                                                                     <constraint firstItem="aJj-ZZ-2HW" firstAttribute="top" secondItem="JhN-Ei-cwc" secondAttribute="bottom" constant="20" id="2cR-Iy-L5c"/>
                                                                     <constraint firstItem="Ed8-db-QRe" firstAttribute="leading" secondItem="JhN-Ei-cwc" secondAttribute="leading" id="3AT-IS-3uK"/>
                                                                     <constraint firstAttribute="trailing" secondItem="pfH-X9-zt2" secondAttribute="trailing" constant="20" symbolic="YES" id="3s9-bi-glw"/>
-                                                                    <constraint firstItem="4vc-2G-n5b" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5dz-Rq-CP1" secondAttribute="leading" constant="20" symbolic="YES" id="4UG-KS-wHx"/>
                                                                     <constraint firstItem="bG7-6p-K14" firstAttribute="leading" secondItem="JhN-Ei-cwc" secondAttribute="leading" id="4uD-AO-Lpu"/>
                                                                     <constraint firstItem="vXP-sy-RjA" firstAttribute="leading" secondItem="hZC-r1-9qT" secondAttribute="trailing" constant="15" id="8d2-U1-PB2"/>
                                                                     <constraint firstAttribute="trailing" secondItem="bWh-Kj-PGZ" secondAttribute="trailing" constant="20" id="8oP-DL-G5N"/>
@@ -2945,10 +2936,8 @@
                                                                     <constraint firstItem="wQf-dh-YrY" firstAttribute="leading" secondItem="bG7-6p-K14" secondAttribute="leading" id="DHu-wx-nif"/>
                                                                     <constraint firstItem="bWh-Kj-PGZ" firstAttribute="top" secondItem="Vu7-UH-2yw" secondAttribute="bottom" constant="20" id="Fq6-IF-HKI"/>
                                                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Ed8-db-QRe" secondAttribute="trailing" constant="20" symbolic="YES" id="GAe-AT-CWs"/>
-                                                                    <constraint firstItem="4vc-2G-n5b" firstAttribute="centerY" secondItem="gbA-x6-aog" secondAttribute="centerY" id="Gbn-DL-TaP"/>
                                                                     <constraint firstItem="tFk-Mw-KkS" firstAttribute="top" secondItem="hZC-r1-9qT" secondAttribute="bottom" constant="20" id="H1t-Ep-sAj"/>
                                                                     <constraint firstAttribute="trailing" secondItem="meM-wv-GWX" secondAttribute="trailing" constant="20" symbolic="YES" id="H4u-cN-ovi"/>
-                                                                    <constraint firstItem="4vc-2G-n5b" firstAttribute="trailing" secondItem="Itu-3g-3TI" secondAttribute="trailing" id="HTH-uR-vj9"/>
                                                                     <constraint firstItem="OF3-9O-NWC" firstAttribute="top" secondItem="Q5Y-se-57f" secondAttribute="bottom" constant="20" id="Hz9-bs-aVZ"/>
                                                                     <constraint firstItem="Itu-3g-3TI" firstAttribute="leading" secondItem="bG7-6p-K14" secondAttribute="trailing" constant="20" id="Ix2-xa-hTk"/>
                                                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="SV3-nf-hay" secondAttribute="trailing" constant="20" symbolic="YES" id="JKb-xy-iJd"/>
@@ -2956,7 +2945,6 @@
                                                                     <constraint firstAttribute="trailing" secondItem="9UW-AR-SwG" secondAttribute="trailing" constant="20" symbolic="YES" id="Jhq-n6-XPs"/>
                                                                     <constraint firstItem="meM-wv-GWX" firstAttribute="leading" secondItem="5dz-Rq-CP1" secondAttribute="leading" constant="20" symbolic="YES" id="KwL-OR-41a"/>
                                                                     <constraint firstItem="kw8-tx-G0h" firstAttribute="leading" secondItem="bG7-6p-K14" secondAttribute="leading" id="LXY-In-OOv"/>
-                                                                    <constraint firstItem="4vc-2G-n5b" firstAttribute="leading" secondItem="NqC-0f-KBe" secondAttribute="trailing" constant="20" id="Laz-CW-f2M"/>
                                                                     <constraint firstItem="gbA-x6-aog" firstAttribute="leading" secondItem="bG7-6p-K14" secondAttribute="leading" id="Odc-cQ-BUK"/>
                                                                     <constraint firstItem="SV3-nf-hay" firstAttribute="top" secondItem="meM-wv-GWX" secondAttribute="bottom" constant="15.5" id="QUC-mP-RmB"/>
                                                                     <constraint firstItem="hZC-r1-9qT" firstAttribute="top" secondItem="OF3-9O-NWC" secondAttribute="bottom" constant="15.5" id="RTg-rK-LB4"/>
@@ -3049,7 +3037,6 @@
                         <outlet property="connectAppleButton" destination="NVv-6m-ccE" id="NMZ-R9-Olq"/>
                         <outlet property="connectFacebookButton" destination="9UW-AR-SwG" id="5m1-Pc-WsC"/>
                         <outlet property="emailTextField" destination="gbA-x6-aog" id="vvW-pl-JrX"/>
-                        <outlet property="emailVerifyButton" destination="4vc-2G-n5b" id="luR-ZX-Hhe"/>
                         <outlet property="facebookNameLabel" destination="vXP-sy-RjA" id="NVE-HL-oSQ"/>
                         <outlet property="gendorView" destination="meM-wv-GWX" id="sgQ-FA-Blj"/>
                         <outlet property="informationView" destination="5dz-Rq-CP1" id="a3S-EO-YRl"/>
@@ -3711,6 +3698,62 @@
             </objects>
             <point key="canvasLocation" x="2447.826086956522" y="-1410.2678571428571"/>
         </scene>
+        <!--Verify Phone Number View Controller-->
+        <scene sceneID="HlU-yI-4Dz">
+            <objects>
+                <viewController storyboardIdentifier="VerifyPhoneNumberViewController" id="goX-al-7k6" customClass="VerifyPhoneNumberViewController" customModule="BlossomApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="56y-mh-nXv">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fco-ar-q4R">
+                                <rect key="frame" x="60" y="199" width="294" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="34" id="q4X-u7-C4h"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ยืนยันรหัส OTP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3rr-IQ-Lks">
+                                <rect key="frame" x="163.5" y="133" width="87" height="23"/>
+                                <fontDescription key="fontDescription" name="SukhumvitSet-Bold" family="Sukhumvit Set" pointSize="14"/>
+                                <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cYA-Xs-Gdp">
+                                <rect key="frame" x="47" y="284" width="334" height="38"/>
+                                <color key="backgroundColor" red="0.95686274510000002" green="0.50196078430000002" blue="0.45098039220000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="SukhumvitSet-Bold" family="Sukhumvit Set" pointSize="16"/>
+                                <state key="normal" title="ยืนยัน"/>
+                                <connections>
+                                    <action selector="loginButtonTapped" destination="2vc-Gw-iCh" eventType="touchUpInside" id="TE4-tT-cnk"/>
+                                    <action selector="logoutButtonTapped" destination="Cle-S5-b8D" eventType="touchUpInside" id="PWN-kA-wbH"/>
+                                    <action selector="verifyButtonTapped" destination="goX-al-7k6" eventType="touchUpInside" id="GP9-z9-fsE"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Jrz-tK-D3O"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="cYA-Xs-Gdp" firstAttribute="leading" secondItem="Jrz-tK-D3O" secondAttribute="leading" constant="47" id="8gi-B0-hif"/>
+                            <constraint firstItem="cYA-Xs-Gdp" firstAttribute="top" secondItem="Fco-ar-q4R" secondAttribute="bottom" constant="51" id="Iup-6L-7fv"/>
+                            <constraint firstItem="Jrz-tK-D3O" firstAttribute="trailing" secondItem="Fco-ar-q4R" secondAttribute="trailing" constant="60" id="Sdi-st-unc"/>
+                            <constraint firstItem="3rr-IQ-Lks" firstAttribute="top" secondItem="Jrz-tK-D3O" secondAttribute="top" constant="89" id="Y6G-CB-grR"/>
+                            <constraint firstItem="Fco-ar-q4R" firstAttribute="leading" secondItem="Jrz-tK-D3O" secondAttribute="leading" constant="60" id="f15-dI-jUH"/>
+                            <constraint firstItem="3rr-IQ-Lks" firstAttribute="centerX" secondItem="Jrz-tK-D3O" secondAttribute="centerX" id="q73-gu-1PN"/>
+                            <constraint firstItem="Jrz-tK-D3O" firstAttribute="trailing" secondItem="cYA-Xs-Gdp" secondAttribute="trailing" constant="33" id="uNx-gv-Tb1"/>
+                            <constraint firstItem="Fco-ar-q4R" firstAttribute="top" secondItem="3rr-IQ-Lks" secondAttribute="bottom" constant="43" id="x9E-ef-s0h"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="otpTextField" destination="Fco-ar-q4R" id="krG-TN-uRH"/>
+                        <outlet property="verifyButton" destination="cYA-Xs-Gdp" id="a8v-0C-AeD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NSt-WG-2TB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3272.4637681159425" y="-1417.6339285714284"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="ZGq-Mj-BQ8">
             <objects>
@@ -4047,7 +4090,7 @@
     </scenes>
     <designables>
         <designable name="oDA-GW-Tqu">
-            <size key="intrinsicContentSize" width="22.5" height="22.5"/>
+            <size key="intrinsicContentSize" width="9.5" height="18.5"/>
         </designable>
     </designables>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

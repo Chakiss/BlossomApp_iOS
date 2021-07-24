@@ -76,7 +76,9 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
                     let isPaid = data["isPaid"]as? Bool ?? false
                     let period = data["period"]as? Int ?? 0
                     let salePrice = data["salePrice"]as? Int ?? 0
-                    return SlotTime(id: id, isBooked: isBooked, isCompleted: isCompleted, isLocked: isLocked, isPaid: isPaid, period: period, salePrice: salePrice)
+                    let start = data["start"]as? String ?? ""
+                    let end = data["end"]as? String ?? ""
+                    return SlotTime(id: id, isBooked: isBooked, isCompleted: isCompleted, isLocked: isLocked, isPaid: isPaid, period: period, salePrice: salePrice, start: start, end: end)
                 })
                 if self.slotTime.count > 0 {
                    //self.slotTimeSelected = self.slotTime[0]

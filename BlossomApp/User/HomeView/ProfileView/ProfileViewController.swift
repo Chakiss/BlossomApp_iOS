@@ -46,7 +46,7 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
         self.title = "Profile"
 
         setupView()
-        CustomerManager().getCustomer()
+        getCustomer()
         let newBackButton = UIBarButtonItem(image: UIImage(named: "back"), style: .plain, target: self, action: #selector(self.back(sender:)))
         self.navigationItem.leftBarButtonItem = newBackButton
         NotificationCenter.default.addObserver(self, selector: #selector(self.profileChanged), name:Notification.Name("BlossomProfileChanged"), object: nil)

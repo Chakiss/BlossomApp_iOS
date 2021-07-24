@@ -17,12 +17,12 @@ struct Appointment: Codable {
     var customerReference: DocumentReference?
     var orderReference: DocumentReference?
     var isComplete: Bool?
-    var sessionStart: Timestamp?
-    var sessionEnd: Timestamp?
     var timeReference: DocumentReference?
     var preForm: [String: Any]?
     var postForm: [String: Any]?
     
+    var sessionStart: Timestamp?
+    var sessionEnd: Timestamp?
     
     private enum CodingKeys: String, CodingKey {
         case id
@@ -40,26 +40,19 @@ struct Appointment: Codable {
         
     }
     
-    init(id: String,createdAt: Timestamp, doctorReference: DocumentReference){
+    init(id: String,customerReference: DocumentReference, doctorReference: DocumentReference,timeReference: DocumentReference, sessionStart: Timestamp, sessionEnd: Timestamp ){
         self.id = id
-        self.createdAt = createdAt
+        self.customerReference = customerReference
         self.doctorReference = doctorReference
-       
+        self.timeReference = timeReference
+        self.sessionStart = sessionStart
+        self.sessionEnd = sessionEnd
     }
     
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         id = try values.decodeIfPresent(String.self, forKey: .id)
-        //doctorReference = try values.decodeIfPresent(DocumentReference.self, forKey: .doctorReference)
-        //createdAt = try values.decodeIfPresent(Timestamp.self, forKey: .createdAt)
-        //appointmentReference = try values.decodeIfPresent(DocumentReference.self, forKey: .appointmentReference)
-        //comment = try values.decodeIfPresent(String.self, forKey: .comment)
-        
-        //doctorReference = try values.decodeIfPresent(DocumentReference.self, forKey: .doctorReference)
-        //score = try values.decodeIfPresent(Int.self, forKey: .score)
-        //type = try values.decodeIfPresent(String.self, forKey: .type)
-        //updatedAt = try values.decodeIfPresent(String.self, forKey: .updatedAt)
-        //patientReference = try values.decodeIfPresent(DocumentReference.self, forKey: .patientReference)
+       
     }
     
 }
