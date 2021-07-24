@@ -104,7 +104,7 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rIX-Oy-yZP">
                                                                 <rect key="frame" x="48" y="0.0" width="50" height="45"/>
                                                                 <subviews>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DUx-IO-KFl">
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DUx-IO-KFl" customClass="Button" customModule="BlossomApp" customModuleProvider="target">
                                                                         <rect key="frame" x="5" y="5" width="40" height="40"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="DUx-IO-KFl" secondAttribute="height" multiplier="1:1" id="3Lr-Kp-pHW"/>
@@ -126,7 +126,7 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lhr-27-fjg">
                                                                 <rect key="frame" x="98" y="0.0" width="50" height="45"/>
                                                                 <subviews>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hst-PC-AkA">
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hst-PC-AkA" customClass="Button" customModule="BlossomApp" customModuleProvider="target">
                                                                         <rect key="frame" x="5" y="5" width="40" height="40"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="hst-PC-AkA" secondAttribute="height" multiplier="1:1" id="29a-ym-V5r"/>

@@ -43,6 +43,12 @@ class CartHeaderTableViewCell: UITableViewCell {
         addressTitieLabel.text = ""
         addressLabel.text = ""
         editAddressButton.setTitle("แก้ไขที่อยู่", for: .normal)
+
+        orderLabel.font = FontSize.body.bold()
+        priceLabel.font = FontSize.body2.regular()
+        addressTitieLabel.font = FontSize.body2.regular()
+        addressLabel.font = FontSize.body2.regular()
+
         editAddressButton.backgroundColor = UIColor.blossomPrimary
         editAddressButton.roundCorner(radius: 17)
     }

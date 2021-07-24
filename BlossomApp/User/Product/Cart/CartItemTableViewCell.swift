@@ -49,6 +49,11 @@ class CartItemTableViewCell: UITableViewCell {
         amountLabel.text = ""
         priceLabel.text = ""
         
+        productNameLabel.font = FontSize.body2.bold()
+        amountTitleLabel.font = FontSize.small.regular()
+        amountLabel.font = FontSize.body.regular()
+        priceLabel.font = FontSize.body2.regular()
+        
         decreaseButton.backgroundColor = UIColor.blossomPrimary2
         increaseButton.backgroundColor = UIColor.blossomPrimary2
         decreaseButton.addConerRadiusAndShadow()
@@ -65,7 +70,7 @@ class CartItemTableViewCell: UITableViewCell {
         productNameLabel.text = model.product.name ?? "" + "Lorem ipsum de sem lorean, Rek sdfhu asidu"
         amountTitleLabel.text = "จำนวน"
         amountLabel.text = "\(model.quantity)"
-        priceLabel.text = "ราคา \(model.product.priceInSatang().satangToBaht().toAmountText() ?? "0") บาท"
+        priceLabel.text = "ราคา \(model.product.priceInSatang().satangToBaht().toAmountText()) บาท"
         
         let url = URL(string: model.product.image ?? "")
         productImageView.kf.setImage(with: url, placeholder: UIImage(named: "placeholder"))

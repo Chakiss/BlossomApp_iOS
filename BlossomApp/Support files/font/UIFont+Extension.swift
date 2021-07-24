@@ -28,11 +28,15 @@ enum FontSize: CGFloat {
     }
     
     func regular() -> UIFont {
-        return UIFont(name: SukhumvitBold, size: self.rawValue)!
+        return UIFont(name: SukhumvitRegular, size: self.rawValue)!
     }
     
     func light() -> UIFont {
-        return UIFont(name: SukhumvitBold, size: self.rawValue)!
+        return UIFont(name: SukhumvitLight, size: self.rawValue)!
+    }
+    
+    func thin() -> UIFont {
+        return UIFont(name: SukhumvitThin, size: self.rawValue)!
     }
     
 }
@@ -44,11 +48,15 @@ extension UIFont {
     }
     
     static func regular(size: CGFloat) -> UIFont {
-        return UIFont(name: SukhumvitBold, size: size)!
+        return UIFont(name: SukhumvitRegular, size: size)!
     }
     
     static func light(size: CGFloat) -> UIFont {
-        return UIFont(name: SukhumvitBold, size: size)!
+        return UIFont(name: SukhumvitLight, size: size)!
+    }
+    
+    static func thin(size: CGFloat) -> UIFont {
+        return UIFont(name: SukhumvitThin, size: size)!
     }
     
 }

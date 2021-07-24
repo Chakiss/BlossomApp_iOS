@@ -21,6 +21,11 @@ class ProductListViewController: UIViewController, UITableViewDataSource, UITabl
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        fetchProduct()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         updateCartButton()
@@ -43,13 +48,6 @@ class ProductListViewController: UIViewController, UITableViewDataSource, UITabl
         
         let viewController = CartViewController.initializeInstance(cart: CartManager.shared.currentCart!)
         self.navigationController?.pushViewController(viewController, animated: true)
-        
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        
-        fetchProduct()
         
     }
     

@@ -27,6 +27,8 @@ class PaymentMethodViewController: UIViewController {
         view.backgroundColor = UIColor.backgroundColor
         qrPaymentButton.addConerRadiusAndShadow()
         creditCardPaymentButton.addConerRadiusAndShadow()
+        qrPaymentButton.backgroundColor = .white
+        creditCardPaymentButton.backgroundColor = .white
     }
     
     override func viewDidAppear(_ animated: Bool) {
