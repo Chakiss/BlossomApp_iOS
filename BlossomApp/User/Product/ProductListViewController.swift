@@ -63,7 +63,7 @@ class ProductListViewController: UIViewController, UITableViewDataSource, UITabl
         
         cell.delegate = self
         cell.productNameLabel.text = product.name
-        cell.productPriceLabel.text = product.price ?? "" + " บาท"
+        cell.productPriceLabel.text = product.priceInSatang().satangToBaht().toAmountText() + " บาท"
         
         let url = URL(string: product.image ?? "")
         cell.productImageView.kf.setImage(with: url, placeholder: UIImage(named: "placeholder"))

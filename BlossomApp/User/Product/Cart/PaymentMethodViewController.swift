@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseFunctions
 import Firebase
+import OmiseSDK
 
 class PaymentMethodViewController: UIViewController {
 
@@ -57,15 +58,15 @@ class PaymentMethodViewController: UIViewController {
         let payload: [String: Any] = [
             "amount": Int(Double(amount) ?? 0),
             "orderID": "\(cart?.purchaseOrder?.id ?? 0)",
-            "channel": "app"
+            "channel": "shipnity"
         ]
-        
+        debugPrint("generatePromptPayQR \(payload)")
         ProgressHUD.show()
         Functions.functions().httpsCallable("app-payments-generatePromptPayQR").call(payload) { [weak self] result, error in
             ProgressHUD.dismiss()
             
             guard error == nil else {
-                self?.showAlertDialogue(title: "ไม่สามารถชำระเงินด้วย QR ได้\nERROR: ", message: "\(error!.localizedDescription)", completion: {
+                self?.showAlertDialogue(title: "ไม่สามารถชำระเงินด้วย QR ได้", message: "ERROR: \(error!.localizedDescription)", completion: {
                     
                 })
                 return
@@ -77,10 +78,44 @@ class PaymentMethodViewController: UIViewController {
     }
     
     @IBAction func creditCardPayment(_ sender: Any) {
-        mockPaymentSuccess()
+//        mockPaymentSuccess()
+        let publicKey = "pkey_test_5mmq1gnwqw4n78r3sil"
+        let creditCardView = CreditCardFormViewController.makeCreditCardFormViewController(withPublicKey: publicKey)
+        creditCardView.preferredPrimaryColor = UIColor.blossomPrimary
+        creditCardView.preferredSecondaryColor = UIColor.blossomDarkGray
+        creditCardView.delegate = self
+        creditCardView.handleErrors = true
+        present(creditCardView, animated: true, completion: nil)
     }
     
     private func mockPaymentSuccess() {
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            appDelegate.deeplinking = .orderList
+            appDelegate.handleDeeplinking()
+            self.navigationController?.popToRootViewController(animated: false)
+        }
+    }
+    
+    private func updateOrderPayment(omise: OmisePaymentResponse) {
+        ProgressHUD.show()
+        let paidAt = omise.paidAt ?? ""
+        let formatter = ISO8601DateFormatter()
+        let date = formatter.date(from: paidAt) ?? Date()
+        let dateString = String.dateFormat(date, format: "dd/MM/yyyy")
+        let timeString = String.dateFormat(date, format: "HH:mm")
+
+        APIProduct.updateOrderPayment(orderID: cart?.purchaseOrder?.id ?? 0, omiseID: omise.id ?? "", date: dateString, time: timeString) { [weak self] result in
+            ProgressHUD.dismiss()
+            guard result else {
+                self?.showAlertDialogue(title: "ไม่สามารถอัพเดตสถานะคำสั่งซื้อได้", message: "กรุณาแจ้งเจ้าหน้าที่ และบันทึกหน้าจอนี้\n(Omise: \(omise.id ?? ""))", completion: {
+                })
+                return
+            }
+            self?.gotoOrderList()
+        }.request()
+    }
+    
+    private func gotoOrderList() {
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
             appDelegate.deeplinking = .orderList
             appDelegate.handleDeeplinking()
@@ -98,4 +133,39 @@ class PaymentMethodViewController: UIViewController {
     }
     */
 
+}
+
+extension PaymentMethodViewController : CreditCardFormViewControllerDelegate {
+    
+    func creditCardFormViewController(_ controller: CreditCardFormViewController, didSucceedWithToken token: Token) {
+        ProgressHUD.show()
+        APIProduct.chargeCreditCard(amountSatang: cart?.calculateTotalPriceInSatang() ?? 0, token: token.id) { [weak self, weak controller] response in
+            ProgressHUD.dismiss()
+            guard let response = response else {
+                controller?.showAlertDialogue(title: "ไม่สามารถชำระเงินด้วยบัตรเครดิตได้", message: "กรุณาลองใหม่ภายหลัง", completion: {
+                })
+                return
+            }
+            
+            guard response.failureMessage == nil else {
+                controller?.showAlertDialogue(title: "ไม่สามารถชำระเงินด้วยบัตรเครดิตได้", message: "กรุณาลองใหม่ภายหลัง\n\n(\(response.failureMessage!))", completion: {
+                })
+                return
+            }
+            
+            self?.dismiss(animated: true, completion: nil)
+            self?.updateOrderPayment(omise: response)
+        }.request()
+    }
+    
+    func creditCardFormViewController(_ controller: CreditCardFormViewController, didFailWithError error: Error) {
+        showAlertDialogue(title: "ไม่สามารถชำระเงินได้", message: error.localizedDescription) {
+            
+        }
+    }
+    
+    func creditCardFormViewControllerDidCancel(_ controller: CreditCardFormViewController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
 }
