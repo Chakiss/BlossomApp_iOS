@@ -36,11 +36,6 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let cid = UInt(CustomerManager.sharedInstance.customer?.referenceConnectyCubeID ?? "") ?? 0
-        Chat.instance.connect(withUserID: cid, password: CustomerManager.sharedInstance.customer?.id ?? "") { (error) in
-            print(error)
-        }
-        
         
     }
     
@@ -176,16 +171,17 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
             
             opponentIDs.append(userID.intValue)
         }
-//        CallKitAdapter.shared.reportIncomingCall(with: opponentIDs, session: session, uuid: self.callUUID!, onAcceptAction: {
-//            self.performSegue(withIdentifier: Segues.callSceneID, sender: self.callUUID)
-//        })
         
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let viewController = storyboard.instantiateViewController(withIdentifier: "CallViewController") as! CallViewController
-        viewController.session = self.session
-        viewController.hidesBottomBarWhenPushed = true
-        self.navigationController?.pushViewController(viewController, animated: true)
+        CallKitAdapter.shared.reportIncomingCall(with: opponentIDs, session: session, uuid: self.callUUID!, onAcceptAction: {
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let viewController = storyboard.instantiateViewController(withIdentifier: "CallViewController") as! CallViewController
+            viewController.session = self.session
+            viewController.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(viewController, animated: true)
 
+        })
+        
     }
     
 }
@@ -255,7 +251,7 @@ extension ComingAppointmentViewController {
             }
         }
 
-        //CallKitAdapter.shared.endCall(with: self.callUUID!)
+        CallKitAdapter.shared.endCall(with: self.callUUID!)
         
         self.callUUID = nil
         self.session = nil

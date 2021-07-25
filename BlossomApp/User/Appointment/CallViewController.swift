@@ -225,6 +225,12 @@ class CallViewController: UIViewController, CallClientDelegate {
         }
     }
     
+    func session(_ session: CallBaseSession, disconnectedFromUser userID: NSNumber) {
+        if let s = self.session {
+            sessionDidClose(s)
+        }
+    }
+    
     func session(_ session: CallBaseSession, receivedRemoteVideoTrack videoTrack: CallVideoTrack, fromUser userID: NSNumber) {
        // we suppose you have created UIView and set it's class to RemoteVideoView class
        // also we suggest you to set view mode to UIViewContentModeScaleAspectFit or
@@ -250,7 +256,8 @@ class CallViewController: UIViewController, CallClientDelegate {
             if self.videoCapture != nil {
                 self.videoCapture?.stopSession(nil)
             }
-            self.dismiss(animated: true)
+            
+            navigationController?.popViewController(animated: true)
         }
     }
     
