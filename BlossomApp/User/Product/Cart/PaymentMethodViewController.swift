@@ -117,11 +117,9 @@ class PaymentMethodViewController: UIViewController {
     
     private func updateOrderPayment(paidAt date: Date, omiseID: String? = nil) {
         ProgressHUD.show()
-        let dateString = String.dateFormat(date, format: "dd/MM/yyyy")
-        let timeString = String.dateFormat(date, format: "HH:mm")
         let orderID = cart?.purchaseOrder?.id ?? 0
 
-        APIProduct.updateOrderPayment(orderID: orderID, date: dateString, time: timeString) { [weak self] result in
+        APIProduct.updateOrderPayment(orderID: orderID) { [weak self] result in
             guard result else {
                 ProgressHUD.dismiss()
                 self?.showAlertDialogue(title: "ไม่สามารถอัพเดตสถานะคำสั่งซื้อได้", message: "กรุณาแจ้งเจ้าหน้าที่ และบันทึกหน้าจอนี้\n(Omise: \(omiseID ?? "n/a"))", completion: {

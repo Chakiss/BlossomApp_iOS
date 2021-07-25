@@ -19,7 +19,7 @@ enum APIProduct {
     case chargeCreditCard(orderID: Int, amountSatang: Int, token: String, completion: (OmisePaymentResponse?)->Swift.Void)
     case updateOrderNote(orderID: Int, note: String, completion: (UpdateOrderResponse?)->Swift.Void)
     case getChargeCreditCard(chargeID: String, completion: (OmisePaymentResponse?)->Swift.Void)
-    case updateOrderPayment(orderID: Int, date: String, time: String, completion: (Bool)->Swift.Void)
+    case updateOrderPayment(orderID: Int, completion: (Bool)->Swift.Void)
 
     func endpoint() -> String {
         switch self {
@@ -33,7 +33,7 @@ enum APIProduct {
             return "https://api.omise.co/charges"
         case .getChargeCreditCard(let chargeID, _):
             return "https://api.omise.co/charges/\(chargeID)"
-        case .updateOrderPayment(let orderID,_,_,_):
+        case .updateOrderPayment(let orderID,_):
             return "https://www.shipnity.pro/api/v2/orders/\(orderID)/payment"
         }
     }
@@ -107,11 +107,11 @@ enum APIProduct {
                     completion(orderResponse)
                 }
          
-        case let .updateOrderPayment(_, date, time, completion):
+        case let .updateOrderPayment(_, completion):
             let parameters:Parameters = [
-                "bank" : "omise",
-                "date" : date,
-                "time" : time
+                "bank" : "creditcard",
+                "transferred_date": "yyyy-mm-dd",
+                "transferred_time": "hh:mm"
             ]
             debugPrint("\(endpoint()), \(parameters)")
             AF.request(endpoint(), method: .post, parameters: parameters, headers: headers)
