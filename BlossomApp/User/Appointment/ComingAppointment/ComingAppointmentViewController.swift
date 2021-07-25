@@ -66,13 +66,30 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
         }))
     
         alert.addAction(UIAlertAction(title: "แชท", style: .default , handler:{ (UIAlertAction)in
-            if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-                appDelegate.deeplinking = .chat
-                appDelegate.handleDeeplinking()
-                self.dismiss(animated: false, completion: {
-                    self.navigationController?.popToRootViewController(animated: false)
-                })
-            }
+            
+            let appointment = self.appointments[indexPath.row]
+            appointment.doctorReference?.getDocument(completion: { doctorDocument, error in
+                
+                let data = doctorDocument?.data()
+                let referenceConnectyCubeID = data?["referenceConnectyCubeID"] as? Int ?? 0
+                let dialog = ChatDialog(dialogID: nil, type: .private)
+                
+                dialog.occupantIDs = [NSNumber(integerLiteral: referenceConnectyCubeID)]  // an ID of opponent
+
+                Request.createDialog(dialog, successBlock: { (dialog) in
+                    if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                        appDelegate.deeplinking = .chat
+                        appDelegate.handleDeeplinking()
+                        self.dismiss(animated: false, completion: {
+                            self.navigationController?.popToRootViewController(animated: false)
+                        })
+                    }
+                }) { (error) in
+
+                 }
+                
+            })
+           
         }))
         
         alert.addAction(UIAlertAction(title: "ยกเลิก", style: .destructive, handler:{ (UIAlertAction)in

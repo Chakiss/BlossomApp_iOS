@@ -69,7 +69,7 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
         user = Auth.auth().currentUser
         getCustomer()
 
-        let token = Session.current.sessionDetails?.token
+        
 
         
 
@@ -99,9 +99,9 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
             self?.customer = customer
             
             let token = Session.current.sessionDetails!.token! as String
-            let userID = UInt(token)
+            let userID = UInt(customer.referenceConnectyCubeID!)
             Chat.instance.connect(withUserID: userID ?? 0, password: token) { (error) in
-
+                print(error)
             }
             self?.getAppointmentData()
             

@@ -27,27 +27,8 @@ class HistoryAppointmentViewController: UIViewController, UITableViewDataSource,
         //let doctor = self.doctorList[indexPath.row]
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "AppointmentCell", for: indexPath) as! AppointmentCell
-//         cell.doctorNickNameLabel.text = doctor.displayName
-//         cell.doctorNameLabel.text = (doctor.firstName ?? "") + "  " + (doctor.lastName ?? "")
-//
-//
-//         let imageRef = storage.reference(withPath: doctor.displayPhoto ?? "")
-//         imageRef.getData(maxSize: 2 * 1024 * 1024) { (data, error) in
-//             if error == nil {
-//                 if let imgData = data {
-//                     if let img = UIImage(data: imgData) {
-//                         cell.doctorImageView.image = img
-//                     }
-//                 }
-//             } else {
-//                 cell.doctorImageView.image = UIImage(named: "placeholder")
-//
-//             }
-//         }
-//
-//         cell.doctorStarLabel.text = String(format: "%.2f",doctor.currentScore as! CVarArg)
-//         cell.doctorReviewLabel.text = ""
-//         cell.calculateReview(reviews: reviewList)
+        cell.appointment = self.appointments[indexPath.row]
+        cell.displayAppointment()
         
         return cell
     }

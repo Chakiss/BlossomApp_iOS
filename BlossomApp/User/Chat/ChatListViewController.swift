@@ -49,7 +49,7 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
     
         Request.dialogs(with: Paginator.limit(100, skip: 0), extendedRequest: nil, successBlock: { (dialogs, usersIDs, paginator) in
             self.dialogList = dialogs
-            self.dialogList.sort(by: { $0.lastMessageDate!.compare($1.lastMessageDate!) == ComparisonResult.orderedDescending })
+            self.dialogList.sort(by: { ($0.lastMessageDate ?? Date()).compare($1.lastMessageDate ?? Date()) == ComparisonResult.orderedDescending })
             self.tableView.reloadData()
            
             
@@ -83,6 +83,8 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
         //cell.setTitle(title: dialog.name, imageUrl: "")
         cell.titleLabel.text = dialog.name
         cell.setLastMessageText(lastMessageText: dialog.lastMessageText, date: dialog.updatedAt!, unreadMessageCount:dialog.unreadMessagesCount)
+        cell.dialog = dialog
+        cell.getImageDoctor()
         return cell
     }
     

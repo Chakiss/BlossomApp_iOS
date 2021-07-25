@@ -120,12 +120,14 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
     
     func scrollToBottom(){
         DispatchQueue.main.async {
-            let indexPath = IndexPath(row: self.chatMessageList.count-1, section: 0)
-            self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            if self.chatMessageList.count > 0 {
+                let indexPath = IndexPath(row: self.chatMessageList.count-1, section: 0)
+                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            }
         }
     }
     /*
-    // MARK: - Navigation
+     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
