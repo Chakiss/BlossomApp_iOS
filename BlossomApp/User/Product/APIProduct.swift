@@ -16,7 +16,8 @@ enum APIProduct {
         
     case list(completion: (ProductsResponse?)->Swift.Void)
     case createOrder(po: CreateOrderRequest, completion: (CreateOrderResponse?)->Swift.Void)
-    case chargeCreditCard(amountSatang: Int, token: String, completion: (OmisePaymentResponse?)->Swift.Void)
+    case chargeCreditCard(orderID: Int, amountSatang: Int, token: String, completion: (OmisePaymentResponse?)->Swift.Void)
+    case getChargeCreditCard(chargeID: String, completion: (OmisePaymentResponse?)->Swift.Void)
     case updateOrderPayment(orderID: Int, omiseID: String, date: String, time: String, completion: (Bool)->Swift.Void)
 
     func endpoint() -> String {
@@ -27,6 +28,8 @@ enum APIProduct {
             return "https://www.shipnity.pro/api/v2/orders"
         case .chargeCreditCard:
             return "https://api.omise.co/charges"
+        case .getChargeCreditCard(let chargeID, _):
+            return "https://api.omise.co/charges/\(chargeID)"
         case .updateOrderPayment(let orderID,_,_,_,_):
             return "https://www.shipnity.pro/api/v2/orders/\(orderID)/payment"
         }
@@ -59,11 +62,26 @@ enum APIProduct {
                     completion(orderResponse)
                 }
             
-        case let .chargeCreditCard(amount, token, completion):
-            let parameters: Parameters = ["amount": amount, "currency": "thb", "card": token]
+        case let .chargeCreditCard(orderID, amount, token, completion):
+            let parameters: Parameters = [
+                "amount": amount,
+                "currency": "thb",
+                "card": token,
+                "return_uri": "https://www.blossomclinicthailand.com/omise/\(orderID)/complete"
+            ]
             debugPrint("\(endpoint()), \(parameters)")
 
             AF.request(endpoint(), method: .post, parameters: parameters, headers: ["Authorization":"Basic c2tleV90ZXN0XzVuMHh6bjRrcHN2eGl6bGh2b3g6"])
+                .validate()
+                .responseDecodable(of: OmisePaymentResponse.self) { (response) in
+                    guard let orderResponse = response.value else {
+                        completion(nil)
+                        return
+                    }
+                    completion(orderResponse)
+                }
+        case let .getChargeCreditCard(_, completion):
+            AF.request(endpoint(), method: .get, headers: ["Authorization":"Basic c2tleV90ZXN0XzVuMHh6bjRrcHN2eGl6bGh2b3g6"])
                 .validate()
                 .responseDecodable(of: OmisePaymentResponse.self) { (response) in
                     guard let orderResponse = response.value else {

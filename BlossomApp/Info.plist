@@ -36,6 +36,14 @@
 				<string>com.googleusercontent.apps.593223696061-vc3r05m5d37lbg3b82u97a1o1ql8mbo3</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>blossomapp</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>

@@ -92,9 +92,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                              NSAttributedString.Key.foregroundColor: UIColor.white]
         UINavigationBar.appearance().titleTextAttributes = navAttributes as [NSAttributedString.Key : Any]
         UINavigationBar.appearance().barTintColor = UIColor.blossomPrimary3
-
-        
-       
         
     }
     
