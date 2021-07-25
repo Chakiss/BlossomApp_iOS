@@ -37,16 +37,14 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "แชท"
-        
-        self.customer = CustomerManager().customer
-   
-
+        self.title = "กล่องข้อความ"
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
     
+        self.customer = CustomerManager.sharedInstance.customer
+
         Request.dialogs(with: Paginator.limit(100, skip: 0), extendedRequest: nil, successBlock: { (dialogs, usersIDs, paginator) in
             self.dialogList = dialogs
             self.dialogList.sort(by: { ($0.lastMessageDate ?? Date()).compare($1.lastMessageDate ?? Date()) == ComparisonResult.orderedDescending })

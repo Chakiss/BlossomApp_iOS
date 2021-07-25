@@ -369,6 +369,9 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
             let firebaseAuth = Auth.auth()
             do {
                 try firebaseAuth.signOut()
+                
+                CustomerManager.sharedInstance.logout()
+                
                 Chat.instance.disconnect { (error) in
 
                 }

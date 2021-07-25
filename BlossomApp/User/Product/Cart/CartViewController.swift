@@ -46,8 +46,8 @@ class CartViewController: UIViewController {
         self.tableView.register(UINib(nibName: "CartItemTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "CartItemTableViewCell")
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         let model = CartHeaderTableViewCell.Model(
             dateString: String.today(),
@@ -55,6 +55,7 @@ class CartViewController: UIViewController {
             addressText: CustomerManager.sharedInstance.customer?.address?.address ?? "-"
         )
         self.cartHeaderModel = model
+        updateTotalPrice()
         tableView.reloadData()
         
     }
@@ -64,10 +65,7 @@ class CartViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         self.title = "ตะกร้าสินค้า"
-        
-        // Mock order data
-        updateTotalPrice()
-        
+                
         setupView()
         setupTableView()
         

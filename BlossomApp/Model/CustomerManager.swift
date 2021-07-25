@@ -20,8 +20,12 @@ class CustomerManager {
         //set { _data = customer; }
     //}
 
-    init() { }
+    private init() { }
     
+    func logout() {
+        user = Auth.auth().currentUser
+        customer = nil
+    }
     
     func getCustomer(completion: @escaping ()->Swift.Void )  {
         if user == nil {

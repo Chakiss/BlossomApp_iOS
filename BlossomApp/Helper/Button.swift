@@ -36,7 +36,7 @@ class Button: UIButton {
     
     private func setupButton() {
         self.layer.cornerRadius = radius
-        self.backgroundColor = UIColor.blossomPrimary
+        self.backgroundColor = UIColor.blossomPrimary3
         self.titleLabel?.font = FontSize.body2.regular()
         startAnimatingPressActions()
     }
