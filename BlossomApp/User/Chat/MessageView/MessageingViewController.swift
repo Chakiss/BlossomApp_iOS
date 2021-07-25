@@ -115,7 +115,7 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
                     
                     let event = Event()
                     event.notificationType = .push
-                    event.usersIDs = [4554340 , 4610393]
+                    event.usersIDs = [4611091 , 4605404]
                     event.type = .oneShot
                     
                     var pushmessage = message.text! as String

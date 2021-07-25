@@ -79,6 +79,13 @@ class DoctorDetailViewController: UIViewController, UITableViewDelegate, UITable
     
     @IBAction func consultButtonTapped() {
         
+        guard CustomerManager.sharedInstance.customer != nil else {
+            showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณาเข้าสู่ระบบ") { [weak self] in
+                self?.showLoginView()
+            }
+            return
+        }
+        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let viewController = storyboard.instantiateViewController(withIdentifier: "SlotTimeViewController") as! SlotTimeViewController
         viewController.doctor = doctor

@@ -896,7 +896,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n#bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/ConnectyCube.framework/strip-framework.sh\"\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nbash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/ConnectyCube.framework/strip-framework.sh\"\n";
 		};
 		1B845A096E2CE8851ACAB7C3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

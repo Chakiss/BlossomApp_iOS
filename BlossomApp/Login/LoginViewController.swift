@@ -206,27 +206,35 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                                                               idToken: idTokenString,
                                                               rawNonce: nonce)
             
-            Auth.auth().signIn(with: firebaseCredential) { authResult, error in
+            Auth.auth().signIn(with: firebaseCredential) { [weak self] authResult, error in
                 
-                CustomerManager.sharedInstance.getCustomer {}
-                ProgressHUD.dismiss()
-                authResult?.user.getIDTokenResult(completion: { (result, error) in
+                authResult?.user.getIDTokenResult(completion: { [weak self] (result, error) in
                     
                     guard let role = result?.claims["role"] as? String else {
-                        self.navigationController?.dismiss(animated: true, completion: nil)
+                        ProgressHUD.dismiss()
+                        self?.showAlertDialogue(title: "ไม่สามารถเข้าสู่ระบบได้", message: "ไม่พบบัญชี หรือคุณยังไม่ได้ผูกบัญชีเข้ากับ Apple ID") {
+                            self?.navigationController?.dismiss(animated: true, completion: nil)
+                        }
                         return
                     }
-                    if role == "doctor" {
-                        if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
-                           appDelegate.setDoctorUI()
-                        }
-                    } else {
-                        if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
-                           appDelegate.setCustomerUI()
-                        }
-                    }
                     
-                    ConnectyCubeManager().login()
+                    CustomerManager.sharedInstance.getCustomer {
+                        ProgressHUD.dismiss()
+
+                        if role == "doctor" {
+                            if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
+                               appDelegate.setDoctorUI()
+                            }
+                        } else {
+                            if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
+                               appDelegate.setCustomerUI()
+                            }
+                        }
+                        
+                        ConnectyCubeManager().login()
+                        
+                    }
+
                 })
             }
       

@@ -34,7 +34,15 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
         // Do any additional setup after loading the view.
     }
     
-
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let cid = UInt(CustomerManager.sharedInstance.customer?.referenceConnectyCubeID ?? "") ?? 0
+        Chat.instance.connect(withUserID: cid, password: CustomerManager.sharedInstance.customer?.id ?? "") { (error) in
+            print(error)
+        }
+        
+        
+    }
     
     
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -113,7 +121,7 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
     
     func attemptCall(with type: CallConferenceType) {
         
-        let opponentIDs: [NSNumber] = [4554340 , 4610393]
+        let opponentIDs: [NSNumber] = [ 4611091]
         
        // let newSession = CallClient.instance().createNewSession(withOpponents: opponentIDs as [NSNumber], with: .video)
         
@@ -144,7 +152,7 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
                 NSLog("Send voip push - Error")
             }
             
-         
+//            session.startCall(["key":"value"])
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let viewController = storyboard.instantiateViewController(withIdentifier: "CallViewController") as! CallViewController
             viewController.session = self.session
@@ -171,6 +179,13 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
 //        CallKitAdapter.shared.reportIncomingCall(with: opponentIDs, session: session, uuid: self.callUUID!, onAcceptAction: {
 //            self.performSegue(withIdentifier: Segues.callSceneID, sender: self.callUUID)
 //        })
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let viewController = storyboard.instantiateViewController(withIdentifier: "CallViewController") as! CallViewController
+        viewController.session = self.session
+        viewController.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(viewController, animated: true)
+
     }
     
 }
@@ -178,6 +193,13 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
 // MARK: - Call Client delegate
 
 extension ComingAppointmentViewController {
+    
+    func session(_ session: CallBaseSession, receivedRemoteVideoTrack videoTrack: CallVideoTrack, fromUser userID: NSNumber) {
+       // we suppose you have created UIView and set it's class to RemoteVideoView class
+       // also we suggest you to set view mode to UIViewContentModeScaleAspectFit or
+       // UIViewContentModeScaleAspectFill
+       
+    }
     
     func didReceiveNewSession(_ session: CallSession, userInfo: [String : String]? = nil) {
         if self.session != nil {
@@ -188,6 +210,30 @@ extension ComingAppointmentViewController {
         handleIncomingSession(session)
     }
     
+    func session(_ session: CallBaseSession, startedConnectingToUser userID: NSNumber) {
+        debugPrint("startedConnectingToUser \(userID)")
+    }
+    
+    func session(_ session: CallBaseSession, connectedToUser userID: NSNumber) {
+        debugPrint("connectedToUser \(userID)")
+    }
+    
+    func session(_ session: CallBaseSession, connectionFailedForUser userID: NSNumber) {
+        debugPrint("connectionFailedForUser \(userID)")
+    }
+    
+    func session(_ session: CallBaseSession, disconnectedFromUser userID: NSNumber) {
+        debugPrint("disconnectedFromUser \(userID)")
+    }
+
+    func session(_ session: CallBaseSession, connectionClosedForUser userID: NSNumber) {
+        debugPrint("connectionClosedForUser \(userID)")
+    }
+    
+    func session(_ session: CallBaseSession, didChange state: CallSessionState) {
+        debugPrint("session didChange \(state.rawValue)")
+    }
+
     func sessionDidClose(_ session: CallSession) {
         guard self.session == session else {
             return

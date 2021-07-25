@@ -57,6 +57,8 @@ class CallViewController: UIViewController, CallClientDelegate {
         
         self.localVideoView.layer.insertSublayer(self.videoCapture!.previewLayer, at: 0)
         
+        session?.startCall(["key":"value"])
+        
         assert(callUUID != nil, "uuid must always be generated whenever callkit is in use")
         CallKitAdapter.shared.updateCall(with: callUUID, connectingAt: Date())
     }
@@ -71,6 +73,7 @@ class CallViewController: UIViewController, CallClientDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         //self.resumeVideoCapture()
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {

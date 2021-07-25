@@ -110,9 +110,8 @@ class PreFormViewController: UIViewController {
                        "form": formData ] as [String : Any] 
         
         functions.httpsCallable("app-appointments-updateForm").call(payload) { result, error in
+            ProgressHUD.dismiss()
             Auth.auth().currentUser?.reload()
-            
-            
         }
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
             appDelegate.deeplinking = .appointment
