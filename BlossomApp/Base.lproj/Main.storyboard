@@ -703,8 +703,8 @@
                                                                             <constraint firstAttribute="width" constant="60" id="ulu-Vm-4sF"/>
                                                                         </constraints>
                                                                     </imageView>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="วันที่" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YYs-b0-eHA">
-                                                                        <rect key="frame" x="100" y="19" width="25" height="22.5"/>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="วันที่" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="YYs-b0-eHA">
+                                                                        <rect key="frame" x="100" y="19" width="266" height="22.5"/>
                                                                         <fontDescription key="fontDescription" name="SukhumvitSet-SemiBold" family="Sukhumvit Set" pointSize="14"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -727,8 +727,8 @@
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="YYs-b0-eHA" secondAttribute="trailing" constant="20" symbolic="YES" id="0dU-fa-Xxy"/>
                                                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="CYP-cq-j60" secondAttribute="trailing" constant="20" symbolic="YES" id="922-4q-3WT"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="YYs-b0-eHA" secondAttribute="trailing" constant="8" id="A0s-nm-I0V"/>
                                                                     <constraint firstItem="MKA-7T-CTb" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ECG-hr-lSS" secondAttribute="trailing" constant="8" symbolic="YES" id="AKf-C5-MDo"/>
                                                                     <constraint firstItem="YYs-b0-eHA" firstAttribute="leading" secondItem="TKc-Rb-sqJ" secondAttribute="trailing" constant="20" id="C1q-5O-k3K"/>
                                                                     <constraint firstItem="CYP-cq-j60" firstAttribute="leading" secondItem="ECG-hr-lSS" secondAttribute="leading" id="NRR-hn-i8g"/>
