@@ -17,8 +17,9 @@ enum APIProduct {
     case list(completion: (ProductsResponse?)->Swift.Void)
     case createOrder(po: CreateOrderRequest, completion: (CreateOrderResponse?)->Swift.Void)
     case chargeCreditCard(orderID: Int, amountSatang: Int, token: String, completion: (OmisePaymentResponse?)->Swift.Void)
+    case updateOrderNote(orderID: Int, note: String, completion: (UpdateOrderResponse?)->Swift.Void)
     case getChargeCreditCard(chargeID: String, completion: (OmisePaymentResponse?)->Swift.Void)
-    case updateOrderPayment(orderID: Int, omiseID: String, date: String, time: String, completion: (Bool)->Swift.Void)
+    case updateOrderPayment(orderID: Int, date: String, time: String, completion: (Bool)->Swift.Void)
 
     func endpoint() -> String {
         switch self {
@@ -26,11 +27,13 @@ enum APIProduct {
             return "https://www.shipnity.pro/api/v2/products?per_page=50"
         case .createOrder:
             return "https://www.shipnity.pro/api/v2/orders"
+        case .updateOrderNote(let orderID, _, _):
+            return "https://www.shipnity.pro/api/v2/orders/\(orderID)"
         case .chargeCreditCard:
             return "https://api.omise.co/charges"
         case .getChargeCreditCard(let chargeID, _):
             return "https://api.omise.co/charges/\(chargeID)"
-        case .updateOrderPayment(let orderID,_,_,_,_):
+        case .updateOrderPayment(let orderID,_,_,_):
             return "https://www.shipnity.pro/api/v2/orders/\(orderID)/payment"
         }
     }
@@ -55,6 +58,19 @@ enum APIProduct {
             AF.request(endpoint(), method: .post, parameters: parameters, headers: headers)
                 .validate()
                 .responseDecodable(of: CreateOrderResponse.self) { (response) in
+                    guard let orderResponse = response.value else {
+                        completion(nil)
+                        return
+                    }
+                    completion(orderResponse)
+                }
+            
+        case let .updateOrderNote(_, note, completion):
+            let parameters = ["order": ["annotation": note]]
+            debugPrint("\(endpoint()), \(parameters)")
+            AF.request(endpoint(), method: .patch, parameters: parameters, headers: headers)
+                .validate()
+                .responseDecodable(of: UpdateOrderResponse.self) { (response) in
                     guard let orderResponse = response.value else {
                         completion(nil)
                         return
@@ -91,9 +107,9 @@ enum APIProduct {
                     completion(orderResponse)
                 }
          
-        case let .updateOrderPayment(_, omiseID, date, time, completion):
+        case let .updateOrderPayment(_, date, time, completion):
             let parameters:Parameters = [
-                "bank" : "omise_\(omiseID)",
+                "bank" : "omise",
                 "date" : date,
                 "time" : time
             ]

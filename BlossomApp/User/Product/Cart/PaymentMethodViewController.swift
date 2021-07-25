@@ -108,7 +108,6 @@ class PaymentMethodViewController: UIViewController {
             return
         }
         
-        
         let webview = AuthorizingPaymentViewController.makeAuthorizingPaymentViewControllerWithAuthorizedURL(url, expectedReturnURLPatterns: [components], delegate: self)
         let navigationController = BlossomNavigationController(rootViewController: webview)
         navigationController.modalPresentationStyle = .fullScreen
@@ -120,15 +119,21 @@ class PaymentMethodViewController: UIViewController {
         ProgressHUD.show()
         let dateString = String.dateFormat(date, format: "dd/MM/yyyy")
         let timeString = String.dateFormat(date, format: "HH:mm")
+        let orderID = cart?.purchaseOrder?.id ?? 0
 
-        APIProduct.updateOrderPayment(orderID: cart?.purchaseOrder?.id ?? 0, omiseID: omiseID ?? "", date: dateString, time: timeString) { [weak self] result in
-            ProgressHUD.dismiss()
+        APIProduct.updateOrderPayment(orderID: orderID, date: dateString, time: timeString) { [weak self] result in
             guard result else {
+                ProgressHUD.dismiss()
                 self?.showAlertDialogue(title: "ไม่สามารถอัพเดตสถานะคำสั่งซื้อได้", message: "กรุณาแจ้งเจ้าหน้าที่ และบันทึกหน้าจอนี้\n(Omise: \(omiseID ?? "n/a"))", completion: {
                 })
                 return
             }
-            self?.gotoOrderList()
+            
+            APIProduct.updateOrderNote(orderID: orderID, note: omiseID ?? "") { [weak self] response in
+                ProgressHUD.dismiss()
+                self?.gotoOrderList()
+            }.request()
+            
         }.request()
     }
     
@@ -139,16 +144,6 @@ class PaymentMethodViewController: UIViewController {
             self.navigationController?.popToRootViewController(animated: false)
         }
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 
