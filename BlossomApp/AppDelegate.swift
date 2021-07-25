@@ -44,6 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PKPushRegistryDelegate, U
         
         configUI()
         CommonKeyboard.shared.enabled = true
+        self.registerForPushNotifications()
         self.voipRegistration()
         
         
@@ -66,26 +67,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PKPushRegistryDelegate, U
     
     func voipRegistration() {
         
-        DispatchQueue.global(qos: .background).async {
-            
-            DispatchQueue.main.async {
-                let voipRegistry: PKPushRegistry = PKPushRegistry(queue: DispatchQueue.main)
-                // Run UI Updates
-                // Set the registry's delegate to self
-                voipRegistry.delegate = self
-                // Set the push type to VoIP
-                voipRegistry.desiredPushTypes = [PKPushType.voIP]
-            
-            }
-        
-        }
+        let mainQueue = DispatchQueue.main
+        let voipRegistry: PKPushRegistry = PKPushRegistry(queue: mainQueue)
+        voipRegistry.delegate = self
+        voipRegistry.desiredPushTypes = [PKPushType.voIP]
         
          // Create a push registry object
      }
     
     
     
+    // Handle updated push credentials
+
     func pushRegistry(_ registry: PKPushRegistry, didUpdate pushCredentials: PKPushCredentials, for type: PKPushType) {
+        
+        print(pushCredentials.token)
+        let deviceToken = pushCredentials.token.map { String(format: "%02x", $0) }.joined()
+        print("pushRegistry -> deviceToken :\(deviceToken)")
         let deviceIdentifier: String = UIDevice.current.identifierForVendor!.uuidString
 
         let subscription: Subscription! = Subscription()
@@ -102,14 +100,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PKPushRegistryDelegate, U
     
     // MARK: - PKPushRegistryDelegate protocol
 
+       func pushRegistry(_ registry: PKPushRegistry, didInvalidatePushTokenFor type: PKPushType) {
+           print("pushRegistry:didInvalidatePushTokenForType:")
+       }
     // Handle incoming pushes
-    func pushRegistry(registry: PKPushRegistry!, didReceiveIncomingPushWithPayload payload: PKPushPayload!, forType type: String!) {
+    func pushRegistry(_ registry: PKPushRegistry, didReceiveIncomingPushWith payload: PKPushPayload, for type: PKPushType) {
         print("didReceiveIncomingPushWithPayload")
     }
     
-    func pushRegistry(_ registry: PKPushRegistry, didInvalidatePushTokenFor type: PKPushType) {
-        print("didInvalidatePushTokenFor")
-    }
+    
     
     func application( _ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:] ) -> Bool {
         
@@ -127,10 +126,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PKPushRegistryDelegate, U
         let deviceIdentifier: String = UIDevice.current.identifierForVendor!.uuidString
         let subscription: Subscription! = Subscription()
         
-        subscription.notificationChannel = NotificationChannel.APNS
+        subscription.notificationChannel = NotificationChannel.APNSVOIP
         subscription.deviceUDID = deviceIdentifier
         subscription.deviceToken = deviceToken
-        
+
         Request.createSubscription(subscription, successBlock: { (subscriptions) in
             print(subscriptions)
         }) { (error) in

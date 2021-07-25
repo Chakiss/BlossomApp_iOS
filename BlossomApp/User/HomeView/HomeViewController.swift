@@ -99,9 +99,19 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
             self?.customer = customer
             
             //4554340 , 4610393
-            Chat.instance.connect(withUserID: 4554340, password: "12345678") { (error) in
+            Chat.instance.connect(withUserID: 4610393, password: "12345678") { (error) in
                 print(error)
-                Request.logIn(withUserLogin: "iphone@iphone.com", password: "12345678", successBlock: { (user) in
+                
+                let dialog = ChatDialog(dialogID: nil, type: .private)
+                dialog.occupantIDs = [4554340]  // an ID of opponent
+
+                Request.createDialog(dialog, successBlock: { (dialog) in
+
+                }) { (error) in
+
+                }
+                
+                Request.logIn(withUserLogin: "4610393", password: "12345678", successBlock: { (user) in
                     print(user)
 
                 }) { (error) in

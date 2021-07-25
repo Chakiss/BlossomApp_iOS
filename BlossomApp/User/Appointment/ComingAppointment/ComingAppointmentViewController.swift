@@ -137,6 +137,7 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
             event.usersIDs = opponentIDs
             event.type = .oneShot
             event.message = message
+            
             Request.createEvent(event, successBlock: { (event) in
                 NSLog("Send voip push - Success")
             }) { (error) in
