@@ -165,7 +165,7 @@ class AppointmentListViewController: UIViewController {
                     appointment.isComplete = isComplete
                     
                     return appointment
-                })!
+                }) as! [Appointment]
                
                 var inCompleteAppointment: [Appointment] = []
                 var completeAppointment: [Appointment] = []

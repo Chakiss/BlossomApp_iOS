@@ -366,6 +366,7 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
         }))
         alert.addAction(UIAlertAction(title: "Sign out", style: .destructive, handler: {(_: UIAlertAction!) in
             //Sign out action
+            
             let firebaseAuth = Auth.auth()
             do {
                 try firebaseAuth.signOut()
@@ -375,6 +376,14 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
                 Chat.instance.disconnect { (error) in
 
                 }
+                
+                Request.logOut(successBlock: {
+                    print("xxxx")
+                }) { (error) in
+                    print(error)
+                }
+                
+                
                 
                 self.navigationController?.popToRootViewController(animated: true)
                 
@@ -541,7 +550,11 @@ extension UITextField {
         
         //Add DatePicker as inputView
         let datePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 216))
-        datePicker.preferredDatePickerStyle = .wheels
+        if #available(iOS 13.4, *) {
+            datePicker.preferredDatePickerStyle = .wheels
+        } else {
+        
+        }
         datePicker.datePickerMode = .date
         self.inputView = datePicker
         

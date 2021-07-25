@@ -22,6 +22,8 @@ class CallViewController: UIViewController, CallClientDelegate {
     @IBOutlet weak var soundBtn: UIButton!
     @IBOutlet weak var stackView: UIStackView!
     
+    open var callUUID: UUID = UUID()
+    
     @IBOutlet weak var localVideoView : UIView! // your video view to render local camera video stream
     @IBOutlet weak var opponentVideoView: CallRemoteVideoView!
     var videoCapture: CallCameraCapture?
@@ -54,6 +56,9 @@ class CallViewController: UIViewController, CallClientDelegate {
         self.videoCapture?.startSession()
         
         self.localVideoView.layer.insertSublayer(self.videoCapture!.previewLayer, at: 0)
+        
+        assert(callUUID != nil, "uuid must always be generated whenever callkit is in use")
+        CallKitAdapter.shared.updateCall(with: callUUID, connectingAt: Date())
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -212,8 +217,8 @@ class CallViewController: UIViewController, CallClientDelegate {
         if (session as! CallSession).id == self.session!.id {
             
             //if isInitiator {
-            //    CallKitAdapter.shared.updateCall(with: self.callUUID!, connectedAt: Date())
-           // }
+                CallKitAdapter.shared.updateCall(with: self.callUUID, connectedAt: Date())
+            //}
         }
     }
     
@@ -237,7 +242,7 @@ class CallViewController: UIViewController, CallClientDelegate {
         
         if session.id == self.session!.id {
             
-            //CallKitAdapter.shared.endCall(with: self.callUUID!)
+            CallKitAdapter.shared.endCall(with: self.callUUID)
             
             if self.videoCapture != nil {
                 self.videoCapture?.stopSession(nil)

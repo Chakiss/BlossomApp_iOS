@@ -37,7 +37,9 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "กล่องข้อความ"
+        self.title = "แชท"
+   
+       
     }
     
     override func viewWillAppear(_ animated: Bool) {

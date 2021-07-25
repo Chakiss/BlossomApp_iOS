@@ -98,8 +98,7 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
         
         
         //uncomment for iPad Support
-        //alert.popoverPresentationController?.sourceView = self.view
-        
+        alert.popoverPresentationController?.sourceView = self.view
         self.present(alert, animated: true, completion: {
             print("completion block")
         })
@@ -114,7 +113,7 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
     
     func attemptCall(with type: CallConferenceType) {
         
-        let opponentIDs: [NSNumber] = [4259292]
+        let opponentIDs: [NSNumber] = [4554340 , 4610393]
         
        // let newSession = CallClient.instance().createNewSession(withOpponents: opponentIDs as [NSNumber], with: .video)
         
@@ -124,7 +123,6 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
             self.session = session
             
             self.callUUID = UUID()
-            //CallKitAdapter.shared.startCall(with: opponentIDs as! [Int], session: session, uuid: self.callUUID!)
             
             let payload = [
                 "message" : String(format: "xxxxxx is calling you."),
@@ -257,10 +255,6 @@ extension ComingAppointmentViewController {
                 })
             }
             
-            //if !Chat.instance.isConnected {
-//                Chat.instance.connect(withUserID: "user.id", password: "user.password!"){ (error) in
-//                }
-           // }
         }
     }
 }

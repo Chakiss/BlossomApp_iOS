@@ -21,11 +21,11 @@ class CustomerManager {
     //}
 
     private init() { }
-    
-    func logout() {
-        user = Auth.auth().currentUser
-        customer = nil
-    }
+     
+     func logout() {
+         user = Auth.auth().currentUser
+         customer = nil
+     }
     
     func getCustomer(completion: @escaping ()->Swift.Void )  {
         if user == nil {
