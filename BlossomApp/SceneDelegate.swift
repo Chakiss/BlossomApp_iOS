@@ -8,7 +8,7 @@
 import UIKit
 import Firebase
 import FBSDKCoreKit
-
+import SwiftyUserDefaults
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
@@ -26,10 +26,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     return
                 }
                 if role == "doctor" {
+                    Defaults[\.role] = "doctor"
                     if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
                         appDelegate.setDoctorUI()
                     }
                 } else {
+                    Defaults[\.role] = "customer"
                     if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
                         appDelegate.setCustomerUI()
                     }

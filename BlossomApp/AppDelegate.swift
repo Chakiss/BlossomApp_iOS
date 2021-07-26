@@ -13,6 +13,7 @@ import FBSDKCoreKit
 import CommonKeyboard
 import PushKit
 import UserNotifications
+import SwiftyUserDefaults
 
 enum Deeplinking {
     case orderList
@@ -37,6 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PKPushRegistryDelegate, U
         registerForPushNotifications()
         UIApplication.shared.registerForRemoteNotifications()
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
+        
         FirebaseApp.configure()
        
         Settings.applicationID = 4655
@@ -164,15 +166,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PKPushRegistryDelegate, U
               let deeplinking = deeplinking else {
             return
         }
-        
-        switch deeplinking {
-        case .orderList:
-            tabbarController.selectedIndex = 2
-        case .appointment:
-            tabbarController.selectedIndex = 2
-        case .chat:
-            tabbarController.selectedIndex = 4
+        if Defaults[\.role] == "doctor"{
+            switch deeplinking {
+            case .orderList:
+                tabbarController.selectedIndex = 1
+            case .appointment:
+                tabbarController.selectedIndex = 1
+            case .chat:
+                tabbarController.selectedIndex = 2
+            }
+        } else {
+            switch deeplinking {
+            case .orderList:
+                tabbarController.selectedIndex = 2
+            case .appointment:
+                tabbarController.selectedIndex = 2
+            case .chat:
+                tabbarController.selectedIndex = 4
+            }
         }
+        
         
         
     }

@@ -68,6 +68,10 @@
 		1B8D860F26A49A7500A2ED57 /* SenderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8D860E26A49A7500A2ED57 /* SenderCell.swift */; };
 		1B8D861126A49B8400A2ED57 /* ReceiverCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8D861026A49B8400A2ED57 /* ReceiverCell.swift */; };
 		1B8D861426A49C0B00A2ED57 /* MessageingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8D861326A49C0B00A2ED57 /* MessageingViewController.swift */; };
+		1BA04F3D26AE84BA0053F10D /* Doctor-AppointmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA04F3C26AE84BA0053F10D /* Doctor-AppointmentViewController.swift */; };
+		1BA04F3F26AE85080053F10D /* Doctor_ChatListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA04F3E26AE85080053F10D /* Doctor_ChatListViewController.swift */; };
+		1BA04F4326AE8CF20053F10D /* Doctor_ComingAppointmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA04F4226AE8CF20053F10D /* Doctor_ComingAppointmentViewController.swift */; };
+		1BA04F4526AEF09F0053F10D /* DefaultKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA04F4426AEF09F0053F10D /* DefaultKey.swift */; };
 		1BC3B21926A1CFA1006EDD29 /* ImagePickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC3B21826A1CFA1006EDD29 /* ImagePickerManager.swift */; };
 		1BC3B21C26A2ADA5006EDD29 /* Nonce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC3B21B26A2ADA5006EDD29 /* Nonce.swift */; };
 		1BCE64EB26A70964002EE71F /* SlotTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCE64EA26A70964002EE71F /* SlotTime.swift */; };
@@ -224,6 +228,10 @@
 		1B8D860E26A49A7500A2ED57 /* SenderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SenderCell.swift; sourceTree = "<group>"; };
 		1B8D861026A49B8400A2ED57 /* ReceiverCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiverCell.swift; sourceTree = "<group>"; };
 		1B8D861326A49C0B00A2ED57 /* MessageingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageingViewController.swift; sourceTree = "<group>"; };
+		1BA04F3C26AE84BA0053F10D /* Doctor-AppointmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Doctor-AppointmentViewController.swift"; sourceTree = "<group>"; };
+		1BA04F3E26AE85080053F10D /* Doctor_ChatListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doctor_ChatListViewController.swift; sourceTree = "<group>"; };
+		1BA04F4226AE8CF20053F10D /* Doctor_ComingAppointmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doctor_ComingAppointmentViewController.swift; sourceTree = "<group>"; };
+		1BA04F4426AEF09F0053F10D /* DefaultKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultKey.swift; sourceTree = "<group>"; };
 		1BC3B21826A1CFA1006EDD29 /* ImagePickerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerManager.swift; sourceTree = "<group>"; };
 		1BC3B21A26A297C0006EDD29 /* BlossomApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BlossomApp.entitlements; sourceTree = "<group>"; };
 		1BC3B21B26A2ADA5006EDD29 /* Nonce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nonce.swift; sourceTree = "<group>"; };
@@ -581,8 +589,8 @@
 			isa = PBXGroup;
 			children = (
 				1B69AD4B26A402B200910679 /* Doctor-Home */,
-				1BCE651126AD5485002EE71F /* Doctor-Appointment */,
-				1BCE651226AD5499002EE71F /* Doctor-Chat */,
+				1BA04F3A26AE84790053F10D /* Doctor-Appointment */,
+				1BA04F3B26AE84950053F10D /* Doctor-Chat */,
 			);
 			path = Doctor;
 			sourceTree = "<group>";
@@ -624,6 +632,7 @@
 				3C65030626AC10D100DAA98A /* Button.swift */,
 				3CF7B50426AC23C200F937DE /* String+Extension.swift */,
 				3C0BB0C326AD42DF001C58BE /* BlossomNavigationController.swift */,
+				1BA04F4426AEF09F0053F10D /* DefaultKey.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -664,6 +673,31 @@
 			path = MessageView;
 			sourceTree = "<group>";
 		};
+		1BA04F3A26AE84790053F10D /* Doctor-Appointment */ = {
+			isa = PBXGroup;
+			children = (
+				1BA04F3C26AE84BA0053F10D /* Doctor-AppointmentViewController.swift */,
+				1BA04F4126AE8C130053F10D /* Doctor-ComingAppointment */,
+			);
+			path = "Doctor-Appointment";
+			sourceTree = "<group>";
+		};
+		1BA04F3B26AE84950053F10D /* Doctor-Chat */ = {
+			isa = PBXGroup;
+			children = (
+				1BA04F3E26AE85080053F10D /* Doctor_ChatListViewController.swift */,
+			);
+			path = "Doctor-Chat";
+			sourceTree = "<group>";
+		};
+		1BA04F4126AE8C130053F10D /* Doctor-ComingAppointment */ = {
+			isa = PBXGroup;
+			children = (
+				1BA04F4226AE8CF20053F10D /* Doctor_ComingAppointmentViewController.swift */,
+			);
+			path = "Doctor-ComingAppointment";
+			sourceTree = "<group>";
+		};
 		1BCE64EE26A849D1002EE71F /* ComingAppointment */ = {
 			isa = PBXGroup;
 			children = (
@@ -695,20 +729,6 @@
 				1BCE64FC26A8C86C002EE71F /* PreFormViewController.swift */,
 			);
 			path = "Pre-Form";
-			sourceTree = "<group>";
-		};
-		1BCE651126AD5485002EE71F /* Doctor-Appointment */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Doctor-Appointment";
-			sourceTree = "<group>";
-		};
-		1BCE651226AD5499002EE71F /* Doctor-Chat */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Doctor-Chat";
 			sourceTree = "<group>";
 		};
 		1BF58D3A26ADBECB00F2D620 /* OrderResponse */ = {
@@ -1047,6 +1067,7 @@
 				1BCE650826ABB69E002EE71F /* DoctorProfileCell.swift in Sources */,
 				1B69AD5626A4791A00910679 /* ConnectyCubeManager.swift in Sources */,
 				1B1C2E3726993C5B00F57122 /* Paginate.swift in Sources */,
+				1BA04F4526AEF09F0053F10D /* DefaultKey.swift in Sources */,
 				1B27FDC426A5F01A000E8609 /* SlotDay.swift in Sources */,
 				1B187A5D268F654300BB0122 /* ViewController.swift in Sources */,
 				1B1C2E2B2698867400F57122 /* Landing.swift in Sources */,
@@ -1074,6 +1095,7 @@
 				1B1C2E3626993C5B00F57122 /* Options.swift in Sources */,
 				1B775922269491A4000780BD /* Promotion.swift in Sources */,
 				1B69AD4D26A402C800910679 /* DoctorHomeViewController.swift in Sources */,
+				1BA04F3F26AE85080053F10D /* Doctor_ChatListViewController.swift in Sources */,
 				1BCE64FA26A88736002EE71F /* CallViewController.swift in Sources */,
 				1B5BC3BC269636D4004206AE /* DoctorCell.swift in Sources */,
 				1B8D861126A49B8400A2ED57 /* ReceiverCell.swift in Sources */,
@@ -1095,6 +1117,7 @@
 				3C7D5E52269AE888002E5AB9 /* CartHeaderTableViewCell.swift in Sources */,
 				1B187A59268F654300BB0122 /* AppDelegate.swift in Sources */,
 				1BCE650A26ABCE83002EE71F /* ReviewCell.swift in Sources */,
+				1BA04F3D26AE84BA0053F10D /* Doctor-AppointmentViewController.swift in Sources */,
 				3C65030726AC10D100DAA98A /* Button.swift in Sources */,
 				1B7EFC2A26A5E2E800C0F7E1 /* SlotTimeViewController.swift in Sources */,
 				1BF58D4526ADBEDE00F2D620 /* Purchases.swift in Sources */,
@@ -1123,6 +1146,7 @@
 				1B77591F269479FA000780BD /* UIView+Additions.swift in Sources */,
 				1BCE64F226A84B66002EE71F /* ComingAppointmentViewController.swift in Sources */,
 				1B1C2E2D2698A77A00F57122 /* ProductsResponse.swift in Sources */,
+				1BA04F4326AE8CF20053F10D /* Doctor_ComingAppointmentViewController.swift in Sources */,
 				3CFE6374269B350E005235F1 /* PaymentMethodViewController.swift in Sources */,
 				1B531255269378C800B88165 /* UIColor+Extension.swift in Sources */,
 				1B5BC3BA2696086A004206AE /* LandingViewController.swift in Sources */,

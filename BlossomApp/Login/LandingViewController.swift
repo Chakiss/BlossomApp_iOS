@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftyUserDefaults
 
 class LandingViewController: UIViewController,MultiBannerViewDelegate {
 
@@ -30,7 +31,7 @@ class LandingViewController: UIViewController,MultiBannerViewDelegate {
         
         self.registerButton.layer.cornerRadius = 22
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(dismissLogin))
-
+        Defaults[\.role]?.removeAll()
     }
     
     @objc private func dismissLogin() {

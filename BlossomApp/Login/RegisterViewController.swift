@@ -9,6 +9,7 @@ import UIKit
 import DLRadioButton
 import FirebaseFunctions
 import Firebase
+import SwiftyUserDefaults
 
 class RegisterViewController: UIViewController {
 
@@ -126,10 +127,12 @@ class RegisterViewController: UIViewController {
                                     return
                                 }
                                 if role == "doctor" {
+                                    Defaults[\.role] = "doctor"
                                     if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
                                        appDelegate.setDoctorUI()
                                     }
                                 } else {
+                                    Defaults[\.role] = "customer"
                                     if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
                                        appDelegate.setCustomerUI()
                                     }

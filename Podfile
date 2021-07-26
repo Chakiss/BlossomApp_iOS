@@ -32,6 +32,9 @@ target 'BlossomApp' do
   pod 'CommonKeyboard'
   pod 'SwiftDate', '~> 5.1.0'
   pod 'BadgeSwift', '~> 7.0.0'
+  
+  pod 'SwiftyUserDefaults'
+  
 #  pod 'LetterAvatarKit', '~> 1.1.7'
 #  pod 'PINRemoteImage', '~> 2.1.4'
 #  pod 'Reusable', '~> 4.0.5'

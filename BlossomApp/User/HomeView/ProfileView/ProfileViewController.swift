@@ -184,11 +184,7 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
         
         functions.httpsCallable("app-users-updateMedicalProfile").call(payloadHealth) { [weak self] result, error in
             Auth.auth().currentUser?.reload()
-            
-            CustomerManager.sharedInstance.getCustomer { [weak self] in
-                ProgressHUD.dismiss()
-                self?.navigationController?.popViewController(animated: true)
-            }
+            self?.navigationController?.popViewController(animated: true)
             
         }
     }

@@ -9,6 +9,7 @@ import UIKit
 import Firebase
 import FBSDKLoginKit
 
+
 class DoctorProfileViewController: UIViewController {
 
     lazy var functions = Functions.functions()
@@ -193,6 +194,7 @@ class DoctorProfileViewController: UIViewController {
             let firebaseAuth = Auth.auth()
             do {
                 try firebaseAuth.signOut()
+                
                 
                 self.navigationController?.popToRootViewController(animated: true)
                 

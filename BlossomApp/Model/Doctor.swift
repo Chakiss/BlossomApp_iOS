@@ -15,7 +15,7 @@ class Doctor: Codable {
     var firstName: String?
     var lastName: String?
     var phoneNumber: String?
-    var referenceConnectyCubeID: String?
+    var referenceConnectyCubeID: UInt?
     var story: String?
     var createdAt: String?
     var updatedAt: String?
@@ -44,7 +44,7 @@ class Doctor: Codable {
 
     
     
-    init(id: String, displayName: String, email: String, firstName: String, lastName: String, phonenumber: String, connectyCubeID: String, story: String, createdAt: String, updatedAt: String, displayPhoto: String, currentScore: Double,documentReference: DocumentReference ) {
+    init(id: String, displayName: String, email: String, firstName: String, lastName: String, phonenumber: String, connectyCubeID: UInt, story: String, createdAt: String, updatedAt: String, displayPhoto: String, currentScore: Double,documentReference: DocumentReference ) {
         self.id = id
         self.displayName = displayName
         self.email = email
@@ -69,7 +69,7 @@ class Doctor: Codable {
         firstName = try values.decodeIfPresent(String.self, forKey: .firstName)
         lastName = try values.decodeIfPresent(String.self, forKey: .lastName)
         phoneNumber = try values.decodeIfPresent(String.self, forKey: .phoneNumber)
-        referenceConnectyCubeID = try values.decodeIfPresent(String.self, forKey: .referenceConnectyCubeID)
+        referenceConnectyCubeID = try values.decodeIfPresent(UInt.self, forKey: .referenceConnectyCubeID)
         story = try values.decodeIfPresent(String.self, forKey: .story)
         createdAt = try values.decodeIfPresent(String.self, forKey: .createdAt)
         updatedAt = try values.decodeIfPresent(String.self, forKey: .updatedAt)

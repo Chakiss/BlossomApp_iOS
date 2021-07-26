@@ -9,6 +9,7 @@ import UIKit
 import Firebase
 import FBSDKLoginKit
 import AuthenticationServices
+import SwiftyUserDefaults
 
 class LoginViewController: UIViewController, ASAuthorizationControllerPresentationContextProviding {
    
@@ -55,10 +56,12 @@ class LoginViewController: UIViewController, ASAuthorizationControllerPresentati
                     return
                 }
                 if role == "doctor" {
+                    Defaults[\.role] = "doctor"
                     if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
                        appDelegate.setDoctorUI()
                     }
                 } else {
+                    Defaults[\.role] = "customer"
                     if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
                        appDelegate.setCustomerUI()
                     }
@@ -94,10 +97,12 @@ class LoginViewController: UIViewController, ASAuthorizationControllerPresentati
                             return
                         }
                         if role == "doctor" {
+                            Defaults[\.role] = "doctor"
                             if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
                                appDelegate.setDoctorUI()
                             }
                         } else {
+                            Defaults[\.role] = "customer"
                             if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
                                appDelegate.setCustomerUI()
                             }
@@ -222,10 +227,12 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                         ProgressHUD.dismiss()
 
                         if role == "doctor" {
+                            Defaults[\.role] = "doctor"
                             if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
                                appDelegate.setDoctorUI()
                             }
                         } else {
+                            Defaults[\.role] = "customer"
                             if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
                                appDelegate.setCustomerUI()
                             }

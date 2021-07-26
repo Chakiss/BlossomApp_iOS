@@ -64,6 +64,32 @@ class CallViewController: UIViewController, CallClientDelegate {
         
         assert(callUUID != nil, "uuid must always be generated whenever callkit is in use")
         CallKitAdapter.shared.updateCall(with: callUUID, connectingAt: Date())
+        
+        
+        
+        let event = Event()
+        event.notificationType = .push
+        event.usersIDs = [4554340,4611091 , 4605404]
+        event.type = .oneShot
+        
+        var pushmessage = "message.text!" as String
+        var pushParameters = [String : String]()
+        pushParameters["message"] = pushmessage
+
+        if let jsonData = try? JSONSerialization.data(withJSONObject: pushParameters,
+                                                    options: .prettyPrinted) {
+          let jsonString = String(bytes: jsonData,
+                                  encoding: String.Encoding.utf8)
+
+          event.message = jsonString
+
+          Request.createEvent(event, successBlock: {(events) in
+
+          }, errorBlock: {(error) in
+
+          })
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

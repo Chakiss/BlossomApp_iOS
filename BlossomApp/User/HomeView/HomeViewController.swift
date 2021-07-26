@@ -160,7 +160,7 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
                     let email = data?["email"] as? String ?? ""
                     let lastName = data?["lastName"] as? String ?? ""
                     let phoneNumber = data?["phoneNumber"] as? String ?? ""
-                    let referenceConnectyCubeID = data?["referenceConnectyCubeID"] as? String ?? ""
+                    let referenceConnectyCubeID = data?["referenceConnectyCubeID"] as? UInt ?? 0
                     let story = data?["story"] as? String ?? ""
                     let createdAt = data?["createdAt"] as? String ?? ""
                     let updatedAt = data?["updatedAt"] as? String ?? ""

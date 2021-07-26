@@ -296,6 +296,7 @@ extension ComingAppointmentViewController {
         }) { (err) in
             NSLog("Create Subscription request - Error")
         }
+        
     }
     
     func pushRegistry(_ registry: PKPushRegistry, didInvalidatePushTokenFor type: PKPushType) {

@@ -7,6 +7,8 @@
 
 import UIKit
 import Firebase
+import ConnectyCube
+import ConnectyCubeCalls
 
 class DoctorHomeViewController: UIViewController {
 
@@ -37,6 +39,8 @@ class DoctorHomeViewController: UIViewController {
         super.viewWillAppear(true)
         
         getDoctor()
+        
+        
     }
     
     func getDoctor(){
@@ -52,17 +56,29 @@ class DoctorHomeViewController: UIViewController {
                 let updatedAt = documentData["updatedAt"] as? String ?? ""
                 let displayName = documentData["displayName"] as? String ?? ""
                 let email = documentData["email"] as? String ?? ""
-                let referenceConnectyCubeID = documentData["referenceConnectyCubeID"] as? String ?? ""
+                let referenceConnectyCubeID = documentData["referenceConnectyCubeID"] as? UInt ?? 0
                 let lastName = documentData["lastName"] as? String ?? ""
                 let currentScore = documentData["currentScore"] as? Double ?? 0.0
                 let reference = snapshot?.reference
                 
-                return Doctor(id: id, displayName: displayName, email: email, firstName: firstName, lastName: lastName, phonenumber: phoneNumber, connectyCubeID: referenceConnectyCubeID, story: story, createdAt: createdAt, updatedAt: updatedAt, displayPhoto: displayPhoto,currentScore: currentScore,documentReference: reference!)
+                return Doctor(id: id, displayName: displayName, email: email, firstName: firstName, lastName: lastName, phonenumber: phoneNumber, connectyCubeID: referenceConnectyCubeID , story: story, createdAt: createdAt, updatedAt: updatedAt, displayPhoto: displayPhoto,currentScore: currentScore,documentReference: reference!)
             })
+            
+            
+            let connectyID = self.doctor?.referenceConnectyCubeID
+            Chat.instance.connect(withUserID: connectyID ?? 0, password: self.doctor?.id! ?? "") { (error) in
+                print(error)
+                
+                Request.logIn(withUserLogin: self.doctor?.email! ?? "", password: self.doctor?.id! ?? "", successBlock: { (user) in
+                    print(user)
+
+                }) { (error) in
+                    print(error)
+                }
+            }
             
             self.displayInformation()
         }
-        
     }
     
     

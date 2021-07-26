@@ -9,6 +9,7 @@ import UIKit
 import ConnectyCube
 import CommonKeyboard
 import SwiftDate
+import SwiftyUserDefaults
 
 class MessageingViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ChatDelegate {
 
@@ -76,17 +77,35 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        
         let chatMessage = self.chatMessageList[indexPath.row]
-        if  chatMessage.senderID == chatdialog?.userID {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath) as! SenderCell
-            cell.messageLabel.text = chatMessage.text
-            cell.timeLabel.text = chatMessage.dateSent?.toRelative(style: RelativeFormatter.defaultStyle(), locale: Locales.current)
-            return cell
+        if Defaults[\.role] == "customer"{
+            if  chatMessage.senderID == chatdialog?.userID {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath) as! SenderCell
+                cell.messageLabel.text = chatMessage.text
+                cell.timeLabel.text = chatMessage.dateSent?.toRelative(style: RelativeFormatter.defaultStyle(), locale: Locales.current)
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "ReceiverCell", for: indexPath) as! ReceiverCell
+                cell.messageLabel.text = chatMessage.text
+                cell.timeLabel.text = chatMessage.dateSent?.toRelative(style: RelativeFormatter.defaultStyle(), locale: Locales.current)
+                return cell
+            }
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ReceiverCell", for: indexPath) as! ReceiverCell
-            cell.messageLabel.text = chatMessage.text
-            cell.timeLabel.text = chatMessage.dateSent?.toRelative(style: RelativeFormatter.defaultStyle(), locale: Locales.current)
-            return cell
+            
+            if  chatMessage.senderID == chatdialog?.userID {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "ReceiverCell", for: indexPath) as! ReceiverCell
+                cell.messageLabel.text = chatMessage.text
+                cell.timeLabel.text = chatMessage.dateSent?.toRelative(style: RelativeFormatter.defaultStyle(), locale: Locales.current)
+                return cell
+                
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath) as! SenderCell
+                cell.messageLabel.text = chatMessage.text
+                cell.timeLabel.text = chatMessage.dateSent?.toRelative(style: RelativeFormatter.defaultStyle(), locale: Locales.current)
+                return cell
+            }
+            
         }
        
     }
@@ -113,34 +132,40 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
                     
                     
                     
+                    let recipientID = NSNumber(value:self.chatdialog!.recipientID)
+                    
                     let event = Event()
                     event.notificationType = .push
-                    event.usersIDs = [4611091 , 4605404]
+                    event.usersIDs = [recipientID]
                     event.type = .oneShot
                     
                     var pushmessage = message.text! as String
                     var pushParameters = [String : String]()
                     pushParameters["message"] = pushmessage
-
+                    
                     if let jsonData = try? JSONSerialization.data(withJSONObject: pushParameters,
-                                                                options: .prettyPrinted) {
-                      let jsonString = String(bytes: jsonData,
-                                              encoding: String.Encoding.utf8)
-
-                      event.message = jsonString
-
-                      Request.createEvent(event, successBlock: {(events) in
-
-                      }, errorBlock: {(error) in
-
-                      })
+                                                                  options: .prettyPrinted) {
+                        let jsonString = String(bytes: jsonData,
+                                                encoding: String.Encoding.utf8)
+                        
+                        event.message = jsonString
+                        
+                        Request.createEvent(event, successBlock: {(events) in
+                            
+                        }, errorBlock: {(error) in
+                            
+                        })
                     }
+                    
+                    
+                    
+                    
                 }
                 
             })
         }
         
-    
+        
     }
     
     func scrollToBottom(){
@@ -153,14 +178,14 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
     }
     /*
      // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
 
 extension MessageingViewController: CommonKeyboardContainerProtocol {
