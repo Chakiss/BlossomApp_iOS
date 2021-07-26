@@ -130,4 +130,8 @@ class CartManager {
         self.currentCart?.addItem(product, quantity: quantity)
     }
     
+    public func convertOrder(_ order: Order) -> Cart {
+        return Cart()
+    }
+    
 }

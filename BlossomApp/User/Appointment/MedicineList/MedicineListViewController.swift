@@ -8,18 +8,78 @@
 import UIKit
 
 class MedicineListViewController: UIViewController {
+    
+    private let tableView = UITableView(frame: .zero, style: .plain)
+    private let refreshControl = UIRefreshControl()
+    private var orders: [Order] = []
+    private var page: Int = 1
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.view.backgroundColor = UIColor.backgroundColor
+        setupTableView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        APIProduct.getOrder(term: "0841231234") { response in
-            print(response)
+        
+        if orders.isEmpty {
+            refreshList()
+        }
+    }
+    
+    private func setupTableView() {
+        tableView.register(OrderItemTableViewCell.self, forCellReuseIdentifier: "OrderItemTableViewCell")
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(tableView)
+        NSLayoutConstraint.activate([
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        
+        refreshControl.addTarget(self, action: #selector(refreshList), for: .valueChanged)
+        tableView.refreshControl = refreshControl
+        tableView.backgroundColor = .backgroundColor
+        tableView.separatorStyle = .none
+        tableView.dataSource = self
+        tableView.delegate = self
+    }
+    
+    @objc private func refreshList() {
+        page = 1
+        orders.removeAll()
+        getList()
+    }
+    
+    private func getList() {
+        
+        guard let customerPhone = CustomerManager.sharedInstance.customer?.phoneNumber else {
+            return
+        }
+        
+        if !refreshControl.isRefreshing {
+            ProgressHUD.show()
+        }
+        
+        APIProduct.getOrder(term: customerPhone, page: page) { [weak self] response in
+            ProgressHUD.dismiss()
+            self?.refreshControl.endRefreshing()
+
+            guard let response = response else {
+                return
+            }
+            
+            self?.page += 1
+            let newData = response.orders ?? []
+            self?.orders.append(contentsOf: newData)
+            self?.tableView.reloadData()
+            
         }.request()
+        
     }
 
     /*
@@ -32,4 +92,37 @@ class MedicineListViewController: UIViewController {
     }
     */
 
+}
+
+extension MedicineListViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return orders.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "OrderItemTableViewCell") as? OrderItemTableViewCell else {
+            return UITableViewCell()
+        }
+        
+        let order = orders[indexPath.row]
+        let paidAt = order.createdAt ?? ""
+        let formatter = ISO8601DateFormatter()
+        let date = formatter.date(from: paidAt) ?? Date()
+        let title = "Order วันที่ \(String.dateFormat(date, format: "dd/MM/yyyy"))"
+        cell.setOrder(title: title, price: Double(order.price ?? "") ?? 0, paid: order.paid == true)
+                
+        return cell
+        
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let order = orders[indexPath.row]
+        let viewController = CartViewController.initializeInstance(cart: CartManager.shared.convertOrder(order))
+        self.navigationController?.pushViewController(viewController, animated: true)
+
+    }
+    
 }

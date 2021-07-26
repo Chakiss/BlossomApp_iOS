@@ -62,9 +62,9 @@ class AppointmentListViewController: UIViewController {
     }
     private func setupView() {
         
+        view.backgroundColor = .backgroundColor
         add(asChildViewController: comingAppointmentViewController)
-        setupSegmentedControl()
-        
+        setupSegmentedControl()        
     
     }
     

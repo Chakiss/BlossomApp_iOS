@@ -13,7 +13,7 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 
 import Foundation
 struct OrderResponse : Codable {
-	let orders : [Orders]?
+	let orders : [Order]?
 	let filters : [Filters]?
 	let options : OptionsOrder?
 
@@ -26,7 +26,7 @@ struct OrderResponse : Codable {
 
 	init(from decoder: Decoder) throws {
 		let values = try decoder.container(keyedBy: CodingKeys.self)
-		orders = try values.decodeIfPresent([Orders].self, forKey: .orders)
+		orders = try values.decodeIfPresent([Order].self, forKey: .orders)
 		filters = try values.decodeIfPresent([Filters].self, forKey: .filters)
 		options = try values.decodeIfPresent(OptionsOrder.self, forKey: .options)
 	}

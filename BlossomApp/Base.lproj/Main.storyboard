@@ -2496,7 +2496,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="269" translatesAutoresizingMaskIntoConstraints="NO" id="4WQ-qn-dwf">
-                                                    <rect key="frame" x="73" y="30.5" width="313.5" height="34"/>
+                                                    <rect key="frame" x="73" y="30.5" width="300.5" height="34"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="34" id="7EN-j5-2n4"/>
@@ -2517,7 +2517,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oDA-GW-Tqu" customClass="BadgeSwift" customModule="BadgeSwift">
-                                                    <rect key="frame" x="394.5" y="37.5" width="9.5" height="20"/>
+                                                    <rect key="frame" x="381.5" y="37.5" width="22.5" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="lgx-cT-baV"/>
                                                     </constraints>
@@ -4204,7 +4204,7 @@
     </scenes>
     <designables>
         <designable name="oDA-GW-Tqu">
-            <size key="intrinsicContentSize" width="9.5" height="18.5"/>
+            <size key="intrinsicContentSize" width="22.5" height="22.5"/>
         </designable>
     </designables>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -98,6 +98,7 @@
 		1BF58D4526ADBEDE00F2D620 /* Purchases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF58D3F26ADBEDE00F2D620 /* Purchases.swift */; };
 		1BF58D4626ADBEDE00F2D620 /* OrderResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF58D4026ADBEDE00F2D620 /* OrderResponse.swift */; };
 		3C0BB0C426AD42DF001C58BE /* BlossomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0BB0C326AD42DF001C58BE /* BlossomNavigationController.swift */; };
+		3C52EB4826AE98BE00E31023 /* OrderItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C52EB4726AE98BE00E31023 /* OrderItemTableViewCell.swift */; };
 		3C65030726AC10D100DAA98A /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C65030626AC10D100DAA98A /* Button.swift */; };
 		3C65030926AC11E900DAA98A /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C65030826AC11E900DAA98A /* UIFont+Extension.swift */; };
 		3C7D5E4B269ADC76002E5AB9 /* Cart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7D5E4A269ADC76002E5AB9 /* Cart.swift */; };
@@ -254,6 +255,7 @@
 		1BF58D4026ADBEDE00F2D620 /* OrderResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderResponse.swift; sourceTree = "<group>"; };
 		1C0FA879299FB95C0F91AF09 /* Pods-BlossomApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlossomApp.release.xcconfig"; path = "Target Support Files/Pods-BlossomApp/Pods-BlossomApp.release.xcconfig"; sourceTree = "<group>"; };
 		3C0BB0C326AD42DF001C58BE /* BlossomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlossomNavigationController.swift; sourceTree = "<group>"; };
+		3C52EB4726AE98BE00E31023 /* OrderItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderItemTableViewCell.swift; sourceTree = "<group>"; };
 		3C65030626AC10D100DAA98A /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		3C65030826AC11E900DAA98A /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		3C7D5E4A269ADC76002E5AB9 /* Cart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cart.swift; sourceTree = "<group>"; };
@@ -682,6 +684,7 @@
 			isa = PBXGroup;
 			children = (
 				1BCE64F526A84BA0002EE71F /* MedicineListViewController.swift */,
+				3C52EB4726AE98BE00E31023 /* OrderItemTableViewCell.swift */,
 			);
 			path = MedicineList;
 			sourceTree = "<group>";
@@ -1050,6 +1053,7 @@
 				1BC3B21926A1CFA1006EDD29 /* ImagePickerManager.swift in Sources */,
 				1BC3B21C26A2ADA5006EDD29 /* Nonce.swift in Sources */,
 				3C0BB0C426AD42DF001C58BE /* BlossomNavigationController.swift in Sources */,
+				3C52EB4826AE98BE00E31023 /* OrderItemTableViewCell.swift in Sources */,
 				1BF58D4326ADBEDE00F2D620 /* CustomerShipnity.swift in Sources */,
 				1B8D860F26A49A7500A2ED57 /* SenderCell.swift in Sources */,
 				1BCE650E26AC4F3C002EE71F /* VerifyPhoneNumberViewController.swift in Sources */,
