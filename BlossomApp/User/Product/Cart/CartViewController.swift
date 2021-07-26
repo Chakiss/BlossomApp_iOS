@@ -91,7 +91,12 @@ class CartViewController: UIViewController {
     
     @objc
     private func addMoreProduct() {
-        debugPrint(" add more product ")
+        guard let productList = ProductListViewController.initializeInstance() else {
+            return
+        }
+        
+        productList.delegate = self
+        self.navigationController?.pushViewController(productList, animated: true)
     }
     
     private func createOrder() {
@@ -138,7 +143,42 @@ class CartViewController: UIViewController {
     }
     
     private func updateOrder() {
-        gotoPaymentMethod()
+        guard let customer = CustomerManager.sharedInstance.customer else {
+            return
+        }
+        
+        guard let address = customer.address?.address, !address.isEmpty else {
+            showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณาระบุที่อยู่จัดส่ง") { [weak self] in
+                self?.showProfile()
+            }
+            return
+        }
+        
+        let name = (customer.firstName ?? "") + " " + (customer.lastName ?? "")
+        let order = PurchaseOrder(customer: Int(customer.referenceShipnityID ?? "") ?? 0,
+                                  name: name,
+                                  address: address,
+                                  tel: customer.phoneNumber ?? "",
+                                  contactMethod: "phone",
+                                  email: customer.email ?? "",
+                                  annotation: "",
+                                  tag: "app",
+                                  shippingType: "EMS",
+                                  shippingFee: 0,
+                                  orderDiscount: 0,
+                                  purchasesAttributes: cart?.getPurcahseAttributes() ?? [])
+        ProgressHUD.show()
+        APIProduct.updateOrder(orderID: cart?.purchaseOrder?.id ?? 0, po: UpdateOrderRequest(order: order)) { [weak self] response in
+            ProgressHUD.dismiss()
+            guard let response = response,
+                  let order = response.order else {
+                self?.showAlertDialogue(title: "ผิดพลาด", message: "ไม่สามารถส่งคำสั่งซื้อได้ในขณะนี้", completion: {
+                })
+                return
+            }
+            self?.cart?.updatePO(order)
+            self?.gotoPaymentMethod()
+        }.request()
     }
     
     private func gotoPaymentMethod() {
@@ -158,6 +198,15 @@ class CartViewController: UIViewController {
         } else {
             updateOrder()
         }
+    }
+    
+}
+
+extension CartViewController: ProductListViewControllerDelegate {
+    
+    func productListDidSelect(product: Product) {
+        cart?.addItem(product, quantity: 1)
+        self.navigationController?.popViewController(animated: true)
     }
     
 }

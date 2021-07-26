@@ -17,6 +17,10 @@ struct CreateOrderRequest: Codable {
     let order: PurchaseOrder
 }
 
+struct UpdateOrderRequest: Codable {
+    let order: PurchaseOrder
+}
+
 // MARK: - Order
 struct PurchaseOrder: Codable {
     let customer: Int

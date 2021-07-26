@@ -16,6 +16,7 @@ enum APIProduct {
         
     case list(completion: (ProductsResponse?)->Swift.Void)
     case createOrder(po: CreateOrderRequest, completion: (CreateOrderResponse?)->Swift.Void)
+    case updateOrder(orderID: Int, po: UpdateOrderRequest, completion: (UpdateOrderResponse?)->Swift.Void)
     case chargeCreditCard(orderID: Int, amountSatang: Int, token: String, completion: (OmisePaymentResponse?)->Swift.Void)
     case updateOrderNote(orderID: Int, note: String, completion: (UpdateOrderResponse?)->Swift.Void)
     case getChargeCreditCard(chargeID: String, completion: (OmisePaymentResponse?)->Swift.Void)
@@ -28,7 +29,7 @@ enum APIProduct {
             return "https://www.shipnity.pro/api/v2/products?per_page=50"
         case .createOrder:
             return "https://www.shipnity.pro/api/v2/orders"
-        case .updateOrderNote(let orderID, _, _):
+        case .updateOrder(let orderID, _, _), .updateOrderNote(let orderID, _, _):
             return "https://www.shipnity.pro/api/v2/orders/\(orderID)"
         case .chargeCreditCard:
             return "https://api.omise.co/charges"
@@ -67,7 +68,20 @@ enum APIProduct {
                     }
                     completion(orderResponse)
                 }
-            
+
+        case let .updateOrder(_, po, completion):
+            let parameters = JSONAble<UpdateOrderRequest>.toJSON(object: po)
+            debugPrint("\(endpoint()), \(parameters)")
+            AF.request(endpoint(), method: .patch, parameters: parameters, headers: headers)
+                .validate()
+                .responseDecodable(of: UpdateOrderResponse.self) { (response) in
+                    guard let orderResponse = response.value else {
+                        completion(nil)
+                        return
+                    }
+                    completion(orderResponse)
+                }
+
         case let .updateOrderNote(_, note, completion):
             let parameters = ["order": ["annotation": note]]
             debugPrint("\(endpoint()), \(parameters)")

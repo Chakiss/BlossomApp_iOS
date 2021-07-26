@@ -74,6 +74,28 @@ struct Product : Codable {
 		slug = try values.decodeIfPresent(String.self, forKey: .slug)
 		subproducts = try values.decodeIfPresent([Subproducts].self, forKey: .subproducts)
 	}
+    
+    init(from purchase: Purchase) {
+        id = nil
+        product_id = nil
+        name = purchase.name
+        code = nil
+        tags = nil
+        object_price = nil
+        inventory = nil
+        description_long = nil
+        description_short = nil
+        reserved = nil
+        object_available = nil
+        image = purchase.thumb
+        image_thumb = purchase.thumb
+        brand = nil
+        price = purchase.price
+        slug = nil
+        
+        let subproduct = Subproducts(from: purchase)
+        subproducts = [subproduct]
+    }
 
 }
 

@@ -8,13 +8,24 @@
 import UIKit
 import Alamofire
 
+protocol ProductListViewControllerDelegate: AnyObject {
+    func productListDidSelect(product: Product)
+}
 
 class ProductListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
 
     var products: [Product] = []
+    weak var delegate: ProductListViewControllerDelegate?
     
+    static func initializeInstance() -> ProductListViewController? {
+        let storyBoard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let productList = storyBoard.instantiateViewController(withIdentifier: "ProductListViewController") as? ProductListViewController
+        productList?.hidesBottomBarWhenPushed = true
+        return productList
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "ยา"
@@ -61,6 +72,7 @@ class ProductListViewController: UIViewController, UITableViewDataSource, UITabl
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProductCell", for: indexPath) as! ProductCell
         
+        cell.selectionStyle = .none
         cell.delegate = self
         cell.productNameLabel.text = product.name
         cell.productPriceLabel.text = product.priceInSatang().satangToBaht().toAmountText() + " บาท"
@@ -75,6 +87,10 @@ class ProductListViewController: UIViewController, UITableViewDataSource, UITabl
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let product = products[indexPath.row]
+        
+        guard delegate == nil else {
+            return
+        }
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let viewController = storyboard.instantiateViewController(withIdentifier: "ProductDetailViewController") as! ProductDetailViewController
@@ -94,11 +110,16 @@ extension ProductListViewController: ProductCellDelegate {
             return
         }
         
-        buttonHandlerAddToCart(cell.addToCartButton)
         let product = products[indexPath.row]
-        CartManager.shared.addItem(product)
-        updateCartButton()
+
+        guard let delegate = delegate else {
+            buttonHandlerAddToCart(cell.addToCartButton)
+            CartManager.shared.addItem(product)
+            updateCartButton()
+            return
+        }
         
+        delegate.productListDidSelect(product: product)
     }
     
 }

@@ -13,8 +13,8 @@ struct CartItem: Equatable {
     var quantity: Int = 0
     
     static func == (lhs: CartItem, rhs: CartItem) -> Bool {
-        #warning("Currently, we use unique product_id, but we need to use subproduct in the future to support product variant")
-        return lhs.product.product_id == rhs.product.product_id
+        #warning("Currently, we use unique from 1st item subproduct_id, but we need to update in the future to support product variant")
+        return lhs.product.subproducts?.first?.id == rhs.product.subproducts?.first?.id
     }
     
 }
@@ -131,7 +131,13 @@ class CartManager {
     }
     
     public func convertOrder(_ order: Order) -> Cart {
-        return Cart()
+        let cart = Cart()
+        cart.updatePO(order)
+        order.purchases?.forEach({ item in
+            let product = Product(from: item)
+            cart.addItem(product, quantity: item.quantity ?? 0)
+        })        
+        return cart
     }
     
 }

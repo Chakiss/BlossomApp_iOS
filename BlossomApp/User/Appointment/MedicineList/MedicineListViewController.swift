@@ -133,9 +133,12 @@ extension MedicineListViewController: UITableViewDataSource, UITableViewDelegate
         let order = orders[indexPath.row]
         
         if order.paid == true {
-            
+            if let url = URL(string: "https://track.shipnity.com/\(order.slug ?? "")") {
+                let webview = SFSafariViewController(url: url)
+                self.present(webview, animated: true, completion: nil)
+            }
         } else {
-            let viewController = CartViewController.initializeInstance(cart: CartManager.shared.convertOrder(order))
+            let viewController = CartViewController.initializeInstance(cart: CartManager.shared.convertOrder(order), currentCart: false)
             self.navigationController?.pushViewController(viewController, animated: true)
         }
         

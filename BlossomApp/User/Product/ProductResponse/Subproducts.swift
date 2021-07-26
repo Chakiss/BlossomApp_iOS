@@ -55,4 +55,18 @@ struct Subproducts : Codable {
 		slug = try values.decodeIfPresent(String.self, forKey: .slug)
 	}
 
+    init(from purchase: Purchase) {
+        id = purchase.subproductID
+        name = purchase.name
+        code = purchase.code
+        inventory = nil
+        reserved = nil
+        available = nil
+        barcode = nil
+        price = purchase.price
+        object_price = nil
+        object_available = nil
+        slug = nil
+    }
+    
 }
