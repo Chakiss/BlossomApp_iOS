@@ -17,7 +17,7 @@ enum APIProduct {
     case list(completion: (ProductsResponse?)->Swift.Void)
     case createOrder(po: CreateOrderRequest, completion: (CreateOrderResponse?)->Swift.Void)
     case updateOrder(orderID: Int, po: UpdateOrderRequest, completion: (UpdateOrderResponse?)->Swift.Void)
-    case chargeCreditCard(orderID: Int, amountSatang: Int, token: String, completion: (OmisePaymentResponse?)->Swift.Void)
+    case chargeCreditCard(orderID: String, amountSatang: Int, token: String, ref: String, completion: (OmisePaymentResponse?)->Swift.Void)
     case updateOrderNote(orderID: Int, note: String, completion: (UpdateOrderResponse?)->Swift.Void)
     case getChargeCreditCard(chargeID: String, completion: (OmisePaymentResponse?)->Swift.Void)
     case updateOrderPayment(orderID: Int, completion: (Bool)->Swift.Void)
@@ -95,11 +95,12 @@ enum APIProduct {
                     completion(orderResponse)
                 }
             
-        case let .chargeCreditCard(orderID, amount, token, completion):
+        case let .chargeCreditCard(orderID, amount, token, ref, completion):
             let parameters: Parameters = [
                 "amount": amount,
                 "currency": "thb",
                 "card": token,
+                "metadata": [ "ref1": ref ],
                 "return_uri": "https://www.blossomclinicthailand.com/omise/\(orderID)/complete"
             ]
             debugPrint("\(endpoint()), \(parameters)")

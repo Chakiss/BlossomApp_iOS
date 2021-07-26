@@ -21,14 +21,16 @@ class QRPaymentViewController: UIViewController {
     
     private var cart: Cart?
     private var qr: String = ""
+    private var appointmentOrder: String?
     
     private weak var db = Firestore.firestore()
 
-    static func initializeInstance(cart: Cart, qr: String) -> QRPaymentViewController {
+    static func initializeInstance(cart: Cart?, appointmentOrder: String?, qr: String) -> QRPaymentViewController {
         let controller: QRPaymentViewController = QRPaymentViewController(nibName: "QRPaymentViewController", bundle: Bundle.main)
         controller.hidesBottomBarWhenPushed = true
         controller.cart = cart
         controller.qr = qr
+        controller.appointmentOrder = appointmentOrder
         return controller
     }
 
@@ -52,13 +54,11 @@ class QRPaymentViewController: UIViewController {
     
     private func checkPaymentSuccess() {
         
-        guard let orderID = cart?.purchaseOrder?.id else {
-            return
-        }
-        
-        db?.collection("shipnity_orders").document("\(orderID)").addSnapshotListener({ [weak self] result, error in
-            
-            guard error == nil || result?.data() != nil else {
+        let orderID = cart?.purchaseOrder?.id != nil ? "\(cart!.purchaseOrder!.id!)" : appointmentOrder ?? ""
+        ProgressHUD.show()
+        db?.collection("shipnity_orders").document(orderID).addSnapshotListener({ [weak self] result, error in
+            ProgressHUD.dismiss()
+            guard error == nil && result?.data() != nil else {
                 self?.showAlertDialogue(title: "ไม่สามารถชำระเงินด้วย QR ได้", message: "กรุณาลองใหม่ภายหลัง", completion: {
                     
                 })

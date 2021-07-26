@@ -10,19 +10,26 @@ import FirebaseFunctions
 import Firebase
 import OmiseSDK
 
+struct AppointmentOrder {
+    let id: String
+    let amount: Int
+}
+
 class PaymentMethodViewController: UIViewController {
 
     @IBOutlet weak var qrPaymentButton: UIButton!
     @IBOutlet weak var creditCardPaymentButton: UIButton!
     
     private var cart: Cart?
+    private var appointmentOrder: AppointmentOrder?
     private var omiseResponse: OmisePaymentResponse?
 
     var delegate: UpdateCartViewControllerDelegate?
 
-    static func initializeInstance(cart: Cart) -> PaymentMethodViewController {
+    static func initializeInstance(cart: Cart?, appointmentOrder: AppointmentOrder? = nil) -> PaymentMethodViewController {
         let controller: PaymentMethodViewController = PaymentMethodViewController(nibName: "PaymentMethodViewController", bundle: Bundle.main)
         controller.cart = cart
+        controller.appointmentOrder = appointmentOrder
         controller.hidesBottomBarWhenPushed = true
         return controller
     }
@@ -45,7 +52,7 @@ class PaymentMethodViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if cart?.id == CartManager.shared.currentCart?.id {
+        if cart?.id == CartManager.shared.currentCart?.id && appointmentOrder == nil {
             clearCart()
         }
         
@@ -59,16 +66,8 @@ class PaymentMethodViewController: UIViewController {
         viewControllers?.removeAll(where: { $0 is CartViewController })
         navigationController?.setViewControllers(viewControllers ?? [], animated: false)
     }
-
-    @IBAction func qrPayment(_ sender: Any) {
-//        mockPaymentSuccess()
-        let amount = cart?.purchaseOrder?.price ?? ""
-        let payload: [String: Any] = [
-            "amount": Double(amount) ?? 0,
-            "orderID": "\(cart?.purchaseOrder?.id ?? 0)",
-            "channel": "shipnity"
-        ]
-        debugPrint("generatePromptPayQR \(payload)")
+    
+    private func requestQRPayment(payload: [String: Any]) {
         ProgressHUD.show()
         Functions.functions().httpsCallable("app-payments-generatePromptPayQR").call(payload) { [weak self] result, error in
             ProgressHUD.dismiss()
@@ -88,13 +87,40 @@ class PaymentMethodViewController: UIViewController {
                 return
             }
             
-            if let cart = self?.cart {
-                let qrView = QRPaymentViewController.initializeInstance(cart: cart, qr: qr.replacingOccurrences(of: "data:image/png;base64,", with: ""))
-                qrView.delegate = self
-                self?.navigationController?.pushViewController(qrView, animated: true)
-            }
+            let qrView = QRPaymentViewController.initializeInstance(cart: self?.cart, appointmentOrder: self?.appointmentOrder?.id, qr: qr.replacingOccurrences(of: "data:image/png;base64,", with: ""))
+            qrView.delegate = self
+            self?.navigationController?.pushViewController(qrView, animated: true)
         }
-        
+    }
+    
+    private func qrPayment(for appointmentOrder: AppointmentOrder) {
+        let amount = appointmentOrder.amount
+        let payload: [String: Any] = [
+            "amount": Double(amount),
+            "orderID": appointmentOrder.id,
+            "channel": "app"
+        ]
+        debugPrint("generatePromptPayQR \(payload)")
+        requestQRPayment(payload: payload)
+    }
+
+    private func qrPayment(for cart: Cart) {
+        let amount = cart.purchaseOrder?.price ?? ""
+        let payload: [String: Any] = [
+            "amount": Double(amount) ?? 0,
+            "orderID": "\(cart.purchaseOrder?.id ?? 0)",
+            "channel": "shipnity"
+        ]
+        debugPrint("generatePromptPayQR \(payload)")
+        requestQRPayment(payload: payload)
+    }
+
+    @IBAction func qrPayment(_ sender: Any) {
+        if let cart = cart {
+            qrPayment(for: cart)
+        } else if let order = appointmentOrder {
+            qrPayment(for: order)
+        }
     }
     
     @IBAction func creditCardPayment(_ sender: Any) {
@@ -135,6 +161,12 @@ class PaymentMethodViewController: UIViewController {
     }
     
     private func updateOrderPayment(paidAt date: Date, omiseID: String? = nil) {
+        
+        guard appointmentOrder == nil else {
+            delegate?.appointmentOrderSuccess(orderID: appointmentOrder?.id ?? "")
+            return
+        }
+        
         ProgressHUD.show()
         let orderID = cart?.purchaseOrder?.id ?? 0
 
@@ -172,8 +204,12 @@ class PaymentMethodViewController: UIViewController {
 extension PaymentMethodViewController : CreditCardFormViewControllerDelegate {
     
     func creditCardFormViewController(_ controller: CreditCardFormViewController, didSucceedWithToken token: Token) {
+        
+        let orderID = appointmentOrder != nil ? "\(appointmentOrder!.id)" : "\(cart?.purchaseOrder?.id ?? 0)"
+        let amountSatang = appointmentOrder != nil ? appointmentOrder!.amount*100 : cart?.calculateTotalPriceInSatang() ?? 0
+        let ref = appointmentOrder != nil ? "1Z\(appointmentOrder!.id)" : "2Z\(cart?.purchaseOrder?.id ?? 0)"
         ProgressHUD.show()
-        APIProduct.chargeCreditCard(orderID: cart?.purchaseOrder?.id ?? 0, amountSatang: cart?.calculateTotalPriceInSatang() ?? 0, token: token.id) { [weak self, weak controller] response in
+        APIProduct.chargeCreditCard(orderID: orderID, amountSatang: amountSatang, token: token.id, ref: ref) { [weak self, weak controller] response in
             ProgressHUD.dismiss()
             guard let response = response else {
                 controller?.showAlertDialogue(title: "ไม่สามารถชำระเงินด้วยบัตรเครดิตได้", message: "กรุณาลองใหม่ภายหลัง", completion: {
@@ -297,7 +333,11 @@ extension CreditCardInputViewController : CreditCardFormViewControllerDelegate {
 extension PaymentMethodViewController: QRPaymentViewControllerDelegate {
     
     func qrPaymentComplete() {
-        gotoOrderList()
+        if cart != nil {
+            gotoOrderList()
+        } else {
+            delegate?.appointmentOrderSuccess(orderID: appointmentOrder?.id ?? "")
+        }
     }
     
 }

@@ -207,17 +207,18 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
                         self.makeAppointmentOrderPaid(orderID: orderID)
                     }
                     
-                } else {
+                } else if let orderID = order["orderID"] {
                   // Make Payment
-                    
+                    let paymentMethodViewController = PaymentMethodViewController.initializeInstance(cart: nil, appointmentOrder: AppointmentOrder(id: orderID, amount: self.slotTimeSelected?.salePrice ?? 0))
+                    paymentMethodViewController.delegate = self
+                    self.navigationController?.pushViewController(paymentMethodViewController, animated: true)
                 }
             }
 
         }
       
     }
-    
-    
+        
     func makeAppointmentOrderPaid(orderID: String){
      
         ProgressHUD.show()
@@ -249,4 +250,13 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
         }
     }
 
+}
+
+extension SlotTimeViewController : UpdateCartViewControllerDelegate {
+    
+    func appointmentOrderSuccess(orderID: String) {
+        self.navigationController?.popViewController(animated: true)
+        makeAppointmentOrderPaid(orderID: orderID)
+    }
+    
 }

@@ -9,6 +9,12 @@ import UIKit
 
 protocol UpdateCartViewControllerDelegate: AnyObject {
     func cartDidUpdate(order: Order)
+    func appointmentOrderSuccess(orderID: String)
+}
+
+extension UpdateCartViewControllerDelegate {
+    func cartDidUpdate(order: Order) {}
+    func appointmentOrderSuccess(orderID: String) {}
 }
 
 class CartViewController: UIViewController {
