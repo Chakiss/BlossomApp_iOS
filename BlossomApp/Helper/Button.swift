@@ -34,10 +34,17 @@ class Button: UIButton {
         setupButton()
     }
     
+    override func tintColorDidChange() {
+        super.tintColorDidChange()
+        self.setTitleColor(self.tintColor, for: .normal)
+    }
+    
     private func setupButton() {
         self.layer.cornerRadius = radius
+        self.tintColor = .white
         self.backgroundColor = UIColor.blossomPrimary3
         self.titleLabel?.font = FontSize.body2.regular()
+        self.setTitleColor(self.tintColor, for: .normal)
         startAnimatingPressActions()
     }
     

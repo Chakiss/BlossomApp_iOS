@@ -1,0 +1,53 @@
+//
+//  QRPaymentViewController.swift
+//  BlossomApp
+//
+//  Created by nim on 26/7/2564 BE.
+//
+
+import UIKit
+
+class QRPaymentViewController: UIViewController {
+
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var nextButton: UIButton!
+
+    private var cart: Cart?
+    private var qr: String = ""
+
+    static func initializeInstance(cart: Cart, qr: String) -> QRPaymentViewController {
+        let controller: QRPaymentViewController = QRPaymentViewController(nibName: "QRPaymentViewController", bundle: Bundle.main)
+        controller.hidesBottomBarWhenPushed = true
+        controller.cart = cart
+        controller.qr = qr
+        return controller
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Do any additional setup after loading the view.
+        self.title = "QR"
+        self.nextButton.roundCorner(radius: 22)
+        
+        if let imageData = Data(base64Encoded: qr) {
+            let image = UIImage(data: imageData)
+            self.imageView.image = image
+        }
+        
+    }
+
+    @IBAction func nextAction(_ sender: Any) {
+    }
+    
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
+}

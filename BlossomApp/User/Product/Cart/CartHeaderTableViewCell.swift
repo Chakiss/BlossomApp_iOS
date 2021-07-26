@@ -49,7 +49,7 @@ class CartHeaderTableViewCell: UITableViewCell {
         addressTitieLabel.font = FontSize.body2.regular()
         addressLabel.font = FontSize.body2.regular()
 
-        editAddressButton.backgroundColor = UIColor.blossomPrimary
+        editAddressButton.backgroundColor = UIColor.blossomPrimary3
         editAddressButton.roundCorner(radius: 17)
     }
     

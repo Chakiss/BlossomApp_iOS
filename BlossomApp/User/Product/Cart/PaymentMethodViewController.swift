@@ -31,8 +31,12 @@ class PaymentMethodViewController: UIViewController {
         view.backgroundColor = UIColor.backgroundColor
         qrPaymentButton.addConerRadiusAndShadow()
         creditCardPaymentButton.addConerRadiusAndShadow()
+        qrPaymentButton.tintColor = UIColor.blossomDarkGray
+        creditCardPaymentButton.tintColor = UIColor.blossomDarkGray
         qrPaymentButton.backgroundColor = .white
         creditCardPaymentButton.backgroundColor = .white
+        self.title = "เลือกวิธีชำระเงิน"
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -57,7 +61,7 @@ class PaymentMethodViewController: UIViewController {
 //        mockPaymentSuccess()
         let amount = cart?.purchaseOrder?.price ?? ""
         let payload: [String: Any] = [
-            "amount": Int(Double(amount) ?? 0),
+            "amount": Double(amount) ?? 0,
             "orderID": "\(cart?.purchaseOrder?.id ?? 0)",
             "channel": "shipnity"
         ]
@@ -73,7 +77,18 @@ class PaymentMethodViewController: UIViewController {
                 return
             }
             
-            debugPrint("result \(result)")
+            guard let data = result?.data as? [String: Any],
+                  let qr = data["image"] as? String else {
+                self?.showAlertDialogue(title: "ไม่สามารถชำระเงินด้วย QR ได้", message: "กรุณาลองใหม่ภายหลัง", completion: {
+                    
+                })
+                return
+            }
+            
+            if let cart = self?.cart {
+                let qrView = QRPaymentViewController.initializeInstance(cart: cart, qr: qr.replacingOccurrences(of: "data:image/png;base64,", with: ""))
+                self?.navigationController?.pushViewController(qrView, animated: true)
+            }
         }
         
     }
@@ -233,7 +248,7 @@ fileprivate class CreditCardInputViewController: UIViewController {
         omiseView.view.translatesAutoresizingMaskIntoConstraints = false
         omiseView.view.frame = view.bounds
         omiseView.view.backgroundColor = .clear
-        omiseView.view.tintColor = UIColor.blossomPrimary
+        omiseView.view.tintColor = UIColor.blossomPrimary3
         view.addSubview(omiseView.view)
         addChild(omiseView)
         

@@ -107,6 +107,8 @@
 		3C7D5E53269AE888002E5AB9 /* CartHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C7D5E51269AE888002E5AB9 /* CartHeaderTableViewCell.xib */; };
 		3C7D5E56269AF9F5002E5AB9 /* CartItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7D5E54269AF9F5002E5AB9 /* CartItemTableViewCell.swift */; };
 		3C7D5E57269AF9F5002E5AB9 /* CartItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C7D5E55269AF9F5002E5AB9 /* CartItemTableViewCell.xib */; };
+		3C857DA326AE727C00DEF13E /* QRPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C857DA126AE727C00DEF13E /* QRPaymentViewController.swift */; };
+		3C857DA426AE727C00DEF13E /* QRPaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C857DA226AE727C00DEF13E /* QRPaymentViewController.xib */; };
 		3CAB2CF426AC763700545968 /* Cartfile in Resources */ = {isa = PBXBuildFile; fileRef = 3CAB2CF326AC763700545968 /* Cartfile */; };
 		3CAB2CF626AC7F1C00545968 /* OmisePaymentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CAB2CF526AC7F1C00545968 /* OmisePaymentResponse.swift */; };
 		3CF7B50526AC23C200F937DE /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF7B50426AC23C200F937DE /* String+Extension.swift */; };
@@ -261,6 +263,8 @@
 		3C7D5E51269AE888002E5AB9 /* CartHeaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CartHeaderTableViewCell.xib; sourceTree = "<group>"; };
 		3C7D5E54269AF9F5002E5AB9 /* CartItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartItemTableViewCell.swift; sourceTree = "<group>"; };
 		3C7D5E55269AF9F5002E5AB9 /* CartItemTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CartItemTableViewCell.xib; sourceTree = "<group>"; };
+		3C857DA126AE727C00DEF13E /* QRPaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRPaymentViewController.swift; sourceTree = "<group>"; };
+		3C857DA226AE727C00DEF13E /* QRPaymentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QRPaymentViewController.xib; sourceTree = "<group>"; };
 		3CAB2CF326AC763700545968 /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
 		3CAB2CF526AC7F1C00545968 /* OmisePaymentResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OmisePaymentResponse.swift; sourceTree = "<group>"; };
 		3CF7B50426AC23C200F937DE /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
@@ -730,6 +734,8 @@
 				3C7D5E55269AF9F5002E5AB9 /* CartItemTableViewCell.xib */,
 				3CFE6372269B350E005235F1 /* PaymentMethodViewController.swift */,
 				3CFE6373269B350E005235F1 /* PaymentMethodViewController.xib */,
+				3C857DA126AE727C00DEF13E /* QRPaymentViewController.swift */,
+				3C857DA226AE727C00DEF13E /* QRPaymentViewController.xib */,
 			);
 			path = Cart;
 			sourceTree = "<group>";
@@ -876,6 +882,7 @@
 				1B53124A2693754200B88165 /* SukhumvitSet-SemiBold.ttf in Resources */,
 				1B13E6EC269AFD4200131105 /* Doctor.storyboard in Resources */,
 				1B53124E2693754200B88165 /* SukhumvitSet-Text.ttf in Resources */,
+				3C857DA426AE727C00DEF13E /* QRPaymentViewController.xib in Resources */,
 				1B77591B2694775E000780BD /* BannerViewCell.xib in Resources */,
 				1B5312492693754200B88165 /* SukhumvitSet-Thin.ttf in Resources */,
 				1B29A3D32697E92300556A55 /* GoogleService-Info.plist in Resources */,
@@ -1089,6 +1096,7 @@
 				1BF58D4526ADBEDE00F2D620 /* Purchases.swift in Sources */,
 				1B1C2E3E26994FF700F57122 /* ProductDetailViewController.swift in Sources */,
 				1B53125B26937B3400B88165 /* AppointmentListViewController.swift in Sources */,
+				3C857DA326AE727C00DEF13E /* QRPaymentViewController.swift in Sources */,
 				3CF7B50C26AC443700F937DE /* JSONEncodingHelper.swift in Sources */,
 				1B1C2E3526993C5B00F57122 /* Subproducts.swift in Sources */,
 				1BE101E5269DC63200F7323E /* Reviews.swift in Sources */,

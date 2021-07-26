@@ -31,7 +31,7 @@ class CartViewController: UIViewController {
     
     private func setupView() {
         self.checkoutButton.superview?.backgroundColor = UIColor.backgroundColor
-        self.checkoutButton.backgroundColor = UIColor.blossomPrimary
+        self.checkoutButton.backgroundColor = UIColor.blossomPrimary3
         self.checkoutButton.roundCorner(radius: 22)
         self.checkoutButton.setTitle("ชำระเงิน", for: .normal)
     }
@@ -304,6 +304,7 @@ extension CartViewController: UITableViewDelegate {
         let headerLabel = UILabel()
         headerLabel.text = "สินค้า"
         headerLabel.translatesAutoresizingMaskIntoConstraints = false
+        headerLabel.font = FontSize.h2.bold()
         view.addSubview(headerLabel)
         
         if currentCart {
@@ -313,8 +314,11 @@ extension CartViewController: UITableViewDelegate {
                 headerLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor)
             ])
         } else {
-            let addProductButton = UIButton(type: .system)
-            addProductButton.tintColor = UIColor.blossomPrimary
+            let addProductButton = Button(frame: CGRect.zero, radius: 20)
+            addProductButton.tintColor = UIColor.blossomPrimary3
+            addProductButton.backgroundColor = UIColor.backgroundColor
+            addProductButton.layer.borderWidth = 1.0
+            addProductButton.layer.borderColor = UIColor.blossomPrimary3.cgColor
             addProductButton.setTitle("+ เพิ่มสินค้า", for: .normal)
             addProductButton.translatesAutoresizingMaskIntoConstraints = false
             addProductButton.addTarget(self, action: #selector(CartViewController.addMoreProduct), for: .touchUpInside)
