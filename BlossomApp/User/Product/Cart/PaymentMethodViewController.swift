@@ -289,7 +289,7 @@ extension CreditCardInputViewController : CreditCardFormViewControllerDelegate {
 
 extension PaymentMethodViewController: QRPaymentViewControllerDelegate {
     
-    func qrPaymentNext() {
+    func qrPaymentComplete() {
         gotoOrderList()
     }
     

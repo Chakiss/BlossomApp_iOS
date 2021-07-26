@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import Firebase
 
 protocol QRPaymentViewControllerDelegate: AnyObject {
-    func qrPaymentNext()
+    func qrPaymentComplete()
 }
 
 class QRPaymentViewController: UIViewController {
@@ -20,6 +21,8 @@ class QRPaymentViewController: UIViewController {
     
     private var cart: Cart?
     private var qr: String = ""
+    
+    private weak var db = Firestore.firestore()
 
     static func initializeInstance(cart: Cart, qr: String) -> QRPaymentViewController {
         let controller: QRPaymentViewController = QRPaymentViewController(nibName: "QRPaymentViewController", bundle: Bundle.main)
@@ -48,8 +51,23 @@ class QRPaymentViewController: UIViewController {
     }
     
     private func checkPaymentSuccess() {
-        //if success
-        delegate?.qrPaymentNext()
+        
+        guard let orderID = cart?.purchaseOrder?.id else {
+            return
+        }
+        
+        db?.collection("shipnity_orders").document("\(orderID)").addSnapshotListener({ [weak self] result, error in
+            
+            guard error == nil || result?.data() != nil else {
+                self?.showAlertDialogue(title: "ไม่สามารถชำระเงินด้วย QR ได้", message: "กรุณาลองใหม่ภายหลัง", completion: {
+                    
+                })
+                return
+            }
+            
+            self?.delegate?.qrPaymentComplete()
+        })
+        
     }
     
     /*
