@@ -67,7 +67,7 @@ class CartItemTableViewCell: UITableViewCell {
     }
     
     public func render(_ model: CartItem) {
-        productNameLabel.text = model.product.name ?? "" + "Lorem ipsum de sem lorean, Rek sdfhu asidu"
+        productNameLabel.text = (model.product.name ?? "")
         amountTitleLabel.text = "จำนวน"
         amountLabel.text = "\(model.quantity)"
         priceLabel.text = "ราคา \(model.product.priceInSatang().satangToBaht().toAmountText()) บาท"

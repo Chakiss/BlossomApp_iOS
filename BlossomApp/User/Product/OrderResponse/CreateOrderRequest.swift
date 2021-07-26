@@ -46,10 +46,14 @@ struct PurchaseOrder: Codable {
 
 // MARK: - PurchasesAttribute
 struct PurchasesAttribute: Codable {
+    let purchaseID: Int?
+    let deleted: Bool
     let subproductID, quantity: Int
     let price, discount: Double
 
     enum CodingKeys: String, CodingKey {
+        case purchaseID = "id"
+        case deleted = "_destroy"
         case subproductID = "subproduct_id"
         case quantity, price, discount
     }

@@ -23,14 +23,27 @@ class MedicineListViewController: UIViewController {
         // Do any additional setup after loading the view.
         self.view.backgroundColor = UIColor.backgroundColor
         setupTableView()
+        
+        let backButton = UIBarButtonItem(title: "ใบสั่งยา", style: .plain, target: self, action: nil)
+        self.parent?.navigationItem.backBarButtonItem = backButton
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        if orders.isEmpty {
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+           let deeplinking = appDelegate.deeplinking {
+            switch deeplinking {
+            case .orderList:
+                refreshList()
+                appDelegate.deeplinking = nil
+            default:
+                break
+            }
+        } else if orders.isEmpty {
             refreshList()
         }
+        
     }
     
     private func setupTableView() {
@@ -139,6 +152,7 @@ extension MedicineListViewController: UITableViewDataSource, UITableViewDelegate
             }
         } else {
             let viewController = CartViewController.initializeInstance(cart: CartManager.shared.convertOrder(order), currentCart: false)
+            viewController.delegate = self
             self.navigationController?.pushViewController(viewController, animated: true)
         }
         
@@ -149,6 +163,21 @@ extension MedicineListViewController: UITableViewDataSource, UITableViewDelegate
         if indexPath.row > orders.count-5 && !hasEnded {
             getList()
         }
+        
+    }
+    
+}
+
+extension MedicineListViewController: UpdateCartViewControllerDelegate {
+    
+    func cartDidUpdate(order: Order) {
+        
+        guard let index = orders.firstIndex(where: { $0.id == order.id }) else {
+            return
+        }
+        
+        orders.replaceSubrange(index..<index+1, with: [order])
+        tableView.reloadData()
         
     }
     

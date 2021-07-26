@@ -18,6 +18,8 @@ class PaymentMethodViewController: UIViewController {
     private var cart: Cart?
     private var omiseResponse: OmisePaymentResponse?
 
+    var delegate: UpdateCartViewControllerDelegate?
+
     static func initializeInstance(cart: Cart) -> PaymentMethodViewController {
         let controller: PaymentMethodViewController = PaymentMethodViewController(nibName: "PaymentMethodViewController", bundle: Bundle.main)
         controller.cart = cart
@@ -146,6 +148,11 @@ class PaymentMethodViewController: UIViewController {
             
             APIProduct.updateOrderNote(orderID: orderID, note: omiseID ?? "") { [weak self] response in
                 ProgressHUD.dismiss()
+                
+                if let order = response?.order {
+                    self?.delegate?.cartDidUpdate(order: order)
+                }
+                
                 self?.gotoOrderList()
             }.request()
             

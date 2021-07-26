@@ -111,12 +111,11 @@ class AppointmentListViewController: UIViewController {
             switch deeplinking {
             case .orderList:
                 debugPrint("go to order list")
-            case .appointment:
-                debugPrint("go to Appointment list")
-            case .chat:
-                debugPrint("go to Chat")
+                segmentedControl.selectedSegmentIndex = 2
+                selectionDidChange(segmentedControl)
+            default:
+                break
             }
-            appDelegate.deeplinking = nil
         }
     }
     

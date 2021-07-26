@@ -11,6 +11,7 @@ struct CartItem: Equatable {
     
     let product: Product
     var quantity: Int = 0
+    var purchaseID: String?
     
     static func == (lhs: CartItem, rhs: CartItem) -> Bool {
         #warning("Currently, we use unique from 1st item subproduct_id, but we need to update in the future to support product variant")
@@ -25,9 +26,9 @@ class Cart {
     private(set) var items: [CartItem] = []
     private(set) var purchaseOrder: Order?
     
-    public func addItem(_ product: Product, quantity: Int = 1) {
+    public func addItem(_ product: Product, quantity: Int = 1, purchaseID: String? = nil) {
         
-        let item: CartItem = CartItem(product: product, quantity: quantity)
+        let item: CartItem = CartItem(product: product, quantity: quantity, purchaseID: purchaseID)
         guard items.contains(item) else {
             items.append(item)
             return
@@ -38,7 +39,7 @@ class Cart {
         }
 
         let currentItem = items[ind]
-        let newItem: CartItem = CartItem(product: product, quantity: currentItem.quantity+quantity)
+        let newItem: CartItem = CartItem(product: product, quantity: currentItem.quantity+quantity, purchaseID: currentItem.purchaseID)
         items.replaceSubrange(ind..<ind+1, with: [newItem])
 
     }
@@ -65,7 +66,7 @@ class Cart {
         let remaining: Int = currentItem.quantity-quantity
         
         if remaining > 0 {
-            let newItem: CartItem = CartItem(product: product, quantity: remaining)
+            let newItem: CartItem = CartItem(product: product, quantity: remaining, purchaseID: currentItem.purchaseID)
             items.replaceSubrange(ind..<ind+1, with: [newItem])
         } else {
             removeItemFromCart(product)
@@ -78,7 +79,14 @@ class Cart {
     }
     
     public func getPurcahseAttributes() -> [PurchasesAttribute] {
-        return items.map({ PurchasesAttribute(subproductID: $0.product.subproducts?.first?.id ?? 0, quantity: $0.quantity, price: Double($0.product.priceInSatang()) / 100.0, discount: 0) })
+        var attributes: [PurchasesAttribute] = items.map({ PurchasesAttribute(purchaseID: Int($0.purchaseID ?? ""), deleted: $0.quantity == 0,subproductID: $0.product.subproducts?.first?.id ?? 0, quantity: $0.quantity, price: Double($0.product.priceInSatang()) / 100.0, discount: 0) })
+        
+        let cartItems = attributes.map({ $0.subproductID })
+        let deletedItemIDs = purchaseOrder?.purchases?.compactMap({ $0.subproductID }).filter({ cartItems.contains($0) == false }) ?? []
+        let deletedItems = purchaseOrder?.purchases?.filter({ deletedItemIDs.contains($0.subproductID ?? 0) })
+        attributes.append(contentsOf: deletedItems?.map({ PurchasesAttribute(purchaseID: $0.id, deleted: true, subproductID: $0.subproductID ?? 0, quantity: 1, price: Double($0.price ?? "") ?? 0, discount: 0) }) ?? [])
+        
+        return attributes
     }
     
     public func updatePO(_ purchaseOrder: Order) {
@@ -135,7 +143,7 @@ class CartManager {
         cart.updatePO(order)
         order.purchases?.forEach({ item in
             let product = Product(from: item)
-            cart.addItem(product, quantity: item.quantity ?? 0)
+            cart.addItem(product, quantity: item.quantity ?? 0, purchaseID: "\(item.id ?? 0)")
         })        
         return cart
     }

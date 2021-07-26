@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol UpdateCartViewControllerDelegate: AnyObject {
+    func cartDidUpdate(order: Order)
+}
+
 class CartViewController: UIViewController {
     
     enum Section: Int {
@@ -20,6 +24,8 @@ class CartViewController: UIViewController {
     private var cartHeaderModel: CartHeaderTableViewCell.Model?
     private var cart: Cart?
     private var currentCart: Bool = true
+    
+    var delegate: UpdateCartViewControllerDelegate?
     
     static func initializeInstance(cart: Cart, currentCart: Bool = true) -> CartViewController {
         let controller: CartViewController = CartViewController(nibName: "CartViewController", bundle: Bundle.main)
@@ -138,6 +144,7 @@ class CartViewController: UIViewController {
                 return
             }
             self?.cart?.updatePO(order)
+            self?.delegate?.cartDidUpdate(order: order)
             self?.gotoPaymentMethod()
         }.request()
     }
@@ -177,6 +184,7 @@ class CartViewController: UIViewController {
                 return
             }
             self?.cart?.updatePO(order)
+            self?.delegate?.cartDidUpdate(order: order)
             self?.gotoPaymentMethod()
         }.request()
     }
@@ -188,6 +196,7 @@ class CartViewController: UIViewController {
         }
         
         let paymentMethodViewController = PaymentMethodViewController.initializeInstance(cart: cart)
+        paymentMethodViewController.delegate = delegate
         self.navigationController?.pushViewController(paymentMethodViewController, animated: true)
         
     }
@@ -333,7 +342,7 @@ extension CartViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        guard case .item = Section(rawValue: section), cart?.items.isEmpty == false else {
+        guard case .item = Section(rawValue: section), cart?.items.isEmpty == false || !currentCart else {
             return 0
         }
         
@@ -343,7 +352,7 @@ extension CartViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        guard case .item = Section(rawValue: section), cart?.items.isEmpty == false else {
+        guard case .item = Section(rawValue: section), cart?.items.isEmpty == false || !currentCart else {
             return nil
         }
         
