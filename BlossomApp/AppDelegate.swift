@@ -8,8 +8,10 @@
 import UIKit
 import Firebase
 import ConnectyCube
+import ConnectyCubeCalls
 import FBSDKCoreKit
 import CommonKeyboard
+import PushKit
 import UserNotifications
 
 enum Deeplinking {
@@ -19,8 +21,13 @@ enum Deeplinking {
 }
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, PKPushRegistryDelegate, UNUserNotificationCenterDelegate, CallClientDelegate {
    
+    
+    func didReceiveNewSession(_ session: CallSession, userInfo: [String : String]? = nil) {
+        print("xxxxx")
+    }
+    
     var deeplinking: Deeplinking?
     var window: UIWindow?
 
@@ -36,11 +43,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         Settings.authKey = "88p8mWQ9NMcx4SL"
         Settings.authSecret = "XPnwQ5uR5FFJAXj"
         Settings.accountKey = "sdfhdfy2329763buiyi"
-        //Settings.autoReconnectEnabled = true
-        
+        Settings.autoReconnectEnabled = true
+    
         configUI()
         CommonKeyboard.shared.enabled = true
         self.registerForPushNotifications()
+        self.voipRegistration()
+        
+        CallClient.initializeRTC()
+        CallClient.instance().add(self)
+        
+        CallConfig.setAnswerTimeInterval(5)
+        
+        
         
         //Messaging.messaging().delegate = self
         
@@ -58,6 +73,48 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
     
+    func voipRegistration() {
+        
+        let mainQueue = DispatchQueue.main
+        let voipRegistry: PKPushRegistry = PKPushRegistry(queue: mainQueue)
+        voipRegistry.delegate = self
+        voipRegistry.desiredPushTypes = [PKPushType.voIP]
+        
+         // Create a push registry object
+     }
+    
+    
+    
+    // Handle updated push credentials
+
+    func pushRegistry(_ registry: PKPushRegistry, didUpdate pushCredentials: PKPushCredentials, for type: PKPushType) {
+        
+        print(pushCredentials.token)
+        let deviceToken = pushCredentials.token.map { String(format: "%02x", $0) }.joined()
+        print("pushRegistry -> deviceToken :\(deviceToken)")
+        let deviceIdentifier: String = UIDevice.current.identifierForVendor!.uuidString
+
+        let subscription: Subscription! = Subscription()
+        subscription.notificationChannel = NotificationChannel.APNSVOIP
+        subscription.deviceUDID = deviceIdentifier
+        subscription.deviceToken = pushCredentials.token
+
+        Request.createSubscription(subscription, successBlock: { (subscriptions) in
+            print(subscriptions)
+        }) { (error) in
+            print(error)
+        }
+    }
+    
+    // MARK: - PKPushRegistryDelegate protocol
+
+       func pushRegistry(_ registry: PKPushRegistry, didInvalidatePushTokenFor type: PKPushType) {
+           print("pushRegistry:didInvalidatePushTokenForType:")
+       }
+    // Handle incoming pushes
+    func pushRegistry(_ registry: PKPushRegistry, didReceiveIncomingPushWith payload: PKPushPayload, for type: PKPushType) {
+        print("didReceiveIncomingPushWithPayload")
+    }
     
     
     
@@ -172,9 +229,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         Chat.instance.disconnect { (error) in
         }
     }
-
+    
     func applicationWillEnterForeground(_ application: UIApplication) {
-       
+         
     }
 }
 

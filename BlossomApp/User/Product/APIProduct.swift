@@ -20,7 +20,8 @@ enum APIProduct {
     case updateOrderNote(orderID: Int, note: String, completion: (UpdateOrderResponse?)->Swift.Void)
     case getChargeCreditCard(chargeID: String, completion: (OmisePaymentResponse?)->Swift.Void)
     case updateOrderPayment(orderID: Int, completion: (Bool)->Swift.Void)
-
+    case getOrder(term:String, completion: (OrderResponse?)->Swift.Void)
+    
     func endpoint() -> String {
         switch self {
         case .list:
@@ -35,6 +36,8 @@ enum APIProduct {
             return "https://api.omise.co/charges/\(chargeID)"
         case .updateOrderPayment(let orderID,_):
             return "https://www.shipnity.pro/api/v2/orders/\(orderID)/payment"
+        case .getOrder(let phoneNumber):
+            return "https://www.shipnity.pro/api/v2/orders?terms=\(phoneNumber)"
         }
     }
     
@@ -119,7 +122,23 @@ enum APIProduct {
                 .responseJSON(completionHandler: { result in
                     completion(result.data != nil)
                 })
+            
+        case let .getOrder(phoneNumber, completion):
+           
+            debugPrint("\(endpoint()), \(phoneNumber)")
+            AF.request(endpoint(), method: .get, headers: headers)
+                .validate()
+                .responseDecodable(of: OrderResponse.self) { (response) in
+                    guard let orderResponse = response.value else {
+                        completion(nil)
+                        return
+                    }
+                    completion(orderResponse)
+                }
         }
+        
+        
+        
         
     }
     

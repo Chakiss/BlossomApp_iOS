@@ -15,6 +15,12 @@ class MedicineListViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        APIProduct.getOrder(term: "0841231234") { response in
+            print(response)
+        }.request()
+    }
 
     /*
     // MARK: - Navigation

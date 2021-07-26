@@ -98,9 +98,17 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
             
             self?.customer = customer
             
-            let cid = UInt(customer.referenceConnectyCubeID ?? "") ?? 0
-            Chat.instance.connect(withUserID: cid, password: customer.id ?? "") { (error) in
+            //4554340 , 4610393
+            let connectyID = UInt(customer.referenceConnectyCubeID! as String)! as UInt
+            Chat.instance.connect(withUserID: connectyID, password: customer.id!) { (error) in
                 print(error)
+                
+                Request.logIn(withUserLogin: customer.email!, password: customer.id!, successBlock: { (user) in
+                    print(user)
+
+                }) { (error) in
+                    print(error)
+                }
             }
             
             self?.getAppointmentData()

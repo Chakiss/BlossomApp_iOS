@@ -91,6 +91,12 @@
 		1BE101E5269DC63200F7323E /* Reviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE101E4269DC63200F7323E /* Reviews.swift */; };
 		1BE101E7269DD2DD00F7323E /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE101E6269DD2DD00F7323E /* Customer.swift */; };
 		1BF479C326A3482900E9BC23 /* PhoneNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF479C226A3482900E9BC23 /* PhoneNumberFormatter.swift */; };
+		1BF58D4126ADBEDE00F2D620 /* OptionsOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF58D3B26ADBEDE00F2D620 /* OptionsOrder.swift */; };
+		1BF58D4226ADBEDE00F2D620 /* Orders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF58D3C26ADBEDE00F2D620 /* Orders.swift */; };
+		1BF58D4326ADBEDE00F2D620 /* CustomerShipnity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF58D3D26ADBEDE00F2D620 /* CustomerShipnity.swift */; };
+		1BF58D4426ADBEDE00F2D620 /* Filters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF58D3E26ADBEDE00F2D620 /* Filters.swift */; };
+		1BF58D4526ADBEDE00F2D620 /* Purchases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF58D3F26ADBEDE00F2D620 /* Purchases.swift */; };
+		1BF58D4626ADBEDE00F2D620 /* OrderResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF58D4026ADBEDE00F2D620 /* OrderResponse.swift */; };
 		3C0BB0C426AD42DF001C58BE /* BlossomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0BB0C326AD42DF001C58BE /* BlossomNavigationController.swift */; };
 		3C65030726AC10D100DAA98A /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C65030626AC10D100DAA98A /* Button.swift */; };
 		3C65030926AC11E900DAA98A /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C65030826AC11E900DAA98A /* UIFont+Extension.swift */; };
@@ -238,6 +244,12 @@
 		1BE101E4269DC63200F7323E /* Reviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reviews.swift; sourceTree = "<group>"; };
 		1BE101E6269DD2DD00F7323E /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
 		1BF479C226A3482900E9BC23 /* PhoneNumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberFormatter.swift; sourceTree = "<group>"; };
+		1BF58D3B26ADBEDE00F2D620 /* OptionsOrder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionsOrder.swift; sourceTree = "<group>"; };
+		1BF58D3C26ADBEDE00F2D620 /* Orders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Orders.swift; sourceTree = "<group>"; };
+		1BF58D3D26ADBEDE00F2D620 /* CustomerShipnity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerShipnity.swift; sourceTree = "<group>"; };
+		1BF58D3E26ADBEDE00F2D620 /* Filters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Filters.swift; sourceTree = "<group>"; };
+		1BF58D3F26ADBEDE00F2D620 /* Purchases.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Purchases.swift; sourceTree = "<group>"; };
+		1BF58D4026ADBEDE00F2D620 /* OrderResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderResponse.swift; sourceTree = "<group>"; };
 		1C0FA879299FB95C0F91AF09 /* Pods-BlossomApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlossomApp.release.xcconfig"; path = "Target Support Files/Pods-BlossomApp/Pods-BlossomApp.release.xcconfig"; sourceTree = "<group>"; };
 		3C0BB0C326AD42DF001C58BE /* BlossomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlossomNavigationController.swift; sourceTree = "<group>"; };
 		3C65030626AC10D100DAA98A /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
@@ -519,6 +531,7 @@
 				1B53125D26937B5F00B88165 /* ProductListViewController.swift */,
 				1B1C2E3D26994FF700F57122 /* ProductDetailViewController.swift */,
 				1B1C2E3B269944C200F57122 /* ProductCell.swift */,
+				1BF58D3A26ADBECB00F2D620 /* OrderResponse */,
 				1B1C2E3A269943AC00F57122 /* ProductResponse */,
 				3CF7B50626AC40B900F937DE /* APIProduct.swift */,
 				3CF7B50B26AC443700F937DE /* JSONEncodingHelper.swift */,
@@ -689,6 +702,20 @@
 			children = (
 			);
 			path = "Doctor-Chat";
+			sourceTree = "<group>";
+		};
+		1BF58D3A26ADBECB00F2D620 /* OrderResponse */ = {
+			isa = PBXGroup;
+			children = (
+				1BF58D3D26ADBEDE00F2D620 /* CustomerShipnity.swift */,
+				1BF58D3E26ADBEDE00F2D620 /* Filters.swift */,
+				1BF58D4026ADBEDE00F2D620 /* OrderResponse.swift */,
+				1BF58D3B26ADBEDE00F2D620 /* OptionsOrder.swift */,
+				1BF58D3C26ADBEDE00F2D620 /* Orders.swift */,
+				1BF58D3F26ADBEDE00F2D620 /* Purchases.swift */,
+			);
+			name = OrderResponse;
+			path = ProductResponse/OrderResponse;
 			sourceTree = "<group>";
 		};
 		3C7D5E49269ADC67002E5AB9 /* Cart */ = {
@@ -1016,6 +1043,7 @@
 				1BC3B21926A1CFA1006EDD29 /* ImagePickerManager.swift in Sources */,
 				1BC3B21C26A2ADA5006EDD29 /* Nonce.swift in Sources */,
 				3C0BB0C426AD42DF001C58BE /* BlossomNavigationController.swift in Sources */,
+				1BF58D4326ADBEDE00F2D620 /* CustomerShipnity.swift in Sources */,
 				1B8D860F26A49A7500A2ED57 /* SenderCell.swift in Sources */,
 				1BCE650E26AC4F3C002EE71F /* VerifyPhoneNumberViewController.swift in Sources */,
 				3C7D5E4E269AE48D002E5AB9 /* CartViewController.swift in Sources */,
@@ -1041,6 +1069,7 @@
 				1BCE64F626A84BA0002EE71F /* MedicineListViewController.swift in Sources */,
 				1BCE650126A9A1D0002EE71F /* LocalVideoView.swift in Sources */,
 				1B13E6E5269ADC0000131105 /* RegisterViewController.swift in Sources */,
+				1BF58D4626ADBEDE00F2D620 /* OrderResponse.swift in Sources */,
 				1B77591A2694775E000780BD /* MultiBannerView.swift in Sources */,
 				1BE101E7269DD2DD00F7323E /* Customer.swift in Sources */,
 				3CF7B50526AC23C200F937DE /* String+Extension.swift in Sources */,
@@ -1051,11 +1080,13 @@
 				1BCE64F426A84B79002EE71F /* HistoryAppointmentViewController.swift in Sources */,
 				1BCE650026A9A1D0002EE71F /* RemoteConnectionView.swift in Sources */,
 				1B8D861426A49C0B00A2ED57 /* MessageingViewController.swift in Sources */,
+				1BF58D4126ADBEDE00F2D620 /* OptionsOrder.swift in Sources */,
 				3C7D5E52269AE888002E5AB9 /* CartHeaderTableViewCell.swift in Sources */,
 				1B187A59268F654300BB0122 /* AppDelegate.swift in Sources */,
 				1BCE650A26ABCE83002EE71F /* ReviewCell.swift in Sources */,
 				3C65030726AC10D100DAA98A /* Button.swift in Sources */,
 				1B7EFC2A26A5E2E800C0F7E1 /* SlotTimeViewController.swift in Sources */,
+				1BF58D4526ADBEDE00F2D620 /* Purchases.swift in Sources */,
 				1B1C2E3E26994FF700F57122 /* ProductDetailViewController.swift in Sources */,
 				1B53125B26937B3400B88165 /* AppointmentListViewController.swift in Sources */,
 				3CF7B50C26AC443700F937DE /* JSONEncodingHelper.swift in Sources */,
@@ -1068,6 +1099,7 @@
 				1B5312522693779C00B88165 /* HomeViewController.swift in Sources */,
 				1BE101E3269D575D00F7323E /* Doctor.swift in Sources */,
 				1B77591C2694775E000780BD /* BannerViewCell.swift in Sources */,
+				1BF58D4426ADBEDE00F2D620 /* Filters.swift in Sources */,
 				3C7D5E56269AF9F5002E5AB9 /* CartItemTableViewCell.swift in Sources */,
 				1B5312642693E66400B88165 /* PromotionViewController.swift in Sources */,
 				3C65030926AC11E900DAA98A /* UIFont+Extension.swift in Sources */,
@@ -1082,6 +1114,7 @@
 				3CFE6374269B350E005235F1 /* PaymentMethodViewController.swift in Sources */,
 				1B531255269378C800B88165 /* UIColor+Extension.swift in Sources */,
 				1B5BC3BA2696086A004206AE /* LandingViewController.swift in Sources */,
+				1BF58D4226ADBEDE00F2D620 /* Orders.swift in Sources */,
 				1B3721D52695AF29006265D3 /* ProfileInformationViewController.swift in Sources */,
 				1B13E6EE269B2F3F00131105 /* ProgressView.swift in Sources */,
 				3CF7B50E26AC456000F937DE /* CreateOrderRequest.swift in Sources */,

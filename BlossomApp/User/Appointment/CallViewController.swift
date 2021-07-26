@@ -43,8 +43,8 @@ class CallViewController: UIViewController, CallClientDelegate {
         let videoFormat = CallVideoFormat()
         videoFormat.frameRate = 30
         videoFormat.pixelFormat = .format420f
-        videoFormat.width = 640
-        videoFormat.height = 480
+        //videoFormat.width = 640
+        //videoFormat.height = 480
         
         // CYBCallCameraCapture class used to capture frames using AVFoundation APIs
         self.videoCapture = CallCameraCapture.init(videoFormat: videoFormat, position: .front)
@@ -56,6 +56,9 @@ class CallViewController: UIViewController, CallClientDelegate {
         self.videoCapture?.startSession()
         
         self.localVideoView.layer.insertSublayer(self.videoCapture!.previewLayer, at: 0)
+        self.videoCapture?.previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
+        self.opponentVideoView.videoGravity = AVLayerVideoGravity.resizeAspectFill.rawValue
+        configureAudio()
         
         session?.startCall(["key":"value"])
         
@@ -108,21 +111,19 @@ class CallViewController: UIViewController, CallClientDelegate {
     
    
     
-//    func configureAudio() {
-//
-//        let audioSession = CallAudioSession.instance()
-//
-//        if (!audioSession.isInitialized) {
-//            audioSession.initialize { (configuration: CallAudioSessionConfiguration) -> () in
-//
-//                configuration.categoryOptions = [configuration.categoryOptions, .allowBluetooth, .allowBluetoothA2DP, .allowAirPlay]
-//
-//                if (self.isVideoCall) {
-//                    //configuration.mode =
-//                }
-//            }
-//        }
-//    }
+    func configureAudio() {
+        
+        let audioSession = CallAudioSession.instance()
+        
+        
+        audioSession.initialize { (configuration: CallAudioSessionConfiguration) -> () in
+            
+            configuration.categoryOptions = [configuration.categoryOptions, .allowBluetooth, .allowBluetoothA2DP, .allowAirPlay]
+            configuration.mode = AVAudioSession.Mode.videoChat.rawValue
+            
+        }
+        audioSession.currentAudioDevice = .speaker
+    }
 //
 //    func configureUI() {
 //        self.endBtn.layer.cornerRadius = self.endBtn.frame.height / 2
