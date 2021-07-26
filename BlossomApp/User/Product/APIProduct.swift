@@ -128,7 +128,7 @@ enum APIProduct {
                 "terms": phoneNumber.replacingOccurrences(of: "+", with: ""),
                 "page": page
             ]
-            debugPrint("\(endpoint()), \(phoneNumber)")
+            debugPrint("\(endpoint()), \(param)")
             AF.request(endpoint(), method: .get, parameters: param, headers: headers)
                 .validate()
                 .responseDecodable(of: OrderResponse.self) { (response) in

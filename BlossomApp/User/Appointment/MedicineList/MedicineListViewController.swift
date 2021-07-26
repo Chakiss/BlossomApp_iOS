@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class MedicineListViewController: UIViewController {
     
@@ -13,6 +14,8 @@ class MedicineListViewController: UIViewController {
     private let refreshControl = UIRefreshControl()
     private var orders: [Order] = []
     private var page: Int = 1
+    private var loading: Bool = false
+    private var hasEnded: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,13 +64,19 @@ class MedicineListViewController: UIViewController {
             return
         }
         
+        guard !loading else {
+            return
+        }
+        
         if !refreshControl.isRefreshing {
             ProgressHUD.show()
         }
         
+        loading = true
         APIProduct.getOrder(term: customerPhone, page: page) { [weak self] response in
             ProgressHUD.dismiss()
             self?.refreshControl.endRefreshing()
+            self?.loading = false
 
             guard let response = response else {
                 return
@@ -75,6 +84,7 @@ class MedicineListViewController: UIViewController {
             
             self?.page += 1
             let newData = response.orders ?? []
+            self?.hasEnded = newData.isEmpty
             self?.orders.append(contentsOf: newData)
             self?.tableView.reloadData()
             
@@ -102,7 +112,8 @@ extension MedicineListViewController: UITableViewDataSource, UITableViewDelegate
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "OrderItemTableViewCell") as? OrderItemTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "OrderItemTableViewCell") as? OrderItemTableViewCell,
+              indexPath.row < orders.count else {
             return UITableViewCell()
         }
         
@@ -120,9 +131,22 @@ extension MedicineListViewController: UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let order = orders[indexPath.row]
-        let viewController = CartViewController.initializeInstance(cart: CartManager.shared.convertOrder(order))
-        self.navigationController?.pushViewController(viewController, animated: true)
-
+        
+        if order.paid == true {
+            
+        } else {
+            let viewController = CartViewController.initializeInstance(cart: CartManager.shared.convertOrder(order))
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }
+        
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        if indexPath.row > orders.count-5 && !hasEnded {
+            getList()
+        }
+        
     }
     
 }
