@@ -134,19 +134,41 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
             ]
             let data = try! JSONSerialization.data(withJSONObject: payload, options: .prettyPrinted)
             let message = String(data: data, encoding: String.Encoding.utf8)
-            
+//
+//            let event = Event()
+//            event.notificationType = .push
+//            event.usersIDs = opponentIDs
+//            event.type = .oneShot
+//            event.message = message
+//
+//            Request.createEvent(event, successBlock: { (event) in
+//                NSLog("Send voip push - Success")
+//            }) { (error) in
+//                NSLog("Send voip push - Error")
+//            }
+//
             let event = Event()
             event.notificationType = .push
             event.usersIDs = opponentIDs
             event.type = .oneShot
-            event.message = message
             
-            Request.createEvent(event, successBlock: { (event) in
-                NSLog("Send voip push - Success")
-            }) { (error) in
-                NSLog("Send voip push - Error")
+            var pushmessage =  "xxxxxx is calling you."
+            var pushParameters = [String : String]()
+            pushParameters["message"] = pushmessage
+
+            if let jsonData = try? JSONSerialization.data(withJSONObject: pushParameters,
+                                                        options: .prettyPrinted) {
+              let jsonString = String(bytes: jsonData,
+                                      encoding: String.Encoding.utf8)
+
+              event.message = jsonString
+
+              Request.createEvent(event, successBlock: {(events) in
+                
+              }, errorBlock: {(error) in
+
+              })
             }
-            
 //            session.startCall(["key":"value"])
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let viewController = storyboard.instantiateViewController(withIdentifier: "CallViewController") as! CallViewController

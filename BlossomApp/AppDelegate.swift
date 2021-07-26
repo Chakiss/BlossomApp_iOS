@@ -221,13 +221,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PKPushRegistryDelegate, U
 
 
     func applicationWillTerminate(_ application: UIApplication) {
-        Chat.instance.disconnect { (error) in
-        }
+        //Chat.instance.disconnect { (error) in
+       // }
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
-        Chat.instance.disconnect { (error) in
-        }
+        //Chat.instance.disconnect { (error) in
+        //}
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {

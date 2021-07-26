@@ -43,8 +43,8 @@ class CallViewController: UIViewController, CallClientDelegate {
         let videoFormat = CallVideoFormat()
         videoFormat.frameRate = 30
         videoFormat.pixelFormat = .format420f
-        //videoFormat.width = 640
-        //videoFormat.height = 480
+        videoFormat.width = 640
+        videoFormat.height = 480
         
         // CYBCallCameraCapture class used to capture frames using AVFoundation APIs
         self.videoCapture = CallCameraCapture.init(videoFormat: videoFormat, position: .front)
@@ -54,13 +54,13 @@ class CallViewController: UIViewController, CallClientDelegate {
         
         self.videoCapture?.previewLayer.frame = self.localVideoView.bounds
         self.videoCapture?.startSession()
-        
         self.localVideoView.layer.insertSublayer(self.videoCapture!.previewLayer, at: 0)
         self.videoCapture?.previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
         self.opponentVideoView.videoGravity = AVLayerVideoGravity.resizeAspectFill.rawValue
-        configureAudio()
         
         session?.startCall(["key":"value"])
+        
+        configureAudio()
         
         assert(callUUID != nil, "uuid must always be generated whenever callkit is in use")
         CallKitAdapter.shared.updateCall(with: callUUID, connectingAt: Date())
@@ -101,7 +101,13 @@ class CallViewController: UIViewController, CallClientDelegate {
         self.camBtn.clipsToBounds = true
         self.camBtn.setImage(UIImage(named: "ic_camera_front"), for: .selected)
         
-        self.soundBtn.isHidden = true
+        self.soundBtn.layer.cornerRadius = self.soundBtn.frame.height / 2
+        self.soundBtn.clipsToBounds = true
+        self.soundBtn.setImage(UIImage(named: "ic_volume_high_white"), for: .selected)
+        if (session!.conferenceType == .audio) {
+            self.soundBtn.isSelected = true
+        }
+        self.soundBtn.isHidden = false
         
         self.micBtn.layer.cornerRadius = self.micBtn.frame.height / 2
         self.micBtn.clipsToBounds = true
@@ -122,7 +128,7 @@ class CallViewController: UIViewController, CallClientDelegate {
             configuration.mode = AVAudioSession.Mode.videoChat.rawValue
             
         }
-        audioSession.currentAudioDevice = .speaker
+        audioSession
     }
 //
 //    func configureUI() {
