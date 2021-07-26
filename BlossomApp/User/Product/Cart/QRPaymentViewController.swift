@@ -7,11 +7,17 @@
 
 import UIKit
 
+protocol QRPaymentViewControllerDelegate: AnyObject {
+    func qrPaymentNext()
+}
+
 class QRPaymentViewController: UIViewController {
 
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var nextButton: UIButton!
 
+    weak var delegate: QRPaymentViewControllerDelegate?
+    
     private var cart: Cart?
     private var qr: String = ""
 
@@ -38,6 +44,12 @@ class QRPaymentViewController: UIViewController {
     }
 
     @IBAction func nextAction(_ sender: Any) {
+        checkPaymentSuccess()
+    }
+    
+    private func checkPaymentSuccess() {
+        //if success
+        delegate?.qrPaymentNext()
     }
     
     /*

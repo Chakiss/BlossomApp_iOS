@@ -21,6 +21,7 @@ class PaymentMethodViewController: UIViewController {
     static func initializeInstance(cart: Cart) -> PaymentMethodViewController {
         let controller: PaymentMethodViewController = PaymentMethodViewController(nibName: "PaymentMethodViewController", bundle: Bundle.main)
         controller.cart = cart
+        controller.hidesBottomBarWhenPushed = true
         return controller
     }
     
@@ -87,6 +88,7 @@ class PaymentMethodViewController: UIViewController {
             
             if let cart = self?.cart {
                 let qrView = QRPaymentViewController.initializeInstance(cart: cart, qr: qr.replacingOccurrences(of: "data:image/png;base64,", with: ""))
+                qrView.delegate = self
                 self?.navigationController?.pushViewController(qrView, animated: true)
             }
         }
@@ -285,3 +287,10 @@ extension CreditCardInputViewController : CreditCardFormViewControllerDelegate {
     
 }
 
+extension PaymentMethodViewController: QRPaymentViewControllerDelegate {
+    
+    func qrPaymentNext() {
+        gotoOrderList()
+    }
+    
+}
