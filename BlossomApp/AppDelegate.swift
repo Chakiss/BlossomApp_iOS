@@ -22,11 +22,8 @@ enum Deeplinking {
 }
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate, PKPushRegistryDelegate, UNUserNotificationCenterDelegate, CallClientDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, CallClientDelegate {
    
-    
-    
-    
     var deeplinking: Deeplinking?
     var window: UIWindow?
 
@@ -37,14 +34,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PKPushRegistryDelegate, U
         let center  = UNUserNotificationCenter.current()
         center.delegate = self
         // set the type as sound or badge
-        center.requestAuthorization(options: [.sound,.alert,.badge,  .providesAppNotificationSettings]) { (granted, error) in
+        center.requestAuthorization(options: [.sound, .alert, .badge]) { [weak self] (granted, error) in
             // Enable or disable features based on authorization
-            
+            if granted {
+                self?.getNotificationSettings()
+            }
         }
         application.registerForRemoteNotifications()
         
-        
-        UIApplication.shared.registerForRemoteNotifications()
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         
         FirebaseApp.configure()
@@ -57,67 +54,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PKPushRegistryDelegate, U
     
         configUI()
         CommonKeyboard.shared.enabled = true
-    
-        self.voipRegistration()
-        
+            
         CallClient.initializeRTC()
         CallClient.instance().add(self)
         
         CallConfig.setAnswerTimeInterval(5)
-        
-        
-        
         //Messaging.messaging().delegate = self
         
         return true
         
     }
     
-  
-    func voipRegistration() {
-        
-        let mainQueue = DispatchQueue.main
-        let voipRegistry: PKPushRegistry = PKPushRegistry(queue: mainQueue)
-        voipRegistry.delegate = self
-        voipRegistry.desiredPushTypes = [PKPushType.voIP]
-        
-         // Create a push registry object
-     }
-    
-    
-    
-    // Handle updated push credentials
-
-    func pushRegistry(_ registry: PKPushRegistry, didUpdate pushCredentials: PKPushCredentials, for type: PKPushType) {
-        
-        print(pushCredentials.token)
-        let deviceToken = pushCredentials.token.map { String(format: "%02x", $0) }.joined()
-        print("pushRegistry -> deviceToken :\(deviceToken)")
-        let deviceIdentifier: String = UIDevice.current.identifierForVendor!.uuidString
-
-        let subscription: Subscription! = Subscription()
-        subscription.notificationChannel = NotificationChannel.APNSVOIP
-        subscription.deviceUDID = deviceIdentifier
-        subscription.deviceToken = pushCredentials.token
-
-        Request.createSubscription(subscription, successBlock: { (subscriptions) in
-            print(subscriptions)
-        }) { (error) in
-            print(error)
+    func getNotificationSettings() {
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            print("Notification settings: \(settings)")
+            guard settings.authorizationStatus == .authorized else { return }
+            DispatchQueue.main.async {
+                UIApplication.shared.registerForRemoteNotifications()
+            }            
         }
     }
-    
-    // MARK: - PKPushRegistryDelegate protocol
-    
-    func pushRegistry(_ registry: PKPushRegistry, didInvalidatePushTokenFor type: PKPushType) {
-        print("pushRegistry:didInvalidatePushTokenForType:")
-    }
-    // Handle incoming pushes
-    func pushRegistry(_ registry: PKPushRegistry, didReceiveIncomingPushWith payload: PKPushPayload, for type: PKPushType) {
-        print("didReceiveIncomingPushWithPayload")
-    }
-    
-    
     
     func application( _ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:] ) -> Bool {
         
@@ -131,11 +87,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PKPushRegistryDelegate, U
     }
     
     func application( _ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data ) {
-        let subcription = Subscription()
-        subcription.notificationChannel = .APNS
-        subcription.deviceToken = deviceToken
-        subcription.deviceUDID = UIDevice.current.identifierForVendor?.uuidString
-        Request.createSubscription(subcription, successBlock: nil)
+        let pushCredentials = deviceToken.map { String(format: "%02x", $0) }.joined()
+        print("didRegisterForRemoteNotificationsWithDeviceToken -> deviceToken :\(pushCredentials)")
+        CustomerManager.sharedInstance.saveDeviceToken(deviceToken)
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {

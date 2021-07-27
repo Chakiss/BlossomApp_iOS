@@ -17,10 +17,8 @@ class CustomerManager: NSObject, PKPushRegistryDelegate {
     private weak var user = Auth.auth().currentUser
     private weak var db = Firestore.firestore()
     
-    private(set) var customer: Customer? = nil//{
-        //get { counter += 1; return data; }
-        //set { _data = customer; }
-    //}
+    private(set) var customer: Customer? = nil
+    private var deviceToken: Data?
 
     private override init() { }
      
@@ -102,23 +100,40 @@ class CustomerManager: NSObject, PKPushRegistryDelegate {
         }
     }
     
-    func voipRegistration() {
+    func saveDeviceToken(_ deviceToken: Data) {
+        self.deviceToken = deviceToken
+    }
+    
+    private func voipRegistration() {
         
         let cid = CustomerManager.sharedInstance.customer?.email ?? ""
-        Request.logIn(withUserLogin: cid, password: CustomerManager.sharedInstance.customer?.id ?? "", successBlock: { (user) in
+        Request.logIn(withUserLogin: cid, password: CustomerManager.sharedInstance.customer?.id ?? "", successBlock: { [weak self] (user) in
             print(user)
             
             let mainQueue = DispatchQueue.main
             let voipRegistry: PKPushRegistry = PKPushRegistry(queue: mainQueue)
             voipRegistry.delegate = self
             voipRegistry.desiredPushTypes = [PKPushType.voIP]
-
+            self?.createSubscription()
+            
         }) { (error) in
             print(error)
         }
         
-         // Create a push registry object
      }
+    
+    private func createSubscription() {
+        let subcription = Subscription()
+        subcription.notificationChannel = .APNS
+        subcription.deviceToken = deviceToken
+        subcription.deviceUDID = UIDevice.current.identifierForVendor?.uuidString
+        Request.createSubscription(subcription, successBlock: { (subscriptions) in
+            debugPrint("createSubscription APNS \(subscriptions)")
+        }) { (error) in
+            debugPrint("createSubscription APNS error \(error)")
+        }
+
+    }
         
     // Handle updated push credentials
 
