@@ -7,8 +7,6 @@
 
 import UIKit
 import Firebase
-import ConnectyCube
-import ConnectyCubeCalls
 import FBSDKCoreKit
 import CommonKeyboard
 import PushKit
@@ -22,7 +20,7 @@ enum Deeplinking {
 }
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, CallClientDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
    
     var deeplinking: Deeplinking?
     var window: UIWindow?
@@ -46,20 +44,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         FirebaseApp.configure()
        
-        Settings.applicationID = 4655
-        Settings.authKey = "88p8mWQ9NMcx4SL"
-        Settings.authSecret = "XPnwQ5uR5FFJAXj"
-        Settings.accountKey = "sdfhdfy2329763buiyi"
-        Settings.autoReconnectEnabled = true
     
         configUI()
         CommonKeyboard.shared.enabled = true
             
-        CallClient.initializeRTC()
-        CallClient.instance().add(self)
-        
-        CallConfig.setAnswerTimeInterval(5)
-        //Messaging.messaging().delegate = self
+        CallManager.manager.setupCallManager()
         
         return true
         

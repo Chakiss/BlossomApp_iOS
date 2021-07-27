@@ -11,7 +11,7 @@ import PushKit
 import ConnectyCube
 import Firebase
 
-class CustomerManager: NSObject, PKPushRegistryDelegate {
+class CustomerManager: NSObject {
     
     static let sharedInstance = CustomerManager()
     private weak var storage = Storage.storage()
@@ -107,7 +107,7 @@ class CustomerManager: NSObject, PKPushRegistryDelegate {
             }
             
             self.customer = customer
-            self.voipRegistration()
+            self.loginConnectyCube()
             completion()
         }
     }
@@ -117,23 +117,16 @@ class CustomerManager: NSObject, PKPushRegistryDelegate {
         Messaging.messaging().apnsToken = deviceToken
     }
     
-    private func voipRegistration() {
-        
+    private func loginConnectyCube() {
         let cid = CustomerManager.sharedInstance.customer?.email ?? ""
         Request.logIn(withUserLogin: cid, password: CustomerManager.sharedInstance.customer?.id ?? "", successBlock: { [weak self] (user) in
             print(user)
-            
-            let mainQueue = DispatchQueue.main
-            let voipRegistry: PKPushRegistry = PKPushRegistry(queue: mainQueue)
-            voipRegistry.delegate = self
-            voipRegistry.desiredPushTypes = [PKPushType.voIP]
             self?.createSubscription()
-            
+            CallManager.manager.voipRegistration()
         }) { (error) in
             print(error)
         }
-        
-     }
+    }
     
     private func createSubscription() {
         let subcription = Subscription()
@@ -147,37 +140,7 @@ class CustomerManager: NSObject, PKPushRegistryDelegate {
         }
 
     }
-        
-    // Handle updated push credentials
 
-    func pushRegistry(_ registry: PKPushRegistry, didUpdate pushCredentials: PKPushCredentials, for type: PKPushType) {
-        
-        print(pushCredentials.token)
-        let deviceToken = pushCredentials.token.map { String(format: "%02x", $0) }.joined()
-        print("pushRegistry -> deviceToken :\(deviceToken)")
-        let deviceIdentifier: String = UIDevice.current.identifierForVendor!.uuidString
-
-        let subscription: Subscription! = Subscription()
-        subscription.notificationChannel = NotificationChannel.APNSVOIP
-        subscription.deviceUDID = deviceIdentifier
-        subscription.deviceToken = pushCredentials.token
-
-        Request.createSubscription(subscription, successBlock: { (subscriptions) in
-            print(subscriptions)
-        }) { (error) in
-            print(error)
-        }
-    }
-    
-    // MARK: - PKPushRegistryDelegate protocol
-
-       func pushRegistry(_ registry: PKPushRegistry, didInvalidatePushTokenFor type: PKPushType) {
-           print("pushRegistry:didInvalidatePushTokenForType:")
-       }
-    // Handle incoming pushes
-    func pushRegistry(_ registry: PKPushRegistry, didReceiveIncomingPushWith payload: PKPushPayload, for type: PKPushType) {
-        print("didReceiveIncomingPushWithPayload")
-    }
 }
 
 extension CustomerManager: MessagingDelegate {

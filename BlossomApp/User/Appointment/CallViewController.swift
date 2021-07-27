@@ -21,81 +21,59 @@ class CallViewController: UIViewController, CallClientDelegate {
     @IBOutlet weak var camBtn: UIButton!
     @IBOutlet weak var soundBtn: UIButton!
     @IBOutlet weak var stackView: UIStackView!
-    
-    open var callUUID: UUID = UUID()
-    
+        
     @IBOutlet weak var localVideoView : UIView! // your video view to render local camera video stream
     @IBOutlet weak var opponentVideoView: CallRemoteVideoView!
-    var videoCapture: CallCameraCapture?
-    var session: CallSession?
+
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // controller is highly dependent on existing session
-        assert(session != nil, "Attempt to instatiate call controller without correct session")
         
         configureUI()
         
-        CallClient.instance().add(self)
         
-        let videoFormat = CallVideoFormat()
-        videoFormat.frameRate = 30
-        videoFormat.pixelFormat = .format420f
-        videoFormat.width = 640
-        videoFormat.height = 480
-        
-        // CYBCallCameraCapture class used to capture frames using AVFoundation APIs
-        self.videoCapture = CallCameraCapture.init(videoFormat: videoFormat, position: .front)
-        
-        // add video capture to session's local media stream
-        self.session?.localMediaStream.videoTrack.videoCapture = self.videoCapture
-        
-        self.videoCapture?.previewLayer.frame = self.localVideoView.bounds
-        self.videoCapture?.startSession()
-        self.localVideoView.layer.insertSublayer(self.videoCapture!.previewLayer, at: 0)
-        self.videoCapture?.previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
+        CallManager.manager.delegate = self
+        CallManager.manager.startCall()
+
+        if let videoCapture = CallManager.manager.videoCapture {
+            videoCapture.previewLayer.frame = self.localVideoView.bounds
+            self.localVideoView.layer.insertSublayer(videoCapture.previewLayer, at: 0)
+            videoCapture.previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
+        }
         self.opponentVideoView.videoGravity = AVLayerVideoGravity.resizeAspectFill.rawValue
-        
-        session?.startCall(["key":"value"])
         
         configureAudio()
         
-        assert(callUUID != nil, "uuid must always be generated whenever callkit is in use")
-        CallKitAdapter.shared.updateCall(with: callUUID, connectingAt: Date())
-        
-        
-        
-        let event = Event()
-        event.notificationType = .push
-        event.usersIDs = [4554340,4611091 , 4605404]
-        event.type = .oneShot
-        
-        var pushmessage = "message.text!" as String
-        var pushParameters = [String : String]()
-        pushParameters["message"] = pushmessage
-
-        if let jsonData = try? JSONSerialization.data(withJSONObject: pushParameters,
-                                                    options: .prettyPrinted) {
-          let jsonString = String(bytes: jsonData,
-                                  encoding: String.Encoding.utf8)
-
-          event.message = jsonString
-
-          Request.createEvent(event, successBlock: {(events) in
-
-          }, errorBlock: {(error) in
-
-          })
-        }
+//        let event = Event()
+//        event.notificationType = .push
+//        event.usersIDs = [4554340,4611091 , 4605404]
+//        event.type = .oneShot
+//
+//        var pushmessage = "message.text!" as String
+//        var pushParameters = [String : String]()
+//        pushParameters["message"] = pushmessage
+//
+//        if let jsonData = try? JSONSerialization.data(withJSONObject: pushParameters,
+//                                                    options: .prettyPrinted) {
+//          let jsonString = String(bytes: jsonData,
+//                                  encoding: String.Encoding.utf8)
+//
+//          event.message = jsonString
+//
+//          Request.createEvent(event, successBlock: {(events) in
+//
+//          }, errorBlock: {(error) in
+//
+//          })
+//        }
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController!.setNavigationBarHidden(true, animated: true)
-        
        
     }
     
@@ -107,7 +85,7 @@ class CallViewController: UIViewController, CallClientDelegate {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.navigationController!.setNavigationBarHidden(false, animated: true)
+
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -130,7 +108,7 @@ class CallViewController: UIViewController, CallClientDelegate {
         self.soundBtn.layer.cornerRadius = self.soundBtn.frame.height / 2
         self.soundBtn.clipsToBounds = true
         self.soundBtn.setImage(UIImage(named: "ic_volume_high_white"), for: .selected)
-        if (session!.conferenceType == .audio) {
+        if (CallManager.manager.session?.conferenceType == .audio) {
             self.soundBtn.isSelected = true
         }
         self.soundBtn.isHidden = false
@@ -146,8 +124,6 @@ class CallViewController: UIViewController, CallClientDelegate {
     func configureAudio() {
         
         let audioSession = CallAudioSession.instance()
-        
-        
         audioSession.initialize { (configuration: CallAudioSessionConfiguration) -> () in
             
             configuration.categoryOptions = [configuration.categoryOptions, .allowBluetooth, .allowBluetoothA2DP, .allowAirPlay]
@@ -200,13 +176,13 @@ class CallViewController: UIViewController, CallClientDelegate {
     
     @IBAction func didPressCamSwitchButton(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
-        session!.localMediaStream.videoTrack.isEnabled = !sender.isSelected
+        CallManager.manager.session?.localMediaStream.videoTrack.isEnabled = !sender.isSelected
         self.localVideoView?.isHidden = sender.isSelected
     }
     
     @IBAction func didPressMicSwitchButton(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
-        session!.localMediaStream.audioTrack.isEnabled = !sender.isSelected
+        CallManager.manager.session?.localMediaStream.audioTrack.isEnabled = !sender.isSelected
     }
     
     @IBAction func didPressDynamicButton(_ sender: UIButton) {
@@ -218,13 +194,14 @@ class CallViewController: UIViewController, CallClientDelegate {
     
     @IBAction func didPressCameraRotationButton(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
-        self.videoCapture?.position = self.videoCapture?.position == .back ? .front : .back
+        CallManager.manager.videoCapture?.position = CallManager.manager.videoCapture?.position == .back ? .front : .back
     }
     
     @IBAction func didPressEnd(_ sender: UIButton) {
         
-        session!.hangUp(nil)
-        self.navigationController?.popViewController(animated: true)
+        CallManager.manager.session?.hangUp(nil)
+        self.dismiss(animated: true, completion: nil)
+        
     }
     
     @IBAction func didPressScreenShare(_ sender: UIButton) {
@@ -232,80 +209,18 @@ class CallViewController: UIViewController, CallClientDelegate {
 //        self.performSegue(withIdentifier: "ScreenShareViewController", sender: session)
     }
 
-    
-    
-    // MARK: - CallClientDelegate protocol
-    
-    func session(_ session: CallSession, hungUpByUser userID: NSNumber, userInfo: [String : String]? = nil) {
-        
-        if session.id == self.session!.id {
-//            if isVideoCall {
-//                self.removeRemoteView(with: userID.uintValue)
-//            }
-//            if userID == session.initiatorID {
-                self.session!.hangUp(nil)
-//            }
-        }
-    }
-    
-    func session(_ session: CallBaseSession, connectedToUser userID: NSNumber) {
-        
-        if (session as! CallSession).id == self.session!.id {
-            
-            //if isInitiator {
-                CallKitAdapter.shared.updateCall(with: self.callUUID, connectedAt: Date())
-            //}
-        }
-    }
-    
-    func session(_ session: CallBaseSession, disconnectedFromUser userID: NSNumber) {
-        if let s = self.session {
-            sessionDidClose(s)
-        }
-    }
-    
-    func session(_ session: CallBaseSession, receivedRemoteVideoTrack videoTrack: CallVideoTrack, fromUser userID: NSNumber) {
-       // we suppose you have created UIView and set it's class to RemoteVideoView class
-       // also we suggest you to set view mode to UIViewContentModeScaleAspectFit or
-       // UIViewContentModeScaleAspectFill
-       self.opponentVideoView.setVideoTrack(videoTrack)
-    }
-    
-    func session(_ session: CallBaseSession, didChange state: CallConnectionState, forUser userID: NSNumber) {
-//        if (session as! CallSession).id == self.session!.id {
-//            if let i = self.views.index(where: { $0.tag == userID.uintValue }) {
-//                let view = self.views[i] as! RemoteConnectionView
-//                view.connectionState = state
-//            }
-//        }
-    }
-    
-    func sessionDidClose(_ session: CallSession) {
-        
-        if session.id == self.session!.id {
-            
-            CallKitAdapter.shared.endCall(with: self.callUUID)
-            
-            if self.videoCapture != nil {
-                self.videoCapture?.stopSession(nil)
-            }
-            
-            navigationController?.popViewController(animated: true)
-        }
-    }
-    
-    // MARK: - Helpers
-    
-    func resumeVideoCapture() {
-        // ideally you should always stop capture session
-        // when you are leaving controller in any way
-        // here we should get its running state back
-        if self.videoCapture != nil && self.videoCapture?.hasStarted == true {
-            session!.localMediaStream.videoTrack.videoCapture = self.videoCapture
-            self.videoCapture?.startSession(nil)
-        }
-    }
+}
 
+extension CallViewController: CallManagerDelegate {
+    
+    func callManagerDidEndCall() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func callManagerDidReceivedRemoteVideoTrack(videoTrack: CallVideoTrack) {
+        self.opponentVideoView.setVideoTrack(videoTrack)
+    }
+    
 }
 
 extension UIStackView {
