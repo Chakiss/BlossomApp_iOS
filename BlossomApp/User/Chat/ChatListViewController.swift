@@ -84,7 +84,7 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
         cell.titleLabel.text = dialog.name
         cell.setLastMessageText(lastMessageText: dialog.lastMessageText, date: dialog.updatedAt!, unreadMessageCount:dialog.unreadMessagesCount)
         cell.dialog = dialog
-        cell.getImageDoctor()
+        //cell.getImageDoctor()
         return cell
     }
     

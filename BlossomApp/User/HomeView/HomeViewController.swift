@@ -213,6 +213,9 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
     }
     
    
+    @IBAction func openReview() {
+        
+    }
     
     // MARK: - Profile Button Action
     

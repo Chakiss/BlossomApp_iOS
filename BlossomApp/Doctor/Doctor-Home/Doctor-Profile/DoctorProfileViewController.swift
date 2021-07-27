@@ -8,7 +8,7 @@
 import UIKit
 import Firebase
 import FBSDKLoginKit
-
+import ConnectyCube
 
 class DoctorProfileViewController: UIViewController {
 
@@ -195,7 +195,15 @@ class DoctorProfileViewController: UIViewController {
             do {
                 try firebaseAuth.signOut()
                 
-                
+                UIApplication.shared.unregisterForRemoteNotifications()
+
+                // Unregister from server
+                let deviceIdentifier = UIDevice.current.identifierForVendor!.uuidString
+                Request.unregisterSubscription(forUniqueDeviceIdentifier: deviceIdentifier, successBlock: {
+
+                }) { (error) in
+
+                }
                 self.navigationController?.popToRootViewController(animated: true)
                 
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)

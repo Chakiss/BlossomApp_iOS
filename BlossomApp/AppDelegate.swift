@@ -25,9 +25,7 @@ enum Deeplinking {
 class AppDelegate: UIResponder, UIApplicationDelegate, PKPushRegistryDelegate, UNUserNotificationCenterDelegate, CallClientDelegate {
    
     
-    func didReceiveNewSession(_ session: CallSession, userInfo: [String : String]? = nil) {
-        print("xxxxx")
-    }
+    
     
     var deeplinking: Deeplinking?
     var window: UIWindow?
@@ -35,7 +33,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PKPushRegistryDelegate, U
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
        
-        registerForPushNotifications()
+        application.applicationIconBadgeNumber = 0
+        let center  = UNUserNotificationCenter.current()
+        center.delegate = self
+        // set the type as sound or badge
+        center.requestAuthorization(options: [.sound,.alert,.badge,  .providesAppNotificationSettings]) { (granted, error) in
+            // Enable or disable features based on authorization
+            
+        }
+        application.registerForRemoteNotifications()
+        
+        
         UIApplication.shared.registerForRemoteNotifications()
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         
@@ -49,7 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PKPushRegistryDelegate, U
     
         configUI()
         CommonKeyboard.shared.enabled = true
-        self.registerForPushNotifications()
+    
         self.voipRegistration()
         
         CallClient.initializeRTC()
@@ -65,16 +73,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PKPushRegistryDelegate, U
         
     }
     
-    func registerForPushNotifications() {
-      //1
-      UNUserNotificationCenter.current()
-        //2
-        .requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
-          //3
-          print("Permission granted: \(granted)")
-        }
-    }
-    
+  
     func voipRegistration() {
         
         let mainQueue = DispatchQueue.main
@@ -109,10 +108,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PKPushRegistryDelegate, U
     }
     
     // MARK: - PKPushRegistryDelegate protocol
-
-       func pushRegistry(_ registry: PKPushRegistry, didInvalidatePushTokenFor type: PKPushType) {
-           print("pushRegistry:didInvalidatePushTokenForType:")
-       }
+    
+    func pushRegistry(_ registry: PKPushRegistry, didInvalidatePushTokenFor type: PKPushType) {
+        print("pushRegistry:didInvalidatePushTokenForType:")
+    }
     // Handle incoming pushes
     func pushRegistry(_ registry: PKPushRegistry, didReceiveIncomingPushWith payload: PKPushPayload, for type: PKPushType) {
         print("didReceiveIncomingPushWithPayload")
@@ -131,22 +130,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PKPushRegistryDelegate, U
         
     }
     
-    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        
-        let deviceIdentifier: String = UIDevice.current.identifierForVendor!.uuidString
-        let subscription: Subscription! = Subscription()
-        
-        subscription.notificationChannel = NotificationChannel.APNSVOIP
-        subscription.deviceUDID = deviceIdentifier
-        subscription.deviceToken = deviceToken
-
-        Request.createSubscription(subscription, successBlock: { (subscriptions) in
-            print(subscriptions)
-        }) { (error) in
-            print(error)
-        }
+    func application( _ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data ) {
+        let subcription = Subscription()
+        subcription.notificationChannel = .APNS
+        subcription.deviceToken = deviceToken
+        subcription.deviceUDID = UIDevice.current.identifierForVendor?.uuidString
+        Request.createSubscription(subcription, successBlock: nil)
     }
-    
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print("Failed to register for notifications: \(error.localizedDescription)")
@@ -158,6 +148,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PKPushRegistryDelegate, U
 
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Swift.Void) {
         print("userInfo")
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter,  willPresent notification: UNNotification, withCompletionHandler   completionHandler: @escaping (_ options:   UNNotificationPresentationOptions) -> Void) {
+        print("Handle push from foreground")
+        // custom code to handle push while app is in the foreground
+        print("\(notification.request.content.userInfo)")
+     }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        print("Handle push from background or closed")
+        // if you set a member variable in didReceiveRemoteNotification, you  will know if this is from closed or background
+        print("\(response.notification.request.content.userInfo)")
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, openSettingsFor notification: UNNotification?) {
+        print("userNotificationCenter")
     }
     
     func handleDeeplinking() {

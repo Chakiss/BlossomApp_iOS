@@ -382,7 +382,15 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
                 }) { (error) in
                     print(error)
                 }
-                
+                UIApplication.shared.unregisterForRemoteNotifications()
+
+                // Unregister from server
+                let deviceIdentifier = UIDevice.current.identifierForVendor!.uuidString
+                Request.unregisterSubscription(forUniqueDeviceIdentifier: deviceIdentifier, successBlock: {
+
+                }) { (error) in
+
+                }
                 
                 
                 self.navigationController?.popToRootViewController(animated: true)

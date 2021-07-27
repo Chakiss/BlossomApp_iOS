@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import SwiftyUserDefaults
 
 class Doctor_AppointmentViewController: UIViewController {
 
@@ -37,7 +38,10 @@ class Doctor_AppointmentViewController: UIViewController {
         super.viewDidLoad()
 
         setupView()
-        getDoctor()
+        if Defaults[\.role] == "doctor" {
+            getDoctor()
+        }
+        
         // Do any additional setup after loading the view.
     }
     
