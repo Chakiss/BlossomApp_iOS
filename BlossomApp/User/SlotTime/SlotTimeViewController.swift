@@ -8,6 +8,7 @@
 import UIKit
 import Firebase
 import SwiftDate
+import EventKit
 
 class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
@@ -40,6 +41,10 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
         
         salePriceLabel.text = ""
         // Do any additional setup after loading the view.
+        
+       
+        
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -76,8 +81,9 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
                     let isPaid = data["isPaid"]as? Bool ?? false
                     let period = data["period"]as? Int ?? 0
                     let salePrice = data["salePrice"]as? Int ?? 0
-                    let start = data["start"]as? String ?? ""
-                    let end = data["end"]as? String ?? ""
+                    let start = data["start"]as? Timestamp ?? Timestamp()
+                    let end = data["end"]as? Timestamp ?? Timestamp()
+                    
                     return SlotTime(id: id, isBooked: isBooked, isCompleted: isCompleted, isLocked: isLocked, isPaid: isPaid, period: period, salePrice: salePrice, start: start, end: end)
                 })
                 if self.slotTime.count > 0 {
@@ -234,6 +240,31 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
             }
             else {
                 let appointment = result?.data as? [String : String] ?? ["":""]
+                
+                // 1
+                let eventStore = EKEventStore()
+                
+                // 2
+                switch EKEventStore.authorizationStatus(for: .event) {
+                case .authorized:
+                    self.insertEvent(store: eventStore)
+                case .denied:
+                    print("Access denied")
+                case .notDetermined:
+                    // 3
+                    eventStore.requestAccess(to: .event, completion:
+                                                {[weak self] (granted: Bool, error: Error?) -> Void in
+                                                    if granted {
+                                                        self!.insertEvent(store: eventStore)
+                                                    } else {
+                                                        print("Access denied")
+                                                    }
+                                                })
+                default:
+                    print("Case default")
+                }
+                
+                
                 if let appointmentID = appointment["appointmentID"] {
                     
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -250,6 +281,25 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
         }
     }
 
+    func insertEvent(store: EKEventStore) {
+        
+        let messageString = "มีนัดกับ " + ((doctor?.displayName ?? "") as String)
+          let event:EKEvent = EKEvent(eventStore: store)
+          let startDate = Date()
+        
+          event.title = "Blossom App นัดหมาย"
+          event.startDate = self.slotTimeSelected?.start?.dateValue()
+          event.endDate = self.slotTimeSelected?.end?.dateValue()
+          event.notes = messageString
+          event.calendar = store.defaultCalendarForNewEvents
+          do {
+              try store.save(event, span: .thisEvent)
+          } catch let error as NSError {
+          print("failed to save event with error : \(error)")
+          }
+          print("Saved Event")
+    }
+    
 }
 
 extension SlotTimeViewController : UpdateCartViewControllerDelegate {

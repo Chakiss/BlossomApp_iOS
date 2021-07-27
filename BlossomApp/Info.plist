@@ -76,6 +76,8 @@
 	<string>Blossom app wants to access your microphone to contact to doctor.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Blossom app accesses your photo library to upload and display photos.</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Blossom app need to access your calender to add event on it</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>SukhumvitSet-Bold.ttf</string>
@@ -112,8 +114,8 @@
 		<string>fetch</string>
 		<string>remote-notification</string>
 		<string>voip</string>
-        <string>processing</string>
-        <string>remote-notification</string>
+		<string>processing</string>
+		<string>remote-notification</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
@@ -136,7 +138,5 @@
 	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
-    
-    
 </dict>
 </plist>

@@ -17,8 +17,8 @@ class SlotTime: Codable {
     var isPaid: Bool?
     var period: Int?
     var salePrice: Int?
-    var start: String?
-    var end: String?
+    var start: Timestamp?
+    var end: Timestamp?
     
     
     private enum CodingKeys: String, CodingKey {
@@ -29,11 +29,11 @@ class SlotTime: Codable {
         case isPaid
         case period
         case salePrice
-        case start
-        case end
+        //case start
+        //case end
     }
 
-    init(id: String, isBooked: Bool, isCompleted: Bool, isLocked: Bool, isPaid: Bool, period: Int, salePrice: Int,start: String, end: String){
+    init(id: String, isBooked: Bool, isCompleted: Bool, isLocked: Bool, isPaid: Bool, period: Int, salePrice: Int,start: Timestamp, end: Timestamp){
         self.id = id
         self.isBooked = isBooked
         self.isCompleted = isCompleted
@@ -55,8 +55,8 @@ class SlotTime: Codable {
         period = try values.decode(Int.self, forKey: .period)
         salePrice = try values.decode(Int.self, forKey: .salePrice)
         
-        start =  try values.decode(String.self, forKey: .start)
-        end =  try values.decode(String.self, forKey: .end)
+        //start =  try values.decode(Timestamp.self, forKey: .start)
+        //end =  try values.decode(Timestamp.self, forKey: .end)
     }
 }
 
