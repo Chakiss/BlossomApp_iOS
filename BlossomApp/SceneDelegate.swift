@@ -23,25 +23,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             user.getIDTokenResult(completion: { (result, error) in
                 
                 guard let role = result?.claims["role"] as? String else {
+                    appDelegate.setCustomerUI()
                     return
                 }
                 if role == "doctor" {
                     Defaults[\.role] = "doctor"
-                    if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
+                    
                         appDelegate.setDoctorUI()
-                    }
+                    
                 } else {
                     Defaults[\.role] = "customer"
-                    if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
+                    
                         appDelegate.setCustomerUI()
-                    }
+                    
                 }
             })
             
         } else {
-            if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
-                appDelegate.setCustomerUI()
-            }
+            
+            appDelegate.setCustomerUI()
+            
         }
         
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.

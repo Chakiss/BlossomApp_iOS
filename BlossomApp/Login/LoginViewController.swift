@@ -66,7 +66,7 @@ class LoginViewController: UIViewController, ASAuthorizationControllerPresentati
                        appDelegate.setCustomerUI()
                     }
                 }
-                ConnectyCubeManager().login()
+                //ConnectyCubeManager().login()
             })
        
         }
@@ -83,7 +83,7 @@ class LoginViewController: UIViewController, ASAuthorizationControllerPresentati
                 .credential(withAccessToken: AccessToken.current!.tokenString)
             Auth.auth().signIn(with: credential) { authResult, error in
                 
-                CustomerManager.sharedInstance.getCustomer {}
+                //CustomerManager.sharedInstance.getCustomer {}
                 ProgressHUD.dismiss()
                 if error != nil {
                     let alert = UIAlertController(title: "กรุณาตรวจสอบ", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
@@ -93,21 +93,31 @@ class LoginViewController: UIViewController, ASAuthorizationControllerPresentati
                     authResult?.user.getIDTokenResult(completion: { (result, error) in
                         
                         guard let role = result?.claims["role"] as? String else {
-                            self.navigationController?.dismiss(animated: true, completion: nil)
+                            authResult?.user.delete(completion: { error in
+                                let alert = UIAlertController(title: "ไม่พบข้อมูล", message: "กรุณาลงทะเบียนก่อน", preferredStyle: UIAlertController.Style.alert)
+                                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: {_ in
+                                    self.navigationController?.popViewController(animated: true)
+                                }))
+                                self.present(alert, animated: true, completion: nil)
+                                
+                            })
                             return
                         }
-                        if role == "doctor" {
-                            Defaults[\.role] = "doctor"
-                            if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
-                               appDelegate.setDoctorUI()
-                            }
-                        } else {
-                            Defaults[\.role] = "customer"
-                            if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
-                               appDelegate.setCustomerUI()
+                        CustomerManager.sharedInstance.getCustomer {
+                            if role == "doctor" {
+                                Defaults[\.role] = "doctor"
+                                if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
+                                    appDelegate.setDoctorUI()
+                                }
+                            } else if role == "customer" {
+                                Defaults[\.role] = "customer"
+                                if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
+                                    appDelegate.setCustomerUI()
+                                }
+                            } else {
+                                print(role)
                             }
                         }
-                        ConnectyCubeManager().login()
                     })
                     
                 }
@@ -217,9 +227,14 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                     
                     guard let role = result?.claims["role"] as? String else {
                         ProgressHUD.dismiss()
-                        self?.showAlertDialogue(title: "ไม่สามารถเข้าสู่ระบบได้", message: "ไม่พบบัญชี หรือคุณยังไม่ได้ผูกบัญชีเข้ากับ Apple ID") {
-                            self?.navigationController?.dismiss(animated: true, completion: nil)
-                        }
+                        authResult?.user.delete(completion: { error in
+                            let alert = UIAlertController(title: "ไม่สามารถเข้าสู่ระบบได้", message: "ไม่พบบัญชี หรือคุณยังไม่ได้ผูกบัญชีเข้ากับ Apple ID กรุณาลงทะเบียน", preferredStyle: UIAlertController.Style.alert)
+                            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: {_ in
+                                self?.navigationController?.popViewController(animated: true)
+                            }))
+                            self?.present(alert, animated: true, completion: nil)
+                            
+                        })
                         return
                     }
                     
@@ -238,7 +253,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                             }
                         }
                         
-                        ConnectyCubeManager().login()
+                        //ConnectyCubeManager().login()
                         
                     }
 

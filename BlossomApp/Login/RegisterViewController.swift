@@ -116,6 +116,8 @@ class RegisterViewController: UIViewController {
                             
                             authResult?.user.getIDTokenResult(completion: { (result, error) in
                                 
+                                
+                                
                                 let alert = UIAlertController(title: "สำเร็จ ", message: "ลงทะเบียนสำเร็จ ระบบกำลังนำคุณเข้าสู่ระบบ", preferredStyle: UIAlertController.Style.alert)
                                 alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
                                 self.present(alert, animated: true, completion: nil)
@@ -131,11 +133,13 @@ class RegisterViewController: UIViewController {
                                     if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
                                        appDelegate.setDoctorUI()
                                     }
-                                } else {
+                                } else if role == "customer" {
                                     Defaults[\.role] = "customer"
                                     if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
                                        appDelegate.setCustomerUI()
                                     }
+                                } else {
+                                    print(role)
                                 }
                             })
                             
