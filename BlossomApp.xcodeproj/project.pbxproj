@@ -72,6 +72,9 @@
 		1BA04F3F26AE85080053F10D /* Doctor_ChatListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA04F3E26AE85080053F10D /* Doctor_ChatListViewController.swift */; };
 		1BA04F4326AE8CF20053F10D /* Doctor_ComingAppointmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA04F4226AE8CF20053F10D /* Doctor_ComingAppointmentViewController.swift */; };
 		1BA04F4526AEF09F0053F10D /* DefaultKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA04F4426AEF09F0053F10D /* DefaultKey.swift */; };
+		1BA04F4926B0022D0053F10D /* BlossomReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA04F4826B0022D0053F10D /* BlossomReviewViewController.swift */; };
+		1BA04F4B26B03B470053F10D /* BlossomReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA04F4A26B03B470053F10D /* BlossomReview.swift */; };
+		1BA04F4D26B03D760053F10D /* BlossomReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA04F4C26B03D760053F10D /* BlossomReviewCell.swift */; };
 		1BC3B21926A1CFA1006EDD29 /* ImagePickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC3B21826A1CFA1006EDD29 /* ImagePickerManager.swift */; };
 		1BC3B21C26A2ADA5006EDD29 /* Nonce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC3B21B26A2ADA5006EDD29 /* Nonce.swift */; };
 		1BCE64EB26A70964002EE71F /* SlotTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCE64EA26A70964002EE71F /* SlotTime.swift */; };
@@ -232,7 +235,9 @@
 		1BA04F3E26AE85080053F10D /* Doctor_ChatListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doctor_ChatListViewController.swift; sourceTree = "<group>"; };
 		1BA04F4226AE8CF20053F10D /* Doctor_ComingAppointmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doctor_ComingAppointmentViewController.swift; sourceTree = "<group>"; };
 		1BA04F4426AEF09F0053F10D /* DefaultKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultKey.swift; sourceTree = "<group>"; };
-		1BA04F4626AFEBB60053F10D /* BlossomAppRelease.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = BlossomAppRelease.entitlements; sourceTree = "<group>"; };
+		1BA04F4826B0022D0053F10D /* BlossomReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlossomReviewViewController.swift; sourceTree = "<group>"; };
+		1BA04F4A26B03B470053F10D /* BlossomReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlossomReview.swift; sourceTree = "<group>"; };
+		1BA04F4C26B03D760053F10D /* BlossomReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlossomReviewCell.swift; sourceTree = "<group>"; };
 		1BC3B21826A1CFA1006EDD29 /* ImagePickerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerManager.swift; sourceTree = "<group>"; };
 		1BC3B21A26A297C0006EDD29 /* BlossomApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BlossomApp.entitlements; sourceTree = "<group>"; };
 		1BC3B21B26A2ADA5006EDD29 /* Nonce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nonce.swift; sourceTree = "<group>"; };
@@ -371,7 +376,6 @@
 		1B187A57268F654300BB0122 /* BlossomApp */ = {
 			isa = PBXGroup;
 			children = (
-				1BA04F4626AFEBB60053F10D /* BlossomAppRelease.entitlements */,
 				1BC3B21A26A297C0006EDD29 /* BlossomApp.entitlements */,
 				1B187A58268F654300BB0122 /* AppDelegate.swift */,
 				1B187A5A268F654300BB0122 /* SceneDelegate.swift */,
@@ -499,6 +503,7 @@
 				1B7759172694775E000780BD /* BannerViewCell.xib */,
 				1B3721D026959296006265D3 /* ProfileView */,
 				1B5312622693E64E00B88165 /* PromotionView */,
+				1BA04F4726B0020D0053F10D /* Review */,
 			);
 			path = HomeView;
 			sourceTree = "<group>";
@@ -641,6 +646,7 @@
 			isa = PBXGroup;
 			children = (
 				1B775921269491A4000780BD /* Promotion.swift */,
+				1BA04F4A26B03B470053F10D /* BlossomReview.swift */,
 				1BE101E2269D575D00F7323E /* Doctor.swift */,
 				1BE101E4269DC63200F7323E /* Reviews.swift */,
 				1BE101E6269DD2DD00F7323E /* Customer.swift */,
@@ -696,6 +702,15 @@
 				1BA04F4226AE8CF20053F10D /* Doctor_ComingAppointmentViewController.swift */,
 			);
 			path = "Doctor-ComingAppointment";
+			sourceTree = "<group>";
+		};
+		1BA04F4726B0020D0053F10D /* Review */ = {
+			isa = PBXGroup;
+			children = (
+				1BA04F4826B0022D0053F10D /* BlossomReviewViewController.swift */,
+				1BA04F4C26B03D760053F10D /* BlossomReviewCell.swift */,
+			);
+			path = Review;
 			sourceTree = "<group>";
 		};
 		1BCE64EE26A849D1002EE71F /* ComingAppointment */ = {
@@ -1093,6 +1108,7 @@
 				1B27FDC226A5EA11000E8609 /* SlotDateCell.swift in Sources */,
 				1B3721D82695AF46006265D3 /* ProfileHealthViewController.swift in Sources */,
 				1B1C2E3626993C5B00F57122 /* Options.swift in Sources */,
+				1BA04F4B26B03B470053F10D /* BlossomReview.swift in Sources */,
 				1B775922269491A4000780BD /* Promotion.swift in Sources */,
 				1B69AD4D26A402C800910679 /* DoctorHomeViewController.swift in Sources */,
 				1BA04F3F26AE85080053F10D /* Doctor_ChatListViewController.swift in Sources */,
@@ -1134,6 +1150,7 @@
 				1B5312522693779C00B88165 /* HomeViewController.swift in Sources */,
 				1BE101E3269D575D00F7323E /* Doctor.swift in Sources */,
 				1B77591C2694775E000780BD /* BannerViewCell.swift in Sources */,
+				1BA04F4D26B03D760053F10D /* BlossomReviewCell.swift in Sources */,
 				1BF58D4426ADBEDE00F2D620 /* Filters.swift in Sources */,
 				3C7D5E56269AF9F5002E5AB9 /* CartItemTableViewCell.swift in Sources */,
 				1B5312642693E66400B88165 /* PromotionViewController.swift in Sources */,
@@ -1143,6 +1160,7 @@
 				1B53126126937B9400B88165 /* ChatListViewController.swift in Sources */,
 				1B53125E26937B5F00B88165 /* ProductListViewController.swift in Sources */,
 				1B69AD5A26A489CB00910679 /* DailogCell2.swift in Sources */,
+				1BA04F4926B0022D0053F10D /* BlossomReviewViewController.swift in Sources */,
 				1B77591F269479FA000780BD /* UIView+Additions.swift in Sources */,
 				1BCE64F226A84B66002EE71F /* ComingAppointmentViewController.swift in Sources */,
 				1B1C2E2D2698A77A00F57122 /* ProductsResponse.swift in Sources */,
@@ -1261,7 +1279,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1316,7 +1334,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1361,7 +1379,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = BlossomApp/BlossomAppRelease.entitlements;
+				CODE_SIGN_ENTITLEMENTS = BlossomApp/BlossomApp.entitlements;
+				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = "";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 4;

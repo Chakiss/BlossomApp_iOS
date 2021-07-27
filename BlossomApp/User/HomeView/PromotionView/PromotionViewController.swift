@@ -36,6 +36,9 @@ class PromotionViewController: UIViewController {
          
         let url = URL(string: self.promotion.image)
         promotionImageView.kf.setImage(with: url, placeholder: UIImage(named: "placeholderHero"))
+        
+        self.descriptionLabel.text = promotion.description
+        self.termconLabel.text = promotion.termcon
         // Do any additional setup after loading the view.
     }
     

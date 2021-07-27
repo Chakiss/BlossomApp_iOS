@@ -31,6 +31,7 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
     
     var appointments: [Appointment] = []
     
+    var promotions: [Promotion] = []
     
     var handle: AuthStateDidChangeListenerHandle?
     
@@ -46,7 +47,8 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
         let barButton = UIBarButtonItem(customView: button)
         self.navigationItem.leftBarButtonItem = barButton
                 
-
+        
+        getPromotion()
     }
     
     
@@ -54,9 +56,9 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
         super.viewWillAppear(true)
         
         
-        multiBannerView.objects = [Promotion(),Promotion(),Promotion()]
+        
         multiBannerView.delegate = self
-        multiBannerView.reload()
+        
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(appointmentTapped(tapGestureRecognizer:)))
         appointmentView.isUserInteractionEnabled = true
@@ -197,7 +199,28 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
                 
                 
             }
-
+    }
+    
+    func getPromotion() {
+        db.collection("promotion")
+            .getDocuments { snapshot, error in
+                self.promotions =  snapshot?.documents.map { document -> Promotion in
+    
+                    let data = document.data()
+                    let promotion = Promotion()
+                    promotion.description = data["description"] as! String
+                    promotion.image = data["image"] as! String
+                    promotion.termcon = data["termcon"] as! String
+                    promotion.link = data["deeplink"] as! String
+                   
+                    return promotion
+                    
+                } ?? []
+                
+                self.multiBannerView.objects = self.promotions
+                self.multiBannerView.reload()
+            }
+        
         
     }
     // MARK: - Action on Promotion
@@ -205,16 +228,29 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
     func openCampaign(promotion: Promotion) {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let viewController = storyboard.instantiateViewController(withIdentifier: "PreFormViewController") as! PreFormViewController
+        let viewController = storyboard.instantiateViewController(withIdentifier: "PromotionViewController") as! PromotionViewController
+        viewController.promotion = promotion
         viewController.modalPresentationStyle = .fullScreen
+        viewController.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(viewController, animated: true)
+
+        
+        //let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        //let viewController = storyboard.instantiateViewController(withIdentifier: "PreFormViewController") as! PreFormViewController
+        //viewController.modalPresentationStyle = .fullScreen
         //xviewController.hidesBottomBarWhenPushed = true
         //self.navigationController?.pushViewController(viewController, animated: true)
-        self.navigationController?.present(viewController, animated: true, completion: nil)
+        //self.navigationController?.present(viewController, animated: true, completion: nil)
     }
     
    
     @IBAction func openReview() {
-        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let viewController = storyboard.instantiateViewController(withIdentifier: "BlossomReviewViewController") as! BlossomReviewViewController
+        viewController.modalPresentationStyle = .fullScreen
+        viewController.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(viewController, animated: true)
+       
     }
     
     // MARK: - Profile Button Action

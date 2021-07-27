@@ -136,7 +136,7 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
                     
                     let event = Event()
                     event.notificationType = .push
-                    event.usersIDs = self.chatdialog?.occupantIDs
+                    event.usersIDs = [recipientID]
                     event.type = .oneShot
                     
                     var pushmessage = message.text! as String
@@ -156,8 +156,6 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
                             print(error)
                         })
                     }
-                    
-                    
                     
                     
                 }
