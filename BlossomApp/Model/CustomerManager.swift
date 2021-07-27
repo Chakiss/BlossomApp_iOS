@@ -9,6 +9,7 @@ import Foundation
 import Firebase
 import PushKit
 import ConnectyCube
+import Firebase
 
 class CustomerManager: NSObject, PKPushRegistryDelegate {
     
@@ -20,7 +21,18 @@ class CustomerManager: NSObject, PKPushRegistryDelegate {
     private(set) var customer: Customer? = nil
     private var deviceToken: Data?
 
-    private override init() { }
+    private override init() {
+        super.init()
+        Messaging.messaging().delegate = self
+        Messaging.messaging().token { token, error in
+          if let error = error {
+            print("Error fetching FCM registration token: \(error)")
+          } else if let token = token {
+            print("FCM registration token: \(token)")
+
+          }
+        }
+    }
      
      func logout() {
          user = Auth.auth().currentUser
@@ -102,6 +114,7 @@ class CustomerManager: NSObject, PKPushRegistryDelegate {
     
     func saveDeviceToken(_ deviceToken: Data) {
         self.deviceToken = deviceToken
+        Messaging.messaging().apnsToken = deviceToken
     }
     
     private func voipRegistration() {
@@ -165,4 +178,21 @@ class CustomerManager: NSObject, PKPushRegistryDelegate {
     func pushRegistry(_ registry: PKPushRegistry, didReceiveIncomingPushWith payload: PKPushPayload, for type: PKPushType) {
         print("didReceiveIncomingPushWithPayload")
     }
+}
+
+extension CustomerManager: MessagingDelegate {
+    
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+      print("Firebase registration token: \(String(describing: fcmToken))")
+
+      let dataDict: [String: String] = ["token": fcmToken ?? ""]
+      NotificationCenter.default.post(
+        name: Notification.Name("FCMToken"),
+        object: nil,
+        userInfo: dataDict
+      )
+      // TODO: If necessary send token to application server.
+      // Note: This callback is fired at each app startup and whenever a new token is generated.
+    }
+    
 }
