@@ -115,9 +115,7 @@ class RegisterViewController: UIViewController {
                             ProgressHUD.dismiss()
                             
                             authResult?.user.getIDTokenResult(completion: { (result, error) in
-                                
-                                
-                                
+
                                 let alert = UIAlertController(title: "สำเร็จ ", message: "ลงทะเบียนสำเร็จ ระบบกำลังนำคุณเข้าสู่ระบบ", preferredStyle: UIAlertController.Style.alert)
                                 alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
                                 self.present(alert, animated: true, completion: nil)

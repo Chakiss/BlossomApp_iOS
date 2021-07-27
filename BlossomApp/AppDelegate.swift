@@ -159,6 +159,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let customerTabbar = mainStoryboard.instantiateViewController(withIdentifier: "CustomerTabbar")
         self.window!.rootViewController = customerTabbar
+        
     }
 
     func setDoctorUI(){
@@ -166,6 +167,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let mainStoryboard: UIStoryboard = UIStoryboard(name: "Doctor", bundle: nil)
         let customerTabbar = mainStoryboard.instantiateViewController(withIdentifier: "DoctorTabbar")
         self.window!.rootViewController = customerTabbar
+                
     }
     // MARK: UISceneSession Lifecycle
 

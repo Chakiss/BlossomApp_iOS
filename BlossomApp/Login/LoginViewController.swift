@@ -103,21 +103,21 @@ class LoginViewController: UIViewController, ASAuthorizationControllerPresentati
                             })
                             return
                         }
-                        CustomerManager.sharedInstance.getCustomer {
-                            if role == "doctor" {
-                                Defaults[\.role] = "doctor"
-                                if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
-                                    appDelegate.setDoctorUI()
-                                }
-                            } else if role == "customer" {
-                                Defaults[\.role] = "customer"
-                                if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
-                                    appDelegate.setCustomerUI()
-                                }
-                            } else {
-                                print(role)
+                        
+                        if role == "doctor" {
+                            Defaults[\.role] = "doctor"
+                            if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
+                                appDelegate.setDoctorUI()
                             }
+                        } else if role == "customer" {
+                            Defaults[\.role] = "customer"
+                            if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
+                                appDelegate.setCustomerUI()
+                            }
+                        } else {
+                            print(role)
                         }
+
                     })
                     
                 }
@@ -238,25 +238,20 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                         return
                     }
                     
-                    CustomerManager.sharedInstance.getCustomer {
-                        ProgressHUD.dismiss()
+                    ProgressHUD.dismiss()
 
-                        if role == "doctor" {
-                            Defaults[\.role] = "doctor"
-                            if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
-                               appDelegate.setDoctorUI()
-                            }
-                        } else {
-                            Defaults[\.role] = "customer"
-                            if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
-                               appDelegate.setCustomerUI()
-                            }
+                    if role == "doctor" {
+                        Defaults[\.role] = "doctor"
+                        if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
+                           appDelegate.setDoctorUI()
                         }
-                        
-                        //ConnectyCubeManager().login()
-                        
+                    } else {
+                        Defaults[\.role] = "customer"
+                        if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
+                           appDelegate.setCustomerUI()
+                        }
                     }
-
+                    
                 })
             }
       

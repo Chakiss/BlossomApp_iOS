@@ -17,6 +17,8 @@ protocol CallManagerDelegate: AnyObject {
 
 class CallManager: NSObject {
     
+    var deviceToken: Data?
+
     static let manager: CallManager = CallManager()
     private(set) var session: ConnectyCubeCalls.CallSession?
     private var callUUID: UUID?
@@ -91,22 +93,40 @@ class CallManager: NSObject {
         })
         
     }
-
-    func voipRegistration() {
+    
+    func loginConnectyCube(email: String, firebaseID: String, connectyID: UInt) {
+        Request.logIn(withUserLogin: email, password: firebaseID, successBlock: { [weak self] (user) in
+            print(user)
+            self?.createSubscription()
+            self?.voipRegistration(connectyID: connectyID, firebaseID: firebaseID)
+        }) { (error) in
+            print(error)
+        }
+    }
+    
+    private func voipRegistration(connectyID: UInt, firebaseID: String) {
         let mainQueue = DispatchQueue.main
         let voipRegistry: PKPushRegistry = PKPushRegistry(queue: mainQueue)
         voipRegistry.delegate = self
         voipRegistry.desiredPushTypes = [PKPushType.voIP]
-        
-        //4554340 , 4610393
-        if let customer = CustomerManager.sharedInstance.customer {
-            let connectyID = UInt(customer.referenceConnectyCubeID! as String)! as UInt
-            Chat.instance.connect(withUserID: connectyID, password: customer.id!) { (error) in
-                print(error)
-            }
+
+        Chat.instance.connect(withUserID: connectyID, password: firebaseID) { (error) in
+            print(error)
         }
-     }
-        
+    }
+    
+    private func createSubscription() {
+        let subcription = Subscription()
+        subcription.notificationChannel = .APNS
+        subcription.deviceToken = deviceToken
+        subcription.deviceUDID = UIDevice.current.identifierForVendor?.uuidString
+        Request.createSubscription(subcription, successBlock: { (subscriptions) in
+            debugPrint("createSubscription APNS \(subscriptions)")
+        }) { (error) in
+            debugPrint("createSubscription APNS error \(error)")
+        }
+
+    }
 }
 
 extension CallManager : PKPushRegistryDelegate {

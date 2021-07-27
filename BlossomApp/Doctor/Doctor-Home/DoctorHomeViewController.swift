@@ -64,19 +64,7 @@ class DoctorHomeViewController: UIViewController {
                 return Doctor(id: id, displayName: displayName, email: email, firstName: firstName, lastName: lastName, phonenumber: phoneNumber, connectyCubeID: referenceConnectyCubeID , story: story, createdAt: createdAt, updatedAt: updatedAt, displayPhoto: displayPhoto,currentScore: currentScore,documentReference: reference!)
             })
             
-            
-            let connectyID = self.doctor?.referenceConnectyCubeID
-            Chat.instance.connect(withUserID: connectyID ?? 0, password: self.doctor?.id! ?? "") { (error) in
-                print(error)
-                
-                Request.logIn(withUserLogin: self.doctor?.email! ?? "", password: self.doctor?.id! ?? "", successBlock: { (user) in
-                    print(user)
-
-                }) { (error) in
-                    print(error)
-                }
-            }
-            
+            CallManager.manager.loginConnectyCube(email: self.doctor?.email ?? "", firebaseID: self.doctor?.id ?? "", connectyID: self.doctor?.referenceConnectyCubeID ?? 0)            
             self.displayInformation()
         }
     }

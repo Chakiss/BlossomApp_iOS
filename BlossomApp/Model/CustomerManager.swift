@@ -19,7 +19,6 @@ class CustomerManager: NSObject {
     private weak var db = Firestore.firestore()
     
     private(set) var customer: Customer? = nil
-    private var deviceToken: Data?
 
     private override init() {
         super.init()
@@ -107,38 +106,14 @@ class CustomerManager: NSObject {
             }
             
             self.customer = customer
-            self.loginConnectyCube()
+            CallManager.manager.loginConnectyCube(email: customer!.email ?? "", firebaseID: customer!.id ?? "", connectyID: UInt(customer?.referenceConnectyCubeID ?? "") ?? 0)
             completion()
         }
     }
     
     func saveDeviceToken(_ deviceToken: Data) {
-        self.deviceToken = deviceToken
+        CallManager.manager.deviceToken = deviceToken
         Messaging.messaging().apnsToken = deviceToken
-    }
-    
-    private func loginConnectyCube() {
-        let cid = CustomerManager.sharedInstance.customer?.email ?? ""
-        Request.logIn(withUserLogin: cid, password: CustomerManager.sharedInstance.customer?.id ?? "", successBlock: { [weak self] (user) in
-            print(user)
-            self?.createSubscription()
-            CallManager.manager.voipRegistration()
-        }) { (error) in
-            print(error)
-        }
-    }
-    
-    private func createSubscription() {
-        let subcription = Subscription()
-        subcription.notificationChannel = .APNS
-        subcription.deviceToken = deviceToken
-        subcription.deviceUDID = UIDevice.current.identifierForVendor?.uuidString
-        Request.createSubscription(subcription, successBlock: { (subscriptions) in
-            debugPrint("createSubscription APNS \(subscriptions)")
-        }) { (error) in
-            debugPrint("createSubscription APNS error \(error)")
-        }
-
     }
 
 }
