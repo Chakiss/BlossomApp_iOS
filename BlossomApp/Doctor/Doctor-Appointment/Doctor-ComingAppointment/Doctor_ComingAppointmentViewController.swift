@@ -46,23 +46,67 @@ class Doctor_ComingAppointmentViewController: UIViewController, UITableViewDataS
          return cell
      }
 
+    func attemptCall(with type: CallConferenceType, appointment: Appointment) {
+        
+        let opponentIDs: [NSNumber] = [ 4611091]
+        CallManager.manager.createSession(with: type, opponentIDs: opponentIDs)
+
+        let name =  "คุณหมอ " + (doctor?.firstName ?? "")
+        let pushmessage =  "\(name) is calling you."
+
+        let event = Event()
+        event.notificationType = .push
+        event.usersIDs = opponentIDs
+        event.type = .oneShot
+        
+        var pushParameters = [String : String]()
+        pushParameters["message"] = pushmessage
+
+        if let jsonData = try? JSONSerialization.data(withJSONObject: pushParameters,
+                                                    options: .prettyPrinted) {
+          let jsonString = String(bytes: jsonData,
+                                  encoding: String.Encoding.utf8)
+
+          event.message = jsonString
+
+          Request.createEvent(event, successBlock: {(events) in
+            
+          }, errorBlock: {(error) in
+
+          })
+        }
+
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let viewController = storyboard.instantiateViewController(withIdentifier: "CallViewController") as! CallViewController
+        viewController.callInfo = CallKitAdapter.UserInfo(
+            callerName: name,
+            doctorDocID: appointment.doctorReference?.documentID ?? "",
+            customerDocID: appointment.customerReference?.documentID ?? "",
+            startTimestamp: appointment.sessionStart?.seconds ?? 0,
+            endTimestamp: appointment.sessionEnd?.seconds ?? 0
+        )
+        viewController.hidesBottomBarWhenPushed = true
+        viewController.modalPresentationStyle = .fullScreen
+        self.present(viewController, animated: true, completion: nil)
+         
+    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
         let cell = tableView.cellForRow(at: indexPath)
+        
+        let appointment = self.appointments[indexPath.row]
+
         let alert = UIAlertController(title: "ปรึกษาแพทย์", message: "กรุณาเลือกช่องทางการปรึกษาแพทย์", preferredStyle: .actionSheet)
         
-        alert.addAction(UIAlertAction(title: "วีดิโอคอล", style: .default , handler:{ (UIAlertAction)in
+        alert.addAction(UIAlertAction(title: "วีดิโอคอล", style: .default , handler:{ [weak self] (UIAlertAction)in
             print("User click Approve button")
-            
-            
-            self.attemptCall(with: .video)
-
+            self?.attemptCall(with: .video, appointment: appointment)
         }))
     
         alert.addAction(UIAlertAction(title: "แชท", style: .default , handler:{ (UIAlertAction)in
             
-            let appointment = self.appointments[indexPath.row]
             appointment.customerReference?.getDocument(completion: { doctorDocument, error in
                 
                 let data = doctorDocument?.data()

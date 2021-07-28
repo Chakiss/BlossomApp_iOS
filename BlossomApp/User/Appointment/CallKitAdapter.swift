@@ -14,12 +14,14 @@ import ConnectyCubeCalls
 extension Dictionary {
     
     func toCallKitAdapterUserInfo() -> CallKitAdapter.UserInfo {
+        let callerName: String = (self["callerName" as! Key] as? String) ?? ""
         let doctorDocID: String = (self["appointmentDoctor" as! Key] as? String) ?? ""
         let customerDocID: String = (self["appointmentCustomer" as! Key] as? String) ?? ""
         let startTimestamp: Int64 = (self["appointmentSessionStartTimestamp" as! Key] as? Int64) ?? 0
         let endTimestamp: Int64 = (self["appointmentSessionEndTimestamp" as! Key] as? Int64) ?? 0
         
         return CallKitAdapter.UserInfo(
+            callerName: callerName,
             doctorDocID: doctorDocID,
             customerDocID: customerDocID,
             startTimestamp: startTimestamp,
@@ -31,6 +33,7 @@ extension Dictionary {
 class CallKitAdapter: NSObject, CXProviderDelegate {
     
     struct UserInfo {
+        let callerName: String
         let doctorDocID: String
         let customerDocID: String
         let startTimestamp: Int64
@@ -38,6 +41,7 @@ class CallKitAdapter: NSObject, CXProviderDelegate {
         
         func dict() -> [String: String] {
             return [
+                "callerName": callerName,
                 "appointmentDoctor": doctorDocID,
                 "appointmentCustomer": customerDocID,
                 "appointmentSessionStartTimestamp": "\(startTimestamp)",

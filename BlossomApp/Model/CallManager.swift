@@ -83,7 +83,7 @@ class CallManager: NSObject {
         }
         
         let userInfoObject = (userInfo ?? [:]).toCallKitAdapterUserInfo()
-        CallKitAdapter.shared.reportIncomingCall(with: opponentIDs, name: "Incoming call", session: session, userInfo: userInfoObject, uuid: self.callUUID!, onAcceptAction: { info in
+        CallKitAdapter.shared.reportIncomingCall(with: opponentIDs, name: userInfoObject.callerName, session: session, userInfo: userInfoObject, uuid: self.callUUID!, onAcceptAction: { info in
             
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let viewController = storyboard.instantiateViewController(withIdentifier: "CallViewController") as! CallViewController

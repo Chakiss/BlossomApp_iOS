@@ -108,44 +108,38 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
     
     func attemptCall(with type: CallConferenceType, appointment: Appointment) {
         
-        let opponentIDs: [NSNumber] = [ 4554340]
+        let opponentIDs: [NSNumber] = [ 4611091]
         CallManager.manager.createSession(with: type, opponentIDs: opponentIDs)
 
-     
-            let payload = [
-                "message" : String(format: "xxxxxx is calling you."),
-                "ios_voip" : "1",
-                "VOIPCall" : "1",
-            ]
-            let data = try! JSONSerialization.data(withJSONObject: payload, options: .prettyPrinted)
-            let message = String(data: data, encoding: String.Encoding.utf8)
+        let customerName = "ผู้รับคำปรึกษา " + (CustomerManager.sharedInstance.customer?.firstName ?? "")
+        let pushmessage =  "\(customerName) is calling you."
 
-            let event = Event()
-            event.notificationType = .push
-            event.usersIDs = opponentIDs
-            event.type = .oneShot
+        let event = Event()
+        event.notificationType = .push
+        event.usersIDs = opponentIDs
+        event.type = .oneShot
+        
+        var pushParameters = [String : String]()
+        pushParameters["message"] = pushmessage
+
+        if let jsonData = try? JSONSerialization.data(withJSONObject: pushParameters,
+                                                    options: .prettyPrinted) {
+          let jsonString = String(bytes: jsonData,
+                                  encoding: String.Encoding.utf8)
+
+          event.message = jsonString
+
+          Request.createEvent(event, successBlock: {(events) in
             
-            var pushmessage =  "xxxxxx is calling you."
-            var pushParameters = [String : String]()
-            pushParameters["message"] = pushmessage
+          }, errorBlock: {(error) in
 
-            if let jsonData = try? JSONSerialization.data(withJSONObject: pushParameters,
-                                                        options: .prettyPrinted) {
-              let jsonString = String(bytes: jsonData,
-                                      encoding: String.Encoding.utf8)
-
-              event.message = jsonString
-
-              Request.createEvent(event, successBlock: {(events) in
-                
-              }, errorBlock: {(error) in
-
-              })
-            }
+          })
+        }
 
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let viewController = storyboard.instantiateViewController(withIdentifier: "CallViewController") as! CallViewController
         viewController.callInfo = CallKitAdapter.UserInfo(
+            callerName: customerName,
             doctorDocID: appointment.doctorReference?.documentID ?? "",
             customerDocID: appointment.customerReference?.documentID ?? "",
             startTimestamp: appointment.sessionStart?.seconds ?? 0,
@@ -153,36 +147,9 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
         )
         viewController.hidesBottomBarWhenPushed = true
         viewController.modalPresentationStyle = .fullScreen
-            self.present(viewController, animated: true, completion: nil)
-//        }
+        self.present(viewController, animated: true, completion: nil)
          
     }
-    
-    
-//    func handleIncomingSession(_ session: CallSession) {
-//
-//        self.session = session
-//
-//        self.callUUID = UUID()
-//        var opponentIDs: [Int] = [session.initiatorID.intValue]
-//        for userID in session.opponentsIDs {
-//            guard userID.uintValue != 12345 else {
-//                continue
-//            }
-//
-//            opponentIDs.append(userID.intValue)
-//        }
-//
-//        CallKitAdapter.shared.reportIncomingCall(with: opponentIDs, session: session, uuid: self.callUUID!, onAcceptAction: {
-//
-//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//            let viewController = storyboard.instantiateViewController(withIdentifier: "CallViewController") as! CallViewController
-//            viewController.hidesBottomBarWhenPushed = true
-//            self.navigationController?.pushViewController(viewController, animated: true)
-//
-//        })
-//
-//    }
     
 }
 
