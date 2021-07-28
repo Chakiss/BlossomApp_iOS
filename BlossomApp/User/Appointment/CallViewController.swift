@@ -11,6 +11,8 @@ import QuartzCore
 import ConnectyCube
 import ConnectyCubeCalls
 import SVProgressHUD
+import Firebase
+import SwiftyUserDefaults
 
 class CallViewController: UIViewController, CallClientDelegate {
     
@@ -22,9 +24,15 @@ class CallViewController: UIViewController, CallClientDelegate {
     @IBOutlet weak var soundBtn: UIButton!
     @IBOutlet weak var stackView: UIStackView!
         
+    @IBOutlet weak var sessionInfoView: UIView!
+    @IBOutlet weak var sessionTitleLabel: UILabel!
+    @IBOutlet weak var sessionDuration: UILabel!
+    
     @IBOutlet weak var localVideoView : UIView! // your video view to render local camera video stream
     @IBOutlet weak var opponentVideoView: CallRemoteVideoView!
 
+    var callInfo: CallKitAdapter.UserInfo?
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -34,9 +42,11 @@ class CallViewController: UIViewController, CallClientDelegate {
         
         configureUI()
         
-        
         CallManager.manager.delegate = self
-        CallManager.manager.startCall()
+        if let info = callInfo {
+            getAppointmentInfo()
+            CallManager.manager.startCall(callInfo: info)
+        }
 
         if let videoCapture = CallManager.manager.videoCapture {
             videoCapture.previewLayer.frame = self.localVideoView.bounds
@@ -92,10 +102,9 @@ class CallViewController: UIViewController, CallClientDelegate {
         return true
     }
     
-    func configureUI() {
+    private func configureUI() {
         self.endBtn.layer.cornerRadius = self.endBtn.frame.height / 2
         self.endBtn.clipsToBounds = true
-        
         
         self.videoBtn.layer.cornerRadius = self.videoBtn.frame.height / 2
         self.videoBtn.clipsToBounds = true
@@ -116,21 +125,55 @@ class CallViewController: UIViewController, CallClientDelegate {
         self.micBtn.layer.cornerRadius = self.micBtn.frame.height / 2
         self.micBtn.clipsToBounds = true
         self.micBtn.setImage(UIImage(named: "ic_microphone_off_white"), for: .selected)
-    }
-    // MARK: - Preparations and configurations
-    
-   
-    
-    func configureAudio() {
         
+        self.sessionInfoView.layer.cornerRadius = 10
+        self.sessionDuration.layer.cornerRadius = 10
+        self.sessionInfoView.backgroundColor = UIColor.blossomPrimary3.withAlphaComponent(0.75)
+        self.sessionDuration.backgroundColor = UIColor.blossomPrimary3.withAlphaComponent(0.75)
+        self.sessionTitleLabel.numberOfLines = 2
+        self.sessionTitleLabel.textColor = UIColor.white
+        self.sessionDuration.textColor = UIColor.white
+        self.sessionTitleLabel.font = FontSize.body.regular()
+        self.sessionDuration.font = FontSize.title.bold()
+    }
+    
+    private func getAppointmentInfo() {
+        
+        guard let info = callInfo else {
+            return
+        }
+        
+        let db = Firestore.firestore()
+
+        db.collection("doctors")
+            .document(info.doctorDocID)
+            .addSnapshotListener { [weak self] snapshotDoctor, error in
+
+                let db = Firestore.firestore()
+                db.collection("customers")
+                    .document(info.customerDocID)
+                    .addSnapshotListener { [weak self] snapshotCustomer, error in
+
+                        let doctorName = "\(snapshotDoctor?["firstName"] as? String ?? "") \(snapshotDoctor?["lastName"] as? String ?? "")"
+                        let customerName = "\(snapshotCustomer?["firstName"] as? String ?? "") \(snapshotCustomer?["lastName"] as? String ?? "")"
+                        self?.sessionTitleLabel.text = "คุณหมอ: \(doctorName)\nผู้รับคำปรึกษา: \(customerName)"
+
+                    }
+            }
+        
+        sessionDuration.text = "00:00"
+
+    }
+    
+    // MARK: - Preparations and configurations
+
+    func configureAudio() {
         let audioSession = CallAudioSession.instance()
         audioSession.initialize { (configuration: CallAudioSessionConfiguration) -> () in
-            
             configuration.categoryOptions = [configuration.categoryOptions, .allowBluetooth, .allowBluetoothA2DP, .allowAirPlay]
             configuration.mode = AVAudioSession.Mode.videoChat.rawValue
-            
         }
-        audioSession
+        //audioSession
     }
 //
 //    func configureUI() {

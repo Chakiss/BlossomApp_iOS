@@ -11,7 +11,40 @@ import CallKit
 import ConnectyCube
 import ConnectyCubeCalls
 
+extension Dictionary {
+    
+    func toCallKitAdapterUserInfo() -> CallKitAdapter.UserInfo {
+        let doctorDocID: String = (self["appointmentDoctor" as! Key] as? String) ?? ""
+        let customerDocID: String = (self["appointmentCustomer" as! Key] as? String) ?? ""
+        let startTimestamp: Int64 = (self["appointmentSessionStartTimestamp" as! Key] as? Int64) ?? 0
+        let endTimestamp: Int64 = (self["appointmentSessionEndTimestamp" as! Key] as? Int64) ?? 0
+        
+        return CallKitAdapter.UserInfo(
+            doctorDocID: doctorDocID,
+            customerDocID: customerDocID,
+            startTimestamp: startTimestamp,
+            endTimestamp: endTimestamp)
+    }
+    
+}
+
 class CallKitAdapter: NSObject, CXProviderDelegate {
+    
+    struct UserInfo {
+        let doctorDocID: String
+        let customerDocID: String
+        let startTimestamp: Int64
+        let endTimestamp: Int64
+        
+        func dict() -> [String: String] {
+            return [
+                "appointmentDoctor": doctorDocID,
+                "appointmentCustomer": customerDocID,
+                "appointmentSessionStartTimestamp": "\(startTimestamp)",
+                "appointmentSessionEndTimestamp": "\(endTimestamp)"
+            ]
+        }
+    }
     
     open var onMicrophoneMuteAction: (() -> Void)?
     public static let shared = CallKitAdapter()
@@ -23,8 +56,9 @@ class CallKitAdapter: NSObject, CXProviderDelegate {
     private var provider: CXProvider
     private var callController: CXCallController
     private var session: CallSession?
+    private var userInfo: UserInfo?
     private var actionCompletionBlock: (() -> Void)?
-    private var onAcceptActionBlock: (() -> Void)?
+    private var onAcceptActionBlock: ((_ userInfo: UserInfo) -> Void)?
     
     private static func configuration() -> CXProviderConfiguration {
         let appName = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String
@@ -51,18 +85,17 @@ class CallKitAdapter: NSObject, CXProviderDelegate {
     
     // MARK: - Call management
     
-    open func startCall(with userIDs: [Int], session: CallSession, uuid: UUID) {
+    open func startCall(with userIDs: [Int], name: String, session: CallSession, uuid: UUID) {
         self.session = session
-        var contactIdentifier: String = ""
-        let handle = self.handleForUserIDs(userIDs, outCallerName: &contactIdentifier)
+        let handle = self.handleForUserIDs(userIDs)
         let action = CXStartCallAction(call: uuid, handle: handle)
-        action.contactIdentifier = contactIdentifier
+        action.contactIdentifier = uuid.uuidString
         
         let transaction = CXTransaction(action: action)
         self.requestTransaction(transaction) { (succeed) in
             let update = CXCallUpdate()
             update.remoteHandle = handle
-            update.localizedCallerName = contactIdentifier
+            update.localizedCallerName = name
             update.supportsHolding = false
             update.supportsGrouping = false
             update.supportsUngrouping = false
@@ -88,18 +121,18 @@ class CallKitAdapter: NSObject, CXProviderDelegate {
         self.actionCompletionBlock = completion
     }
     
-    open func reportIncomingCall(with userIDs: [Int], session: CallSession, uuid: UUID, onAcceptAction: @escaping () -> Void, completion: (() -> Void)? = nil) {
+    open func reportIncomingCall(with userIDs: [Int], name: String, session: CallSession, userInfo: UserInfo, uuid: UUID, onAcceptAction: @escaping (_ userInfo: UserInfo) -> Void, completion: (() -> Void)? = nil) {
         guard self.session == nil else {
             return
         }
         
         self.session = session
+        self.userInfo = userInfo
         self.onAcceptActionBlock = onAcceptAction
         
-        var callerName = ""
         let update = CXCallUpdate()
-        update.remoteHandle = self.handleForUserIDs(userIDs, outCallerName: &callerName)
-        update.localizedCallerName = callerName
+        update.remoteHandle = self.handleForUserIDs(userIDs)
+        update.localizedCallerName = name
         update.supportsHolding = false
         update.supportsGrouping = false
         update.supportsUngrouping = false
@@ -144,9 +177,9 @@ class CallKitAdapter: NSObject, CXProviderDelegate {
             return
         }
         
-        dispatchOnMainThread {
-            self.session!.startCall(nil)
-            self.callStarted = true
+        dispatchOnMainThread { [weak self] in
+            self?.session?.startCall( self?.userInfo?.dict() ?? [:] )
+            self?.callStarted = true
             action.fulfill()
         }
     }
@@ -164,14 +197,15 @@ class CallKitAdapter: NSObject, CXProviderDelegate {
             try? AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playAndRecord)
         }
         
-        dispatchOnMainThread {
-            self.session!.acceptCall(nil)
-            self.callStarted = true
+        dispatchOnMainThread { [weak self] in
+            self?.session!.acceptCall( self?.userInfo?.dict() ?? [:] )
+            self?.callStarted = true
             action.fulfill()
             
-            if let completion = self.onAcceptActionBlock {
-                completion()
-                self.onAcceptActionBlock = nil
+            if let completion = self?.onAcceptActionBlock,
+               let info = self?.userInfo {
+                completion(info)
+                self?.onAcceptActionBlock = nil
             }
         }
     }
@@ -246,17 +280,8 @@ class CallKitAdapter: NSObject, CXProviderDelegate {
     
     // MARK: - Helpers
     
-    private func handleForUserIDs(_ userIDs: [Int], outCallerName: inout String) -> CXHandle {
-        
+    private func handleForUserIDs(_ userIDs: [Int]) -> CXHandle {
         let stringUserIDs: [String] = userIDs.compactMap { String($0) }
-        
-       // var opponentNames = [String]()
-//        for userID in stringUserIDs {
-//            let user: User? = Cache.users.object(forKey: userID)
-//            user?.fullName != nil ? opponentNames.append(user!.fullName!) : opponentNames.append(userID)
-//        }
-       // outCallerName = opponentNames.joined(separator: ", ")
-        
         return CXHandle(type: .generic, value: stringUserIDs.joined(separator: ", "))
     }
     

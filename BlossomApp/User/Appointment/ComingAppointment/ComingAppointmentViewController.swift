@@ -53,19 +53,16 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
+        let appointment = self.appointments[indexPath.row]
+
         let alert = UIAlertController(title: "ปรึกษาแพทย์", message: "กรุณาเลือกช่องทางการปรึกษาแพทย์", preferredStyle: .actionSheet)
         
-        alert.addAction(UIAlertAction(title: "วีดิโอคอล", style: .default , handler:{ (UIAlertAction)in
-            print("User click Approve button")
-            
-            
-            self.attemptCall(with: .video)
-
+        alert.addAction(UIAlertAction(title: "วีดิโอคอล", style: .default, handler: { [weak self] (UIAlertAction) in
+            self?.attemptCall(with: .video, appointment: appointment)
         }))
     
         alert.addAction(UIAlertAction(title: "แชท", style: .default , handler:{ (UIAlertAction)in
             
-            let appointment = self.appointments[indexPath.row]
             appointment.doctorReference?.getDocument(completion: { doctorDocument, error in
                 
                 let data = doctorDocument?.data()
@@ -109,7 +106,7 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
 
     
     
-    func attemptCall(with type: CallConferenceType) {
+    func attemptCall(with type: CallConferenceType, appointment: Appointment) {
         
         let opponentIDs: [NSNumber] = [ 4611091]
         CallManager.manager.createSession(with: type, opponentIDs: opponentIDs)
@@ -165,10 +162,16 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
 
               })
             }
-//            session.startCall(["key":"value"])
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let viewController = storyboard.instantiateViewController(withIdentifier: "CallViewController") as! CallViewController
-            viewController.hidesBottomBarWhenPushed = true
+
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let viewController = storyboard.instantiateViewController(withIdentifier: "CallViewController") as! CallViewController
+        viewController.callInfo = CallKitAdapter.UserInfo(
+            doctorDocID: appointment.doctorReference?.documentID ?? "",
+            customerDocID: appointment.customerReference?.documentID ?? "",
+            startTimestamp: appointment.sessionStart?.seconds ?? 0,
+            endTimestamp: appointment.sessionEnd?.seconds ?? 0
+        )
+        viewController.hidesBottomBarWhenPushed = true
         viewController.modalPresentationStyle = .fullScreen
             self.present(viewController, animated: true, completion: nil)
 //        }

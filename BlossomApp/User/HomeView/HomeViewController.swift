@@ -54,27 +54,17 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        
-        
-        
+
         multiBannerView.delegate = self
-        
-        
+
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(appointmentTapped(tapGestureRecognizer:)))
         appointmentView.isUserInteractionEnabled = true
         appointmentView.addGestureRecognizer(tapGestureRecognizer)
         appointmentView.isHidden = true
         
         doctorAppointmentView.addConerRadiusAndShadow()
-        
-        
         user = Auth.auth().currentUser
         getCustomer()
-
-        
-
-        
-
     }
     
     @objc func appointmentTapped(tapGestureRecognizer: UITapGestureRecognizer){

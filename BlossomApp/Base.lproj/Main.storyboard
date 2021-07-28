@@ -2603,7 +2603,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="269" translatesAutoresizingMaskIntoConstraints="NO" id="4WQ-qn-dwf">
-                                                    <rect key="frame" x="73" y="30.5" width="313.5" height="34"/>
+                                                    <rect key="frame" x="73" y="30.5" width="300.5" height="34"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="34" id="7EN-j5-2n4"/>
@@ -2624,7 +2624,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oDA-GW-Tqu" customClass="BadgeSwift" customModule="BadgeSwift">
-                                                    <rect key="frame" x="394.5" y="37.5" width="9.5" height="20"/>
+                                                    <rect key="frame" x="381.5" y="37.5" width="22.5" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="lgx-cT-baV"/>
                                                     </constraints>
@@ -4203,6 +4203,34 @@
                                     <constraint firstAttribute="width" constant="140" id="gpS-Dl-c47"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cbw-Q4-crx">
+                                <rect key="frame" x="342.5" y="696.5" width="61.5" height="40.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1tW-jd-CtC">
+                                        <rect key="frame" x="10" y="10" width="41.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="1tW-jd-CtC" secondAttribute="trailing" constant="10" id="77T-U0-Cee"/>
+                                    <constraint firstItem="1tW-jd-CtC" firstAttribute="leading" secondItem="cbw-Q4-crx" secondAttribute="leading" constant="10" id="aSI-Uz-xxq"/>
+                                    <constraint firstItem="1tW-jd-CtC" firstAttribute="top" secondItem="cbw-Q4-crx" secondAttribute="top" constant="10" id="jmx-RN-GVK"/>
+                                    <constraint firstAttribute="bottom" secondItem="1tW-jd-CtC" secondAttribute="bottom" constant="10" id="zqZ-yy-zDT"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9jp-ot-YB0">
+                                <rect key="frame" x="20" y="64" width="60" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="WOC-rj-FlD"/>
+                                    <constraint firstAttribute="height" constant="40" id="fGI-YX-gAu"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nad-rC-DSd">
                                 <rect key="frame" x="174.5" y="767" width="65" height="65"/>
                                 <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -4279,8 +4307,13 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="nad-rC-DSd" firstAttribute="centerX" secondItem="RRO-4H-Zfa" secondAttribute="centerX" id="3iy-SG-gfF"/>
+                            <constraint firstItem="9jp-ot-YB0" firstAttribute="top" secondItem="RRO-4H-Zfa" secondAttribute="top" constant="20" id="DeY-9k-Yfm"/>
                             <constraint firstItem="RRO-4H-Zfa" firstAttribute="trailing" secondItem="IQy-P6-Fp8" secondAttribute="trailing" id="Fbc-kQ-jbN"/>
+                            <constraint firstItem="9jp-ot-YB0" firstAttribute="leading" secondItem="RRO-4H-Zfa" secondAttribute="leading" constant="20" id="Hjp-hI-jRo"/>
                             <constraint firstItem="IQy-P6-Fp8" firstAttribute="top" secondItem="RRO-4H-Zfa" secondAttribute="top" id="KVv-XD-TXf"/>
+                            <constraint firstItem="cbw-Q4-crx" firstAttribute="trailing" secondItem="BZS-nM-37f" secondAttribute="trailing" constant="-10" id="Md8-Yo-RTI"/>
+                            <constraint firstItem="cbw-Q4-crx" firstAttribute="bottom" secondItem="BZS-nM-37f" secondAttribute="bottom" constant="-10" id="NYR-hS-kod"/>
+                            <constraint firstItem="cbw-Q4-crx" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="RRO-4H-Zfa" secondAttribute="leading" constant="10" id="P9d-pO-lRu"/>
                             <constraint firstItem="RRO-4H-Zfa" firstAttribute="bottom" secondItem="nad-rC-DSd" secondAttribute="bottom" constant="30" id="PZD-0k-A03"/>
                             <constraint firstItem="hyN-7z-CMp" firstAttribute="leading" secondItem="nad-rC-DSd" secondAttribute="trailing" constant="8" id="bcR-Jp-PNx"/>
                             <constraint firstItem="RRO-4H-Zfa" firstAttribute="trailing" secondItem="BZS-nM-37f" secondAttribute="trailing" id="d7e-5x-eCg"/>
@@ -4299,6 +4332,9 @@
                         <outlet property="localVideoView" destination="IQy-P6-Fp8" id="AXz-Ta-EYb"/>
                         <outlet property="micBtn" destination="ZdD-qP-VHy" id="hNn-4w-h3t"/>
                         <outlet property="opponentVideoView" destination="BZS-nM-37f" id="heb-8W-gTF"/>
+                        <outlet property="sessionDuration" destination="9jp-ot-YB0" id="xCW-3Q-yxO"/>
+                        <outlet property="sessionInfoView" destination="cbw-Q4-crx" id="xSW-PI-umW"/>
+                        <outlet property="sessionTitleLabel" destination="1tW-jd-CtC" id="oze-Ad-8bd"/>
                         <outlet property="soundBtn" destination="p3Y-qp-aTV" id="da6-wX-frm"/>
                         <outlet property="videoBtn" destination="3cr-h0-ch6" id="biU-IF-w4U"/>
                         <outlet property="view" destination="ZE5-gr-L7Q" id="S6d-Na-PdL"/>
@@ -4311,7 +4347,7 @@
     </scenes>
     <designables>
         <designable name="oDA-GW-Tqu">
-            <size key="intrinsicContentSize" width="9.5" height="18.5"/>
+            <size key="intrinsicContentSize" width="22.5" height="22.5"/>
         </designable>
     </designables>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

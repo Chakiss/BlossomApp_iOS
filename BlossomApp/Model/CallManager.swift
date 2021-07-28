@@ -44,16 +44,18 @@ class CallManager: NSObject {
     func createSession(with type: CallConferenceType, opponentIDs: [NSNumber]) {
         if let session = CallClient.instance().createNewSession(withOpponents: opponentIDs, with: type) as CallSession? {
             self.session = session
-            self.callUUID = UUID()
+            let callUUID = UUID()
+            self.callUUID = callUUID
+            CallKitAdapter.shared.startCall(with: opponentIDs.map({ $0.intValue }), name: "Caller name", session: session, uuid: callUUID)
         }
     }
     
-    func startCall() {
+    func startCall(callInfo: CallKitAdapter.UserInfo) {
         guard let callUUID = self.callUUID else {
             return
         }
         
-        session?.startCall(["key":"value"])
+        session?.startCall(callInfo.dict())
         CallKitAdapter.shared.updateCall(with: callUUID, connectingAt: Date())
         
         let videoFormat = CallVideoFormat()
@@ -68,8 +70,7 @@ class CallManager: NSObject {
         self.videoCapture?.startSession()
     }
     
-    private func handleIncomingSession(_ session: CallSession) {
-        
+    private func handleIncomingSession(_ session: CallSession, userInfo: [String : String]? = nil) {
         self.session = session
         
         self.callUUID = UUID()
@@ -78,16 +79,17 @@ class CallManager: NSObject {
             guard userID.uintValue != 12345 else {
                 continue
             }
-            
             opponentIDs.append(userID.intValue)
         }
         
-        CallKitAdapter.shared.reportIncomingCall(with: opponentIDs, session: session, uuid: self.callUUID!, onAcceptAction: {
+        let userInfoObject = (userInfo ?? [:]).toCallKitAdapterUserInfo()
+        CallKitAdapter.shared.reportIncomingCall(with: opponentIDs, name: "Incoming call", session: session, userInfo: userInfoObject, uuid: self.callUUID!, onAcceptAction: { info in
             
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let viewController = storyboard.instantiateViewController(withIdentifier: "CallViewController") as! CallViewController
             viewController.hidesBottomBarWhenPushed = true
             viewController.modalPresentationStyle = .fullScreen
+            viewController.callInfo = info
             UIApplication.shared.windows.first?.rootViewController?.present(viewController, animated: true, completion: nil)
 
         })
@@ -178,7 +180,7 @@ extension CallManager : CallClientDelegate {
             return;
         }
         
-        handleIncomingSession(session)
+        handleIncomingSession(session, userInfo: userInfo)
     }
     
     func session(_ session: CallBaseSession, startedConnectingToUser userID: NSNumber) {
@@ -187,7 +189,7 @@ extension CallManager : CallClientDelegate {
     
     func session(_ session: CallBaseSession, connectedToUser userID: NSNumber) {
         debugPrint("connectedToUser \(userID)")
-        if (session as! CallSession).id == self.session!.id {
+        if (session as? CallSession)?.id == self.session?.id {
             if let callUUID = self.callUUID {
                 CallKitAdapter.shared.updateCall(with: callUUID, connectedAt: Date())
             }
