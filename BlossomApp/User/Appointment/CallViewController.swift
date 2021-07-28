@@ -33,6 +33,16 @@ class CallViewController: UIViewController, CallClientDelegate {
 
     var callInfo: CallKitAdapter.UserInfo?
     
+    private var timer: Timer?
+    private var warning: Bool = false
+    private var connected: Bool = false {
+        didSet {
+            if connected {
+                startTimer()
+            }
+        }
+    }
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -82,20 +92,52 @@ class CallViewController: UIViewController, CallClientDelegate {
         
     }
     
+    private func startTimer() {
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { [weak self] timer in
+            
+            let now = Date()
+            
+            let formatter = DateComponentsFormatter()
+            formatter.allowedUnits = [.minute, .second]
+            formatter.zeroFormattingBehavior = .pad
+            if let startAt = CallManager.manager.callingStartedAt {
+                self?.sessionDuration.text = formatter.string(from: startAt, to: now)
+            }
+            
+            let endTimestamp = Timestamp(seconds: self?.callInfo?.endTimestamp ?? 0, nanoseconds: 0)
+            if endTimestamp.dateValue() < now {
+                debugPrint("Ending call now:\(now) endTimestamp:\(endTimestamp.dateValue())")
+                self?.endCall()
+                timer.invalidate()
+                return
+            }
+            
+            let warningTime = endTimestamp.dateValue().addingTimeInterval(-3*60)
+            if warningTime < now && self?.warning == false {
+                self?.warning = true
+                let timeLeft = formatter.string(from: now, to: endTimestamp.dateValue()) ?? ""
+                self?.showAlertDialogue(title: "เหลือเวลาอีก \(timeLeft) นาที", message: "ระบบจะวางสายอัตโนมัติทันทีที่หมดเวลาให้คำปรึกษา", completion: {})
+            }
+            
+            debugPrint("Calling timer now:\(now) endTimestamp:\(endTimestamp.dateValue()) warningTime:\(warningTime)")
+        })
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-       
+        if connected && timer?.isValid == false {
+            startTimer()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         //self.resumeVideoCapture()
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-
+        timer?.invalidate()
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -128,6 +170,7 @@ class CallViewController: UIViewController, CallClientDelegate {
         
         self.sessionInfoView.layer.cornerRadius = 10
         self.sessionDuration.layer.cornerRadius = 10
+        self.sessionDuration.clipsToBounds = true
         self.sessionInfoView.backgroundColor = UIColor.blossomPrimary3.withAlphaComponent(0.75)
         self.sessionDuration.backgroundColor = UIColor.blossomPrimary3.withAlphaComponent(0.75)
         self.sessionTitleLabel.numberOfLines = 2
@@ -165,6 +208,11 @@ class CallViewController: UIViewController, CallClientDelegate {
 
     }
     
+    private func endCall() {
+        CallManager.manager.session?.hangUp(nil)
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     // MARK: - Preparations and configurations
 
     func configureAudio() {
@@ -173,47 +221,7 @@ class CallViewController: UIViewController, CallClientDelegate {
             configuration.categoryOptions = [configuration.categoryOptions, .allowBluetooth, .allowBluetoothA2DP, .allowAirPlay]
             configuration.mode = AVAudioSession.Mode.videoChat.rawValue
         }
-        //audioSession
     }
-//
-//    func configureUI() {
-//        self.endBtn.layer.cornerRadius = self.endBtn.frame.height / 2
-//        self.endBtn.clipsToBounds = true
-//
-//        if (isVideoCall) {
-//            self.videoBtn.layer.cornerRadius = self.videoBtn.frame.height / 2
-//            self.videoBtn.clipsToBounds = true
-//            self.videoBtn.setImage(UIImage(named: "ic_video_off_white"), for: .selected)
-//
-//            //self.screenShareBtn.layer.cornerRadius = self.screenShareBtn.frame.height / 2
-//            //self.screenShareBtn.clipsToBounds = true
-//
-//            self.camBtn.layer.cornerRadius = self.camBtn.frame.height / 2
-//            self.camBtn.clipsToBounds = true
-//            self.camBtn.setImage(UIImage(named: "ic_camera_front"), for: .selected)
-//
-//            self.soundBtn.isHidden = true
-//        }
-//        else {
-//            self.camBtn.isHidden = true
-//            self.screenShareBtn.isHidden = true
-//            self.videoBtn.isHidden = true
-//
-//            self.soundBtn.layer.cornerRadius = self.soundBtn.frame.height / 2
-//            self.soundBtn.clipsToBounds = true
-//            self.soundBtn.setImage(UIImage(named: "ic_volume_low_white"), for: .selected)
-//            if (session!.conferenceType == .audio) {
-//                self.soundBtn.isSelected = true
-//            }
-//            self.soundBtn.isHidden = false
-//
-//
-//        }
-//
-//        self.micBtn.layer.cornerRadius = self.micBtn.frame.height / 2
-//        self.micBtn.clipsToBounds = true
-//        self.micBtn.setImage(UIImage(named: "ic_microphone_off_white"), for: .selected)
-//    }
     
     // MARK: - Actions
     
@@ -241,10 +249,7 @@ class CallViewController: UIViewController, CallClientDelegate {
     }
     
     @IBAction func didPressEnd(_ sender: UIButton) {
-        
-        CallManager.manager.session?.hangUp(nil)
-        self.dismiss(animated: true, completion: nil)
-        
+        endCall()
     }
     
     @IBAction func didPressScreenShare(_ sender: UIButton) {
@@ -262,6 +267,7 @@ extension CallViewController: CallManagerDelegate {
     
     func callManagerDidReceivedRemoteVideoTrack(videoTrack: CallVideoTrack) {
         self.opponentVideoView.setVideoTrack(videoTrack)
+        connected = true
     }
     
 }

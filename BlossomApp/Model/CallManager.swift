@@ -23,6 +23,7 @@ class CallManager: NSObject {
     private(set) var session: ConnectyCubeCalls.CallSession?
     private var callUUID: UUID?
     private var backgroundTask: UIBackgroundTaskIdentifier?
+    private(set) var callingStartedAt: Date?
     private(set) var videoCapture: CallCameraCapture?
 
     weak var delegate: CallManagerDelegate?
@@ -190,8 +191,10 @@ extension CallManager : CallClientDelegate {
     func session(_ session: CallBaseSession, connectedToUser userID: NSNumber) {
         debugPrint("connectedToUser \(userID)")
         if (session as? CallSession)?.id == self.session?.id {
-            if let callUUID = self.callUUID {
-                CallKitAdapter.shared.updateCall(with: callUUID, connectedAt: Date())
+            if let callUUID = self.callUUID, self.callingStartedAt == nil {
+                let callingStartedAt = Date()
+                self.callingStartedAt = callingStartedAt
+                CallKitAdapter.shared.updateCall(with: callUUID, connectedAt: callingStartedAt)
             }
         }
     }
@@ -247,6 +250,7 @@ extension CallManager : CallClientDelegate {
             }
         }
         
+        self.callingStartedAt = nil
         self.callUUID = nil
         self.session = nil
 

@@ -97,14 +97,8 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
         self.present(alert, animated: true, completion: {
             print("completion block")
         })
-        
-        //         let doctor = self.doctorList[indexPath.row]
-        
-       
-        
-    }
 
-    
+    }
     
     func attemptCall(with type: CallConferenceType, appointment: Appointment) {
         
@@ -138,6 +132,7 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
 
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let viewController = storyboard.instantiateViewController(withIdentifier: "CallViewController") as! CallViewController
+                
         viewController.callInfo = CallKitAdapter.UserInfo(
             callerName: customerName,
             doctorDocID: appointment.doctorReference?.documentID ?? "",
