@@ -46,21 +46,21 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
         cell.appointment = self.appointments[indexPath.row]
         cell.displayAppointment()
          
-         return cell
+        return cell
      }
-
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
         let appointment = self.appointments[indexPath.row]
-
+        
         let alert = UIAlertController(title: "ปรึกษาแพทย์", message: "กรุณาเลือกช่องทางการปรึกษาแพทย์", preferredStyle: .actionSheet)
         
         alert.addAction(UIAlertAction(title: "วีดิโอคอล", style: .default, handler: { [weak self] (UIAlertAction) in
             self?.attemptCall(with: .video, appointment: appointment)
         }))
-    
+        
         alert.addAction(UIAlertAction(title: "แชท", style: .default , handler:{ (UIAlertAction)in
             
             appointment.doctorReference?.getDocument(completion: { doctorDocument, error in
@@ -70,7 +70,7 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
                 let dialog = ChatDialog(dialogID: nil, type: .private)
                 
                 dialog.occupantIDs = [NSNumber(integerLiteral: referenceConnectyCubeID)]  // an ID of opponent
-
+                
                 Request.createDialog(dialog, successBlock: { (dialog) in
                     if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
                         appDelegate.deeplinking = .chat
@@ -80,11 +80,11 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
                         })
                     }
                 }) { (error) in
-
-                 }
+                    
+                }
                 
             })
-           
+            
         }))
         
         alert.addAction(UIAlertAction(title: "ยกเลิก", style: .destructive, handler:{ (UIAlertAction)in
@@ -97,53 +97,58 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
         self.present(alert, animated: true, completion: {
             print("completion block")
         })
-
+        
     }
     
     func attemptCall(with type: CallConferenceType, appointment: Appointment) {
         
-        let opponentIDs: [NSNumber] = [ 4611091]
-        CallManager.manager.createSession(with: type, opponentIDs: opponentIDs)
-
-        let customerName = "ผู้รับคำปรึกษา " + (CustomerManager.sharedInstance.customer?.firstName ?? "")
-        let pushmessage =  "\(customerName) is calling you."
-
-        let event = Event()
-        event.notificationType = .push
-        event.usersIDs = opponentIDs
-        event.type = .oneShot
-        
-        var pushParameters = [String : String]()
-        pushParameters["message"] = pushmessage
-
-        if let jsonData = try? JSONSerialization.data(withJSONObject: pushParameters,
-                                                    options: .prettyPrinted) {
-          let jsonString = String(bytes: jsonData,
-                                  encoding: String.Encoding.utf8)
-
-          event.message = jsonString
-
-          Request.createEvent(event, successBlock: {(events) in
+        var opponentID = NSNumber(integerLiteral: 0)
+        appointment.doctorReference?.getDocument(completion: { snapshot, error in
+            let snapshotData = snapshot?.data()
+            let connectyCubeID = snapshotData?["referenceConnectyCubeID"] as? Int ?? 0
+            opponentID = NSNumber(value:connectyCubeID ?? 0)
+            CallManager.manager.createSession(with: type, opponentIDs: [opponentID])
             
-          }, errorBlock: {(error) in
-
-          })
-        }
-
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let viewController = storyboard.instantiateViewController(withIdentifier: "CallViewController") as! CallViewController
+            
+            let customerName = "ผู้รับคำปรึกษา " + (CustomerManager.sharedInstance.customer?.firstName ?? "")
+            let pushmessage =  "\(customerName) is calling you."
+            
+            let event = Event()
+            event.notificationType = .push
+            event.usersIDs = [opponentID]
+            event.type = .oneShot
+            
+            var pushParameters = [String : String]()
+            pushParameters["message"] = pushmessage
+            
+            if let jsonData = try? JSONSerialization.data(withJSONObject: pushParameters,
+                                                          options: .prettyPrinted) {
+                let jsonString = String(bytes: jsonData,
+                                        encoding: String.Encoding.utf8)
                 
-        viewController.callInfo = CallKitAdapter.UserInfo(
-            callerName: customerName,
-            doctorDocID: appointment.doctorReference?.documentID ?? "",
-            customerDocID: appointment.customerReference?.documentID ?? "",
-            startTimestamp: appointment.sessionStart?.seconds ?? 0,
-            endTimestamp: appointment.sessionEnd?.seconds ?? 0
-        )
-        viewController.hidesBottomBarWhenPushed = true
-        viewController.modalPresentationStyle = .fullScreen
-        self.present(viewController, animated: true, completion: nil)
-         
+                event.message = jsonString
+                
+                Request.createEvent(event, successBlock: {(events) in
+                    
+                }, errorBlock: {(error) in
+                    
+                })
+            }
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let viewController = storyboard.instantiateViewController(withIdentifier: "CallViewController") as! CallViewController
+            
+            viewController.callInfo = CallKitAdapter.UserInfo(
+                callerName: customerName,
+                doctorDocID: appointment.doctorReference?.documentID ?? "",
+                customerDocID: appointment.customerReference?.documentID ?? "",
+                startTimestamp: appointment.sessionStart?.seconds ?? 0,
+                endTimestamp: appointment.sessionEnd?.seconds ?? 0
+            )
+            viewController.hidesBottomBarWhenPushed = true
+            viewController.modalPresentationStyle = .fullScreen
+            self.present(viewController, animated: true, completion: nil)
+        })
     }
     
 }

@@ -107,7 +107,7 @@ class CallViewController: UIViewController, CallClientDelegate {
             let endTimestamp = Timestamp(seconds: self?.callInfo?.endTimestamp ?? 0, nanoseconds: 0)
             if endTimestamp.dateValue() < now {
                 debugPrint("Ending call now:\(now) endTimestamp:\(endTimestamp.dateValue())")
-                self?.endCall()
+               // self?.endCall()
                 timer.invalidate()
                 return
             }

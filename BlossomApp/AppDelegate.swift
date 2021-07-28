@@ -44,6 +44,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         FirebaseApp.configure()
        
+        Messaging.messaging().subscribe(toTopic: "general") { error in
+          print("Subscribed to general topic")
+        }
+        Messaging.messaging().subscribe(toTopic: "announcement") { error in
+          print("Subscribed to announcement topic")
+        }
     
         configUI()
         CommonKeyboard.shared.enabled = true

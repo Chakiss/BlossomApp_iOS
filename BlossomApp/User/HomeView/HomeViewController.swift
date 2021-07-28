@@ -203,18 +203,18 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
     
     func openCampaign(promotion: Promotion) {
         
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let viewController = storyboard.instantiateViewController(withIdentifier: "PromotionViewController") as! PromotionViewController
-        viewController.promotion = promotion
-        viewController.modalPresentationStyle = .fullScreen
-        viewController.hidesBottomBarWhenPushed = true
-        self.navigationController?.pushViewController(viewController, animated: true)
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let viewController = storyboard.instantiateViewController(withIdentifier: "PromotionViewController") as! PromotionViewController
+//        viewController.promotion = promotion
+//        viewController.modalPresentationStyle = .fullScreen
+//        viewController.hidesBottomBarWhenPushed = true
+//        self.navigationController?.pushViewController(viewController, animated: true)
 
         
-        //let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        //let viewController = storyboard.instantiateViewController(withIdentifier: "ReviewViewController") as! ReviewViewController
-        //viewController.hidesBottomBarWhenPushed = true
-        //self.navigationController?.pushViewController(viewController, animated: true)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let viewController = storyboard.instantiateViewController(withIdentifier: "ReviewViewController") as! ReviewViewController
+        viewController.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(viewController, animated: true)
         
     }
     

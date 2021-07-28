@@ -126,12 +126,23 @@ class RegisterViewController: UIViewController {
                                     self.navigationController?.dismiss(animated: true, completion: nil)
                                     return
                                 }
+                                
+                                Messaging.messaging().subscribe(toTopic: authResult?.user.uid ?? "") { error in
+                                  print("Subscribed to general-customer topic")
+                                }
+                                
                                 if role == "doctor" {
+                                    Messaging.messaging().subscribe(toTopic: "general-doctor") { error in
+                                      print("Subscribed to general-doctor topic")
+                                    }
                                     Defaults[\.role] = "doctor"
                                     if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
                                        appDelegate.setDoctorUI()
                                     }
                                 } else if role == "customer" {
+                                    Messaging.messaging().subscribe(toTopic: "general-customer") { error in
+                                      print("Subscribed to general-customer topic")
+                                    }
                                     Defaults[\.role] = "customer"
                                     if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
                                        appDelegate.setCustomerUI()

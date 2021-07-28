@@ -51,16 +51,31 @@ class LoginViewController: UIViewController, ASAuthorizationControllerPresentati
             }
             authResult?.user.getIDTokenResult(completion: { (result, error) in
                 
+                
                 guard let role = result?.claims["role"] as? String else {
                     self.navigationController?.dismiss(animated: true, completion: nil)
                     return
                 }
+                
+                Messaging.messaging().subscribe(toTopic: authResult?.user.uid ?? "") { error in
+                  print("Subscribed to general-customer topic")
+                }
+                
                 if role == "doctor" {
+                    Messaging.messaging().subscribe(toTopic: "general-doctor") { error in
+                      print("Subscribed to general-doctor topic")
+                    }
+                    
                     Defaults[\.role] = "doctor"
                     if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
                        appDelegate.setDoctorUI()
                     }
+                    
                 } else {
+                    Messaging.messaging().subscribe(toTopic: "general-customer") { error in
+                      print("Subscribed to general-customer topic")
+                    }
+                    
                     Defaults[\.role] = "customer"
                     if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
                        appDelegate.setCustomerUI()
@@ -104,12 +119,22 @@ class LoginViewController: UIViewController, ASAuthorizationControllerPresentati
                             return
                         }
                         
+                        Messaging.messaging().subscribe(toTopic: authResult?.user.uid ?? "") { error in
+                          print("Subscribed to general-customer topic")
+                        }
+                        
                         if role == "doctor" {
+                            Messaging.messaging().subscribe(toTopic: "general-doctor") { error in
+                              print("Subscribed to general-customer topic")
+                            }
                             Defaults[\.role] = "doctor"
                             if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
                                 appDelegate.setDoctorUI()
                             }
                         } else if role == "customer" {
+                            Messaging.messaging().subscribe(toTopic: "general-customer") { error in
+                              print("Subscribed to general-customer topic")
+                            }
                             Defaults[\.role] = "customer"
                             if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
                                 appDelegate.setCustomerUI()
@@ -240,12 +265,22 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                     
                     ProgressHUD.dismiss()
 
+                    Messaging.messaging().subscribe(toTopic: authResult?.user.uid ?? "") { error in
+                      print("Subscribed to general-customer topic")
+                    }
+                    
                     if role == "doctor" {
+                        Messaging.messaging().subscribe(toTopic: "general-doctor") { error in
+                          print("Subscribed to general-customer topic")
+                        }
                         Defaults[\.role] = "doctor"
                         if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
                            appDelegate.setDoctorUI()
                         }
                     } else {
+                        Messaging.messaging().subscribe(toTopic: "general-customer") { error in
+                          print("Subscribed to general-customer topic")
+                        }
                         Defaults[\.role] = "customer"
                         if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
                            appDelegate.setCustomerUI()
