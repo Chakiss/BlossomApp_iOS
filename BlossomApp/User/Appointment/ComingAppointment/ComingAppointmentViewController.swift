@@ -108,18 +108,10 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
     
     func attemptCall(with type: CallConferenceType, appointment: Appointment) {
         
-        let opponentIDs: [NSNumber] = [ 4611091]
+        let opponentIDs: [NSNumber] = [ 4554340]
         CallManager.manager.createSession(with: type, opponentIDs: opponentIDs)
 
-       // let newSession = CallClient.instance().createNewSession(withOpponents: opponentIDs as [NSNumber], with: .video)
-        
-        
-//        if let session = CallClient.instance().createNewSession(withOpponents: opponentIDs,
-//                                                                with: type) as CallSession? {
-//            self.session = session
-//
-//            self.callUUID = UUID()
-            
+     
             let payload = [
                 "message" : String(format: "xxxxxx is calling you."),
                 "ios_voip" : "1",
@@ -127,19 +119,7 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
             ]
             let data = try! JSONSerialization.data(withJSONObject: payload, options: .prettyPrinted)
             let message = String(data: data, encoding: String.Encoding.utf8)
-//
-//            let event = Event()
-//            event.notificationType = .push
-//            event.usersIDs = opponentIDs
-//            event.type = .oneShot
-//            event.message = message
-//
-//            Request.createEvent(event, successBlock: { (event) in
-//                NSLog("Send voip push - Success")
-//            }) { (error) in
-//                NSLog("Send voip push - Error")
-//            }
-//
+
             let event = Event()
             event.notificationType = .push
             event.usersIDs = opponentIDs

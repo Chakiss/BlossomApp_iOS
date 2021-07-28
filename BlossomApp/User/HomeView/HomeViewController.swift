@@ -212,11 +212,10 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
 
         
         //let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        //let viewController = storyboard.instantiateViewController(withIdentifier: "PreFormViewController") as! PreFormViewController
-        //viewController.modalPresentationStyle = .fullScreen
-        //xviewController.hidesBottomBarWhenPushed = true
+        //let viewController = storyboard.instantiateViewController(withIdentifier: "ReviewViewController") as! ReviewViewController
+        //viewController.hidesBottomBarWhenPushed = true
         //self.navigationController?.pushViewController(viewController, animated: true)
-        //self.navigationController?.present(viewController, animated: true, completion: nil)
+        
     }
     
    

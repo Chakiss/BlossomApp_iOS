@@ -56,7 +56,7 @@ class Doctor_ComingAppointmentViewController: UIViewController, UITableViewDataS
             print("User click Approve button")
             
             
-            //self.attemptCall(with: .video)
+            self.attemptCall(with: .video)
 
         }))
     
@@ -108,11 +108,57 @@ class Doctor_ComingAppointmentViewController: UIViewController, UITableViewDataS
             print("completion block")
         })
         
-        //         let doctor = self.doctorList[indexPath.row]
-        
-       
         
     }
+    
+    
+    
+    func attemptCall(with type: CallConferenceType) {
+        
+        let opponentIDs: [NSNumber] = [ 4554340]
+        CallManager.manager.createSession(with: type, opponentIDs: opponentIDs)
+
+     
+            let payload = [
+                "message" : String(format: "xxxxxx is calling you."),
+                "ios_voip" : "1",
+                "VOIPCall" : "1",
+            ]
+            let data = try! JSONSerialization.data(withJSONObject: payload, options: .prettyPrinted)
+            let message = String(data: data, encoding: String.Encoding.utf8)
+
+            let event = Event()
+            event.notificationType = .push
+            event.usersIDs = opponentIDs
+            event.type = .oneShot
+            
+            var pushmessage =  "xxxxxx is calling you."
+            var pushParameters = [String : String]()
+            pushParameters["message"] = pushmessage
+
+            if let jsonData = try? JSONSerialization.data(withJSONObject: pushParameters,
+                                                        options: .prettyPrinted) {
+              let jsonString = String(bytes: jsonData,
+                                      encoding: String.Encoding.utf8)
+
+              event.message = jsonString
+
+              Request.createEvent(event, successBlock: {(events) in
+                
+              }, errorBlock: {(error) in
+
+              })
+            }
+//            session.startCall(["key":"value"])
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let viewController = storyboard.instantiateViewController(withIdentifier: "CallViewController") as! CallViewController
+            viewController.hidesBottomBarWhenPushed = true
+        viewController.modalPresentationStyle = .fullScreen
+            self.present(viewController, animated: true, completion: nil)
+//        }
+         
+    }
+    
     /*
     // MARK: - Navigation
 

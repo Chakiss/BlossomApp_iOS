@@ -1706,6 +1706,112 @@
             </objects>
             <point key="canvasLocation" x="713" y="1051"/>
         </scene>
+        <!--Post From View Controller-->
+        <scene sceneID="wbY-w3-bWJ">
+            <objects>
+                <viewController storyboardIdentifier="PostFromViewController" id="Chh-n0-Yq9" customClass="PostFromViewController" customModule="BlossomApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ND6-er-mdL">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="วินิจฉัย" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FKU-8H-1nM">
+                                <rect key="frame" x="40" y="104" width="46" height="25.5"/>
+                                <fontDescription key="fontDescription" name="SukhumvitSet-SemiBold" family="Sukhumvit Set" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JMV-dZ-Bgy">
+                                <rect key="frame" x="60" y="743" width="294" height="44"/>
+                                <color key="backgroundColor" red="0.95686274510000002" green="0.50196078430000002" blue="0.45098039220000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="2an-DD-ryo"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SukhumvitSet-Bold" family="Sukhumvit Set" pointSize="16"/>
+                                <state key="normal" title="เสร็จ"/>
+                                <connections>
+                                    <action selector="submit" destination="Chh-n0-Yq9" eventType="touchUpInside" id="Kcd-IH-gkw"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IBT-p7-tfj">
+                                <rect key="frame" x="40" y="139.5" width="334" height="78"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="78" id="DGZ-gp-syR"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="19Z-09-NbH">
+                                <rect key="frame" x="40" y="273.5" width="334" height="65"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="65" id="Lpz-52-V5y"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="นัดครั้งถัดไป" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6cA-sb-cVu">
+                                <rect key="frame" x="40" y="358.5" width="334" height="26"/>
+                                <fontDescription key="fontDescription" name="SukhumvitSet-SemiBold" family="Sukhumvit Set" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" borderStyle="bezel" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7Xa-M8-j85">
+                                <rect key="frame" x="40" y="394.5" width="80" height="28.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="46c-8o-QqV"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="namePhonePad"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="วัน" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UXs-aX-O2v">
+                                <rect key="frame" x="133" y="396" width="90" height="26"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="SukhumvitSet-SemiBold" family="Sukhumvit Set" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="แผนการรักษา" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yed-J6-J3y">
+                                <rect key="frame" x="40" y="237.5" width="354" height="26"/>
+                                <fontDescription key="fontDescription" name="SukhumvitSet-SemiBold" family="Sukhumvit Set" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="QnE-wu-ktl"/>
+                        <color key="backgroundColor" red="0.98823529409999999" green="0.97647058819999999" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="19Z-09-NbH" firstAttribute="top" secondItem="yed-J6-J3y" secondAttribute="bottom" constant="10" id="POj-EB-ss6"/>
+                            <constraint firstItem="JMV-dZ-Bgy" firstAttribute="leading" secondItem="QnE-wu-ktl" secondAttribute="leading" constant="60" id="S3s-rV-MI8"/>
+                            <constraint firstItem="19Z-09-NbH" firstAttribute="leading" secondItem="QnE-wu-ktl" secondAttribute="leading" constant="40" id="S83-eF-X16"/>
+                            <constraint firstItem="QnE-wu-ktl" firstAttribute="trailing" secondItem="6cA-sb-cVu" secondAttribute="trailing" constant="40" id="TP7-wt-2n0"/>
+                            <constraint firstItem="yed-J6-J3y" firstAttribute="leading" secondItem="QnE-wu-ktl" secondAttribute="leading" constant="40" id="U26-mR-4cG"/>
+                            <constraint firstItem="QnE-wu-ktl" firstAttribute="trailing" secondItem="IBT-p7-tfj" secondAttribute="trailing" constant="40" id="UtO-wX-O5L"/>
+                            <constraint firstItem="FKU-8H-1nM" firstAttribute="top" secondItem="QnE-wu-ktl" secondAttribute="top" constant="60" id="WT8-yy-zyP"/>
+                            <constraint firstItem="6cA-sb-cVu" firstAttribute="top" secondItem="19Z-09-NbH" secondAttribute="bottom" constant="20" id="WmJ-GV-1r0"/>
+                            <constraint firstItem="IBT-p7-tfj" firstAttribute="top" secondItem="FKU-8H-1nM" secondAttribute="bottom" constant="10" id="bHi-6N-J0e"/>
+                            <constraint firstItem="QnE-wu-ktl" firstAttribute="trailing" secondItem="19Z-09-NbH" secondAttribute="trailing" constant="40" id="gc0-LS-9f7"/>
+                            <constraint firstItem="IBT-p7-tfj" firstAttribute="leading" secondItem="QnE-wu-ktl" secondAttribute="leading" constant="40" id="hF8-zr-BUl"/>
+                            <constraint firstItem="QnE-wu-ktl" firstAttribute="bottom" secondItem="JMV-dZ-Bgy" secondAttribute="bottom" constant="75" id="idr-Co-ZeS"/>
+                            <constraint firstItem="FKU-8H-1nM" firstAttribute="leading" secondItem="QnE-wu-ktl" secondAttribute="leading" constant="40" id="kJn-rR-3zv"/>
+                            <constraint firstItem="yed-J6-J3y" firstAttribute="top" secondItem="IBT-p7-tfj" secondAttribute="bottom" constant="20" id="nrX-BH-JZV"/>
+                            <constraint firstItem="6cA-sb-cVu" firstAttribute="leading" secondItem="QnE-wu-ktl" secondAttribute="leading" constant="40" id="oY9-lt-Bso"/>
+                            <constraint firstItem="7Xa-M8-j85" firstAttribute="top" secondItem="6cA-sb-cVu" secondAttribute="bottom" constant="10" id="qrd-0k-E1i"/>
+                            <constraint firstItem="7Xa-M8-j85" firstAttribute="leading" secondItem="QnE-wu-ktl" secondAttribute="leading" constant="40" id="rzy-6a-zqo"/>
+                            <constraint firstItem="QnE-wu-ktl" firstAttribute="trailing" secondItem="JMV-dZ-Bgy" secondAttribute="trailing" constant="60" id="tA8-RW-NwV"/>
+                            <constraint firstItem="QnE-wu-ktl" firstAttribute="trailing" secondItem="yed-J6-J3y" secondAttribute="trailing" constant="20" id="zUo-w3-sHG"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="carePlanTextField" destination="19Z-09-NbH" id="Y38-pY-byT"/>
+                        <outlet property="diagnoseTextField" destination="IBT-p7-tfj" id="fhd-Rb-BXK"/>
+                        <outlet property="doneButton" destination="JMV-dZ-Bgy" id="JmY-Y0-OKP"/>
+                        <outlet property="nextAppointmentTextField" destination="7Xa-M8-j85" id="yhK-1j-1gZ"/>
+                        <outlet property="submitButton" destination="JMV-dZ-Bgy" id="Suz-Mo-PDd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wyo-cv-bAE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2598.5507246376815" y="308.70535714285711"/>
+        </scene>
     </scenes>
     <designables>
         <designable name="Zz8-5n-TQ4">
