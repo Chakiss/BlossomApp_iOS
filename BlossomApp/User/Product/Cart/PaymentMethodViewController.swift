@@ -298,6 +298,11 @@ fileprivate class CreditCardInputViewController: UIViewController {
         view.addSubview(omiseView.view)
         addChild(omiseView)
         
+        if let scrollView = omiseView.view.subviews.first(where: { $0 is UIScrollView }) as? UIScrollView,
+           let button = scrollView.subviews.first(where: { $0 is UIButton }) as? UIButton {
+            button.backgroundColor = UIColor.blossomPrimary
+        }
+        
         NSLayoutConstraint.activate([
             omiseView.view.topAnchor.constraint(equalTo: view.topAnchor),
             omiseView.view.leftAnchor.constraint(equalTo: view.leftAnchor),
