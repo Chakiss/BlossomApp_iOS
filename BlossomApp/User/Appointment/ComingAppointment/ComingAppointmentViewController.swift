@@ -87,6 +87,7 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
             
         }))
         
+        
         alert.addAction(UIAlertAction(title: "ยกเลิก", style: .destructive, handler:{ (UIAlertAction)in
             print("User click Dismiss button")
         }))

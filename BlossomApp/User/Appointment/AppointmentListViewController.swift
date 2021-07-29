@@ -159,12 +159,16 @@ class AppointmentListViewController: UIViewController {
                     let sessionStart = data["sessionStart"] as! Timestamp
                     let sessionEnd = data["sessionEnd"]  as! Timestamp
                     let isComplete = data["isCompleted"]  as! Bool
+                    let preForm = data["preForm"] as? [String:Any] ?? ["":""]
+                    let postForm = data["postForm"] as? [String:Any] ?? ["":""]
                     
-                    var appointment = Appointment(id: queryDocumentSnapshot.documentID, customerReference: cusRef!, doctorReference: doctorRef!, timeReference: timeRef!,sessionStart: sessionStart, sessionEnd: sessionEnd)
+                    let attachedImages = data["attachedImages"] as? [String] ?? []
+                    
+                    var appointment = Appointment(id: queryDocumentSnapshot.documentID, customerReference: cusRef!, doctorReference: doctorRef!, timeReference: timeRef!,sessionStart: sessionStart, sessionEnd: sessionEnd,preForm: preForm, postForm: postForm)
                     appointment.isComplete = isComplete
-                    
+                    appointment.attachedImages = attachedImages
                     return appointment
-                }) as! [Appointment]
+                }) ?? []
                
                 var inCompleteAppointment: [Appointment] = []
                 var completeAppointment: [Appointment] = []
@@ -181,6 +185,7 @@ class AppointmentListViewController: UIViewController {
                 self.comingAppointmentViewController.tableView.reloadData()
                 
                 self.historyAppointmentViewController.appointments = completeAppointment
+                self.comingAppointmentViewController.tableView.reloadData()
 
             }
     }

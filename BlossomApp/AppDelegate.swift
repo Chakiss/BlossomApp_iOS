@@ -17,6 +17,7 @@ enum Deeplinking {
     case orderList
     case appointment
     case chat
+    case product
 }
 
 @main
@@ -129,6 +130,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 tabbarController.selectedIndex = 1
             case .chat:
                 tabbarController.selectedIndex = 2
+            case .product:
+                break
             }
         } else {
             switch deeplinking {
@@ -136,6 +139,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 tabbarController.selectedIndex = 2
             case .appointment:
                 tabbarController.selectedIndex = 2
+            case .product:
+                tabbarController.selectedIndex = 3
             case .chat:
                 tabbarController.selectedIndex = 4
             }

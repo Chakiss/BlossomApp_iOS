@@ -34,8 +34,15 @@ class HistoryAppointmentViewController: UIViewController, UITableViewDataSource,
     }
 
    
-   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       tableView.deselectRow(at: indexPath, animated: true)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let appointment = self.appointments[indexPath.row]
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let viewController = storyboard.instantiateViewController(withIdentifier: "HistoryAppointmentDetailViewController") as! HistoryAppointmentDetailViewController
+        viewController.appointment = appointment
+        viewController.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(viewController, animated: true)
    }
 
     /*

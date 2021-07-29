@@ -120,8 +120,10 @@ class Doctor_AppointmentViewController: UIViewController {
                     let sessionStart = data["sessionStart"] as! Timestamp
                     let sessionEnd = data["sessionEnd"]  as! Timestamp
                     let isComplete = data["isCompleted"]  as! Bool
+                    let preForm = data["preForm"] as? [String:Any] ?? ["":""]
+                    let postForm = data["postForm"] as? [String:Any] ?? ["":""]
                     
-                    var appointment = Appointment(id: queryDocumentSnapshot.documentID, customerReference: cusRef!, doctorReference: doctorRef!, timeReference: timeRef!,sessionStart: sessionStart, sessionEnd: sessionEnd)
+                    var appointment = Appointment(id: queryDocumentSnapshot.documentID, customerReference: cusRef!, doctorReference: doctorRef!, timeReference: timeRef!,sessionStart: sessionStart, sessionEnd: sessionEnd,preForm: preForm, postForm: postForm)
                     appointment.isComplete = isComplete
                     
                     return appointment

@@ -149,7 +149,22 @@ class Doctor_ComingAppointmentViewController: UIViewController, UITableViewDataS
            
         }))
         
-        alert.addAction(UIAlertAction(title: "สั่งยา", style: .default , handler:{ (UIAlertAction) in
+        alert.addAction(UIAlertAction(title: "สั่งยา", style: .default , handler:{ [weak self](UIAlertAction) in
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let viewController = storyboard.instantiateViewController(withIdentifier: "ProductListViewController") as! ProductListViewController
+            //viewController.appointment = appointment
+            viewController.hidesBottomBarWhenPushed = true
+            self?.navigationController?.pushViewController(viewController, animated: true)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "รายละเอียด", style: .default, handler: { [weak self] (UIAlertAction) in
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let viewController = storyboard.instantiateViewController(withIdentifier: "HistoryAppointmentDetailViewController") as! HistoryAppointmentDetailViewController
+            viewController.appointment = appointment
+            viewController.hidesBottomBarWhenPushed = true
+            self?.navigationController?.pushViewController(viewController, animated: true)
             
         }))
         

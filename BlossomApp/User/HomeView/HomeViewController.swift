@@ -24,6 +24,10 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
     @IBOutlet weak var doctorNameLabel: UILabel!
     @IBOutlet weak var doctorAppointmentView: UIView!
     
+    @IBOutlet weak var productButton1: UIButton!
+    @IBOutlet weak var productButton2: UIButton!
+    @IBOutlet weak var productButton3: UIButton!
+    
     var user = Auth.auth().currentUser
     let db = Firestore.firestore()
     let storage = Storage.storage()
@@ -111,8 +115,11 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
                     let cusRef = data["customerReference"]  as? DocumentReference ?? nil
                     let sessionStart = data["sessionStart"] as! Timestamp
                     let sessionEnd = data["sessionEnd"]  as! Timestamp
+                    let preForm = data["preForm"] as? [String:Any] ?? ["":""]
+                    let postForm = data["postForm"] as? [String:Any] ?? ["":""]
                     
-                    return Appointment(id: "", customerReference: cusRef!, doctorReference: doctorRef!, timeReference: timeRef!,sessionStart: sessionStart, sessionEnd: sessionEnd)
+                    let appointment = Appointment(id: queryDocumentSnapshot.documentID, customerReference: cusRef!, doctorReference: doctorRef!, timeReference: timeRef!,sessionStart: sessionStart, sessionEnd: sessionEnd,preForm: preForm, postForm: postForm)
+                    return appointment
                 })
                 
                 guard appointments != nil else {
@@ -218,10 +225,33 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
                     
                 } ?? []
                 
-
+                if self.productHilights.count == 3 {
+                    if let imgURL = URL(string: self.productHilights[0].image) {
+                        self.productButton1.kf.setImage(with: imgURL, for: .normal)
+                    }
+                    if let imgURL = URL(string: self.productHilights[1].image) {
+                        self.productButton2.kf.setImage(with: imgURL, for: .normal)
+                    }
+                    if let imgURL = URL(string: self.productHilights[2].image) {
+                        self.productButton3.kf.setImage(with: imgURL, for: .normal)
+                    }
+                    
+                    
+                }
+                
             }
         
         
+    }
+    
+    @IBAction func openProduct() {
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            appDelegate.deeplinking = .product
+            appDelegate.handleDeeplinking()
+            self.dismiss(animated: false, completion: {
+                self.navigationController?.popToRootViewController(animated: false)
+            })
+        }
     }
     // MARK: - Action on Promotion
     

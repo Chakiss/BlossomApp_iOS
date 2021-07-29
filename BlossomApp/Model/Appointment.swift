@@ -24,6 +24,8 @@ struct Appointment: Codable {
     var sessionStart: Timestamp?
     var sessionEnd: Timestamp?
     
+    var attachedImages: [String]?
+    
     private enum CodingKeys: String, CodingKey {
         case id
         //case createdAt
@@ -40,13 +42,15 @@ struct Appointment: Codable {
         
     }
     
-    init(id: String,customerReference: DocumentReference, doctorReference: DocumentReference,timeReference: DocumentReference, sessionStart: Timestamp, sessionEnd: Timestamp ){
+    init(id: String,customerReference: DocumentReference, doctorReference: DocumentReference,timeReference: DocumentReference, sessionStart: Timestamp, sessionEnd: Timestamp, preForm: [String:Any],postForm: [String:Any] ){
         self.id = id
         self.customerReference = customerReference
         self.doctorReference = doctorReference
         self.timeReference = timeReference
         self.sessionStart = sessionStart
         self.sessionEnd = sessionEnd
+        self.preForm = preForm
+        self.postForm = postForm
     }
     
     init(from decoder: Decoder) throws {
