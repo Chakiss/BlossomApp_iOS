@@ -33,6 +33,8 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
     
     var promotions: [Promotion] = []
     
+    var productHilights: [ProductHilight] = []
+    
     var handle: AuthStateDidChangeListenerHandle?
     
     override func viewDidLoad() {
@@ -49,6 +51,7 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
                 
         
         getPromotion()
+        getProduct_Hilight()
     }
     
     
@@ -199,22 +202,43 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
         
         
     }
+    
+    func getProduct_Hilight() {
+        db.collection("product_hilight")
+            .getDocuments { snapshot, error in
+                self.productHilights =  snapshot?.documents.map { document -> ProductHilight in
+    
+                    let data = document.data()
+                    let productHilight = ProductHilight()
+                    
+                    productHilight.image = data["image"] as! String
+                    //productHilight.link = data["deeplink"] as! String
+                   
+                    return productHilight
+                    
+                } ?? []
+                
+
+            }
+        
+        
+    }
     // MARK: - Action on Promotion
     
     func openCampaign(promotion: Promotion) {
         
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        let viewController = storyboard.instantiateViewController(withIdentifier: "PromotionViewController") as! PromotionViewController
-//        viewController.promotion = promotion
-//        viewController.modalPresentationStyle = .fullScreen
-//        viewController.hidesBottomBarWhenPushed = true
-//        self.navigationController?.pushViewController(viewController, animated: true)
-
-        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let viewController = storyboard.instantiateViewController(withIdentifier: "ReviewViewController") as! ReviewViewController
+        let viewController = storyboard.instantiateViewController(withIdentifier: "PromotionViewController") as! PromotionViewController
+        viewController.promotion = promotion
+        viewController.modalPresentationStyle = .fullScreen
         viewController.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(viewController, animated: true)
+
+        
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let viewController = storyboard.instantiateViewController(withIdentifier: "ReviewViewController") as! ReviewViewController
+//        viewController.hidesBottomBarWhenPushed = true
+//        self.navigationController?.pushViewController(viewController, animated: true)
         
     }
     

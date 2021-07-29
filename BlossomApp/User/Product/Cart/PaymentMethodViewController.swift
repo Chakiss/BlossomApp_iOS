@@ -294,6 +294,7 @@ fileprivate class CreditCardInputViewController: UIViewController {
         omiseView.view.frame = view.bounds
         omiseView.view.backgroundColor = .clear
         omiseView.view.tintColor = UIColor.blossomPrimary3
+        
         view.addSubview(omiseView.view)
         addChild(omiseView)
         

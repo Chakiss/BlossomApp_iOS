@@ -70,14 +70,14 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Blossom app need to access your calender to add event on it</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Blossom app wants to access your camera to take a photo.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Blossom app wants to access your microphone to contact to doctor.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Blossom app accesses your photo library to upload and display photos.</string>
-	<key>NSCalendarsUsageDescription</key>
-	<string>Blossom app need to access your calender to add event on it</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>SukhumvitSet-Bold.ttf</string>
@@ -137,5 +137,9 @@
 	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
+    <key>BGTaskSchedulerPermittedIdentifiers</key>
+    <array>
+        <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+    </array>
 </dict>
 </plist>

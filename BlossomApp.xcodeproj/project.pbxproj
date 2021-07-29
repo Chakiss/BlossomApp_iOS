@@ -36,6 +36,7 @@
 		1B3721D226959645006265D3 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3721D126959645006265D3 /* ProfileViewController.swift */; };
 		1B3721D52695AF29006265D3 /* ProfileInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3721D42695AF29006265D3 /* ProfileInformationViewController.swift */; };
 		1B3721D82695AF46006265D3 /* ProfileHealthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3721D72695AF46006265D3 /* ProfileHealthViewController.swift */; };
+		1B3D367526B28408000EFCEC /* ProductHilight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D367426B28408000EFCEC /* ProductHilight.swift */; };
 		1B5312492693754200B88165 /* SukhumvitSet-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1B5312432693754200B88165 /* SukhumvitSet-Thin.ttf */; };
 		1B53124A2693754200B88165 /* SukhumvitSet-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1B5312442693754200B88165 /* SukhumvitSet-SemiBold.ttf */; };
 		1B53124B2693754200B88165 /* SukhumvitSet-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1B5312452693754200B88165 /* SukhumvitSet-Medium.ttf */; };
@@ -202,6 +203,7 @@
 		1B3721D126959645006265D3 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		1B3721D42695AF29006265D3 /* ProfileInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInformationViewController.swift; sourceTree = "<group>"; };
 		1B3721D72695AF46006265D3 /* ProfileHealthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHealthViewController.swift; sourceTree = "<group>"; };
+		1B3D367426B28408000EFCEC /* ProductHilight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductHilight.swift; sourceTree = "<group>"; };
 		1B5312432693754200B88165 /* SukhumvitSet-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SukhumvitSet-Thin.ttf"; sourceTree = "<group>"; };
 		1B5312442693754200B88165 /* SukhumvitSet-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SukhumvitSet-SemiBold.ttf"; sourceTree = "<group>"; };
 		1B5312452693754200B88165 /* SukhumvitSet-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SukhumvitSet-Medium.ttf"; sourceTree = "<group>"; };
@@ -653,6 +655,7 @@
 			isa = PBXGroup;
 			children = (
 				1B775921269491A4000780BD /* Promotion.swift */,
+				1B3D367426B28408000EFCEC /* ProductHilight.swift */,
 				1BA04F4A26B03B470053F10D /* BlossomReview.swift */,
 				1BE101E2269D575D00F7323E /* Doctor.swift */,
 				1BE101E4269DC63200F7323E /* Reviews.swift */,
@@ -1146,6 +1149,7 @@
 				1B13E6E5269ADC0000131105 /* RegisterViewController.swift in Sources */,
 				1BA04F5426B112F30053F10D /* ReviewViewController.swift in Sources */,
 				1BF58D4626ADBEDE00F2D620 /* OrderResponse.swift in Sources */,
+				1B3D367526B28408000EFCEC /* ProductHilight.swift in Sources */,
 				1B77591A2694775E000780BD /* MultiBannerView.swift in Sources */,
 				1BE101E7269DD2DD00F7323E /* Customer.swift in Sources */,
 				3CF7B50526AC23C200F937DE /* String+Extension.swift in Sources */,
@@ -1381,7 +1385,7 @@
 				CODE_SIGN_ENTITLEMENTS = BlossomApp/BlossomApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = GZWLHGR8C3;
 				EXCLUDED_ARCHS = "";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
@@ -1411,7 +1415,7 @@
 				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = "";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = GZWLHGR8C3;
 				EXCLUDED_ARCHS = "";
 				INFOPLIST_FILE = BlossomApp/Info.plist;
