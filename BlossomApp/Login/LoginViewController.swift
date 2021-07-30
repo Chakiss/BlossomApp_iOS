@@ -220,7 +220,7 @@ class LoginViewController: UIViewController, ASAuthorizationControllerPresentati
 extension LoginViewController: ASAuthorizationControllerDelegate {
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-        
+        ProgressHUD.dismiss()
         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
             // Do something with the credential...
             UserDefaults.standard.set(appleIDCredential.user, forKey: "appleAuthorizedUserIdKey")

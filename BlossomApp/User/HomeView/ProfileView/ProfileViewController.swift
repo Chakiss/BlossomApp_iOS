@@ -149,6 +149,7 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
                        "zipcodeID": "0"]
         
         functions.httpsCallable("app-users-updateProfile").call(payload) { result, error in
+            ProgressHUD.dismiss()
             Auth.auth().currentUser?.reload()
             self.saveHealtData()
             

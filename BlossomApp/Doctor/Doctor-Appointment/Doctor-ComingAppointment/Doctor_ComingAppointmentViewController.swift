@@ -90,7 +90,8 @@ class Doctor_ComingAppointmentViewController: UIViewController, UITableViewDataS
                 doctorDocID: appointment.doctorReference?.documentID ?? "",
                 customerDocID: appointment.customerReference?.documentID ?? "",
                 startTimestamp: appointment.sessionStart?.seconds ?? 0,
-                endTimestamp: appointment.sessionEnd?.seconds ?? 0
+                endTimestamp: appointment.sessionEnd?.seconds ?? 0,
+                appointmentID: appointment.id ?? ""
             )
             viewController.hidesBottomBarWhenPushed = true
             viewController.modalPresentationStyle = .fullScreen

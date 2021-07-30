@@ -19,13 +19,15 @@ extension Dictionary {
         let customerDocID: String = (self["appointmentCustomer" as! Key] as? String) ?? ""
         let startTimestamp: Int64 = Int64(self["appointmentSessionStartTimestamp" as! Key] as? String ?? "") ?? 0
         let endTimestamp: Int64 = Int64(self["appointmentSessionEndTimestamp" as! Key] as? String ?? "") ?? 0
+        let appointmentID: String = (self["appointment" as! Key] as? String) ?? ""
         
         return CallKitAdapter.UserInfo(
             callerName: callerName,
             doctorDocID: doctorDocID,
             customerDocID: customerDocID,
             startTimestamp: startTimestamp,
-            endTimestamp: endTimestamp)
+            endTimestamp: endTimestamp,
+            appointmentID: appointmentID)
     }
     
 }
@@ -38,6 +40,7 @@ class CallKitAdapter: NSObject, CXProviderDelegate {
         let customerDocID: String
         let startTimestamp: Int64
         let endTimestamp: Int64
+        let appointmentID: String
         
         func dict() -> [String: String] {
             return [
@@ -45,7 +48,8 @@ class CallKitAdapter: NSObject, CXProviderDelegate {
                 "appointmentDoctor": doctorDocID,
                 "appointmentCustomer": customerDocID,
                 "appointmentSessionStartTimestamp": "\(startTimestamp)",
-                "appointmentSessionEndTimestamp": "\(endTimestamp)"
+                "appointmentSessionEndTimestamp": "\(endTimestamp)",
+                "appointment": appointmentID
             ]
         }
     }

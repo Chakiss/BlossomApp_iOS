@@ -46,6 +46,7 @@ class QRPaymentViewController: UIViewController {
             self.imageView.image = image
         }
         
+        checkPaymentSuccess()
     }
 
     @IBAction func nextAction(_ sender: Any) {
@@ -58,18 +59,38 @@ class QRPaymentViewController: UIViewController {
         ProgressHUD.show()
         db?.collection("shipnity_orders").document(orderID).addSnapshotListener({ [weak self] result, error in
             ProgressHUD.dismiss()
-            guard error == nil && result?.data() != nil else {
-                self?.showAlertDialogue(title: "ไม่สามารถชำระเงินด้วย QR ได้", message: "กรุณาลองใหม่ภายหลัง", completion: {
-                    
-                })
-                return
+            let data = result?.data()
+            let isPaid = data?["isPaid"] as? Bool ?? false
+            if isPaid == true {
+                self?.updateOrderPayment(paidAt: Date(), orderID:orderID)
             }
-            
-            self?.delegate?.qrPaymentComplete()
         })
         
     }
     
+    private func updateOrderPayment(paidAt date: Date, orderID: String? = nil) {
+        
+       
+        ProgressHUD.show()
+        //let orderID = cart?.purchaseOrder?.id ?? 0
+        let orderIBNumner = Int(orderID ?? "0")!
+        APIProduct.updateOrderPayment(orderID: orderIBNumner) { [weak self] result in
+            guard result else {
+                ProgressHUD.dismiss()
+                self?.showAlertDialogue(title: "ไม่สามารถอัพเดตสถานะคำสั่งซื้อได้", message: "กรุณาแจ้งเจ้าหน้าที่ และบันทึกหน้าจอนี้\n(Omise: \(orderID ?? "n/a"))", completion: {
+                })
+                return
+            }
+            
+            APIProduct.updateOrderNote(orderID: orderIBNumner, note: orderID ?? "") { [weak self] response in
+                ProgressHUD.dismiss()
+                
+                self?.delegate?.qrPaymentComplete()
+                
+            }.request()
+            
+        }.request()
+    }
     /*
     // MARK: - Navigation
 
