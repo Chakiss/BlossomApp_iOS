@@ -107,7 +107,7 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
         appointment.doctorReference?.getDocument(completion: { snapshot, error in
             let snapshotData = snapshot?.data()
             let connectyCubeID = snapshotData?["referenceConnectyCubeID"] as? Int ?? 0
-            opponentID = NSNumber(value:connectyCubeID ?? 0)
+            opponentID = NSNumber(value:connectyCubeID )
             CallManager.manager.createSession(with: type, opponentIDs: [opponentID])
             
             

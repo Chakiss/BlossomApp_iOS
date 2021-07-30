@@ -87,8 +87,15 @@ class CallViewController: UIViewController, CallClientDelegate {
             
             let endTimestamp = Timestamp(seconds: self?.callInfo?.endTimestamp ?? 0, nanoseconds: 0)
             if endTimestamp.dateValue() < now {
-                debugPrint("Ending call now:\(now) endTimestamp:\(endTimestamp.dateValue())")
-               // self?.endCall()
+                debugPrint("Ending call now:\(now) endTimestamp:\(endTimestamp.dateValue())")                
+                let confirmAlertView: UIAlertController = UIAlertController(title: "ขณะนี้หมดเวลาให้คำปรึกษาแล้ว", message: "ต้องการวางสายตอนนี้หรือไม่", preferredStyle: .alert)
+                
+                confirmAlertView.addAction(UIAlertAction(title: "ยังไม่วางสาย", style: .cancel, handler: nil))
+                confirmAlertView.addAction(UIAlertAction(title: "วางสาย", style: .default, handler: { [weak self] action in
+                    self?.endCall()
+                }))
+                    
+                self?.present(confirmAlertView, animated: true)
                 timer.invalidate()
                 return
             }
@@ -97,7 +104,7 @@ class CallViewController: UIViewController, CallClientDelegate {
             if warningTime < now && self?.warning == false {
                 self?.warning = true
                 let timeLeft = formatter.string(from: now, to: endTimestamp.dateValue()) ?? ""
-                self?.showAlertDialogue(title: "เหลือเวลาอีก \(timeLeft) นาที", message: "ระบบจะวางสายอัตโนมัติทันทีที่หมดเวลาให้คำปรึกษา", completion: {})
+                self?.showAlertDialogue(title: "เหลือเวลาอีก \(timeLeft) นาที", message: "กรุณาวางสายภายในเวลาให้คำปรึกษา", completion: {})
             }
             
             debugPrint("Calling timer now:\(now) endTimestamp:\(endTimestamp.dateValue()) warningTime:\(warningTime)")
