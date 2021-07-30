@@ -9,6 +9,7 @@ import UIKit
 import Firebase
 import SwiftDate
 import EventKit
+import ConnectyCube
 
 class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
@@ -264,6 +265,30 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
                     print("Case default")
                 }
                 
+                let event = Event()
+                event.notificationType = .push
+                
+                let recipientID = NSNumber(value:self.doctor?.referenceConnectyCubeID ?? 0)
+                event.usersIDs = [recipientID]
+                event.type = .oneShot
+    
+                let pushmessage = "มีการนัดหมายปรึกษาแพทย์เพิ่มเข้ามา"
+                var pushParameters = [String : String]()
+                pushParameters["message"] = pushmessage
+                
+                if let jsonData = try? JSONSerialization.data(withJSONObject: pushParameters,
+                                                              options: .prettyPrinted) {
+                    let jsonString = String(bytes: jsonData,
+                                            encoding: String.Encoding.utf8)
+                    
+                    event.message = jsonString
+                    
+                    Request.createEvent(event, successBlock: {(events) in
+        
+                    }, errorBlock: {(error) in
+                        
+                    })
+                }
                 
                 if let appointmentID = appointment["appointmentID"] {
                     

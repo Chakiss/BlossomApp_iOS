@@ -130,16 +130,14 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
                     self.tableView.reloadData()
                     self.scrollToBottom()
                     
-                    
-                    
                     let recipientID = NSNumber(value:self.chatdialog!.recipientID)
                     
                     let event = Event()
                     event.notificationType = .push
                     event.usersIDs = [recipientID]
                     event.type = .oneShot
-                    
-                    var pushmessage = message.text! as String
+        
+                    let pushmessage = message.text! as String
                     var pushParameters = [String : String]()
                     pushParameters["message"] = pushmessage
                     
@@ -156,9 +154,6 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
                             print(error)
                         })
                     }
-                    
-                    
-                    
                     
                 }
                 
