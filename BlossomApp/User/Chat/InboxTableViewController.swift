@@ -40,7 +40,7 @@ class InboxTableViewController: UITableViewController {
         }
         
         let message = InboxMessage.objectAtIndexPath(indexPath)
-        cell?.textLabel?.text = message.createdAt?.toFormat("d MMM yyyy")
+        cell?.textLabel?.text = message.createdAt?.toFormat("d MMM yyyy HH:mm")
         cell?.detailTextLabel?.text = message.message
 
         return cell!

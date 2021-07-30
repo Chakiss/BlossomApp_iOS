@@ -27,7 +27,7 @@ private class InboxMessageHelper: NSObject {
         let request = NSFetchRequest<InboxMessage>(entityName: "InboxMessage")
         let sort = NSSortDescriptor(key: "createdAt", ascending: false)
         request.sortDescriptors = [sort]
-        request.fetchBatchSize = 20
+        request.fetchBatchSize = 10
 
         let fetchedResultsController = NSFetchedResultsController(
             fetchRequest: request,
