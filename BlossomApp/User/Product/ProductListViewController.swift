@@ -7,6 +7,7 @@
 
 import UIKit
 import Alamofire
+import SwiftyUserDefaults
 
 protocol ProductListViewControllerDelegate: AnyObject {
     func productListDidSelect(product: Product)
@@ -16,13 +17,16 @@ class ProductListViewController: UIViewController, UITableViewDataSource, UITabl
     
     @IBOutlet weak var tableView: UITableView!
 
-    var products: [Product] = []
+    private var products: [Product] = []
+    
+    var customer: Customer?
     weak var delegate: ProductListViewControllerDelegate?
     
-    static func initializeInstance() -> ProductListViewController? {
+    static func initializeInstance(customer: Customer?) -> ProductListViewController? {
         let storyBoard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let productList = storyBoard.instantiateViewController(withIdentifier: "ProductListViewController") as? ProductListViewController
         productList?.hidesBottomBarWhenPushed = true
+        productList?.customer = customer
         return productList
     }
 
@@ -30,6 +34,9 @@ class ProductListViewController: UIViewController, UITableViewDataSource, UITabl
         super.viewDidLoad()
         self.title = "ยา"
         // Do any additional setup after loading the view.
+        if customer == nil {
+            customer = CustomerManager.sharedInstance.customer
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,6 +50,9 @@ class ProductListViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     private func updateCartButton() {
+        guard self.navigationController?.viewControllers.firstIndex(of: self) == 0 || Defaults[\.role] == "doctor" else {
+            return
+        }
         let count = CartManager.shared.currentCart?.items.count ?? 0
         let icon = count > 0 ? "cart.fill" : "cart"
         let cartButton = UIBarButtonItem(image: UIImage(systemName: icon), style: .plain, target: self, action: #selector(showCartDetail))
@@ -57,7 +67,7 @@ class ProductListViewController: UIViewController, UITableViewDataSource, UITabl
             return
         }
         
-        let viewController = CartViewController.initializeInstance(cart: CartManager.shared.currentCart!)
+        let viewController = CartViewController.initializeInstance(cart: CartManager.shared.currentCart!, customer: customer)
         self.navigationController?.pushViewController(viewController, animated: true)
         
     }

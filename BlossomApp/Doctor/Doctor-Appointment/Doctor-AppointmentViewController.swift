@@ -112,7 +112,7 @@ class Doctor_AppointmentViewController: UIViewController {
         db.collection("appointments")
             .whereField("doctorReference", isEqualTo: self.doctor?.documentReference as Any)
             .addSnapshotListener { snapshot, error in
-                self.appointments = (snapshot?.documents.map { queryDocumentSnapshot -> Appointment  in
+                guard let appointments = (snapshot?.documents.map { queryDocumentSnapshot -> Appointment  in
                     let data = queryDocumentSnapshot.data()
                     let doctorRef = data["doctorReference"]  as? DocumentReference ?? nil
                     let timeRef = data["timeReference"]  as? DocumentReference ?? nil
@@ -127,7 +127,11 @@ class Doctor_AppointmentViewController: UIViewController {
                     appointment.isComplete = isComplete
                     
                     return appointment
-                })!
+                }) else {
+                    return
+                }
+                
+                self.appointments = appointments
                 
                 var inCompleteAppointment: [Appointment] = []
                 var completeAppointment: [Appointment] = []

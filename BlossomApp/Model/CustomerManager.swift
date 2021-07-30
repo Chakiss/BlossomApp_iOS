@@ -49,7 +49,23 @@ class CustomerManager: NSObject {
             return
         }
         
-        db?.collection("customers").document(user?.uid ?? "").addSnapshotListener { snapshot, error in
+        getCustomerData(uid: user?.uid ?? "") { customer in
+            
+            guard customer != nil else {
+                completion()
+                return
+            }
+
+            self.customer = customer
+            CallManager.manager.loginConnectyCube(email: customer!.email ?? "", firebaseID: customer!.id ?? "", connectyID: UInt(customer?.referenceConnectyCubeID ?? "") ?? 0)
+            completion()
+            
+        }
+        
+    }
+    
+    func getCustomerData(uid: String, completion: @escaping (Customer?)->Swift.Void) {
+        db?.collection("customers").document(uid).addSnapshotListener { snapshot, error in
             
             let customer = (snapshot?.data().map({ documentData -> Customer in
                 let id = snapshot?.documentID ?? ""
@@ -100,14 +116,7 @@ class CustomerManager: NSObject {
                 
             }))
             
-            guard customer != nil else {
-                completion()
-                return
-            }
-            
-            self.customer = customer
-            CallManager.manager.loginConnectyCube(email: customer!.email ?? "", firebaseID: customer!.id ?? "", connectyID: UInt(customer?.referenceConnectyCubeID ?? "") ?? 0)
-            completion()
+            completion(customer)
         }
     }
     

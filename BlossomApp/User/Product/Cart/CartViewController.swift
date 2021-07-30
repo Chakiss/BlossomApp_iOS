@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftyUserDefaults
 
 protocol UpdateCartViewControllerDelegate: AnyObject {
     func cartDidUpdate(order: Order)
@@ -29,14 +30,16 @@ class CartViewController: UIViewController {
     
     private var cartHeaderModel: CartHeaderTableViewCell.Model?
     private var cart: Cart?
+    private var customer: Customer?
     private var currentCart: Bool = true
     
     var delegate: UpdateCartViewControllerDelegate?
     
-    static func initializeInstance(cart: Cart, currentCart: Bool = true) -> CartViewController {
+    static func initializeInstance(cart: Cart, currentCart: Bool = true, customer: Customer?) -> CartViewController {
         let controller: CartViewController = CartViewController(nibName: "CartViewController", bundle: Bundle.main)
         controller.cart = cart
         controller.currentCart = currentCart
+        controller.customer = customer ?? CustomerManager.sharedInstance.customer
         controller.hidesBottomBarWhenPushed = true
         return controller
     }
@@ -45,7 +48,12 @@ class CartViewController: UIViewController {
         self.checkoutButton.superview?.backgroundColor = UIColor.backgroundColor
         self.checkoutButton.backgroundColor = UIColor.blossomPrimary3
         self.checkoutButton.roundCorner(radius: 22)
-        self.checkoutButton.setTitle("ชำระเงิน", for: .normal)
+        
+        if Defaults[\.role] == "doctor" {
+            self.checkoutButton.setTitle("สั่งยา", for: .normal)
+        } else {
+            self.checkoutButton.setTitle("ชำระเงิน", for: .normal)
+        }
     }
     
     private func setupTableView() {
@@ -64,7 +72,7 @@ class CartViewController: UIViewController {
         let model = CartHeaderTableViewCell.Model(
             dateString: String.today(),
             priceText: "",
-            addressText: CustomerManager.sharedInstance.customer?.address?.address ?? "-"
+            addressText: customer?.address?.address ?? "-"
         )
         self.cartHeaderModel = model
         updateTotalPrice()
@@ -103,17 +111,16 @@ class CartViewController: UIViewController {
     
     @objc
     private func addMoreProduct() {
-        guard let productList = ProductListViewController.initializeInstance() else {
+        guard let productList = ProductListViewController.initializeInstance(customer: customer) else {
             return
         }
-        
         productList.delegate = self
         self.navigationController?.pushViewController(productList, animated: true)
     }
     
     private func createOrder() {
         
-        guard let customer = CustomerManager.sharedInstance.customer else {
+        guard let customer = customer else {
             showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณาเข้าสู่ระบบ") { [weak self] in
                 self?.showLoginView()
             }
@@ -156,7 +163,7 @@ class CartViewController: UIViewController {
     }
     
     private func updateOrder() {
-        guard let customer = CustomerManager.sharedInstance.customer else {
+        guard let customer = customer else {
             return
         }
         
@@ -196,6 +203,11 @@ class CartViewController: UIViewController {
     }
     
     private func gotoPaymentMethod() {
+        
+        guard Defaults[\.role] != "doctor" else {
+            self.navigationController?.popToRootViewController(animated: true)
+            return
+        }
         
         guard let cart = cart else {
             return
@@ -325,12 +337,17 @@ extension CartViewController: CartItemTableViewCellDelegate {
 extension CartViewController: CartHeaderTableViewCellDelegate {
     
     func cartHeaderDidTapEditAddress() {
-        guard CustomerManager.sharedInstance.customer != nil else {
+        guard customer != nil else {
             showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณาเข้าสู่ระบบ") { [weak self] in
                 self?.showLoginView()
             }
             return
         }
+        
+        guard Defaults[\.role] != "doctor" else {
+            return
+        }
+        
         showProfile()
     }
     

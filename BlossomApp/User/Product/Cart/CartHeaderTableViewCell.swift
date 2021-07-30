@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftyUserDefaults
 
 protocol CartHeaderTableViewCellDelegate: AnyObject {
     func cartHeaderDidTapEditAddress()
@@ -57,7 +58,8 @@ class CartHeaderTableViewCell: UITableViewCell {
         orderLabel.text = "Order วันที่ \(model.dateString)"
         priceLabel.text = "ราคา \(model.priceText) บาท"
         addressTitieLabel.text = "ที่อยู่จัดส่ง"
-        addressLabel.text = model.addressText
+        addressLabel.text = model.addressText        
+        editAddressButton.isHidden =  Defaults[\.role] == "doctor"
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

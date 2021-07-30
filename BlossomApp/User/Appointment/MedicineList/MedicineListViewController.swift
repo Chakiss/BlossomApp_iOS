@@ -151,7 +151,7 @@ extension MedicineListViewController: UITableViewDataSource, UITableViewDelegate
                 self.present(webview, animated: true, completion: nil)
             }
         } else {
-            let viewController = CartViewController.initializeInstance(cart: CartManager.shared.convertOrder(order), currentCart: false)
+            let viewController = CartViewController.initializeInstance(cart: CartManager.shared.convertOrder(order), currentCart: false, customer: CustomerManager.sharedInstance.customer)
             viewController.delegate = self
             self.navigationController?.pushViewController(viewController, animated: true)
         }

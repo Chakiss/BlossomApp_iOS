@@ -150,13 +150,20 @@ class Doctor_ComingAppointmentViewController: UIViewController, UITableViewDataS
            
         }))
         
-        alert.addAction(UIAlertAction(title: "สั่งยา", style: .default , handler:{ [weak self](UIAlertAction) in
+        alert.addAction(UIAlertAction(title: "สั่งยา", style: .default , handler:{ [weak self] (UIAlertAction) in
             
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let viewController = storyboard.instantiateViewController(withIdentifier: "ProductListViewController") as! ProductListViewController
-            //viewController.appointment = appointment
-            viewController.hidesBottomBarWhenPushed = true
-            self?.navigationController?.pushViewController(viewController, animated: true)
+            ProgressHUD.show()
+            CustomerManager.sharedInstance.getCustomerData(uid: appointment.customerReference?.documentID ?? "") { [weak self] customerData in
+                
+                ProgressHUD.dismiss()
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let viewController = storyboard.instantiateViewController(withIdentifier: "ProductListViewController") as! ProductListViewController
+                viewController.customer = customerData
+                viewController.hidesBottomBarWhenPushed = true
+                self?.navigationController?.pushViewController(viewController, animated: true)
+
+            }
+            
         }))
         
         alert.addAction(UIAlertAction(title: "รายละเอียด", style: .default, handler: { [weak self] (UIAlertAction) in
