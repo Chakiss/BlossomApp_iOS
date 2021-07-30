@@ -14,10 +14,46 @@ import UserNotifications
 import SwiftyUserDefaults
 
 enum Deeplinking {
+    case home
     case orderList
     case appointment
     case chat
     case product
+    
+    static func convert(from url: URL?) -> Deeplinking {
+
+        guard let url = url else {
+            return Deeplinking.home
+        }
+
+        guard let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
+            return Deeplinking.home
+        }
+        
+        guard urlComponents.scheme == "blossomapp" else {
+            return Deeplinking.home
+        }
+        
+        switch urlComponents.host {
+        
+        case "appointment":
+            return Deeplinking.appointment
+            
+        case "orderList":
+            return Deeplinking.orderList
+
+        case "chat":
+            return Deeplinking.chat
+
+        case "product":
+            return Deeplinking.product
+
+        default:
+            return Deeplinking.home
+            
+        }
+        
+    }
 }
 
 @main
@@ -93,27 +129,59 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
-        print("userInfo")
+        print("didReceiveRemoteNotification \(userInfo)")
+        saveMessage(userInfo: userInfo)
+        handlePush(userInfo: userInfo)
     }
 
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Swift.Void) {
-        print("userInfo")
+        print("didReceiveRemoteNotification completionHandler \(userInfo)")
+        saveMessage(userInfo: userInfo)
+        handlePush(userInfo: userInfo)
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter,  willPresent notification: UNNotification, withCompletionHandler   completionHandler: @escaping (_ options:   UNNotificationPresentationOptions) -> Void) {
         print("Handle push from foreground")
         // custom code to handle push while app is in the foreground
-        print("\(notification.request.content.userInfo)")
+        let userInfo = notification.request.content.userInfo
+        print("\(userInfo)")
+        saveMessage(from: notification.request.identifier, userInfo: userInfo)
+        completionHandler(.alert)
      }
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         print("Handle push from background or closed")
         // if you set a member variable in didReceiveRemoteNotification, you  will know if this is from closed or background
-        print("\(response.notification.request.content.userInfo)")
+        let userInfo = response.notification.request.content.userInfo
+        print("\(userInfo)")
+        saveMessage(from: response.notification.request.identifier, userInfo: userInfo)
+        handlePush(userInfo: userInfo)
     }
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, openSettingsFor notification: UNNotification?) {
         print("userNotificationCenter")
+    }
+    
+    private func saveMessage(from identifier: String? = nil, userInfo: [AnyHashable: Any]) {
+        guard let aps = userInfo["aps"] as? [String: Any] else {
+            return
+        }
+
+        let alert = aps["alert"] as? [String: Any]
+        let message = alert?["body"] as? String
+        InboxMessage.addNewInbox(identifier: identifier, message: message, deeplink: aps["deeplink"] as? String)
+    }
+    
+    private func handlePush(userInfo: [AnyHashable: Any]) {
+        
+        guard let aps = userInfo["aps"] as? [String: Any],
+              let deeplinkURL = aps["deeplink"] as? String else {
+            return
+        }
+        
+        self.deeplinking = Deeplinking.convert(from: URL(string: deeplinkURL))
+        handleDeeplinking()
+        
     }
     
     func handleDeeplinking() {
@@ -122,6 +190,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
               let deeplinking = deeplinking else {
             return
         }
+        
         if Defaults[\.role] == "doctor"{
             switch deeplinking {
             case .orderList:
@@ -130,11 +199,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 tabbarController.selectedIndex = 1
             case .chat:
                 tabbarController.selectedIndex = 2
-            case .product:
+            case .product, .home:
                 break
             }
         } else {
             switch deeplinking {
+            case .home:
+                tabbarController.selectedIndex = 0
             case .orderList:
                 tabbarController.selectedIndex = 2
             case .appointment:
@@ -145,8 +216,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 tabbarController.selectedIndex = 4
             }
         }
-        
-        
         
     }
     

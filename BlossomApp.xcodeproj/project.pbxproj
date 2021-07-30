@@ -124,6 +124,9 @@
 		3C857DA426AE727C00DEF13E /* QRPaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C857DA226AE727C00DEF13E /* QRPaymentViewController.xib */; };
 		3CAB2CF426AC763700545968 /* Cartfile in Resources */ = {isa = PBXBuildFile; fileRef = 3CAB2CF326AC763700545968 /* Cartfile */; };
 		3CAB2CF626AC7F1C00545968 /* OmisePaymentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CAB2CF526AC7F1C00545968 /* OmisePaymentResponse.swift */; };
+		3CBF265726B4415700F640DB /* BlossomApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3CBF265526B4415700F640DB /* BlossomApp.xcdatamodeld */; };
+		3CBF265926B441A800F640DB /* InboxMessage+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBF265826B441A800F640DB /* InboxMessage+Additions.swift */; };
+		3CBF265B26B44A9400F640DB /* InboxTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBF265A26B44A9400F640DB /* InboxTableViewController.swift */; };
 		3CF7B50526AC23C200F937DE /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF7B50426AC23C200F937DE /* String+Extension.swift */; };
 		3CF7B50726AC40B900F937DE /* APIProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF7B50626AC40B900F937DE /* APIProduct.swift */; };
 		3CF7B50A26AC43D900F937DE /* CreateOrderResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF7B50926AC43D900F937DE /* CreateOrderResponse.swift */; };
@@ -292,6 +295,9 @@
 		3C857DA226AE727C00DEF13E /* QRPaymentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QRPaymentViewController.xib; sourceTree = "<group>"; };
 		3CAB2CF326AC763700545968 /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
 		3CAB2CF526AC7F1C00545968 /* OmisePaymentResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OmisePaymentResponse.swift; sourceTree = "<group>"; };
+		3CBF265626B4415700F640DB /* BlossomApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BlossomApp.xcdatamodel; sourceTree = "<group>"; };
+		3CBF265826B441A800F640DB /* InboxMessage+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InboxMessage+Additions.swift"; sourceTree = "<group>"; };
+		3CBF265A26B44A9400F640DB /* InboxTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxTableViewController.swift; sourceTree = "<group>"; };
 		3CF7B50426AC23C200F937DE /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		3CF7B50626AC40B900F937DE /* APIProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIProduct.swift; sourceTree = "<group>"; };
 		3CF7B50926AC43D900F937DE /* CreateOrderResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateOrderResponse.swift; sourceTree = "<group>"; };
@@ -403,6 +409,8 @@
 				1B29A3D22697E92300556A55 /* GoogleService-Info.plist */,
 				1B77591D269479EB000780BD /* Helper */,
 				1B5312412693752E00B88165 /* Support files */,
+				3CBF265526B4415700F640DB /* BlossomApp.xcdatamodeld */,
+				3CBF265826B441A800F640DB /* InboxMessage+Additions.swift */,
 			);
 			path = BlossomApp;
 			sourceTree = "<group>";
@@ -584,6 +592,7 @@
 				1B7C910D26A5268500C341B6 /* DialogCell.swift */,
 				1B69AD5926A489CB00910679 /* DailogCell2.swift */,
 				1B8D861226A49BE400A2ED57 /* MessageView */,
+				3CBF265A26B44A9400F640DB /* InboxTableViewController.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -1146,6 +1155,7 @@
 				1B69AD5026A40D8B00910679 /* DoctorProfileViewController.swift in Sources */,
 				1BCE650C26ABF5A2002EE71F /* Appointment.swift in Sources */,
 				1B27FDC226A5EA11000E8609 /* SlotDateCell.swift in Sources */,
+				3CBF265926B441A800F640DB /* InboxMessage+Additions.swift in Sources */,
 				1B3721D82695AF46006265D3 /* ProfileHealthViewController.swift in Sources */,
 				1B1C2E3626993C5B00F57122 /* Options.swift in Sources */,
 				1BA04F4B26B03B470053F10D /* BlossomReview.swift in Sources */,
@@ -1168,6 +1178,7 @@
 				1B7C910F26A5268600C341B6 /* DialogCell.swift in Sources */,
 				1B13E6EA269AE79E00131105 /* WebViewViewController.swift in Sources */,
 				3CF7B50A26AC43D900F937DE /* CreateOrderResponse.swift in Sources */,
+				3CBF265726B4415700F640DB /* BlossomApp.xcdatamodeld in Sources */,
 				1BCE64F426A84B79002EE71F /* HistoryAppointmentViewController.swift in Sources */,
 				1BCE650026A9A1D0002EE71F /* RemoteConnectionView.swift in Sources */,
 				1B8D861426A49C0B00A2ED57 /* MessageingViewController.swift in Sources */,
@@ -1205,6 +1216,7 @@
 				1BA04F4926B0022D0053F10D /* BlossomReviewViewController.swift in Sources */,
 				1B77591F269479FA000780BD /* UIView+Additions.swift in Sources */,
 				1BCE64F226A84B66002EE71F /* ComingAppointmentViewController.swift in Sources */,
+				3CBF265B26B44A9400F640DB /* InboxTableViewController.swift in Sources */,
 				1B1C2E2D2698A77A00F57122 /* ProductsResponse.swift in Sources */,
 				1B3D367826B2EEED000EFCEC /* HistoryAppointmentDetailViewController.swift in Sources */,
 				1BA04F4326AE8CF20053F10D /* Doctor_ComingAppointmentViewController.swift in Sources */,
@@ -1593,6 +1605,19 @@
 			productName = OmiseSDK;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		3CBF265526B4415700F640DB /* BlossomApp.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				3CBF265626B4415700F640DB /* BlossomApp.xcdatamodel */,
+			);
+			currentVersion = 3CBF265626B4415700F640DB /* BlossomApp.xcdatamodel */;
+			path = BlossomApp.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 1B187A4D268F654300BB0122 /* Project object */;
 }

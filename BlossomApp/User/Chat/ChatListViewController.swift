@@ -37,9 +37,17 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "แชท"
+        self.navigationItem.title = "แชท"
    
-       
+        let inboxIcon = UIBarButtonItem(image: UIImage(systemName: "bell.badge"), style: .plain, target: self, action: #selector(gotoInbox))
+        self.navigationItem.rightBarButtonItem = inboxIcon
+    }
+    
+    @objc
+    private func gotoInbox() {
+        let inboxView = InboxTableViewController(style: .plain)
+        inboxView.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(inboxView, animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
