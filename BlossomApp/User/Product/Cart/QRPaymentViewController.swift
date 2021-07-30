@@ -74,7 +74,7 @@ class QRPaymentViewController: UIViewController {
         ProgressHUD.show()
         //let orderID = cart?.purchaseOrder?.id ?? 0
         let orderIBNumner = Int(orderID ?? "0")!
-        APIProduct.updateOrderPayment(orderID: orderIBNumner) { [weak self] result in
+        APIProduct.updateOrderPayment(bank:"prompt_pay",orderID: orderIBNumner) { [weak self] result in
             guard result else {
                 ProgressHUD.dismiss()
                 self?.showAlertDialogue(title: "ไม่สามารถอัพเดตสถานะคำสั่งซื้อได้", message: "กรุณาแจ้งเจ้าหน้าที่ และบันทึกหน้าจอนี้\n(Omise: \(orderID ?? "n/a"))", completion: {

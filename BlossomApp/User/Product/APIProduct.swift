@@ -20,7 +20,7 @@ enum APIProduct {
     case chargeCreditCard(orderID: String, amountSatang: Int, token: String, ref: String, completion: (OmisePaymentResponse?)->Swift.Void)
     case updateOrderNote(orderID: Int, note: String, completion: (UpdateOrderResponse?)->Swift.Void)
     case getChargeCreditCard(chargeID: String, completion: (OmisePaymentResponse?)->Swift.Void)
-    case updateOrderPayment(orderID: Int, completion: (Bool)->Swift.Void)
+    case updateOrderPayment(bank: String, orderID: Int, completion: (Bool)->Swift.Void)
     case getOrder(term: String, page: Int, completion: (OrderResponse?)->Swift.Void)
     
     func endpoint() -> String {
@@ -35,7 +35,7 @@ enum APIProduct {
             return "https://api.omise.co/charges"
         case .getChargeCreditCard(let chargeID, _):
             return "https://api.omise.co/charges/\(chargeID)"
-        case .updateOrderPayment(let orderID,_):
+        case .updateOrderPayment(let bankName, let orderID,_):
             return "https://www.shipnity.pro/api/v2/orders/\(orderID)/payment"
         case .getOrder:
             return "https://www.shipnity.pro/api/v2/orders"
@@ -125,9 +125,9 @@ enum APIProduct {
                     completion(orderResponse)
                 }
          
-        case let .updateOrderPayment(_, completion):
+        case let .updateOrderPayment(bankName, _, completion):
             let parameters: Parameters = [
-                "bank" : "creditcard",
+                "bank" : bankName,//"creditcard",
                 "transferred_date": "yyyy-mm-dd",
                 "transferred_time": "hh:mm"
             ]

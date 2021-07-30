@@ -202,6 +202,28 @@ class CallViewController: UIViewController, CallClientDelegate {
     
     private func endCall() {
         CallManager.manager.session?.hangUp(nil)
+        
+        guard let info = callInfo else {
+            return
+        }
+        
+        if info.doctorDocID.isEmpty || info.customerDocID.isEmpty {
+            return
+        }
+        
+        if Defaults[\.role] == "doctor" {
+            let storyboard = UIStoryboard(name: "Doctor", bundle: nil)
+            let viewController = storyboard.instantiateViewController(withIdentifier: "PostFromViewController") as! PostFromViewController
+            viewController.hidesBottomBarWhenPushed = true
+            viewController.modalPresentationStyle = .fullScreen
+            self.present(viewController, animated: true, completion: nil)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let viewController = storyboard.instantiateViewController(withIdentifier: "ReviewViewController") as! ReviewViewController
+            viewController.hidesBottomBarWhenPushed = true
+            viewController.modalPresentationStyle = .fullScreen
+            self.present(viewController, animated: true, completion: nil)
+        }
         self.dismiss(animated: true, completion: nil)
     }
     

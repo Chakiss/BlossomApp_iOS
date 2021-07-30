@@ -170,7 +170,7 @@ class PaymentMethodViewController: UIViewController {
         ProgressHUD.show()
         let orderID = cart?.purchaseOrder?.id ?? 0
 
-        APIProduct.updateOrderPayment(orderID: orderID) { [weak self] result in
+        APIProduct.updateOrderPayment(bank:"creditcard", orderID: orderID) { [weak self] result in
             guard result else {
                 ProgressHUD.dismiss()
                 self?.showAlertDialogue(title: "ไม่สามารถอัพเดตสถานะคำสั่งซื้อได้", message: "กรุณาแจ้งเจ้าหน้าที่ และบันทึกหน้าจอนี้\n(Omise: \(omiseID ?? "n/a"))", completion: {
