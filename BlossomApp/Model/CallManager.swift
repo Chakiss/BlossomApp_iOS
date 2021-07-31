@@ -102,6 +102,9 @@ class CallManager: NSObject {
             print(user)
             self?.createSubscription()
             self?.voipRegistration(connectyID: connectyID, firebaseID: firebaseID)
+            
+            self?.getDialog()
+            
         }) { (error) in
             print(error)
         }
@@ -129,6 +132,32 @@ class CallManager: NSObject {
             debugPrint("createSubscription APNS error \(error)")
         }
 
+    }
+    
+    private func getDialog() {
+        Request.dialogs(with: Paginator.limit(100, skip: 0), extendedRequest: nil, successBlock: { (dialogs, usersIDs, paginator) in
+            var dialogList:[ChatDialog] = []
+            dialogList = dialogs
+            var count = 0 as UInt
+            for dialog in dialogList {
+                count += dialog.unreadMessagesCount
+            }
+            
+            if count > 0 {
+                if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                    if ((appDelegate.window?.rootViewController?.isKind(of:BlossomTabbarController.self)) != nil) {
+                        let tabbarVC = appDelegate.window?.rootViewController as! BlossomTabbarController
+                        let chatTabbarItem = tabbarVC.tabBar.items?.last
+                        chatTabbarItem?.badgeValue = "N"
+                        
+                    }
+                }
+            }
+            
+            
+        }) { (error) in
+            print(error)
+        }
     }
 }
 

@@ -1734,10 +1734,10 @@
             </objects>
             <point key="canvasLocation" x="-4400" y="-581"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Blossom Tabbar Controller-->
         <scene sceneID="I8c-VS-imn">
             <objects>
-                <tabBarController storyboardIdentifier="CustomerTabbar" id="32d-DZ-4yK" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="CustomerTabbar" id="32d-DZ-4yK" customClass="BlossomTabbarController" customModule="BlossomApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="cTi-2c-Yee">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -3038,11 +3038,11 @@
             </objects>
             <point key="canvasLocation" x="-197.10144927536234" y="1826.7857142857142"/>
         </scene>
-        <!--กล่องข้อความ-->
+        <!--ข้อความ-->
         <scene sceneID="VrP-vw-U8W">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ZVK-hZ-C4Q" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="กล่องข้อความ" image="chat_icon" selectedImage="chat_icon" id="7Qx-vc-01w"/>
+                    <tabBarItem key="tabBarItem" title="ข้อความ" image="chat_icon" selectedImage="chat_icon" id="7Qx-vc-01w"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="roN-0l-BSm">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>

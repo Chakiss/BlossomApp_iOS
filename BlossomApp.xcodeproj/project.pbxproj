@@ -20,6 +20,7 @@
 		1B187A65268F654500BB0122 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B187A63268F654500BB0122 /* LaunchScreen.storyboard */; };
 		1B187A70268F654500BB0122 /* BlossomAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B187A6F268F654500BB0122 /* BlossomAppTests.swift */; };
 		1B187A7B268F654500BB0122 /* BlossomAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B187A7A268F654500BB0122 /* BlossomAppUITests.swift */; };
+		1B19E49E26B5B4CF00A23BAE /* BlossomTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B19E49D26B5B4CF00A23BAE /* BlossomTabbarController.swift */; };
 		1B1C2E2B2698867400F57122 /* Landing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C2E2A2698867400F57122 /* Landing.swift */; };
 		1B1C2E2D2698A77A00F57122 /* ProductsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C2E2C2698A77A00F57122 /* ProductsResponse.swift */; };
 		1B1C2E3426993C5B00F57122 /* Sets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C2E2E26993C5A00F57122 /* Sets.swift */; };
@@ -191,6 +192,7 @@
 		1B187A76268F654500BB0122 /* BlossomAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlossomAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B187A7A268F654500BB0122 /* BlossomAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlossomAppUITests.swift; sourceTree = "<group>"; };
 		1B187A7C268F654500BB0122 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1B19E49D26B5B4CF00A23BAE /* BlossomTabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlossomTabbarController.swift; sourceTree = "<group>"; };
 		1B1C2E2A2698867400F57122 /* Landing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.swift; sourceTree = "<group>"; };
 		1B1C2E2C2698A77A00F57122 /* ProductsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsResponse.swift; sourceTree = "<group>"; };
 		1B1C2E2E26993C5A00F57122 /* Sets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sets.swift; sourceTree = "<group>"; };
@@ -398,6 +400,7 @@
 				1B187A5C268F654300BB0122 /* ViewController.swift */,
 				1B13E6EB269AFD4200131105 /* Doctor.storyboard */,
 				1B187A5E268F654300BB0122 /* Main.storyboard */,
+				1B19E49D26B5B4CF00A23BAE /* BlossomTabbarController.swift */,
 				1B13E6E8269AE78200131105 /* WebView */,
 				1B77592026949185000780BD /* Model */,
 				1B5BC3B82696084E004206AE /* Login */,
@@ -1154,6 +1157,7 @@
 				1B69AD5826A47C8400910679 /* CustomerManager.swift in Sources */,
 				1B69AD5026A40D8B00910679 /* DoctorProfileViewController.swift in Sources */,
 				1BCE650C26ABF5A2002EE71F /* Appointment.swift in Sources */,
+				1B19E49E26B5B4CF00A23BAE /* BlossomTabbarController.swift in Sources */,
 				1B27FDC226A5EA11000E8609 /* SlotDateCell.swift in Sources */,
 				3CBF265926B441A800F640DB /* InboxMessage+Additions.swift in Sources */,
 				1B3721D82695AF46006265D3 /* ProfileHealthViewController.swift in Sources */,

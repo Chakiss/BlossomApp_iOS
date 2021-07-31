@@ -141,10 +141,10 @@
             </objects>
             <point key="canvasLocation" x="713.04347826086962" y="-421.20535714285711"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Blossom Tabbar Controller-->
         <scene sceneID="GCS-Mb-fTe">
             <objects>
-                <tabBarController storyboardIdentifier="DoctorTabbar" id="bYt-yV-zkV" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="DoctorTabbar" id="bYt-yV-zkV" customClass="BlossomTabbarController" customModule="BlossomApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="p2C-68-WcR">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
