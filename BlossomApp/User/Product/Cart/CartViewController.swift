@@ -152,7 +152,7 @@ class CartViewController: UIViewController {
             ProgressHUD.dismiss()
             guard let response = response,
                   let order = response.order else {
-                self?.showAlertDialogue(title: "ผิดพลาด", message: "ไม่สามารถส่งคำสั่งซื้อได้ในขณะนี้", completion: {
+                self?.showAlertDialogue(title: "ขออภัย", message: "ไม่สามารถส่งคำสั่งซื้อได้ในขณะนี้", completion: {
                 })
                 return
             }
@@ -192,7 +192,7 @@ class CartViewController: UIViewController {
             ProgressHUD.dismiss()
             guard let response = response,
                   let order = response.order else {
-                self?.showAlertDialogue(title: "ผิดพลาด", message: "ไม่สามารถส่งคำสั่งซื้อได้ในขณะนี้", completion: {
+                self?.showAlertDialogue(title: "ขออภัย", message: "ไม่สามารถส่งคำสั่งซื้อได้ในขณะนี้", completion: {
                 })
                 return
             }

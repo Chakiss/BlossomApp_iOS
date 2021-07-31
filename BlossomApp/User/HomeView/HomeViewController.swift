@@ -28,6 +28,8 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
     @IBOutlet weak var productButton2: UIButton!
     @IBOutlet weak var productButton3: UIButton!
     
+    @IBOutlet weak var productDetailButton: UIButton!
+    
     var user = Auth.auth().currentUser
     let db = Firestore.firestore()
     let storage = Storage.storage()
@@ -41,16 +43,18 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
     
     var handle: AuthStateDidChangeListenerHandle?
     
+    var profileButton: UIButton!
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
         self.title = "หน้าแรก"
 
-        let button: UIButton = UIButton(type: UIButton.ButtonType.custom)
-        button.setImage(UIImage(named: "user"), for: .normal)
-        button.addTarget(self, action: #selector(self.profileButtonTapped), for: .touchUpInside)
-        button.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        let barButton = UIBarButtonItem(customView: button)
+        profileButton = UIButton(type: UIButton.ButtonType.custom)
+        profileButton.setImage(UIImage(named: "user"), for: .normal)
+        profileButton.addTarget(self, action: #selector(self.profileButtonTapped), for: .touchUpInside)
+        profileButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        let barButton = UIBarButtonItem(customView: profileButton)
         self.navigationItem.leftBarButtonItem = barButton
                 
         
@@ -86,6 +90,26 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
     
     }
     
+    func displayUserProfileImage(){
+        let imageRef = self.storage.reference(withPath: self.customer?.displayPhoto ?? "")
+        imageRef.getData(maxSize: 2 * 1024 * 1024) { (data, error) in
+            if error == nil {
+                if let imgData = data {
+                    if let img = UIImage(data: imgData) {
+                        
+                        
+                        self.profileButton.setImage(img, for: .normal)
+                        self.profileButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
+                        self.profileButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+                        self.profileButton.imageView?.layer.cornerRadius = 15
+                        let barButton = UIBarButtonItem(customView: self.profileButton ?? UIButton())
+                        self.navigationItem.leftBarButtonItem = barButton
+                    }
+                }
+            }
+        }
+    }
+    
     
     func getCustomer()  {
         
@@ -103,7 +127,7 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
     }
     
     func getAppointmentData(){
-        
+        self.displayUserProfileImage()
         db.collection("appointments")
             .whereField("customerReference", isEqualTo: customer?.documentReference as Any)
             .whereField("isCompleted", isEqualTo: false)
@@ -125,9 +149,9 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
                 guard appointments != nil else {
                     return
                 }
-               
+                
                 self?.appointments = appointments!
-
+                
                 if let count = self?.appointments.count, count > 0 {
                     self?.displayAppointment()
                 }

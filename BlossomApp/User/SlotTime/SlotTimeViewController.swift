@@ -51,6 +51,7 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
+        self.slotDay = []
         
         db.collection("doctors")
             .document((doctor?.id)!).collection("slots")
