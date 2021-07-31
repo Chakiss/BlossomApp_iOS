@@ -1803,9 +1803,8 @@
                     <connections>
                         <outlet property="carePlanTextField" destination="19Z-09-NbH" id="Y38-pY-byT"/>
                         <outlet property="diagnoseTextField" destination="IBT-p7-tfj" id="fhd-Rb-BXK"/>
-                        <outlet property="doneButton" destination="JMV-dZ-Bgy" id="JmY-Y0-OKP"/>
+                        <outlet property="doneButton" destination="JMV-dZ-Bgy" id="iTt-TX-bpZ"/>
                         <outlet property="nextAppointmentTextField" destination="7Xa-M8-j85" id="yhK-1j-1gZ"/>
-                        <outlet property="submitButton" destination="JMV-dZ-Bgy" id="Suz-Mo-PDd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wyo-cv-bAE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

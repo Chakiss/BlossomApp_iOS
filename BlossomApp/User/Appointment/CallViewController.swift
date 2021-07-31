@@ -216,6 +216,7 @@ class CallViewController: UIViewController, CallClientDelegate {
             let viewController = storyboard.instantiateViewController(withIdentifier: "PostFromViewController") as! PostFromViewController
             viewController.hidesBottomBarWhenPushed = true
             viewController.modalPresentationStyle = .fullScreen
+            viewController.appointmentID = info.appointmentID
             self.present(viewController, animated: true, completion: nil)
         } else {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)

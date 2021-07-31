@@ -52,13 +52,21 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
         super.viewWillAppear(true)
         
         
-        db.collection("doctors").document((doctor?.id)!).collection("slots").getDocuments { daySlot, error in
+        db.collection("doctors")
+            .document((doctor?.id)!).collection("slots")
+            .getDocuments { daySlot, error in
             if error == nil {
-                self.slotDay = (daySlot!.documents.map { queryDocumentSnapshot -> SlotDay in
+                
+                for queryDocumentSnapshot in daySlot!.documents {
                     let id = queryDocumentSnapshot.documentID
-                    return SlotDay(id: id)
-                })
+                    if id.toDate()!.date <= Date() {
+                        continue
+                    }
+                    self.slotDay.append(SlotDay(id: id))
+                }
+
                 self.dayCollectionView.reloadData()
+                
                 if self.slotDay.count > 0 {
                     self.slotDaySelected = self.slotDay[0]
                     self.getSlotTime(dayID: self.slotDay[0].id!)

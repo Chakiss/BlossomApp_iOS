@@ -241,8 +241,6 @@
                                         <state key="normal" title="ปรึกษาแพทย์"/>
                                         <connections>
                                             <action selector="consultButtonTapped" destination="x78-iS-n7i" eventType="touchUpInside" id="deS-nH-rJ3"/>
-                                            <action selector="loginButtonTapped" destination="2vc-Gw-iCh" eventType="touchUpInside" id="7Z5-oc-toJ"/>
-                                            <action selector="logoutButtonTapped" destination="Cle-S5-b8D" eventType="touchUpInside" id="Uqu-o6-QI8"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -536,9 +534,6 @@
                                 <fontDescription key="fontDescription" name="SukhumvitSet-Bold" family="Sukhumvit Set" pointSize="16"/>
                                 <state key="normal" title="ปรึกษาแพทย์"/>
                                 <connections>
-                                    <action selector="consultButtonTapped" destination="x78-iS-n7i" eventType="touchUpInside" id="p6G-fD-o01"/>
-                                    <action selector="loginButtonTapped" destination="2vc-Gw-iCh" eventType="touchUpInside" id="va8-uC-Mew"/>
-                                    <action selector="logoutButtonTapped" destination="Cle-S5-b8D" eventType="touchUpInside" id="rSP-S3-4SC"/>
                                     <action selector="makeAppointmentButtonTapped" destination="ao5-Su-MdW" eventType="touchUpInside" id="GCE-PL-RTG"/>
                                 </connections>
                             </button>
@@ -1630,7 +1625,6 @@
                                                                         <state key="normal" image="loginwithfacebook"/>
                                                                         <connections>
                                                                             <action selector="facebookButtonTapped" destination="2vc-Gw-iCh" eventType="touchUpInside" id="Wz0-Ad-i1Z"/>
-                                                                            <action selector="registerButtonTapped" destination="Pwv-kC-MBj" eventType="touchUpInside" id="Wel-Jr-uFN"/>
                                                                         </connections>
                                                                     </button>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y9W-W5-Fl8">
@@ -1642,7 +1636,6 @@
                                                                         <state key="normal" image="loginwithapple"/>
                                                                         <connections>
                                                                             <action selector="appleButtonTapped" destination="2vc-Gw-iCh" eventType="touchUpInside" id="mUS-3q-baC"/>
-                                                                            <action selector="registerButtonTapped" destination="Pwv-kC-MBj" eventType="touchUpInside" id="I9T-23-k8N"/>
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
@@ -2364,10 +2357,6 @@
                                 <fontDescription key="fontDescription" name="SukhumvitSet-Bold" family="Sukhumvit Set" pointSize="16"/>
                                 <state key="normal" title="ปรึกษาแพทย์"/>
                                 <connections>
-                                    <action selector="consultButtonTapped" destination="x78-iS-n7i" eventType="touchUpInside" id="YfE-Jg-GAj"/>
-                                    <action selector="loginButtonTapped" destination="2vc-Gw-iCh" eventType="touchUpInside" id="Fzc-Il-Fqb"/>
-                                    <action selector="logoutButtonTapped" destination="Cle-S5-b8D" eventType="touchUpInside" id="LsO-zv-hHr"/>
-                                    <action selector="makeAppointmentButtonTapped" destination="ao5-Su-MdW" eventType="touchUpInside" id="e1m-ZQ-4Xp"/>
                                     <action selector="submit" destination="RZV-WU-sgb" eventType="touchUpInside" id="Kfn-Ub-pXK"/>
                                 </connections>
                             </button>
@@ -2435,11 +2424,7 @@
                                 <fontDescription key="fontDescription" name="SukhumvitSet-Bold" family="Sukhumvit Set" pointSize="16"/>
                                 <state key="normal" title="เสร็จ"/>
                                 <connections>
-                                    <action selector="consultButtonTapped" destination="x78-iS-n7i" eventType="touchUpInside" id="Nq8-KR-kPQ"/>
-                                    <action selector="loginButtonTapped" destination="2vc-Gw-iCh" eventType="touchUpInside" id="JBM-Kp-Wca"/>
-                                    <action selector="logoutButtonTapped" destination="Cle-S5-b8D" eventType="touchUpInside" id="hSt-aG-0ht"/>
-                                    <action selector="makeAppointmentButtonTapped" destination="ao5-Su-MdW" eventType="touchUpInside" id="s9X-lR-Qsm"/>
-                                    <action selector="submit" destination="rdm-7A-1Ny" eventType="touchUpInside" id="M7h-8H-jgt"/>
+                                    <action selector="doneButtonTapped" destination="rdm-7A-1Ny" eventType="touchUpInside" id="Kox-lx-UR3"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0z3-aJ-Hb6" customClass="STRatingControl" customModule="STRatingControl">
@@ -3271,7 +3256,7 @@
                                                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="เบอร์ติดต่อ" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bG7-6p-K14">
+                                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="เบอร์ติดต่อ" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bG7-6p-K14">
                                                                         <rect key="frame" x="20" y="231.5" width="231" height="18"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <color key="tintColor" red="0.97647058819999999" green="0.69411764710000001" blue="0.65098039220000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3281,7 +3266,7 @@
                                                                             <outlet property="delegate" destination="Cle-S5-b8D" id="2iT-Pg-gcK"/>
                                                                         </connections>
                                                                     </textField>
-                                                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Itu-3g-3TI">
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Itu-3g-3TI">
                                                                         <rect key="frame" x="271" y="225.5" width="83" height="30"/>
                                                                         <color key="backgroundColor" red="0.95686274510000002" green="0.50196078430000002" blue="0.45098039220000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <constraints>
@@ -3364,18 +3349,17 @@
                                                                         <fontDescription key="fontDescription" name="SukhumvitSet-Bold" family="Sukhumvit Set" pointSize="16"/>
                                                                         <state key="normal" title="ออกจากระบบ"/>
                                                                         <connections>
-                                                                            <action selector="loginButtonTapped" destination="2vc-Gw-iCh" eventType="touchUpInside" id="WoC-Fn-vdu"/>
                                                                             <action selector="logoutButtonTapped" destination="Cle-S5-b8D" eventType="touchUpInside" id="LVl-B2-wfp"/>
                                                                         </connections>
                                                                     </button>
-                                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kw8-tx-G0h">
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kw8-tx-G0h">
                                                                         <rect key="frame" x="20" y="248.5" width="231" height="1"/>
                                                                         <color key="backgroundColor" red="0.90980392160000001" green="0.90980392160000001" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="1" id="jIg-4z-QBb"/>
                                                                         </constraints>
                                                                     </view>
-                                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NqC-0f-KBe">
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NqC-0f-KBe">
                                                                         <rect key="frame" x="20" y="345" width="231" height="1"/>
                                                                         <color key="backgroundColor" red="0.90980392160000001" green="0.90980392160000001" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <constraints>
@@ -3462,6 +3446,7 @@
                                                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="tb0-aC-1H4" secondAttribute="trailing" constant="20" symbolic="YES" id="cKj-ej-vyV"/>
                                                                     <constraint firstItem="Q5Y-se-57f" firstAttribute="top" secondItem="SV3-nf-hay" secondAttribute="bottom" constant="20" id="dbI-PL-CxL"/>
                                                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="wQf-dh-YrY" secondAttribute="trailing" constant="20" symbolic="YES" id="dxQ-1v-JS5"/>
+                                                                    <constraint firstItem="NVv-6m-ccE" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1br-WH-oK1" secondAttribute="trailing" constant="8" symbolic="YES" id="eDl-35-gBF"/>
                                                                     <constraint firstAttribute="trailing" secondItem="NVv-6m-ccE" secondAttribute="trailing" constant="20" symbolic="YES" id="eVY-Ys-j4F"/>
                                                                     <constraint firstItem="1br-WH-oK1" firstAttribute="leading" secondItem="tFk-Mw-KkS" secondAttribute="trailing" constant="15" id="ek3-RX-AVF"/>
                                                                     <constraint firstItem="kw8-tx-G0h" firstAttribute="top" secondItem="aJj-ZZ-2HW" secondAttribute="bottom" constant="37" id="fAY-fx-GQy"/>
@@ -4229,8 +4214,6 @@
                                 <fontDescription key="fontDescription" name="SukhumvitSet-Bold" family="Sukhumvit Set" pointSize="16"/>
                                 <state key="normal" title="ยืนยัน"/>
                                 <connections>
-                                    <action selector="loginButtonTapped" destination="2vc-Gw-iCh" eventType="touchUpInside" id="TE4-tT-cnk"/>
-                                    <action selector="logoutButtonTapped" destination="Cle-S5-b8D" eventType="touchUpInside" id="PWN-kA-wbH"/>
                                     <action selector="verifyButtonTapped" destination="goX-al-7k6" eventType="touchUpInside" id="GP9-z9-fsE"/>
                                 </connections>
                             </button>
