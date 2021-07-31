@@ -34,15 +34,14 @@ class ReviewViewController: UIViewController {
     @IBAction func doneButtonTapped() {
         
         ProgressHUD.show()
-        let formData = ["วินิจฉัย":ratingControl.rating,
-                        "แผนการรักษา":reviewTextField.text] as [String : Any]
+
         
         let payload = ["appointmentID": self.appointmentID,
-                       "type": "post",
-                       "images": [],
-                       "form": formData ] as [String : Any]
+                       "score": ratingControl.rating,
+                       "message": reviewTextField.text] as [String : Any]
+                        
         
-        functions.httpsCallable("app-appointments-updateForm").call(payload) { result, error in
+        functions.httpsCallable("app-appointments-addReview").call(payload) { result, error in
             ProgressHUD.dismiss()
             
         }

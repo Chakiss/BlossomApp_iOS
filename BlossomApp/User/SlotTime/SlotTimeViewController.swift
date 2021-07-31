@@ -59,7 +59,7 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
                 
                 for queryDocumentSnapshot in daySlot!.documents {
                     let id = queryDocumentSnapshot.documentID
-                    if id.toDate()!.date <= Date() {
+                    if Date().startOfDay >= (id.toDate()?.date ?? Date().startOfDay) {
                         continue
                     }
                     self.slotDay.append(SlotDay(id: id))
@@ -275,28 +275,42 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
                 
                 let event = Event()
                 event.notificationType = .push
-                
+
                 let recipientID = NSNumber(value:self.doctor?.referenceConnectyCubeID ?? 0)
                 event.usersIDs = [recipientID]
                 event.type = .oneShot
-    
+
                 let pushmessage = "มีการนัดหมายปรึกษาแพทย์เพิ่มเข้ามา"
                 var pushParameters = [String : String]()
                 pushParameters["message"] = pushmessage
-                
+
                 if let jsonData = try? JSONSerialization.data(withJSONObject: pushParameters,
                                                               options: .prettyPrinted) {
                     let jsonString = String(bytes: jsonData,
                                             encoding: String.Encoding.utf8)
-                    
+
                     event.message = jsonString
-                    
+
                     Request.createEvent(event, successBlock: {(events) in
-        
+
                     }, errorBlock: {(error) in
-                        
+
                     })
                 }
+//                ProgressHUD.show()
+//                let payload = ["targetID": self.doctor?.id,
+//                               "type" : "appointment",
+//                               "subType" : "toDoctor",
+//                               "title": "Title",
+//                               "message" : "",
+//                               "payload": ""]
+//
+//                self.functions.httpsCallable("app-messages-sendNotification").call(payload) { result, error in
+//                    Auth.auth().currentUser?.reload()
+//                    ProgressHUD.dismiss()
+//                    self.dismiss(animated: true, completion: nil)
+//
+//                }
                 
                 if let appointmentID = appointment["appointmentID"] {
                     
@@ -342,4 +356,38 @@ extension SlotTimeViewController : UpdateCartViewControllerDelegate {
         makeAppointmentOrderPaid(orderID: orderID)
     }
     
+}
+
+extension Date {
+    var startOfDay: Date {
+        return Calendar.current.startOfDay(for: self)
+    }
+
+    var endOfDay: Date {
+        var components = DateComponents()
+        components.day = 1
+        components.second = -1
+        return Calendar.current.date(byAdding: components, to: startOfDay)!
+    }
+
+    var startOfMonth: Date {
+        let components = Calendar.current.dateComponents([.year, .month], from: startOfDay)
+        return Calendar.current.date(from: components)!
+    }
+
+    var endOfMonth: Date {
+        var components = DateComponents()
+        components.month = 1
+        components.second = -1
+        return Calendar.current.date(byAdding: components, to: startOfMonth)!
+    }
+    
+    func hour() -> Int{
+        //Get Hour
+        let calendar = Calendar.current
+        let components = calendar.component(Calendar.Component.hour, from: self)
+        let hour = components.hours.hour!
+        //Return Hour
+        return hour ?? 0
+    }
 }

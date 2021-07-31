@@ -57,14 +57,25 @@ class QRPaymentViewController: UIViewController {
         
         let orderID = cart?.purchaseOrder?.id != nil ? "\(cart!.purchaseOrder!.id!)" : appointmentOrder ?? ""
         ProgressHUD.show()
-        db?.collection("shipnity_orders").document(orderID).addSnapshotListener({ [weak self] result, error in
-            ProgressHUD.dismiss()
-            let data = result?.data()
-            let isPaid = data?["isPaid"] as? Bool ?? false
-            if isPaid == true {
-                self?.updateOrderPayment(paidAt: Date(), orderID:orderID)
-            }
-        })
+        if cart?.purchaseOrder?.id != nil  {
+            db?.collection("shipnity_orders").document(orderID).addSnapshotListener({ [weak self] result, error in
+                ProgressHUD.dismiss()
+                let data = result?.data()
+                let isPaid = data?["isPaid"] as? Bool ?? false
+                if isPaid == true {
+                    self?.updateOrderPayment(paidAt: Date(), orderID:orderID)
+                }
+            })
+        } else {
+            db?.collection("orders").document(orderID).addSnapshotListener({ [weak self] result, error in
+                ProgressHUD.dismiss()
+                let data = result?.data()
+                let isPaid = data?["status"] as? String ?? ""
+                if isPaid == "paid" {
+                    self?.updateOrderPayment(paidAt: Date(), orderID:orderID)
+                }
+            })
+        }
         
     }
     

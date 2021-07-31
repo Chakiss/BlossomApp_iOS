@@ -58,8 +58,9 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
 
         if self.barButton.isEnabled == true {
             
-            let alert = UIAlertController(title: "โปรไฟล์มีการแก้ไข", message: "คุณค้องการแก้ไขโปรไฟล์หรือไม่​ ?",         preferredStyle: .alert)
+            let alert = UIAlertController(title: "โปรไฟล์มีการแก้ไข", message: "คุณต้องการบันทึกแก้ไขโปรไฟล์หรือไม่​ ?",         preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "ยกเลิก", style: .cancel, handler: { _ in
+                self.navigationController?.popViewController(animated: true)
             }))
             alert.addAction(UIAlertAction(title: "ตกลง", style: .default, handler: {(_: UIAlertAction!) in
                 self.saveUserData()
