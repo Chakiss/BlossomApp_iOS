@@ -18,6 +18,8 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var selectImageButton: UIButton!
     
+    var isChangeProfile: Bool = false
+    var isChangePhonenumber: Bool = false
     var showLogout: Bool = true
     var barButton:UIBarButtonItem = UIBarButtonItem()
     
@@ -51,6 +53,8 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
         NotificationCenter.default.addObserver(self, selector: #selector(self.profileChanged), name:Notification.Name("BlossomProfileChanged"), object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.profileChanged), name:Notification.Name("BlossomHealthChanged"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.phoneNumberChanged), name:Notification.Name("BlossomPhoneNumberChanged"), object: nil)
     }
     
     
@@ -132,27 +136,53 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
         
         NotificationCenter.default.removeObserver(self, name: Notification.Name("BlossomProfileChanged"), object: nil)
         NotificationCenter.default.removeObserver(self, name: Notification.Name("BlossomHealthChanged"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("BlossomPhoneNumberChanged"), object: nil)
         
     }
     
     
     @objc func saveUserData(){
+        if isChangeProfile == true {
+            ProgressHUD.show()
+            let payload = ["birthDate": customer?.birthDayString,
+                           "firstName": profileInformationViewController.nameTextField.text!,
+                           "lastName": profileInformationViewController.surNameTextField.text!,
+                           "gender": customer?.genderString,
+                           "address": profileInformationViewController.addressTextField.text!,
+                           "provinceID": "0",
+                           "districtID": "0",
+                           "subDistrictID": "0",
+                           "zipcodeID": "0"]
+            
+            functions.httpsCallable("app-users-updateProfile").call(payload) { result, error in
+                ProgressHUD.dismiss()
+                Auth.auth().currentUser?.reload()
+                self.saveHealtData()
+                
+            }
+        }
         
-        ProgressHUD.show()
-        let payload = ["birthDate": customer?.birthDayString,
-                       "firstName": profileInformationViewController.nameTextField.text!,
-                       "lastName": profileInformationViewController.surNameTextField.text!,
-                       "gender": customer?.genderString,
-                       "address": profileInformationViewController.addressTextField.text!,
-                       "provinceID": "0",
-                       "districtID": "0",
-                       "subDistrictID": "0",
-                       "zipcodeID": "0"]
-        
-        functions.httpsCallable("app-users-updateProfile").call(payload) { result, error in
-            ProgressHUD.dismiss()
-            Auth.auth().currentUser?.reload()
-            self.saveHealtData()
+        if isChangePhonenumber == true {
+            var phoneNumber = ""
+            if profileInformationViewController.phoneTextField.text?.count == 10 {
+                if profileInformationViewController.phoneTextField.text?.first == "0" {
+                    phoneNumber = profileInformationViewController.phoneTextField.text?.addCountryCode() ?? ""
+                    ProgressHUD.show()
+                    let payloadphoneNumber = ["phoneNumber": phoneNumber]
+                    
+                    functions.httpsCallable("app-users-updatePhoneNumber").call(payloadphoneNumber) { result, error in
+                        ProgressHUD.dismiss()
+                        Auth.auth().currentUser?.reload()
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                }
+            } else {
+                
+                let alert = UIAlertController(title: "ข้อมูลผิดพลาด", message: "เบอร์โทรศัพท์ผิดพลาด",         preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "ตกลง", style: .default, handler: {(_: UIAlertAction!) in}))
+                self.present(alert, animated: true, completion: nil)
+                
+            }
             
         }
         
@@ -194,6 +224,13 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
     @objc private func profileChanged(notification: NSNotification){
         //do stuff using the userInfo property of the notification object
         barButton.isEnabled = true
+        isChangeProfile = true
+    }
+    
+    @objc private func phoneNumberChanged(notification: NSNotification){
+        //do stuff using the userInfo property of the notification object
+        barButton.isEnabled = true
+        isChangePhonenumber = true
     }
     
     // MARK:- Update Profile Picture

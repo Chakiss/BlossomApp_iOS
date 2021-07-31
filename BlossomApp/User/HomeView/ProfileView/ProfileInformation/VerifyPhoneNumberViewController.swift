@@ -23,20 +23,37 @@ class VerifyPhoneNumberViewController: UIViewController {
 
         verifyButton.layer.cornerRadius = 22
         
+        
         // Do any additional setup after loading the view.
     }
     
     @IBAction func verifyButtonTapped(){
-        //app-users-markPhoneNumberVerified
-        ProgressHUD.show()
-        let payload = ["phoneNumber": self.phoneNumber]
         
-        functions.httpsCallable("app-users-markPhoneNumberVerified").call(payload) { result, error in
-            Auth.auth().currentUser?.reload()
+        ProgressHUD.show()
+        let credential = PhoneAuthProvider.provider().credential(
+          withVerificationID: verificationID,
+            verificationCode: otpTextField.text ?? ""
+        )
+        
+        Auth.auth().signIn(with: credential) { authResult, error in
             ProgressHUD.dismiss()
-            self.dismiss(animated: true, completion: nil)
+            if error == nil {
             
+                let payload = ["phoneNumber": self.phoneNumber]
+                self.functions.httpsCallable("app-users-markPhoneNumberVerified").call(payload) { result, error in
+                    Auth.auth().currentUser?.reload()
+                    self.dismiss(animated: true, completion: nil)
+                    
+                }
+            } else {
+                let alert = UIAlertController(title: "เกิดข้อผิดพลาด", message: error?.localizedDescription,  preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "ตกลง", style: .default, handler: {(_: UIAlertAction!) in}))
+                self.present(alert, animated: true, completion: nil)
+            }
+            // User is signed in
+            // ...
         }
+        
         
     }
 

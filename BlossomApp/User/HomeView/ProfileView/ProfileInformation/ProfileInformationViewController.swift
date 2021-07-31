@@ -157,19 +157,26 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
         //app-users-updatePhoneNumber
         ProgressHUD.show()
         
-        let payload = ["phoneNumber": phoneTextField.text]
-        
-        functions.httpsCallable("app-users-updatePhoneNumber").call(payload) { result, error in
-            ProgressHUD.dismiss()
-            if error != nil {
-                let alert = UIAlertController(title: "กรุณาตรวจสอบ", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
-            }
-            else {
+        var phoneNumber = ""
+        if phoneTextField.text?.count == 10 {
+            if phoneTextField.text?.first == "0" {
+                phoneNumber = phoneTextField.text?.addCountryCode() ?? ""
+                let payload = ["phoneNumber": phoneNumber]
                 
+                functions.httpsCallable("app-users-updatePhoneNumber").call(payload) { result, error in
+                    ProgressHUD.dismiss()
+                    if error != nil {
+                        let alert = UIAlertController(title: "กรุณาตรวจสอบ", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
+                        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                    else {
+                        
+                    }
+                }
             }
         }
+        
     }
     
     
@@ -419,9 +426,15 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
             if textField.text != customer?.lastName {
                 NotificationCenter.default.post(name: Notification.Name("BlossomProfileChanged"), object: nil)
             }
-        } else if textField == birthDayTextField {
+        }
+        else if textField == birthDayTextField {
             if textField.text != customer?.birthDayString {
                 NotificationCenter.default.post(name: Notification.Name("BlossomProfileChanged"), object: nil)
+            }
+        }
+        else if textField == phoneTextField {
+            if textField.text != customer?.phoneNumber {
+                NotificationCenter.default.post(name: Notification.Name("BlossomPhoneNumberChanged"), object: nil)
             }
         }
         
