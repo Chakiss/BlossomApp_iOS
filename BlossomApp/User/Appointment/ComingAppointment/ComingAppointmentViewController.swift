@@ -7,7 +7,7 @@
 
 import UIKit
 import PushKit
-
+import SwiftDate
 import ConnectyCube
 import ConnectyCubeCalls
 
@@ -58,7 +58,17 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
         let alert = UIAlertController(title: "ปรึกษาแพทย์", message: "กรุณาเลือกช่องทางการปรึกษาแพทย์", preferredStyle: .actionSheet)
         
         alert.addAction(UIAlertAction(title: "วีดิโอคอล", style: .default, handler: { [weak self] (UIAlertAction) in
-            self?.attemptCall(with: .video, appointment: appointment)
+            
+            let startDate = appointment.sessionStart?.dateValue() ?? Date()
+            let endDate = appointment.sessionEnd?.dateValue() ?? Date()
+            
+            let now = Date()
+            if now > startDate && now < endDate {
+                self?.attemptCall(with: .video, appointment: appointment)
+            } else {
+                self?.outofTime()
+            }
+            
         }))
         
         alert.addAction(UIAlertAction(title: "แชท", style: .default , handler:{ (UIAlertAction)in
@@ -101,6 +111,11 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
         
     }
     
+    func outofTime(){
+        let alert = UIAlertController(title: "ขออภัย", message: "คุณอยู่นอกเวลานัดหมาย",         preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "ตกลง", style: .default, handler: {(_: UIAlertAction!) in}))
+        self.present(alert, animated: true, completion: nil)
+    }
     func attemptCall(with type: CallConferenceType, appointment: Appointment) {
         
         var opponentID = NSNumber(integerLiteral: 0)

@@ -220,10 +220,16 @@ class CartViewController: UIViewController {
     }
     
     @IBAction func checkoutCart(_ sender: Any) {
-        if currentCart {
-            createOrder()
+        if customer?.isPhoneVerified == true {
+            if currentCart {
+                createOrder()
+            } else {
+                updateOrder()
+            }
         } else {
-            updateOrder()
+            showAlertDialogue(title: "แจ้งเตือน", message: "กรุณายืนยันเบอร์โทรศัพท์ก่อนทำการสั่งสินค้า") { [weak self] in
+                self?.showProfile()
+            }
         }
     }
     

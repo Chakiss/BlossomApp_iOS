@@ -201,38 +201,40 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     @IBAction func makeAppointmentButtonTapped() {
         
-        ProgressHUD.show()
-    
-        let payload = ["doctorID": doctor?.id,
-                       "slotID":self.slotDaySelected?.id,
-                       "timeID":self.slotTimeSelected?.id ]
         
-        functions.httpsCallable("app-orders-createAppointmentOrder").call(payload) { result, error in
-        
-            ProgressHUD.dismiss()
-            if error != nil {
-                let alert = UIAlertController(title: "กรุณาตรวจสอบ", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
-            }
-            else {
-                print(result?.data as Any)
-                let order = result?.data as? [String : String] ?? ["":""]
-                if self.slotTimeSelected?.salePrice == 0 {
-                    if let orderID = order["orderID"] {
-                        self.makeAppointmentOrderPaid(orderID: orderID)
-                    }
-                    
-                } else if let orderID = order["orderID"] {
-                  // Make Payment
-                    let paymentMethodViewController = PaymentMethodViewController.initializeInstance(cart: nil, appointmentOrder: AppointmentOrder(id: orderID, amount: self.slotTimeSelected?.salePrice ?? 0))
-                    paymentMethodViewController.delegate = self
-                    self.navigationController?.pushViewController(paymentMethodViewController, animated: true)
+        if self.slotTimeSelected?.salePrice == 0 {
+            let payload = ["doctorID": doctor?.id,
+                           "slotID":self.slotDaySelected?.id,
+                           "timeID":self.slotTimeSelected?.id ]
+            ProgressHUD.show()
+            functions.httpsCallable("app-orders-createAppointmentOrder").call(payload) { result, error in
+            
+                ProgressHUD.dismiss()
+                if error != nil {
+                    let alert = UIAlertController(title: "กรุณาตรวจสอบ", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
                 }
-            }
+                else {
+                    print(result?.data as Any)
+                    let order = result?.data as? [String : String] ?? ["":""]
+                    
+                        if let orderID = order["orderID"] {
+                            self.makeAppointmentOrderPaid(orderID: orderID)
+                        }
+                        
+                    
+                }
 
-        }
-      
+            }
+          
+        } else {
+            // Make Payment
+              let paymentMethodViewController = PaymentMethodViewController.initializeInstance(cart: nil, appointmentOrder: AppointmentOrder(id: "orderID", amount: self.slotTimeSelected?.salePrice ?? 0))
+              paymentMethodViewController.delegate = self
+              self.navigationController?.pushViewController(paymentMethodViewController, animated: true)
+          }
+       
     }
         
     func makeAppointmentOrderPaid(orderID: String){
@@ -298,20 +300,7 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
 
                     })
                 }
-//                ProgressHUD.show()
-//                let payload = ["targetID": self.doctor?.id,
-//                               "type" : "appointment",
-//                               "subType" : "toDoctor",
-//                               "title": "Title",
-//                               "message" : "",
-//                               "payload": ""]
-//
-//                self.functions.httpsCallable("app-messages-sendNotification").call(payload) { result, error in
-//                    Auth.auth().currentUser?.reload()
-//                    ProgressHUD.dismiss()
-//                    self.dismiss(animated: true, completion: nil)
-//
-//                }
+
                 
                 if let appointmentID = appointment["appointmentID"] {
                     
