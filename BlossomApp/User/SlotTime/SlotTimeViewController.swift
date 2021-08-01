@@ -53,27 +53,40 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
         
         self.slotDay = []
         
+        guard let doctorID = doctor?.id else {
+            return
+        }
+        
         db.collection("doctors")
-            .document((doctor?.id)!).collection("slots")
+            .document(doctorID).collection("slots")
             .getDocuments { daySlot, error in
-            if error == nil {
                 
-                for queryDocumentSnapshot in daySlot!.documents {
-                    let id = queryDocumentSnapshot.documentID
-                    if Date().startOfDay >= (id.toDate()?.date ?? Date().startOfDay) {
-                        continue
-                    }
-                    self.slotDay.append(SlotDay(id: id))
-                }
-
-                self.dayCollectionView.reloadData()
-                
-                if self.slotDay.count > 0 {
-                    self.slotDaySelected = self.slotDay[0]
-                    self.getSlotTime(dayID: self.slotDay[0].id!)
-                }
-                
+            guard error == nil else {
+                return
             }
+                
+            guard let slotDocuments = daySlot?.documents else {
+                return
+            }
+                
+            for queryDocumentSnapshot in slotDocuments {
+                let id = queryDocumentSnapshot.documentID
+                let today = Date().startOfDay
+                let region = Region(calendar: Calendar(identifier: .gregorian), zone: Zones.gmt, locale: Locales.englishUnitedStates)
+                let d = id.toDate("yyyy-MM-dd", region: region)
+                guard let date = d?.date, date >= today else {
+                    continue
+                }
+                self.slotDay.append(SlotDay(id: id))
+            }
+
+            self.dayCollectionView.reloadData()
+            
+            if self.slotDay.count > 0 {
+                self.slotDaySelected = self.slotDay[0]
+                self.getSlotTime(dayID: self.slotDay[0].id!)
+            }
+                
         }
         
     }

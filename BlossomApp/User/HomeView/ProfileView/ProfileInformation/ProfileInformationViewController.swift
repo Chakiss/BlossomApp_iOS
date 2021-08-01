@@ -51,6 +51,7 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
     
     var isLinkFacebook: Bool = false
     var isLinkApple: Bool = false
+    var reguestedOTP: Bool = false
     
     fileprivate var currentNonce: String?
     
@@ -132,13 +133,22 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
     
     @IBAction func phoneNumberVerifyButtonTapped() {
         
+        guard reguestedOTP == false else {
+            return
+        }
+        
+        reguestedOTP = true
+        
         let phoneNumber = self.customer?.phoneNumber
+        ProgressHUD.show()
         PhoneAuthProvider.provider()
-            .verifyPhoneNumber(phoneNumber!, uiDelegate: nil) { verificationID, error in
+            .verifyPhoneNumber(phoneNumber!, uiDelegate: nil) { [weak self] verificationID, error in
+                ProgressHUD.dismiss()
+                self?.reguestedOTP = false
                 if error != nil {
                     let alert = UIAlertController(title: "กรุณาตรวจสอบ", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                    self.present(alert, animated: true, completion: nil)
+                    self?.present(alert, animated: true, completion: nil)
                 }
                 else {
 
@@ -146,7 +156,7 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
                     let viewController = storyboard.instantiateViewController(withIdentifier: "VerifyPhoneNumberViewController") as! VerifyPhoneNumberViewController
                     viewController.verificationID = verificationID!
                     viewController.phoneNumber = phoneNumber!
-                    self.navigationController?.present(viewController, animated: true, completion: nil)
+                    self?.navigationController?.present(viewController, animated: true, completion: nil)
                 }
                 
             }
