@@ -11,8 +11,6 @@ import FirebaseStorage
 
 class DoctorListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    
-
     @IBOutlet weak var tableView: UITableView!
     
     var doctorList: [Doctor] = []
@@ -73,7 +71,7 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
                 let data = queryDocumentSnapshot.data()
                 
                 let id = queryDocumentSnapshot.documentID
-                //let appointmentReference = data["appointmentReference"] as! DocumentReference
+                let appointmentReference = data["appointmentReference"] as? DocumentReference
                 let message = data["message"] as? String ?? ""
                 let createdAt = data["createdAt"] as? String ?? ""
                 let doctorReference = data["doctorReference"] as! DocumentReference
@@ -82,7 +80,7 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
                 let updatedAt = data["updatedAt"] as? String ?? ""
                 //let patientReference = data["patientReference"] as! DocumentReference
                 
-                return Reviews(id: id, message: message, createdAt: createdAt, doctorReference: doctorReference, score: score, type: type, updatedAt: updatedAt)
+                return Reviews(id: id, appointmentReference: appointmentReference, message: message, createdAt: createdAt, doctorReference: doctorReference, score: score, type: type, updatedAt: updatedAt, patientReference: patientReference)
                 
             }
             self.tableView.reloadData()

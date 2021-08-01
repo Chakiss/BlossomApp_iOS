@@ -35,7 +35,7 @@ struct Reviews: Codable {
         
     }
     
-    init(id: String, message: String, createdAt: String, doctorReference: DocumentReference, score: Int, type: String, updatedAt: String) {
+    init(id: String, appointmentReference: DocumentReference?, message: String, createdAt: String, doctorReference: DocumentReference, score: Int, type: String, updatedAt: String, patientReference: DocumentReference) {
         self.id = id
         //self.appointmentReference = appointmentReference
         self.message = message

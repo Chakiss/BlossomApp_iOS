@@ -220,17 +220,23 @@ class CartViewController: UIViewController {
     }
     
     @IBAction func checkoutCart(_ sender: Any) {
-        if customer?.isPhoneVerified == true {
+        guard customer?.isPhoneVerified == true else {
+            showAlertDialogue(title: "แจ้งเตือน", message: "กรุณายืนยันเบอร์โทรศัพท์ก่อนทำการสั่งสินค้า") { [weak self] in
+                self?.showProfile()
+            }
+            return
+        }
+        
+        guard let error = cart?.checkInventory() else {
             if currentCart {
                 createOrder()
             } else {
                 updateOrder()
             }
-        } else {
-            showAlertDialogue(title: "แจ้งเตือน", message: "กรุณายืนยันเบอร์โทรศัพท์ก่อนทำการสั่งสินค้า") { [weak self] in
-                self?.showProfile()
-            }
+            return
         }
+        
+        showAlertDialogue(title: "แจ้งเตือน", message: error.localizedDescription) { }
     }
     
 }
@@ -361,8 +367,17 @@ extension CartViewController: CartHeaderTableViewCellDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let viewController = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
         viewController.showLogout = false
+        viewController.delegate = self
         viewController.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+}
+
+extension CartViewController: ProfileViewControllerDelegate {
+    
+    func profileDidSave() {
+        customer = CustomerManager.sharedInstance.customer
     }
     
 }

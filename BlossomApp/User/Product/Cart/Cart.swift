@@ -20,6 +20,32 @@ struct CartItem: Equatable {
     
 }
 
+struct CartError: LocalizedError {
+    
+    var errorMessage: String = ""
+    
+    /// A localized message describing what error occurred.
+    var errorDescription: String? {
+        return errorMessage
+    }
+
+    /// A localized message describing the reason for the failure.
+    var failureReason: String? {
+        return errorMessage
+    }
+
+    /// A localized message describing how one might recover from the failure.
+    var recoverySuggestion: String? {
+        return errorMessage
+    }
+
+    /// A localized message providing "help" text if the user requests help.
+    var helpAnchor: String? {
+        return errorMessage
+    }
+    
+}
+
 class Cart {
     
     let id: String = UUID().uuidString
@@ -91,6 +117,21 @@ class Cart {
     
     public func updatePO(_ purchaseOrder: Order) {
         self.purchaseOrder = purchaseOrder
+    }
+    
+    func checkInventory() -> CartError? {
+        
+        let outOfStockItems = items.filter({ $0.product.inventory != nil && ($0.product.inventory! == 0) })
+        guard outOfStockItems.isEmpty else {
+            return CartError(errorMessage: "\(outOfStockItems.first?.product.name ?? "สินค้า") มีไม่เพียงพอ")
+        }
+        
+        guard let insufficientProduct = items.first(where: { $0.product.inventory != nil && ($0.product.inventory! < $0.quantity) }) else {
+            return nil
+        }
+        
+        return CartError(errorMessage: "\(insufficientProduct.product.name ?? "สินค้า") มีไม่เพียงพอ")
+        
     }
     
 }

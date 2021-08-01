@@ -8,6 +8,10 @@
 import UIKit
 import Firebase
 
+protocol ProfileViewControllerDelegate: AnyObject {
+    func profileDidSave()
+}
+
 class ProfileViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     @IBOutlet weak var containerView: UIView!
@@ -17,6 +21,8 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
     
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var selectImageButton: UIButton!
+    
+    weak var delegate: ProfileViewControllerDelegate?
     
     var isChangeProfile: Bool = false
     var isChangePhonenumber: Bool = false
@@ -78,9 +84,6 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-       
-        
-        
         self.profileImageView.circleView()
         self.profileImageView.addShadow()
         
@@ -140,7 +143,6 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
         
     }
     
-    
     @objc func saveUserData(){
         if isChangeProfile == true {
             ProgressHUD.show()
@@ -154,10 +156,11 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
                            "subDistrictID": "0",
                            "zipcodeID": "0"]
             
-            functions.httpsCallable("app-users-updateProfile").call(payload) { result, error in
+            functions.httpsCallable("app-users-updateProfile").call(payload) { [weak self] result, error in
                 ProgressHUD.dismiss()
                 Auth.auth().currentUser?.reload()
-                self.saveHealtData()
+                self?.delegate?.profileDidSave()
+                self?.saveHealtData()
                 
             }
         }
@@ -170,10 +173,11 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
                     ProgressHUD.show()
                     let payloadphoneNumber = ["phoneNumber": phoneNumber]
                     
-                    functions.httpsCallable("app-users-updatePhoneNumber").call(payloadphoneNumber) { result, error in
+                    functions.httpsCallable("app-users-updatePhoneNumber").call(payloadphoneNumber) { [weak self] result, error in
                         ProgressHUD.dismiss()
                         Auth.auth().currentUser?.reload()
-                        self.navigationController?.popViewController(animated: true)
+                        self?.delegate?.profileDidSave()
+                        self?.navigationController?.popViewController(animated: true)
                     }
                 }
             } else {
