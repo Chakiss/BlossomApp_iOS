@@ -8,6 +8,10 @@
 import UIKit
 import Firebase
 
+protocol PostFromViewControllerDelegate: AnyObject {
+    func postFormDidFinish(controller: PostFromViewController)
+}
+
 class PostFromViewController: UIViewController {
 
     @IBOutlet weak var diagnoseTextField: UITextField!
@@ -19,6 +23,8 @@ class PostFromViewController: UIViewController {
     lazy var functions = Functions.functions()
     
     var appointmentID: String = ""
+    
+    weak var delegate: PostFromViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,17 +45,12 @@ class PostFromViewController: UIViewController {
                        "images": [],
                        "form": formData ] as [String : Any]
         
-        functions.httpsCallable("app-appointments-updateForm").call(payload) { result, error in
-            ProgressHUD.dismiss()
+        functions.httpsCallable("app-appointments-updateForm").call(payload) { [weak self] result, error in
             
-        }
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-            appDelegate.deeplinking = .appointment
-            appDelegate.handleDeeplinking()
-            self.dismiss(animated: false, completion: {
-                self.navigationController?.popToRootViewController(animated: false)
-            })
-
+            ProgressHUD.dismiss()
+            guard let self = self else { return }
+            self.delegate?.postFormDidFinish(controller: self)
+            
         }
     }
 

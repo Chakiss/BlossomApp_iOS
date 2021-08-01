@@ -179,6 +179,7 @@ extension CallManager : CallViewControllerDelegate {
                 viewController.hidesBottomBarWhenPushed = true
                 viewController.modalPresentationStyle = .fullScreen
                 viewController.appointmentID = info.appointmentID
+                viewController.delegate = self
                 controller?.present(viewController, animated: true, completion: nil)
             } else {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -188,6 +189,30 @@ extension CallManager : CallViewControllerDelegate {
                 controller?.present(viewController, animated: true, completion: nil)
             }
         })
+
+    }
+    
+}
+
+extension CallManager: PostFromViewControllerDelegate {
+    
+    func postFormDidFinish(controller: PostFromViewController) {
+        
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            appDelegate.deeplinking = .appointment
+            
+            guard let presentingViewController = controller.presentingViewController else {
+                return
+            }
+            
+            presentingViewController.dismiss(animated: false, completion: {
+                if let tabbar = presentingViewController.tabBarController?.selectedViewController as? UINavigationController {
+                    tabbar.popToRootViewController(animated: false)
+                }
+            })
+            
+            appDelegate.handleDeeplinking()
+        }
 
     }
     

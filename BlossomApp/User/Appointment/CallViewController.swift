@@ -280,7 +280,17 @@ class CallViewController: UIViewController, CallClientDelegate {
 extension CallViewController: CallManagerDelegate {
     
     func callManagerDidEndCall() {
-        self.dismiss(animated: true, completion: nil)
+        
+        guard let info = callInfo else {
+            return
+        }
+        
+        guard !info.doctorDocID.isEmpty && !info.customerDocID.isEmpty else {
+            return
+        }
+        
+        delegate?.callViewDidEndCall(info: info)
+
     }
     
     func callManagerDidReceivedRemoteVideoTrack(videoTrack: CallVideoTrack) {
