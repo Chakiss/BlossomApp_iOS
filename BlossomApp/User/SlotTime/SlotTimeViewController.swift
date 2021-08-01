@@ -242,10 +242,32 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
             }
           
         } else {
-            // Make Payment
-              let paymentMethodViewController = PaymentMethodViewController.initializeInstance(cart: nil, appointmentOrder: AppointmentOrder(id: "orderID", amount: self.slotTimeSelected?.salePrice ?? 0))
-              paymentMethodViewController.delegate = self
-              self.navigationController?.pushViewController(paymentMethodViewController, animated: true)
+            
+            let payload = ["doctorID": doctor?.id,
+                           "slotID":self.slotDaySelected?.id,
+                           "timeID":self.slotTimeSelected?.id ]
+            ProgressHUD.show()
+            functions.httpsCallable("app-orders-createAppointmentOrder").call(payload) { result, error in
+            
+                ProgressHUD.dismiss()
+                if error != nil {
+                    let alert = UIAlertController(title: "กรุณาตรวจสอบ", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                }
+                else {
+                    print(result?.data as Any)
+                    let order = result?.data as? [String : String] ?? ["":""]
+                    
+                    // Make Payment
+                    let paymentMethodViewController = PaymentMethodViewController.initializeInstance(cart: nil, appointmentOrder: AppointmentOrder(id: order["orderID"] ?? "", amount: self.slotTimeSelected?.salePrice ?? 0))
+                      paymentMethodViewController.delegate = self
+                      self.navigationController?.pushViewController(paymentMethodViewController, animated: true)
+
+                }
+
+            }
+
           }
        
     }
