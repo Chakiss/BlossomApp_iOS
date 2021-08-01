@@ -186,8 +186,10 @@ extension CallManager : CallViewControllerDelegate {
                 let viewController = storyboard.instantiateViewController(withIdentifier: "ReviewViewController") as! ReviewViewController
                 viewController.hidesBottomBarWhenPushed = true
                 viewController.modalPresentationStyle = .fullScreen
+                viewController.appointmentID = info.appointmentID
                 controller?.present(viewController, animated: true, completion: nil)
             }
+            
         })
 
     }

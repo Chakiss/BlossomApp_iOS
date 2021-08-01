@@ -36,9 +36,7 @@ class CallViewController: UIViewController, CallClientDelegate {
 
     var callInfo: CallKitAdapter.UserInfo?
     weak var delegate: CallViewControllerDelegate?
-    
-    lazy var functions = Functions.functions()
-    
+        
     private var timer: Timer?
     private var warning: Bool = false
     private var connected: Bool = false {
@@ -255,19 +253,6 @@ class CallViewController: UIViewController, CallClientDelegate {
     
     @IBAction func didPressEnd(_ sender: UIButton) {
         endCall()
-        
-        let payload = ["appointmentID": "id"]
-        
-        functions.httpsCallable("app-appointments-markCompleted").call(payload) { result, error in
-        
-            ProgressHUD.dismiss()
-            if error != nil {
-                let alert = UIAlertController(title: "กรุณาตรวจสอบ", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
-            }
-        }
-        
     }
     
     @IBAction func didPressScreenShare(_ sender: UIButton) {

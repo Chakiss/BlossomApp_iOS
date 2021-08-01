@@ -30,6 +30,20 @@ class PostFromViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        let payload = ["appointmentID": appointmentID]
+        let functions = Functions.functions()
+        
+        ProgressHUD.show()
+        functions.httpsCallable("app-appointments-markCompleted").call(payload) { [weak self] result, error in
+        
+            ProgressHUD.dismiss()
+            if error != nil {
+                let alert = UIAlertController(title: "กรุณาตรวจสอบ", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                self?.presentedViewController?.present(alert, animated: true, completion: nil)
+            }
+        }
+
     }
     
     
