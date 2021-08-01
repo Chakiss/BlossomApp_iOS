@@ -64,6 +64,13 @@ class CustomerManager: NSObject {
         
     }
     
+    func reloadCustomerData(completion: @escaping (Customer?)->Swift.Void)  {
+        getCustomerData(uid: user?.uid ?? "") { customer in
+            self.customer = customer
+            completion(customer)
+        }
+    }
+    
     func getCustomerData(uid: String, completion: @escaping (Customer?)->Swift.Void) {
         db?.collection("customers").document(uid).addSnapshotListener { snapshot, error in
             

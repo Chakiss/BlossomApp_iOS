@@ -99,7 +99,7 @@ class RegisterViewController: UIViewController {
                         let code = FunctionsErrorCode(rawValue: error.code)
                         let message = error.localizedDescription
                         
-                        let alert = UIAlertController(title: "Alert \(String(describing: code))", message: message, preferredStyle: UIAlertController.Style.alert)
+                        let alert = UIAlertController(title: "Alert", message: message, preferredStyle: UIAlertController.Style.alert)
                         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
                         self.present(alert, animated: true, completion: nil)
                     }
