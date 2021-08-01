@@ -18,7 +18,7 @@ enum Deeplinking {
     case orderList
     case appointment
     case chat
-    case product
+    case product(id:String?)
     
     static func convert(from url: URL?) -> Deeplinking {
 
@@ -46,7 +46,11 @@ enum Deeplinking {
             return Deeplinking.chat
 
         case "product":
-            return Deeplinking.product
+            var id = ""
+            if urlComponents.queryItems?.first?.name == "id" {
+                id = urlComponents.queryItems?.first?.value ?? ""
+            }
+            return Deeplinking.product(id: id)
 
         default:
             return Deeplinking.home
@@ -118,6 +122,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         return handled
         
+    }
+    
+    func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
+        print(url)
+        return true
     }
     
     func application( _ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data ) {
@@ -212,7 +221,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 tabbarController.selectedIndex = 2
             case .appointment:
                 tabbarController.selectedIndex = 2
-            case .product:
+            case .product(let id):
+                let nav = tabbarController.viewControllers?[3] as! UINavigationController
+                let productVC = nav.viewControllers.first as! ProductListViewController
+                productVC.deeplinkID = id ?? ""
                 tabbarController.selectedIndex = 3
             case .chat:
                 tabbarController.selectedIndex = 4

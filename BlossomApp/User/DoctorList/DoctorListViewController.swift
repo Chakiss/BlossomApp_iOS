@@ -54,8 +54,8 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
                 let createdAt = data["createdAt"] as? String ?? ""
                 let updatedAt = data["updatedAt"] as? String ?? ""
                 let displayPhoto = data["displayPhoto"] as? String ?? ""
-                let currentScore = data["currentScore"] as? Double ?? 0
-                return Doctor(id: id, displayName: displayName, email: email, firstName: firstName, lastName: lastName, phonenumber: phoneNumber, connectyCubeID: referenceConnectyCubeID, story: story, createdAt: createdAt, updatedAt: updatedAt, displayPhoto: displayPhoto, currentScore: currentScore,documentReference: queryDocumentSnapshot.reference)
+                let score = data["score"] as? Double ?? 0
+                return Doctor(id: id, displayName: displayName, email: email, firstName: firstName, lastName: lastName, phonenumber: phoneNumber, connectyCubeID: referenceConnectyCubeID, story: story, createdAt: createdAt, updatedAt: updatedAt, displayPhoto: displayPhoto, score: score,documentReference: queryDocumentSnapshot.reference)
                 
             }
             self.tableView.reloadData()
@@ -73,16 +73,16 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
                 let data = queryDocumentSnapshot.data()
                 
                 let id = queryDocumentSnapshot.documentID
-                let appointmentReference = data["appointmentReference"] as! DocumentReference
-                let comment = data["comment"] as? String ?? ""
+                //let appointmentReference = data["appointmentReference"] as! DocumentReference
+                let message = data["message"] as? String ?? ""
                 let createdAt = data["createdAt"] as? String ?? ""
                 let doctorReference = data["doctorReference"] as! DocumentReference
                 let score = data["score"] as? Int ?? 0
                 let type = data["type"] as? String ?? ""
                 let updatedAt = data["updatedAt"] as? String ?? ""
-                let patientReference = data["patientReference"] as! DocumentReference
+                //let patientReference = data["patientReference"] as! DocumentReference
                 
-                return Reviews(id: id, appointmentReference: appointmentReference, comment: comment, createdAt: createdAt, doctorReference: doctorReference, score: score, type: type, updatedAt: updatedAt, patientReference: patientReference)
+                return Reviews(id: id, message: message, createdAt: createdAt, doctorReference: doctorReference, score: score, type: type, updatedAt: updatedAt)
                 
             }
             self.tableView.reloadData()
@@ -117,7 +117,7 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
             }
         }
         
-        cell.doctorStarLabel.text = String(format: "%.2f",doctor.currentScore!)
+        cell.doctorStarLabel.text = String(format: "%.2f",doctor.score!)
         cell.doctorReviewLabel.text = ""
         cell.calculateReview(reviews: reviewList)
         

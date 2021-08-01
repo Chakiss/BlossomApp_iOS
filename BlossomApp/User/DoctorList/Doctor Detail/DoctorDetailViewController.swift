@@ -55,7 +55,7 @@ class DoctorDetailViewController: UIViewController, UITableViewDelegate, UITable
         }
         self.doctorNickNameLabel.text = doctor?.displayName
         self.doctorNameLabel.text = (doctor?.firstName ?? "") + "  " + (doctor?.lastName ?? "")
-        let score = (doctor?.currentScore)! as Double
+        let score = (doctor?.score)! as Double
         self.doctorCurrentScoreLabel.text = "\(score)"
         
         
@@ -112,7 +112,7 @@ class DoctorDetailViewController: UIViewController, UITableViewDelegate, UITable
         let cell = tableView.dequeueReusableCell(withIdentifier: "ReviewCell", for: indexPath) as! ReviewCell
         var score = review.score! as Int
         cell.scoreLabel.text = "\(score)"
-        cell.commentLabel.text = review.comment
+        cell.commentLabel.text = review.message
         cell.dateLabel.text = review.createdAt
         
         

@@ -63,8 +63,8 @@ class AppointmentCell: UITableViewCell {
                     let createdAt = data?["createdAt"] as? String ?? ""
                     let updatedAt = data?["updatedAt"] as? String ?? ""
                     let displayPhoto = data?["displayPhoto"] as? String ?? ""
-                    let currentScore = data?["currentScore"] as? Double ?? 0
-                    return Doctor(id: id, displayName: displayName, email: email, firstName: firstName, lastName: lastName, phonenumber: phoneNumber, connectyCubeID: referenceConnectyCubeID, story: story, createdAt: createdAt, updatedAt: updatedAt, displayPhoto: displayPhoto, currentScore: currentScore,documentReference: document.reference)
+                    let score = data?["score"] as? Double ?? 0
+                    return Doctor(id: id, displayName: displayName, email: email, firstName: firstName, lastName: lastName, phonenumber: phoneNumber, connectyCubeID: referenceConnectyCubeID, story: story, createdAt: createdAt, updatedAt: updatedAt, displayPhoto: displayPhoto, score: score,documentReference: document.reference)
                 }
                 
                 

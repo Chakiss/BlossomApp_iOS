@@ -779,9 +779,6 @@
                                                                             <constraint firstAttribute="width" secondItem="WFl-cH-pr5" secondAttribute="height" multiplier="1:1" id="oFw-8e-ptj"/>
                                                                         </constraints>
                                                                         <state key="normal" image="item1"/>
-                                                                        <connections>
-                                                                            <action selector="openProduct" destination="HQO-3f-x6P" eventType="touchUpInside" id="NZu-8M-cGa"/>
-                                                                        </connections>
                                                                     </button>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hZc-nA-ArI">
                                                                         <rect key="frame" x="131" y="0.0" width="112" height="112"/>
@@ -789,9 +786,6 @@
                                                                             <constraint firstAttribute="width" secondItem="hZc-nA-ArI" secondAttribute="height" multiplier="1:1" id="xbE-II-oeO"/>
                                                                         </constraints>
                                                                         <state key="normal" image="item1"/>
-                                                                        <connections>
-                                                                            <action selector="openProduct" destination="HQO-3f-x6P" eventType="touchUpInside" id="rmW-VY-U0q"/>
-                                                                        </connections>
                                                                     </button>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C5s-nJ-GfU">
                                                                         <rect key="frame" x="262" y="0.0" width="112" height="112"/>
@@ -799,9 +793,6 @@
                                                                             <constraint firstAttribute="width" secondItem="C5s-nJ-GfU" secondAttribute="height" multiplier="1:1" id="uZN-3M-wwZ"/>
                                                                         </constraints>
                                                                         <state key="normal" image="item1"/>
-                                                                        <connections>
-                                                                            <action selector="openProduct" destination="HQO-3f-x6P" eventType="touchUpInside" id="flM-sx-x8c"/>
-                                                                        </connections>
                                                                     </button>
                                                                 </subviews>
                                                                 <color key="backgroundColor" red="0.98823529409999999" green="0.97647058819999999" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -4628,8 +4619,8 @@
         <image name="doctor_icon" width="16" height="20"/>
         <image name="emptyStar" width="3" height="3"/>
         <image name="facebook_circle" width="512" height="512"/>
-        <image name="filledStar" width="21" height="20"/>
-        <image name="head_review" width="2160" height="1440"/>
+        <image name="filledStar" width="88" height="84"/>
+        <image name="head_review" width="667" height="271"/>
         <image name="home_icon" width="26" height="27"/>
         <image name="ic_camera_rear" width="14" height="24"/>
         <image name="ic_microphone_white_24dp" width="24" height="24"/>

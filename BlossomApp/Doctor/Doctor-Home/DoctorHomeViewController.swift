@@ -58,10 +58,10 @@ class DoctorHomeViewController: UIViewController {
                 let email = documentData["email"] as? String ?? ""
                 let referenceConnectyCubeID = documentData["referenceConnectyCubeID"] as? UInt ?? 0
                 let lastName = documentData["lastName"] as? String ?? ""
-                let currentScore = documentData["currentScore"] as? Double ?? 0.0
+                let score = documentData["score"] as? Double ?? 0.0
                 let reference = snapshot?.reference
                 
-                return Doctor(id: id, displayName: displayName, email: email, firstName: firstName, lastName: lastName, phonenumber: phoneNumber, connectyCubeID: referenceConnectyCubeID , story: story, createdAt: createdAt, updatedAt: updatedAt, displayPhoto: displayPhoto,currentScore: currentScore,documentReference: reference!)
+                return Doctor(id: id, displayName: displayName, email: email, firstName: firstName, lastName: lastName, phonenumber: phoneNumber, connectyCubeID: referenceConnectyCubeID , story: story, createdAt: createdAt, updatedAt: updatedAt, displayPhoto: displayPhoto,score: score,documentReference: reference!)
             })
             
             CallManager.manager.loginConnectyCube(email: self.doctor?.email ?? "", firebaseID: self.doctor?.id ?? "", connectyID: self.doctor?.referenceConnectyCubeID ?? 0)            

@@ -19,6 +19,7 @@ class ProductListViewController: UIViewController, UITableViewDataSource, UITabl
 
     private var products: [Product] = []
     
+    var deeplinkID: String = ""
     var customer: Customer?
     weak var delegate: ProductListViewControllerDelegate?
     
@@ -42,6 +43,9 @@ class ProductListViewController: UIViewController, UITableViewDataSource, UITabl
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         fetchProduct()
+        
+        
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -112,6 +116,20 @@ class ProductListViewController: UIViewController, UITableViewDataSource, UITabl
         self.navigationController?.pushViewController(viewController, animated: true)
     }
     
+    func checkDeepLink() {
+        if !deeplinkID.isEmpty {
+            let product = self.products.filter{ $0.code == deeplinkID }.first
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let viewController = storyboard.instantiateViewController(withIdentifier: "ProductDetailViewController") as! ProductDetailViewController
+            viewController.product = product
+            viewController.hidesBottomBarWhenPushed = true
+            
+            deeplinkID = ""
+            
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }
+    }
 
 }
 
@@ -152,6 +170,7 @@ extension ProductListViewController {
                 guard let productsResponse = response.value else { return }
                 self.products = productsResponse.products ?? []
                 self.tableView.reloadData()
+                self.checkDeepLink()
             }
         
     }

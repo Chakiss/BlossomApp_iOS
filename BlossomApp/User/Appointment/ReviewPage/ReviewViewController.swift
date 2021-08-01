@@ -56,16 +56,16 @@ class ReviewViewController: UIViewController {
         
         functions.httpsCallable("app-appointments-addReview").call(payload) { result, error in
             ProgressHUD.dismiss()
-            
-        }
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-            appDelegate.deeplinking = .appointment
-            appDelegate.handleDeeplinking()
-            self.dismiss(animated: false, completion: {
-                self.navigationController?.popToRootViewController(animated: false)
-            })
+            if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                appDelegate.deeplinking = .appointment
+                appDelegate.handleDeeplinking()
+                self.dismiss(animated: false, completion: {
+                    self.navigationController?.popToRootViewController(animated: false)
+                })
 
+            }
         }
+        
     }
 
     /*

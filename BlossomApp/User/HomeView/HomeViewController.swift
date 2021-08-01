@@ -177,8 +177,8 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
                     let createdAt = data?["createdAt"] as? String ?? ""
                     let updatedAt = data?["updatedAt"] as? String ?? ""
                     let displayPhoto = data?["displayPhoto"] as? String ?? ""
-                    let currentScore = data?["currentScore"] as? Double ?? 0
-                    return Doctor(id: id, displayName: displayName, email: email, firstName: firstName, lastName: lastName, phonenumber: phoneNumber, connectyCubeID: referenceConnectyCubeID, story: story, createdAt: createdAt, updatedAt: updatedAt, displayPhoto: displayPhoto, currentScore: currentScore,documentReference: document.reference)
+                    let score = data?["score"] as? Double ?? 0
+                    return Doctor(id: id, displayName: displayName, email: email, firstName: firstName, lastName: lastName, phonenumber: phoneNumber, connectyCubeID: referenceConnectyCubeID, story: story, createdAt: createdAt, updatedAt: updatedAt, displayPhoto: displayPhoto, score: score,documentReference: document.reference)
                 }
                 
             
@@ -243,7 +243,8 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
                     let productHilight = ProductHilight()
                     
                     productHilight.image = data["image"] as! String
-                    //productHilight.link = data["deeplink"] as! String
+                    productHilight.deeplink = data["deeplink"] as! String
+                    productHilight.code = data["code"] as! String
                    
                     return productHilight
                     
@@ -252,12 +253,18 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
                 if self.productHilights.count == 3 {
                     if let imgURL = URL(string: self.productHilights[0].image) {
                         self.productButton1.kf.setImage(with: imgURL, for: .normal)
+                        self.productButton1.tag = 0
+                        self.productButton1.addTarget(self, action: #selector(self.openProductHilight), for: .touchUpInside)
                     }
                     if let imgURL = URL(string: self.productHilights[1].image) {
                         self.productButton2.kf.setImage(with: imgURL, for: .normal)
+                        self.productButton2.tag = 1
+                        self.productButton2.addTarget(self, action: #selector(self.openProductHilight), for: .touchUpInside)
                     }
                     if let imgURL = URL(string: self.productHilights[2].image) {
                         self.productButton3.kf.setImage(with: imgURL, for: .normal)
+                        self.productButton3.tag = 2
+                        self.productButton3.addTarget(self, action: #selector(self.openProductHilight), for: .touchUpInside)
                     }
                     
                     
@@ -269,8 +276,21 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
     }
     
     @IBAction func openProduct() {
+        
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-            appDelegate.deeplinking = .product
+            
+            appDelegate.deeplinking = .product(id: "")
+            appDelegate.handleDeeplinking()
+            self.dismiss(animated: false, completion: {
+                self.navigationController?.popToRootViewController(animated: false)
+            })
+        }
+    }
+    @IBAction func openProductHilight(id: UIButton) {
+       
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+
+            appDelegate.deeplinking = .product(id: self.productHilights[id.tag].code)
             appDelegate.handleDeeplinking()
             self.dismiss(animated: false, completion: {
                 self.navigationController?.popToRootViewController(animated: false)
