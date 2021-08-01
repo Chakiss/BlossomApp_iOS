@@ -91,6 +91,9 @@ class ProductListViewController: UIViewController, UITableViewDataSource, UITabl
         cell.productImageView.kf.setImage(with: url, placeholder: UIImage(named: "placeholder"))
         cell.productImageView.addConerRadiusAndShadow()
         
+        let inventory = String(format: "%d", product.inventory ?? "")
+        cell.inventoryLabel.text = inventory
+        
         return cell
     }
 

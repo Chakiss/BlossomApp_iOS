@@ -2567,6 +2567,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="addToCartButton" destination="MCK-Pd-v4P" id="1fd-2B-hez"/>
+                                            <outlet property="inventoryLabel" destination="Nht-Cr-BDJ" id="PvD-qM-xv4"/>
                                             <outlet property="productImageView" destination="oRo-7i-6rc" id="Lhx-o1-4fl"/>
                                             <outlet property="productNameLabel" destination="neb-00-pDw" id="dvc-iQ-FWQ"/>
                                             <outlet property="productPriceLabel" destination="SgO-lh-AuS" id="6To-DA-HJ5"/>

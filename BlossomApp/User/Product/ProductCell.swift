@@ -17,6 +17,7 @@ class ProductCell: UITableViewCell {
     @IBOutlet weak var productPriceLabel: UILabel!
     @IBOutlet weak var productImageView: UIImageView!
     @IBOutlet weak var addToCartButton: UIButton!
+    @IBOutlet weak var inventoryLabel: UILabel!
     weak var delegate: ProductCellDelegate?
 
     override func awakeFromNib() {
