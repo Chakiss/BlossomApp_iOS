@@ -78,7 +78,7 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
                 let score = data["score"] as? Int ?? 0
                 let type = data["type"] as? String ?? ""
                 let updatedAt = data["updatedAt"] as? String ?? ""
-                //let patientReference = data["patientReference"] as! DocumentReference
+                let patientReference = data["patientReference"] as? DocumentReference
                 
                 return Reviews(id: id, appointmentReference: appointmentReference, message: message, createdAt: createdAt, doctorReference: doctorReference, score: score, type: type, updatedAt: updatedAt, patientReference: patientReference)
                 

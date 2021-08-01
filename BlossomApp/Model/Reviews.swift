@@ -11,14 +11,14 @@ import Firebase
 struct Reviews: Codable {
     
     var id: String?
-    //var appointmentReference: DocumentReference?
+    var appointmentReference: DocumentReference?
     var message: String?
     var createdAt: String?
     var doctorReference: DocumentReference?
     var score: Int?
     var type: String?
     var updatedAt: String?
-    //var patientReference: DocumentReference?
+    var patientReference: DocumentReference?
     
     
     private enum CodingKeys: String, CodingKey {
@@ -35,16 +35,16 @@ struct Reviews: Codable {
         
     }
     
-    init(id: String, appointmentReference: DocumentReference?, message: String, createdAt: String, doctorReference: DocumentReference, score: Int, type: String, updatedAt: String, patientReference: DocumentReference) {
+    init(id: String, appointmentReference: DocumentReference?, message: String, createdAt: String, doctorReference: DocumentReference, score: Int, type: String, updatedAt: String, patientReference: DocumentReference?) {
         self.id = id
-        //self.appointmentReference = appointmentReference
+        self.appointmentReference = appointmentReference
         self.message = message
         self.createdAt = createdAt
         self.doctorReference = doctorReference
         self.score = score
         self.type = type
         self.updatedAt = updatedAt
-        //self.patientReference = patientReference
+        self.patientReference = patientReference
     }
     
     init(from decoder: Decoder) throws {
