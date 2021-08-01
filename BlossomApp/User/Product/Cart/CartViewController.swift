@@ -33,13 +33,15 @@ class CartViewController: UIViewController {
     private var customer: Customer?
     private var currentCart: Bool = true
     
-    var delegate: UpdateCartViewControllerDelegate?
+    weak var delegate: UpdateCartViewControllerDelegate?
+    weak var prescriptDelegate: ProductListPrescriptionDelegate?
     
-    static func initializeInstance(cart: Cart, currentCart: Bool = true, customer: Customer?) -> CartViewController {
+    static func initializeInstance(cart: Cart, currentCart: Bool = true, customer: Customer?, prescriptDelegate: ProductListPrescriptionDelegate?) -> CartViewController {
         let controller: CartViewController = CartViewController(nibName: "CartViewController", bundle: Bundle.main)
         controller.cart = cart
         controller.currentCart = currentCart
         controller.customer = customer ?? CustomerManager.sharedInstance.customer
+        controller.prescriptDelegate = prescriptDelegate
         controller.hidesBottomBarWhenPushed = true
         return controller
     }
@@ -115,10 +117,9 @@ class CartViewController: UIViewController {
     
     @objc
     private func addMoreProduct() {
-        guard let productList = ProductListViewController.initializeInstance(customer: customer) else {
+        guard let productList = ProductListViewController.initializeInstance(customer: customer, delegate: self) else {
             return
         }
-        productList.delegate = self
         self.navigationController?.pushViewController(productList, animated: true)
     }
     
@@ -132,8 +133,12 @@ class CartViewController: UIViewController {
         }
         
         guard let address = customer.address?.address, !address.isEmpty else {
-            showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณาระบุที่อยู่จัดส่ง") { [weak self] in
-                self?.showProfile()
+            if Defaults[\.role] == "doctor" {
+                showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณาแจ้งให้ผู้รับคำปรึกษาระบุที่อยู่จัดส่ง") { }
+            } else {
+                showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณาระบุที่อยู่จัดส่ง") { [weak self] in
+                    self?.showProfile()
+                }
             }
             return
         }
@@ -167,13 +172,18 @@ class CartViewController: UIViewController {
     }
     
     private func updateOrder() {
+        
         guard let customer = customer else {
             return
         }
         
         guard let address = customer.address?.address, !address.isEmpty else {
-            showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณาระบุที่อยู่จัดส่ง") { [weak self] in
-                self?.showProfile()
+            if Defaults[\.role] == "doctor" {
+                showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณาแจ้งให้ผู้รับคำปรึกษาระบุที่อยู่จัดส่ง") { }
+            } else {
+                showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณาระบุที่อยู่จัดส่ง") { [weak self] in
+                    self?.showProfile()
+                }
             }
             return
         }
@@ -210,6 +220,7 @@ class CartViewController: UIViewController {
         
         guard Defaults[\.role] != "doctor" else {
             self.navigationController?.popToRootViewController(animated: true)
+            self.prescriptDelegate?.productListDidFinish()
             return
         }
         
@@ -225,8 +236,12 @@ class CartViewController: UIViewController {
     
     @IBAction func checkoutCart(_ sender: Any) {
         guard customer?.isPhoneVerified == true else {
-            showAlertDialogue(title: "แจ้งเตือน", message: "กรุณายืนยันเบอร์โทรศัพท์ก่อนทำการสั่งสินค้า") { [weak self] in
-                self?.showProfile()
+            if Defaults[\.role] == "doctor" {
+                showAlertDialogue(title: "แจ้งเตือน", message: "ผู้รับคำปรึกษาต้องยืนยันเบอร์โทรศัพท์ก่อนทำการสั่งสินค้า") { }
+            } else {
+                showAlertDialogue(title: "แจ้งเตือน", message: "กรุณายืนยันเบอร์โทรศัพท์ก่อนทำการสั่งสินค้า") { [weak self] in
+                    self?.showProfile()
+                }
             }
             return
         }

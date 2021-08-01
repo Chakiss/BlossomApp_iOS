@@ -9,6 +9,10 @@ import UIKit
 import Alamofire
 import SwiftyUserDefaults
 
+protocol ProductListPrescriptionDelegate: AnyObject {
+    func productListDidFinish()
+}
+
 protocol ProductListViewControllerDelegate: AnyObject {
     func productListDidSelect(product: Product)
 }
@@ -22,12 +26,15 @@ class ProductListViewController: UIViewController, UITableViewDataSource, UITabl
     var deeplinkID: String = ""
     var customer: Customer?
     weak var delegate: ProductListViewControllerDelegate?
+    weak var prescriptDelegate: ProductListPrescriptionDelegate?
     
-    static func initializeInstance(customer: Customer?) -> ProductListViewController? {
+    static func initializeInstance(customer: Customer?, delegate: ProductListViewControllerDelegate? = nil, prescriptDelegate: ProductListPrescriptionDelegate? = nil) -> ProductListViewController? {
         let storyBoard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let productList = storyBoard.instantiateViewController(withIdentifier: "ProductListViewController") as? ProductListViewController
         productList?.hidesBottomBarWhenPushed = true
         productList?.customer = customer
+        productList?.delegate = delegate
+        productList?.prescriptDelegate = prescriptDelegate
         return productList
     }
 
@@ -38,14 +45,20 @@ class ProductListViewController: UIViewController, UITableViewDataSource, UITabl
         if customer == nil {
             customer = CustomerManager.sharedInstance.customer
         }
+        
+        if prescriptDelegate != nil {
+            let newBackButton = UIBarButtonItem(title: "ปิด", style: .plain, target: self, action: #selector(closePrescript(sender:)))
+            self.navigationItem.leftBarButtonItem = newBackButton
+        }
+    }
+    
+    @objc private func closePrescript(sender: UIBarButtonItem) {
+        prescriptDelegate?.productListDidFinish()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         fetchProduct()
-        
-        
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -71,7 +84,7 @@ class ProductListViewController: UIViewController, UITableViewDataSource, UITabl
             return
         }
         
-        let viewController = CartViewController.initializeInstance(cart: CartManager.shared.currentCart!, customer: customer)
+        let viewController = CartViewController.initializeInstance(cart: CartManager.shared.currentCart!, customer: customer, prescriptDelegate: prescriptDelegate)
         self.navigationController?.pushViewController(viewController, animated: true)
         
     }

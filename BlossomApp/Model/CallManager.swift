@@ -179,6 +179,7 @@ extension CallManager : CallViewControllerDelegate {
                 viewController.hidesBottomBarWhenPushed = true
                 viewController.modalPresentationStyle = .fullScreen
                 viewController.appointmentID = info.appointmentID
+                viewController.customerDocID = info.customerDocID
                 viewController.delegate = self
                 controller?.present(viewController, animated: true, completion: nil)
             } else {
@@ -201,22 +202,47 @@ extension CallManager: PostFromViewControllerDelegate {
     
     func postFormDidFinish(controller: PostFromViewController) {
         
+        guard let presentingViewController = controller.presentingViewController else {
+            return
+        }
+                
+        presentingViewController.dismiss(animated: false, completion: {
+            if let tabbar = presentingViewController.tabBarController?.selectedViewController as? UINavigationController {
+                tabbar.popToRootViewController(animated: false)
+            }
+        })
+
+        gotoAppointment(customerReferenceID: controller.customerDocID)
+
+    }
+    
+    private func gotoAppointment(customerReferenceID: String) {
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
             appDelegate.deeplinking = .appointment
-            
-            guard let presentingViewController = controller.presentingViewController else {
-                return
-            }
-            
-            presentingViewController.dismiss(animated: false, completion: {
-                if let tabbar = presentingViewController.tabBarController?.selectedViewController as? UINavigationController {
-                    tabbar.popToRootViewController(animated: false)
-                }
-            })
-            
             appDelegate.handleDeeplinking()
-        }
+            
+            ProgressHUD.show()
+            CustomerManager.sharedInstance.getCustomerData(uid: customerReferenceID) { customerData in
+                
+                ProgressHUD.dismiss()
+                if let viewController = ProductListViewController.initializeInstance(customer: customerData, prescriptDelegate: self) {
+                    viewController.hidesBottomBarWhenPushed = true
+                    let navigation = UINavigationController(rootViewController: viewController)
+                    navigation.navigationBar.tintColor = UIColor.white
+                    navigation.modalPresentationStyle = .fullScreen
+                    UIApplication.shared.windows.first?.rootViewController?.present(navigation, animated: true, completion: nil)
+                }
 
+            }
+        }
+    }
+    
+}
+
+extension CallManager : ProductListPrescriptionDelegate {
+    
+    func productListDidFinish() {
+        UIApplication.shared.windows.first?.rootViewController?.dismiss(animated: true, completion: nil)
     }
     
 }

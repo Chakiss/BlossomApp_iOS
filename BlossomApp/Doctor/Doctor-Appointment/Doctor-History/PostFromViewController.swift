@@ -23,6 +23,7 @@ class PostFromViewController: UIViewController {
     lazy var functions = Functions.functions()
     
     var appointmentID: String = ""
+    var customerDocID: String = ""
     
     weak var delegate: PostFromViewControllerDelegate?
     
