@@ -10,13 +10,24 @@ import UIKit
 class HistoryAppointmentViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     var appointments: [Appointment] = []
+    var parentVC: AppointmentListViewController!
     
     @IBOutlet weak var tableView: UITableView!
+    let refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+        tableView.addSubview(refreshControl)
+        
+    }
+    
+    @objc func refresh(_ sender: AnyObject) {
+       // Code to refresh table view
+        refreshControl.endRefreshing()
+        parentVC?.getAppointmentData()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

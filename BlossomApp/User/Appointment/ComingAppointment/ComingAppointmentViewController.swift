@@ -14,6 +14,7 @@ import ConnectyCubeCalls
 class ComingAppointmentViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, PKPushRegistryDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    let refreshControl = UIRefreshControl()
     
     var session: ConnectyCubeCalls.CallSession?
     private var callUUID: UUID?
@@ -22,11 +23,16 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
     
     var appointments: [Appointment] = []
     
+    var parentVC: AppointmentListViewController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         backgroundTask = UIBackgroundTaskIdentifier.invalid
         
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+        tableView.addSubview(refreshControl)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -34,6 +40,11 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
         
     }
     
+    @objc func refresh(_ sender: AnyObject) {
+       // Code to refresh table view
+        refreshControl.endRefreshing()
+        parentVC?.getAppointmentData()
+    }
     
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return appointments.count

@@ -11,12 +11,13 @@ import SafariServices
 class MedicineListViewController: UIViewController {
     
     private let tableView = UITableView(frame: .zero, style: .plain)
-    private let refreshControl = UIRefreshControl()
+    private var refreshControl = UIRefreshControl()
     private var orders: [Order] = []
     private var page: Int = 1
     private var loading: Bool = false
     private var hasEnded: Bool = false
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -26,6 +27,9 @@ class MedicineListViewController: UIViewController {
         
         let backButton = UIBarButtonItem(title: "ใบสั่งยา", style: .plain, target: self, action: nil)
         self.parent?.navigationItem.backBarButtonItem = backButton
+        
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,6 +50,11 @@ class MedicineListViewController: UIViewController {
         
     }
     
+    @objc func refresh(_ sender: AnyObject) {
+       // Code to refresh table view
+        refreshList()
+    }
+    
     private func setupTableView() {
         tableView.register(OrderItemTableViewCell.self, forCellReuseIdentifier: "OrderItemTableViewCell")
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -57,6 +66,7 @@ class MedicineListViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(refreshList), for: .valueChanged)
         tableView.refreshControl = refreshControl
         tableView.backgroundColor = .backgroundColor
@@ -100,6 +110,8 @@ class MedicineListViewController: UIViewController {
             self?.hasEnded = newData.isEmpty
             self?.orders.append(contentsOf: newData)
             self?.tableView.reloadData()
+            
+            self?.refreshControl.endRefreshing()
             
         }.request()
         

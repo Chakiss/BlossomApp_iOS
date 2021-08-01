@@ -23,12 +23,14 @@ class AppointmentListViewController: UIViewController {
     private lazy var comingAppointmentViewController: ComingAppointmentViewController = {
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         var viewController = storyboard.instantiateViewController(withIdentifier: "ComingAppointmentViewController") as! ComingAppointmentViewController
+        viewController.parentVC = self
         return viewController
     }()
 
     private lazy var historyAppointmentViewController: HistoryAppointmentViewController = {
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         var viewController = storyboard.instantiateViewController(withIdentifier: "HistoryAppointmentViewController") as! HistoryAppointmentViewController
+        viewController.parentVC = self
         return viewController
     }()
     
