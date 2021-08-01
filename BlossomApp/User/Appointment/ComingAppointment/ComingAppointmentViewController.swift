@@ -164,8 +164,17 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
             )
             viewController.hidesBottomBarWhenPushed = true
             viewController.modalPresentationStyle = .fullScreen
+            viewController.delegate = self
             self.present(viewController, animated: true, completion: nil)
         })
+    }
+    
+}
+
+extension ComingAppointmentViewController: CallViewControllerDelegate {
+    
+    func callViewDidEndCall(info: CallKitAdapter.UserInfo) {
+        CallManager.manager.handleDidEndCall(info: info, controller: self)
     }
     
 }

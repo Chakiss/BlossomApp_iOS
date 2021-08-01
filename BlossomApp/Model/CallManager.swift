@@ -9,6 +9,7 @@ import Foundation
 import ConnectyCube
 import ConnectyCubeCalls
 import PushKit
+import SwiftyUserDefaults
 
 protocol CallManagerDelegate: AnyObject {
     func callManagerDidEndCall()
@@ -91,6 +92,7 @@ class CallManager: NSObject {
             viewController.hidesBottomBarWhenPushed = true
             viewController.modalPresentationStyle = .fullScreen
             viewController.callInfo = info
+            viewController.delegate = self
             UIApplication.shared.windows.first?.rootViewController?.present(viewController, animated: true, completion: nil)
 
         })
@@ -159,6 +161,36 @@ class CallManager: NSObject {
             print(error)
         }
     }
+}
+
+extension CallManager : CallViewControllerDelegate {
+    
+    func callViewDidEndCall(info: CallKitAdapter.UserInfo) {
+        let controller = UIApplication.shared.windows.first?.rootViewController
+        handleDidEndCall(info: info, controller: controller)
+    }
+    
+    public func handleDidEndCall(info: CallKitAdapter.UserInfo, controller: UIViewController?) {
+        
+        controller?.dismiss(animated: true, completion: {
+            if Defaults[\.role] == "doctor" {
+                let storyboard = UIStoryboard(name: "Doctor", bundle: nil)
+                let viewController = storyboard.instantiateViewController(withIdentifier: "PostFromViewController") as! PostFromViewController
+                viewController.hidesBottomBarWhenPushed = true
+                viewController.modalPresentationStyle = .fullScreen
+                viewController.appointmentID = info.appointmentID
+                controller?.present(viewController, animated: true, completion: nil)
+            } else {
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let viewController = storyboard.instantiateViewController(withIdentifier: "ReviewViewController") as! ReviewViewController
+                viewController.hidesBottomBarWhenPushed = true
+                viewController.modalPresentationStyle = .fullScreen
+                controller?.present(viewController, animated: true, completion: nil)
+            }
+        })
+
+    }
+    
 }
 
 extension CallManager : PKPushRegistryDelegate {

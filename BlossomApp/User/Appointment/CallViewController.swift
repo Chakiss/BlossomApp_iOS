@@ -12,8 +12,10 @@ import ConnectyCube
 import ConnectyCubeCalls
 import SVProgressHUD
 import Firebase
-import SwiftyUserDefaults
 
+protocol CallViewControllerDelegate: AnyObject {
+    func callViewDidEndCall(info: CallKitAdapter.UserInfo)
+}
 
 class CallViewController: UIViewController, CallClientDelegate {
     
@@ -33,6 +35,7 @@ class CallViewController: UIViewController, CallClientDelegate {
     @IBOutlet weak var opponentVideoView: CallRemoteVideoView!
 
     var callInfo: CallKitAdapter.UserInfo?
+    weak var delegate: CallViewControllerDelegate?
     
     lazy var functions = Functions.functions()
     
@@ -207,25 +210,12 @@ class CallViewController: UIViewController, CallClientDelegate {
             return
         }
         
-        if info.doctorDocID.isEmpty || info.customerDocID.isEmpty {
+        guard !info.doctorDocID.isEmpty && !info.customerDocID.isEmpty else {
             return
         }
         
-        if Defaults[\.role] == "doctor" {
-            let storyboard = UIStoryboard(name: "Doctor", bundle: nil)
-            let viewController = storyboard.instantiateViewController(withIdentifier: "PostFromViewController") as! PostFromViewController
-            viewController.hidesBottomBarWhenPushed = true
-            viewController.modalPresentationStyle = .fullScreen
-            viewController.appointmentID = info.appointmentID
-            self.present(viewController, animated: true, completion: nil)
-        } else {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let viewController = storyboard.instantiateViewController(withIdentifier: "ReviewViewController") as! ReviewViewController
-            viewController.hidesBottomBarWhenPushed = true
-            viewController.modalPresentationStyle = .fullScreen
-            self.present(viewController, animated: true, completion: nil)
-        }
-        self.dismiss(animated: true, completion: nil)
+        delegate?.callViewDidEndCall(info: info)
+        
     }
     
     // MARK: - Preparations and configurations

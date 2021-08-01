@@ -29,9 +29,7 @@ class Doctor_ComingAppointmentViewController: UIViewController, UITableViewDataS
 
         // Do any additional setup after loading the view.
     }
-    
-
-    
+        
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return appointments.count
      }
@@ -95,10 +93,9 @@ class Doctor_ComingAppointmentViewController: UIViewController, UITableViewDataS
             )
             viewController.hidesBottomBarWhenPushed = true
             viewController.modalPresentationStyle = .fullScreen
+            viewController.delegate = self
             self.present(viewController, animated: true, completion: nil)
         })
-
-     
          
     }
     
@@ -190,9 +187,13 @@ class Doctor_ComingAppointmentViewController: UIViewController, UITableViewDataS
         
         
     }
-    
-    
-    
-    
 
+}
+
+extension Doctor_ComingAppointmentViewController: CallViewControllerDelegate {
+    
+    func callViewDidEndCall(info: CallKitAdapter.UserInfo) {
+        CallManager.manager.handleDidEndCall(info: info, controller: self)
+    }
+    
 }
