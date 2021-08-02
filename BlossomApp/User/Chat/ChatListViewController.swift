@@ -41,6 +41,11 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
    
         let inboxIcon = UIBarButtonItem(image: UIImage(systemName: "bell.badge"), style: .plain, target: self, action: #selector(gotoInbox))
         self.navigationItem.rightBarButtonItem = inboxIcon
+        
+        
+        let contactIcon = UIBarButtonItem(title: "ติดต่อ Admin", style: .plain, target: self, action:
+        #selector(gotoInbox))
+        self.navigationItem.leftBarButtonItem = contactIcon
     }
     
     @objc

@@ -24,6 +24,8 @@ class Doctor: Codable {
     
     var documentReference: DocumentReference?
     
+    var isHaveSlotToday: Bool = false
+    
     
     private enum CodingKeys: String, CodingKey {
         case id

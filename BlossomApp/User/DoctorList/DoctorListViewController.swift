@@ -9,6 +9,7 @@ import UIKit
 import Firebase
 import FirebaseStorage
 import GSImageViewerController
+import SwiftDate
 
 class DoctorListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -26,15 +27,15 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
         super.viewDidLoad()
         self.title = "แพทย์"
         // Do any additional setup after loading the view.
-    
+        
         getDoctorData()
         getReviewsData()
         getConsultOnlineImage()
-    
+        
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
         self.consultImage.addGestureRecognizer(tap)
         self.consultImage.isUserInteractionEnabled = true
-
+        
         
     }
     
@@ -57,37 +58,82 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
         let imageViewer = GSImageViewerController(imageInfo: imageInfo, transitionInfo: transitionInfo)
         present(imageViewer, animated: true, completion: nil)
     }
-  
+    
     
     
     func getDoctorData() {
-        db.collection("doctors").addSnapshotListener { (querySnapshot, error) in
-            guard let documents = querySnapshot?.documents else {
-                print("No documents")
-                return
+        
+        db.collection("doctors")
+            .getDocuments { doctorDocuments, error in
+                
+                guard error == nil else {
+                    return
+                }
+                
+                guard let doctorDocument = doctorDocuments?.documents else {
+                    return
+                }
+                
+                self.doctorList = doctorDocument.map { queryDocumentSnapshot -> Doctor in
+                    let data = queryDocumentSnapshot.data()
+                    
+                    
+                    let id = queryDocumentSnapshot.documentID
+                    let firstName = data["firstName"] as? String ?? ""
+                    let displayName = data["displayName"] as? String ?? ""
+                    let email = data["email"] as? String ?? ""
+                    let lastName = data["lastName"] as? String ?? ""
+                    let phoneNumber = data["phoneNumber"] as? String ?? ""
+                    let referenceConnectyCubeID = data["referenceConnectyCubeID"] as? UInt ?? 0
+                    let story = data["story"] as? String ?? ""
+                    let createdAt = data["createdAt"] as? String ?? ""
+                    let updatedAt = data["updatedAt"] as? String ?? ""
+                    let displayPhoto = data["displayPhoto"] as? String ?? ""
+                    let score = data["score"] as? Double ?? 0
+                    
+                    
+                    let doctor = Doctor(id: id, displayName: displayName, email: email, firstName: firstName, lastName: lastName, phonenumber: phoneNumber, connectyCubeID: referenceConnectyCubeID, story: story, createdAt: createdAt, updatedAt: updatedAt, displayPhoto: displayPhoto, score: score,documentReference: queryDocumentSnapshot.reference)
+                    
+                    return doctor
+                    
+                }
+                
+                self.checkSlotDoctor()
+                
             }
-
-            self.doctorList = documents.map { queryDocumentSnapshot -> Doctor in
-                let data = queryDocumentSnapshot.data()
-                
-                
-                let id = queryDocumentSnapshot.documentID
-                let firstName = data["firstName"] as? String ?? ""
-                let displayName = data["displayName"] as? String ?? ""
-                let email = data["email"] as? String ?? ""
-                let lastName = data["lastName"] as? String ?? ""
-                let phoneNumber = data["phoneNumber"] as? String ?? ""
-                let referenceConnectyCubeID = data["referenceConnectyCubeID"] as? UInt ?? 0
-                let story = data["story"] as? String ?? ""
-                let createdAt = data["createdAt"] as? String ?? ""
-                let updatedAt = data["updatedAt"] as? String ?? ""
-                let displayPhoto = data["displayPhoto"] as? String ?? ""
-                let score = data["score"] as? Double ?? 0
-                return Doctor(id: id, displayName: displayName, email: email, firstName: firstName, lastName: lastName, phonenumber: phoneNumber, connectyCubeID: referenceConnectyCubeID, story: story, createdAt: createdAt, updatedAt: updatedAt, displayPhoto: displayPhoto, score: score,documentReference: queryDocumentSnapshot.reference)
-                
-            }
-            self.tableView.reloadData()
+    }
+    
+    func checkSlotDoctor() {
+        for (index, doctor) in self.doctorList.enumerated() {
+            db.collection("doctors")
+                .document(doctor.id ?? "")
+                .collection("slots")
+                .getDocuments { daySlot, error in
+                    
+                    guard error == nil else {
+                        return
+                    }
+                    
+                    guard let slotDocuments = daySlot?.documents else {
+                        return
+                    }
+                    
+                    for queryDocumentSnapshot in slotDocuments {
+                        let id = queryDocumentSnapshot.documentID
+                        let today = Date().startOfDay
+                        let region = Region(calendar: Calendar(identifier: .gregorian), zone: Zones.gmt, locale: Locales.englishUnitedStates)
+                        let d = id.toDate("yyyy-MM-dd", region: region)
+                        
+                        if d?.date.startOfDay == today {
+                            self.doctorList[index].isHaveSlotToday = true
+                            self.doctorList.sort { $0.isHaveSlotToday && !$1.isHaveSlotToday }
+                            self.tableView.reloadData()
+                        }
+                    }
+                }
+            
         }
+        //
     }
     
     func getReviewsData(){
@@ -117,7 +163,7 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     
-   
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return doctorList.count
     }
@@ -148,16 +194,21 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
         cell.doctorStarLabel.text = String(format: "%.2f",doctor.score!)
         cell.doctorReviewLabel.text = ""
         cell.calculateReview(reviews: reviewList)
+        if doctor.isHaveSlotToday == true {
+            cell.doctorReviewLabel.text = "ลงตรวจวันนี้"
+        } else {
+            cell.doctorReviewLabel.text = ""
+        }
         
         return cell
     }
-
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
         let doctor = self.doctorList[indexPath.row]
-    
+        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let viewController = storyboard.instantiateViewController(withIdentifier: "DoctorDetailViewController") as! DoctorDetailViewController
         viewController.doctor = doctor

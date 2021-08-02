@@ -34,7 +34,6 @@
                     </constraints>
                     <state key="normal" title="บันทึก QR Code"/>
                     <connections>
-                        <action selector="nextAction:" destination="-1" eventType="touchUpInside" id="sSY-4u-L0b"/>
                         <action selector="save:" destination="-1" eventType="touchUpInside" id="KET-Ja-oQW"/>
                     </connections>
                 </button>

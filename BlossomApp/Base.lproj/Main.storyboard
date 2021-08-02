@@ -87,6 +87,12 @@
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow_green" translatesAutoresizingMaskIntoConstraints="NO" id="7nZ-aE-HS8">
                                                             <rect key="frame" x="346" y="34" width="8" height="16"/>
                                                         </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="xxxx" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="cRj-NJ-srv">
+                                                            <rect key="frame" x="159" y="12" width="23.5" height="19"/>
+                                                            <fontDescription key="fontDescription" name="SukhumvitSet-Medium" family="Sukhumvit Set" pointSize="12"/>
+                                                            <color key="textColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.54901960780000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                     </subviews>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
@@ -98,8 +104,10 @@
                                                         <constraint firstAttribute="bottom" secondItem="xGC-FA-la2" secondAttribute="bottom" constant="12" id="84j-rR-Pcu"/>
                                                         <constraint firstItem="7nZ-aE-HS8" firstAttribute="centerY" secondItem="eOi-mB-3u2" secondAttribute="centerY" id="8Gz-GG-OP4"/>
                                                         <constraint firstItem="aEj-sq-P54" firstAttribute="centerY" secondItem="JUW-8J-sZS" secondAttribute="centerY" id="9FK-yQ-hCk"/>
+                                                        <constraint firstItem="cRj-NJ-srv" firstAttribute="top" secondItem="8Cr-cC-DAg" secondAttribute="top" id="Fcw-7y-f7N"/>
                                                         <constraint firstAttribute="trailing" secondItem="NEy-ih-MSw" secondAttribute="trailing" constant="20" symbolic="YES" id="FrK-AC-Bor"/>
                                                         <constraint firstItem="aEj-sq-P54" firstAttribute="leading" secondItem="JUW-8J-sZS" secondAttribute="trailing" constant="8" symbolic="YES" id="Nbv-Pq-pk9"/>
+                                                        <constraint firstItem="cRj-NJ-srv" firstAttribute="leading" secondItem="8Cr-cC-DAg" secondAttribute="trailing" constant="11.5" id="SOS-rO-vCD"/>
                                                         <constraint firstItem="8Cr-cC-DAg" firstAttribute="top" secondItem="xGC-FA-la2" secondAttribute="top" id="fNf-l5-Tub"/>
                                                         <constraint firstItem="NEy-ih-MSw" firstAttribute="leading" secondItem="8Cr-cC-DAg" secondAttribute="leading" id="hME-lb-Hkn"/>
                                                         <constraint firstItem="NEy-ih-MSw" firstAttribute="centerY" secondItem="xGC-FA-la2" secondAttribute="centerY" id="i3S-kO-XUV"/>
@@ -122,10 +130,11 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="containerView" destination="eOi-mB-3u2" id="5kS-Ww-hSI"/>
+                                            <outlet property="doctorHaveSlotLabel" destination="cRj-NJ-srv" id="lfR-kk-pga"/>
                                             <outlet property="doctorImageView" destination="xGC-FA-la2" id="aLg-oz-8W3"/>
                                             <outlet property="doctorNameLabel" destination="NEy-ih-MSw" id="EhD-Ks-QcT"/>
                                             <outlet property="doctorNickNameLabel" destination="8Cr-cC-DAg" id="LqH-9i-O7J"/>
-                                            <outlet property="doctorReviewLabel" destination="q4q-bs-pc9" id="xHN-QW-T3o"/>
+                                            <outlet property="doctorReviewLabel" destination="cRj-NJ-srv" id="BfP-h1-elj"/>
                                             <outlet property="doctorStarLabel" destination="aEj-sq-P54" id="btl-UG-QZw"/>
                                         </connections>
                                     </tableViewCell>

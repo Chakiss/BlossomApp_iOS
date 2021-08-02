@@ -16,6 +16,8 @@ class DoctorCell: UITableViewCell {
     @IBOutlet weak var doctorStarLabel: UILabel!
     @IBOutlet weak var doctorReviewLabel: UILabel!
     
+    @IBOutlet weak var doctorHaveSlotLabel: UILabel!
+    
     var doctor: Doctor?
     
     override func awakeFromNib() {
