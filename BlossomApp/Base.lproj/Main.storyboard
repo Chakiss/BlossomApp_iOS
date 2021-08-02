@@ -1469,9 +1469,9 @@
                                                                         </connections>
                                                                     </button>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="acf-pD-5N0">
-                                                                        <rect key="frame" x="138" y="375" width="75" height="31"/>
+                                                                        <rect key="frame" x="138" y="375" width="82" height="31"/>
                                                                         <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="12"/>
-                                                                        <state key="normal" title="เงื่อไขการใช้งาน">
+                                                                        <state key="normal" title="เงื่อนไขการใช้งาน">
                                                                             <color key="titleColor" red="0.96470588239999999" green="0.59215686270000001" blue="0.56078431370000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         </state>
                                                                         <connections>
