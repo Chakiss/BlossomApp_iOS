@@ -48,10 +48,6 @@ class QRPaymentViewController: UIViewController {
         
         checkPaymentSuccess()
     }
-
-//    @IBAction func nextAction(_ sender: Any) {
-//        checkPaymentSuccess()
-//    }
     
     private func checkPaymentSuccess() {
         
@@ -62,8 +58,9 @@ class QRPaymentViewController: UIViewController {
                 ProgressHUD.dismiss()
                 let data = result?.data()
                 let isPaid = data?["isPaid"] as? Bool ?? false
+                let paymentRef = data?["paymentReference"] as? String ?? ""
                 if isPaid == true {
-                    self?.updateOrderPayment(paidAt: Date(), orderID:orderID)
+                    self?.updateOrderPayment(paidAt: Date(), orderID:orderID,paymentRef:paymentRef)
                 }
             })
         } else {
@@ -72,19 +69,20 @@ class QRPaymentViewController: UIViewController {
                 let data = result?.data()
                 let isPaid = data?["status"] as? String ?? ""
                 if isPaid == "paid" {
-                    self?.updateOrderPayment(paidAt: Date(), orderID:orderID)
+                    self?.updateOrderPayment(paidAt: Date(), orderID:orderID,paymentRef:"")
                 }
             })
         }
         
     }
     
-    private func updateOrderPayment(paidAt date: Date, orderID: String? = nil) {
+    private func updateOrderPayment(paidAt date: Date, orderID: String? = nil, paymentRef: String? = nil) {
         
        
         ProgressHUD.show()
         //let orderID = cart?.purchaseOrder?.id ?? 0
         let orderIBNumner = Int(orderID ?? "0")!
+        let paymentRef = paymentRef
         APIProduct.updateOrderPayment(bank:"prompt_pay",orderID: orderIBNumner) { [weak self] result in
             guard result else {
                 ProgressHUD.dismiss()
@@ -93,7 +91,7 @@ class QRPaymentViewController: UIViewController {
                 return
             }
             
-            APIProduct.updateOrderNote(orderID: orderIBNumner, note: orderID ?? "") { [weak self] response in
+            APIProduct.updateOrderNote(orderID: orderIBNumner, note: paymentRef ?? "") { [weak self] response in
                 ProgressHUD.dismiss()
                 
                 self?.delegate?.qrPaymentComplete()

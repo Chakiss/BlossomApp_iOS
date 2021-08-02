@@ -15,6 +15,7 @@ class DoctorCell: UITableViewCell {
     @IBOutlet weak var doctorNameLabel: UILabel!
     @IBOutlet weak var doctorStarLabel: UILabel!
     @IBOutlet weak var doctorReviewLabel: UILabel!
+    @IBOutlet weak var doctorAppointmentLabel: UILabel!
     
     @IBOutlet weak var doctorHaveSlotLabel: UILabel!
     
@@ -48,6 +49,17 @@ class DoctorCell: UITableViewCell {
         }
         
         self.doctorReviewLabel.text = "\(count) รีวิว"
+    }
+    
+    func calculateAppointMent(appointment: [Appointment])  {
+        var count = 120
+        for appoint in appointment {
+            if appoint.doctorReference == doctor?.documentReference {
+                count += 1
+            }
+        }
+        
+        self.doctorAppointmentLabel.text = "รักษา \(count) ครั้ง"
     }
 
 }

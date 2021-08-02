@@ -261,8 +261,9 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
                     
                     // Make Payment
                     let paymentMethodViewController = PaymentMethodViewController.initializeInstance(cart: nil, appointmentOrder: AppointmentOrder(id: order["orderID"] ?? "", amount: self.slotTimeSelected?.salePrice ?? 0))
-                      paymentMethodViewController.delegate = self
-                      self.navigationController?.pushViewController(paymentMethodViewController, animated: true)
+                    paymentMethodViewController.delegate = self
+                    paymentMethodViewController.isBankTransfer = false
+                    self.navigationController?.pushViewController(paymentMethodViewController, animated: true)
 
                 }
 

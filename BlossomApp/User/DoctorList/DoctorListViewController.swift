@@ -19,6 +19,7 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
     
     var doctorList: [Doctor] = []
     var reviewList: [Reviews] = []
+    var appointmentList: [Appointment] = []
     
     let db = Firestore.firestore()
     let storage = Storage.storage()
@@ -30,6 +31,7 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
         
         getDoctorData()
         getReviewsData()
+        getAppointment()
         getConsultOnlineImage()
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
@@ -97,8 +99,9 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
                     return doctor
                     
                 }
-                
                 self.checkSlotDoctor()
+                
+                
                 
             }
     }
@@ -163,6 +166,33 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     
+    func getAppointment() {
+        db.collection("appointments")
+            .addSnapshotListener { snapshot, error in
+                self.appointmentList = (snapshot?.documents.map { queryDocumentSnapshot -> Appointment  in
+                    let data = queryDocumentSnapshot.data()
+                    let doctorRef = data["doctorReference"]  as? DocumentReference ?? nil
+                    let timeRef = data["timeReference"]  as? DocumentReference ?? nil
+                    let cusRef = data["customerReference"]  as? DocumentReference ?? nil
+                    let sessionStart = data["sessionStart"] as! Timestamp
+                    let sessionEnd = data["sessionEnd"]  as! Timestamp
+                    let isComplete = data["isCompleted"]  as! Bool
+                    let preForm = data["preForm"] as? [String:Any] ?? ["":""]
+                    let postForm = data["postForm"] as? [String:Any] ?? ["":""]
+                    
+                    let attachedImages = data["attachedImages"] as? [String] ?? []
+                    
+                    var appointment = Appointment(id: queryDocumentSnapshot.documentID, customerReference: cusRef!, doctorReference: doctorRef!, timeReference: timeRef!,sessionStart: sessionStart, sessionEnd: sessionEnd,preForm: preForm, postForm: postForm)
+                    appointment.isComplete = isComplete
+                    appointment.attachedImages = attachedImages
+                    return appointment
+                }) ?? []
+                self.tableView.reloadData()
+              
+
+            }
+    }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return doctorList.count
@@ -191,13 +221,14 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
             }
         }
         
-        cell.doctorStarLabel.text = String(format: "%.2f",doctor.score!)
+        cell.doctorStarLabel.text = "4.75"//String(format: "%.2f",doctor.score!)
         cell.doctorReviewLabel.text = ""
         cell.calculateReview(reviews: reviewList)
+        cell.calculateAppointMent(appointment: appointmentList)
         if doctor.isHaveSlotToday == true {
-            cell.doctorReviewLabel.text = "ลงตรวจวันนี้"
+            cell.doctorHaveSlotLabel.text = "ลงตรวจวันนี้"
         } else {
-            cell.doctorReviewLabel.text = ""
+            cell.doctorHaveSlotLabel.text = ""
         }
         
         return cell

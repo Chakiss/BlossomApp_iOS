@@ -9,7 +9,7 @@ import UIKit
 
 extension UIColor {
     public static var blossomPrimary: UIColor {
-        return UIColor(red: 0.91, green: 0.50, blue: 0.45, alpha: 1.00)
+        return UIColor(red: 0.98, green: 0.49, blue: 0.44, alpha: 1.00)
     }
     
     public static var blossomPrimary2: UIColor {

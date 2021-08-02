@@ -69,7 +69,7 @@ class MultiBannerView: UIView , UICollectionViewDelegate, UICollectionViewDataSo
                                                 space: 10.0,
                                                 raduis: 8.0,
                                                 currentItem: 0,
-                                                indicatorColor: .blossomPrimary2,
+                                                indicatorColor: .blossomPrimary,
                                                 dotsColor: .lightGray,
                                                 isBordered: false,
                                                 borderColor: .white)

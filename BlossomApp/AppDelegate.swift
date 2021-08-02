@@ -242,7 +242,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let navAttributes = [NSAttributedString.Key.font: UIFont(name: "SukhumvitSet-Bold", size: 16),
                              NSAttributedString.Key.foregroundColor: UIColor.white]
         UINavigationBar.appearance().titleTextAttributes = navAttributes as [NSAttributedString.Key : Any]
-        UINavigationBar.appearance().barTintColor = UIColor.blossomPrimary3
+        UINavigationBar.appearance().barTintColor = UIColor.blossomPrimary
         
     }
     

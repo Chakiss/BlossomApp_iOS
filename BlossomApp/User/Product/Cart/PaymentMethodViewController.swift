@@ -19,12 +19,15 @@ class PaymentMethodViewController: UIViewController {
 
     @IBOutlet weak var qrPaymentButton: UIButton!
     @IBOutlet weak var creditCardPaymentButton: UIButton!
+    @IBOutlet weak var bankTransferButton: UIButton!
     
     private var cart: Cart?
     private var appointmentOrder: AppointmentOrder?
     private var omiseResponse: OmisePaymentResponse?
 
     var delegate: UpdateCartViewControllerDelegate?
+    
+    var isBankTransfer:Bool = false
 
     static func initializeInstance(cart: Cart?, appointmentOrder: AppointmentOrder? = nil) -> PaymentMethodViewController {
         let controller: PaymentMethodViewController = PaymentMethodViewController(nibName: "PaymentMethodViewController", bundle: Bundle.main)
@@ -41,10 +44,15 @@ class PaymentMethodViewController: UIViewController {
         view.backgroundColor = UIColor.backgroundColor
         qrPaymentButton.addConerRadiusAndShadow()
         creditCardPaymentButton.addConerRadiusAndShadow()
+        bankTransferButton.addConerRadiusAndShadow()
         qrPaymentButton.tintColor = UIColor.blossomDarkGray
         creditCardPaymentButton.tintColor = UIColor.blossomDarkGray
+        bankTransferButton.tintColor = UIColor.blossomDarkGray
         qrPaymentButton.backgroundColor = .white
         creditCardPaymentButton.backgroundColor = .white
+        bankTransferButton.backgroundColor = .white
+        bankTransferButton.isHidden = true
+       
         self.title = "เลือกวิธีชำระเงิน"
         
     }
@@ -52,11 +60,15 @@ class PaymentMethodViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        if isBankTransfer == true {
+            bankTransferButton.isHidden = false
+        }
         if cart?.id == CartManager.shared.currentCart?.id && appointmentOrder == nil {
             clearCart()
         }
         
     }
+    
     
     private func clearCart() {
         CartManager.shared.clearCart()
@@ -66,6 +78,12 @@ class PaymentMethodViewController: UIViewController {
         viewControllers?.removeAll(where: { $0 is CartViewController })
         navigationController?.setViewControllers(viewControllers ?? [], animated: false)
     }
+    
+    @IBAction func bankTransferButtonTapped(_ sender: Any) {
+        let bankTeansferView = BankTransferViewController.initializeInstance()
+        self.navigationController?.pushViewController(bankTeansferView, animated: true)
+    }
+    
     
     private func requestQRPayment(payload: [String: Any]) {
         ProgressHUD.show()

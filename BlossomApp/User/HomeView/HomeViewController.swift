@@ -30,6 +30,8 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
     
     @IBOutlet weak var productDetailButton: UIButton!
     
+    @IBOutlet weak var reviewImageView: UIImageView!
+    
     var user = Auth.auth().currentUser
     let db = Firestore.firestore()
     let storage = Storage.storage()
@@ -72,6 +74,12 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
         appointmentView.isUserInteractionEnabled = true
         appointmentView.addGestureRecognizer(tapGestureRecognizer)
         appointmentView.isHidden = true
+        
+        
+        let reviewGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(openReview(tapGestureRecognizer:)))
+        reviewImageView.isUserInteractionEnabled = true
+        reviewImageView.addGestureRecognizer(reviewGestureRecognizer)
+        
         
         doctorAppointmentView.addConerRadiusAndShadow()
         user = Auth.auth().currentUser
@@ -317,7 +325,7 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
     }
     
    
-    @IBAction func openReview() {
+    @objc func openReview(tapGestureRecognizer: UITapGestureRecognizer) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let viewController = storyboard.instantiateViewController(withIdentifier: "BlossomReviewViewController") as! BlossomReviewViewController
         viewController.modalPresentationStyle = .fullScreen

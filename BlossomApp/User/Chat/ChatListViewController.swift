@@ -44,7 +44,7 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
         
         
         let contactIcon = UIBarButtonItem(title: "ติดต่อ Admin", style: .plain, target: self, action:
-        #selector(gotoInbox))
+        #selector(contactAdmin))
         self.navigationItem.leftBarButtonItem = contactIcon
     }
     
@@ -53,6 +53,21 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
         let inboxView = InboxTableViewController(style: .plain)
         inboxView.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(inboxView, animated: true)
+    }
+    
+    @objc
+    func contactAdmin() {
+        showAlertDialogue(title: "ติดต่อ", message: "กล่องข้อความของ admin จะปรากฏขึ้น") {
+            let dialog = ChatDialog(dialogID: nil, type: .private)
+            dialog.occupantIDs = [4648670]  // an ID of opponent
+
+            Request.createDialog(dialog, successBlock: { (dialog) in
+                self.viewWillAppear(true)
+            }) { (error) in
+
+            }
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

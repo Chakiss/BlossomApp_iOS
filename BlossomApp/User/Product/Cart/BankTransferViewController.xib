@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SukhumvitSet-Text.ttf">
+            <string>SukhumvitSet-Text</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BankTransferViewController" customModule="BlossomApp" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="iN0-l3-epB" id="LNm-0c-bPh"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SCB" translatesAutoresizingMaskIntoConstraints="NO" id="IrU-pY-aKH">
+                    <rect key="frame" x="40" y="104" width="60" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="60" id="069-0f-SrL"/>
+                        <constraint firstAttribute="height" constant="60" id="PmW-Xr-qO9"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ชื่อบัญชี Blossom Clinic" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="had-wv-a5l">
+                    <rect key="frame" x="108" y="104" width="154" height="26"/>
+                    <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="16"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="เลขที่ 202222222" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oxR-7R-b8y">
+                    <rect key="frame" x="108" y="138" width="118" height="26"/>
+                    <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="16"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uUV-8E-t3P">
+                    <rect key="frame" x="353" y="122.5" width="21" height="23"/>
+                    <color key="tintColor" red="0.98039215690000003" green="0.49019607840000001" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <state key="normal" image="doc.on.doc" catalog="system"/>
+                </button>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="KBANK" translatesAutoresizingMaskIntoConstraints="NO" id="j0k-iW-kYq">
+                    <rect key="frame" x="40" y="215" width="60" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="WJ6-ZM-t6p"/>
+                        <constraint firstAttribute="width" constant="60" id="ZUq-uQ-v7C"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ชื่อบัญชี Blossom Clinic" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PpK-jW-fsD">
+                    <rect key="frame" x="108" y="215" width="154" height="26"/>
+                    <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="16"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="เลขที่ 202222222" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZQx-kr-aLN">
+                    <rect key="frame" x="108" y="249" width="118" height="26"/>
+                    <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="16"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b2b-cp-98v">
+                    <rect key="frame" x="353" y="233.5" width="21" height="23"/>
+                    <color key="tintColor" red="0.98039215690000003" green="0.49019607840000001" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <state key="normal" image="doc.on.doc" catalog="system"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Bs-KO-GzT">
+                    <rect key="frame" x="61" y="365" width="292" height="45"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="a1l-xB-REg"/>
+                        <constraint firstAttribute="width" constant="292" id="oMk-jF-Tsh"/>
+                    </constraints>
+                    <state key="normal" image="contact-line-button"/>
+                    <connections>
+                        <action selector="lineButtonTapped:" destination="-1" eventType="touchUpInside" id="YUT-nB-7oN"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="uUV-8E-t3P" secondAttribute="trailing" constant="40" id="0Dc-mH-XUF"/>
+                <constraint firstItem="2Bs-KO-GzT" firstAttribute="top" secondItem="ZQx-kr-aLN" secondAttribute="bottom" constant="90" id="4ik-C0-HB1"/>
+                <constraint firstItem="b2b-cp-98v" firstAttribute="centerY" secondItem="j0k-iW-kYq" secondAttribute="centerY" id="7B4-LN-YvT"/>
+                <constraint firstItem="oxR-7R-b8y" firstAttribute="bottom" secondItem="IrU-pY-aKH" secondAttribute="bottom" id="9iG-Bw-B3f"/>
+                <constraint firstItem="2Bs-KO-GzT" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="H9U-Ur-aKd"/>
+                <constraint firstItem="had-wv-a5l" firstAttribute="leading" secondItem="IrU-pY-aKH" secondAttribute="trailing" constant="8" symbolic="YES" id="R8C-RK-jFj"/>
+                <constraint firstItem="ZQx-kr-aLN" firstAttribute="bottom" secondItem="j0k-iW-kYq" secondAttribute="bottom" id="T05-Wd-mw7"/>
+                <constraint firstItem="PpK-jW-fsD" firstAttribute="top" secondItem="j0k-iW-kYq" secondAttribute="top" id="TXL-PR-hH0"/>
+                <constraint firstItem="IrU-pY-aKH" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="60" id="Voc-cj-nOq"/>
+                <constraint firstItem="uUV-8E-t3P" firstAttribute="centerY" secondItem="IrU-pY-aKH" secondAttribute="centerY" id="cXV-fU-B9p"/>
+                <constraint firstItem="oxR-7R-b8y" firstAttribute="leading" secondItem="IrU-pY-aKH" secondAttribute="trailing" constant="8" symbolic="YES" id="dZb-59-mLq"/>
+                <constraint firstItem="j0k-iW-kYq" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="40" id="eyM-1p-h8R"/>
+                <constraint firstItem="had-wv-a5l" firstAttribute="top" secondItem="IrU-pY-aKH" secondAttribute="top" id="fD9-bM-NlP"/>
+                <constraint firstItem="IrU-pY-aKH" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="40" id="gG0-Wa-hGv"/>
+                <constraint firstItem="PpK-jW-fsD" firstAttribute="leading" secondItem="j0k-iW-kYq" secondAttribute="trailing" constant="8" symbolic="YES" id="l4D-be-w8m"/>
+                <constraint firstItem="ZQx-kr-aLN" firstAttribute="leading" secondItem="j0k-iW-kYq" secondAttribute="trailing" constant="8" symbolic="YES" id="li7-Nh-gsI"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="b2b-cp-98v" secondAttribute="trailing" constant="40" id="tKL-J6-cJc"/>
+                <constraint firstItem="j0k-iW-kYq" firstAttribute="top" secondItem="IrU-pY-aKH" secondAttribute="bottom" constant="51" id="xHK-hR-iUl"/>
+            </constraints>
+            <point key="canvasLocation" x="137.68115942028987" y="79.6875"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="KBANK" width="32" height="32"/>
+        <image name="SCB" width="32" height="32"/>
+        <image name="contact-line-button" width="512" height="80"/>
+        <image name="doc.on.doc" catalog="system" width="116" height="128"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

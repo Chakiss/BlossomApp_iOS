@@ -82,6 +82,8 @@
 		1BA04F5426B112F30053F10D /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA04F5326B112F30053F10D /* ReviewViewController.swift */; };
 		1BC3B21926A1CFA1006EDD29 /* ImagePickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC3B21826A1CFA1006EDD29 /* ImagePickerManager.swift */; };
 		1BC3B21C26A2ADA5006EDD29 /* Nonce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC3B21B26A2ADA5006EDD29 /* Nonce.swift */; };
+		1BC5428926B835BD00C15521 /* BankTransferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC5428826B835BD00C15521 /* BankTransferViewController.swift */; };
+		1BC5428B26B835CA00C15521 /* BankTransferViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BC5428A26B835CA00C15521 /* BankTransferViewController.xib */; };
 		1BCE64EB26A70964002EE71F /* SlotTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCE64EA26A70964002EE71F /* SlotTime.swift */; };
 		1BCE64ED26A719CF002EE71F /* SlotTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCE64EC26A719CF002EE71F /* SlotTimeCell.swift */; };
 		1BCE64F226A84B66002EE71F /* ComingAppointmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCE64F126A84B66002EE71F /* ComingAppointmentViewController.swift */; };
@@ -255,6 +257,8 @@
 		1BC3B21826A1CFA1006EDD29 /* ImagePickerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerManager.swift; sourceTree = "<group>"; };
 		1BC3B21A26A297C0006EDD29 /* BlossomApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BlossomApp.entitlements; sourceTree = "<group>"; };
 		1BC3B21B26A2ADA5006EDD29 /* Nonce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nonce.swift; sourceTree = "<group>"; };
+		1BC5428826B835BD00C15521 /* BankTransferViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankTransferViewController.swift; sourceTree = "<group>"; };
+		1BC5428A26B835CA00C15521 /* BankTransferViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BankTransferViewController.xib; sourceTree = "<group>"; };
 		1BCE64EA26A70964002EE71F /* SlotTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotTime.swift; sourceTree = "<group>"; };
 		1BCE64EC26A719CF002EE71F /* SlotTimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotTimeCell.swift; sourceTree = "<group>"; };
 		1BCE64F126A84B66002EE71F /* ComingAppointmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComingAppointmentViewController.swift; sourceTree = "<group>"; };
@@ -825,6 +829,8 @@
 				3CFE6373269B350E005235F1 /* PaymentMethodViewController.xib */,
 				3C857DA126AE727C00DEF13E /* QRPaymentViewController.swift */,
 				3C857DA226AE727C00DEF13E /* QRPaymentViewController.xib */,
+				1BC5428826B835BD00C15521 /* BankTransferViewController.swift */,
+				1BC5428A26B835CA00C15521 /* BankTransferViewController.xib */,
 			);
 			path = Cart;
 			sourceTree = "<group>";
@@ -968,6 +974,7 @@
 				3CAB2CF426AC763700545968 /* Cartfile in Resources */,
 				3C7D5E53269AE888002E5AB9 /* CartHeaderTableViewCell.xib in Resources */,
 				1B187A65268F654500BB0122 /* LaunchScreen.storyboard in Resources */,
+				1BC5428B26B835CA00C15521 /* BankTransferViewController.xib in Resources */,
 				1B53124A2693754200B88165 /* SukhumvitSet-SemiBold.ttf in Resources */,
 				1B13E6EC269AFD4200131105 /* Doctor.storyboard in Resources */,
 				1B53124E2693754200B88165 /* SukhumvitSet-Text.ttf in Resources */,
@@ -1185,6 +1192,7 @@
 				3CBF265726B4415700F640DB /* BlossomApp.xcdatamodeld in Sources */,
 				1BCE64F426A84B79002EE71F /* HistoryAppointmentViewController.swift in Sources */,
 				1BCE650026A9A1D0002EE71F /* RemoteConnectionView.swift in Sources */,
+				1BC5428926B835BD00C15521 /* BankTransferViewController.swift in Sources */,
 				1B8D861426A49C0B00A2ED57 /* MessageingViewController.swift in Sources */,
 				1BF58D4126ADBEDE00F2D620 /* OptionsOrder.swift in Sources */,
 				3C7D5E52269AE888002E5AB9 /* CartHeaderTableViewCell.swift in Sources */,

@@ -230,6 +230,7 @@ class CartViewController: UIViewController {
         
         let paymentMethodViewController = PaymentMethodViewController.initializeInstance(cart: cart)
         paymentMethodViewController.delegate = delegate
+        paymentMethodViewController.isBankTransfer = true
         self.navigationController?.pushViewController(paymentMethodViewController, animated: true)
         
     }
