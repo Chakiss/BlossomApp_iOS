@@ -176,7 +176,7 @@ extension ProductListViewController {
             "Authorization": "Token token=Aq1p3BC8ZSyBb-IW2QEOxT_JppMvbjSB3DKWRC2E6ziaxgDeJRK00dSzkgcbCSS_AIpESUe-Rz47suWiX2MjqA, email=oaf@blossomclinic.com"
         ]
         
-        AF.request("https://www.shipnity.pro/api/v2/products?per_page=50",method: .get ,headers: headers)
+        AF.request("https://www.shipnity.pro/api/v2/products?per_page=50&category=32514",method: .get ,headers: headers)
             .validate()
             .responseDecodable(of: ProductsResponse.self) { (response) in
                 ProgressHUD.dismiss()

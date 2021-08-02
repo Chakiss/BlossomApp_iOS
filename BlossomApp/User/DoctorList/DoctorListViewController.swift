@@ -8,10 +8,13 @@
 import UIKit
 import Firebase
 import FirebaseStorage
+import GSImageViewerController
 
 class DoctorListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
+    
+    @IBOutlet weak var consultImage: UIImageView!
     
     var doctorList: [Doctor] = []
     var reviewList: [Reviews] = []
@@ -25,10 +28,37 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
         // Do any additional setup after loading the view.
     
         getDoctorData()
-      
         getReviewsData()
+        getConsultOnlineImage()
     
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+        self.consultImage.addGestureRecognizer(tap)
+        self.consultImage.isUserInteractionEnabled = true
+
+        
     }
+    
+    func getConsultOnlineImage() {
+        let imageRef = storage.reference(withPath: "onlineconsult/currentmonth/image.png")
+        imageRef.getData(maxSize: 2 * 1024 * 1024) { (data, error) in
+            if error == nil {
+                if let imgData = data {
+                    if let img = UIImage(data: imgData) {
+                        self.consultImage.image = img
+                    }
+                }
+            }
+        }
+    }
+    @objc func handleTap(_ sender: UITapGestureRecognizer) {
+        // handling code
+        let imageInfo   = GSImageInfo(image: self.consultImage.image!, imageMode: .aspectFit)
+        let transitionInfo = GSTransitionInfo(fromView: self.consultImage)
+        let imageViewer = GSImageViewerController(imageInfo: imageInfo, transitionInfo: transitionInfo)
+        present(imageViewer, animated: true, completion: nil)
+    }
+  
+    
     
     func getDoctorData() {
         db.collection("doctors").addSnapshotListener { (querySnapshot, error) in

@@ -1616,7 +1616,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="269" translatesAutoresizingMaskIntoConstraints="NO" id="HJL-Rd-4ME">
-                                                    <rect key="frame" x="73" y="30.5" width="300.5" height="34"/>
+                                                    <rect key="frame" x="73" y="30.5" width="313.5" height="34"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="34" id="haW-jB-Avx"/>
@@ -1637,7 +1637,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zz8-5n-TQ4" customClass="BadgeSwift" customModule="BadgeSwift">
-                                                    <rect key="frame" x="381.5" y="37.5" width="22.5" height="20"/>
+                                                    <rect key="frame" x="394.5" y="37.5" width="9.5" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="3dZ-NI-yd0"/>
                                                     </constraints>
@@ -1741,7 +1741,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="19Z-09-NbH">
-                                <rect key="frame" x="40" y="273.5" width="334" height="65"/>
+                                <rect key="frame" x="40" y="273" width="334" height="65"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="65" id="Lpz-52-V5y"/>
                                 </constraints>
@@ -1749,13 +1749,13 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="นัดครั้งถัดไป" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6cA-sb-cVu">
-                                <rect key="frame" x="40" y="358.5" width="334" height="26"/>
+                                <rect key="frame" x="40" y="358" width="334" height="25.5"/>
                                 <fontDescription key="fontDescription" name="SukhumvitSet-SemiBold" family="Sukhumvit Set" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" borderStyle="bezel" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7Xa-M8-j85">
-                                <rect key="frame" x="40" y="394.5" width="80" height="28.5"/>
+                                <rect key="frame" x="40" y="393.5" width="80" height="28.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="46c-8o-QqV"/>
                                 </constraints>
@@ -1770,7 +1770,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="แผนการรักษา" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yed-J6-J3y">
-                                <rect key="frame" x="40" y="237.5" width="354" height="26"/>
+                                <rect key="frame" x="40" y="237.5" width="354" height="25.5"/>
                                 <fontDescription key="fontDescription" name="SukhumvitSet-SemiBold" family="Sukhumvit Set" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1814,7 +1814,7 @@
     </scenes>
     <designables>
         <designable name="Zz8-5n-TQ4">
-            <size key="intrinsicContentSize" width="22.5" height="22.5"/>
+            <size key="intrinsicContentSize" width="9.5" height="18.5"/>
         </designable>
     </designables>
     <color key="tintColor" red="0.98823529409999999" green="0.97647058819999999" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
