@@ -17,6 +17,7 @@ class PostFromViewController: UIViewController {
     @IBOutlet weak var diagnoseTextField: UITextField!
     @IBOutlet weak var carePlanTextField: UITextField!
     @IBOutlet weak var nextAppointmentTextField: UITextField!
+    @IBOutlet weak var medicineTextField: UITextField!
     
     @IBOutlet weak var doneButton: UIButton!
     
@@ -53,7 +54,8 @@ class PostFromViewController: UIViewController {
         ProgressHUD.show()
         let formData = ["วินิจฉัย":diagnoseTextField.text,
                         "แผนการรักษา":carePlanTextField.text,
-                        "นัดครั้งถัดไป":nextAppointmentTextField.text]
+                        "นัดครั้งถัดไป":nextAppointmentTextField.text,
+                        "ยาที่ใช้ในการรักษา":medicineTextField.text]
         
         let payload = ["appointmentID": self.appointmentID,
                        "type": "post",

@@ -1827,6 +1827,7 @@
                         <outlet property="carePlanTextField" destination="19Z-09-NbH" id="Y38-pY-byT"/>
                         <outlet property="diagnoseTextField" destination="IBT-p7-tfj" id="fhd-Rb-BXK"/>
                         <outlet property="doneButton" destination="JMV-dZ-Bgy" id="iTt-TX-bpZ"/>
+                        <outlet property="medicineTextField" destination="rzP-Ld-DIB" id="eUC-7t-gJ9"/>
                         <outlet property="nextAppointmentTextField" destination="7Xa-M8-j85" id="yhK-1j-1gZ"/>
                     </connections>
                 </viewController>
