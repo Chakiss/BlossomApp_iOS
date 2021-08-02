@@ -2413,13 +2413,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ให้คะแนน" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VyB-mt-xiM">
-                                <rect key="frame" x="40" y="104" width="65.5" height="19"/>
+                                <rect key="frame" x="40" y="104" width="56.5" height="25.5"/>
                                 <fontDescription key="fontDescription" name="SukhumvitSet-SemiBold" family="Sukhumvit Set" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ความคิดเห็น" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y9h-lr-XGK">
-                                <rect key="frame" x="40" y="197.5" width="82" height="19"/>
+                                <rect key="frame" x="40" y="204" width="80" height="25.5"/>
                                 <fontDescription key="fontDescription" name="SukhumvitSet-SemiBold" family="Sukhumvit Set" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -2437,7 +2437,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0z3-aJ-Hb6" customClass="STRatingControl" customModule="STRatingControl">
-                                <rect key="frame" x="40" y="139.5" width="334" height="38"/>
+                                <rect key="frame" x="40" y="146" width="334" height="38"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="38" id="sMP-9v-u4V"/>
                                 </constraints>
@@ -2453,7 +2453,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ph4-XV-Kaz">
-                                <rect key="frame" x="40" y="242" width="334" height="65"/>
+                                <rect key="frame" x="40" y="255" width="334" height="65"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="65" id="4aS-gD-WVn"/>
                                 </constraints>
@@ -3029,11 +3029,11 @@
             </objects>
             <point key="canvasLocation" x="-197.10144927536234" y="1061.3839285714284"/>
         </scene>
-        <!--ยา-->
+        <!--สินค้า-->
         <scene sceneID="e8a-Yv-esJ">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="yxe-n1-cnj" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="ยา" image="product_icon" selectedImage="product_icon" id="XRx-9o-InF"/>
+                    <tabBarItem key="tabBarItem" title="สินค้า" image="product_icon" selectedImage="product_icon" id="XRx-9o-InF"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="0dm-zb-XHH">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>

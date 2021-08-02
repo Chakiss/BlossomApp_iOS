@@ -28,13 +28,14 @@
                     </constraints>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8nT-j9-nkA" customClass="Button" customModule="BlossomApp" customModuleProvider="target">
-                    <rect key="frame" x="62" y="798" width="290" height="44"/>
+                    <rect key="frame" x="62" y="588" width="290" height="44"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="M7O-Fa-1X4"/>
                     </constraints>
-                    <state key="normal" title="ดำเนินการต่อ"/>
+                    <state key="normal" title="บันทึก QR Code"/>
                     <connections>
                         <action selector="nextAction:" destination="-1" eventType="touchUpInside" id="sSY-4u-L0b"/>
+                        <action selector="save:" destination="-1" eventType="touchUpInside" id="KET-Ja-oQW"/>
                     </connections>
                 </button>
             </subviews>
@@ -43,10 +44,10 @@
             <constraints>
                 <constraint firstItem="JHU-AU-i9A" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.7" id="FvG-UJ-HbM"/>
                 <constraint firstItem="8nT-j9-nkA" firstAttribute="width" secondItem="JHU-AU-i9A" secondAttribute="width" id="LNo-yP-HfR"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="8nT-j9-nkA" secondAttribute="bottom" constant="20" id="Qp8-64-set"/>
                 <constraint firstItem="JHU-AU-i9A" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" constant="-50" id="aoH-7E-vQb"/>
                 <constraint firstItem="8nT-j9-nkA" firstAttribute="centerX" secondItem="JHU-AU-i9A" secondAttribute="centerX" id="kWY-rN-TCi"/>
                 <constraint firstItem="JHU-AU-i9A" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="lbp-Re-e6P"/>
+                <constraint firstItem="8nT-j9-nkA" firstAttribute="top" secondItem="JHU-AU-i9A" secondAttribute="bottom" constant="40" id="yTZ-dE-tW4"/>
             </constraints>
             <point key="canvasLocation" x="-25" y="52"/>
         </view>

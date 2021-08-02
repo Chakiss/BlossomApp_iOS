@@ -49,9 +49,9 @@ class QRPaymentViewController: UIViewController {
         checkPaymentSuccess()
     }
 
-    @IBAction func nextAction(_ sender: Any) {
-        checkPaymentSuccess()
-    }
+//    @IBAction func nextAction(_ sender: Any) {
+//        checkPaymentSuccess()
+//    }
     
     private func checkPaymentSuccess() {
         
@@ -102,14 +102,24 @@ class QRPaymentViewController: UIViewController {
             
         }.request()
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+   
+    
+    @IBAction func save(_ sender: Any) {
+        guard let image = imageView.image else { return }
+        
+        UIImageWriteToSavedPhotosAlbum(image, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
     }
-    */
-
+    
+    @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        if let error = error {
+            // we got back an error!
+            let ac = UIAlertController(title: "Save error", message: error.localizedDescription, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        } else {
+            let ac = UIAlertController(title: "บันทึกรูปแล้ว", message: "โปรดนำQRcode นี้ชำระเงิน mobile application ของท่าน", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        }
+    }
 }
