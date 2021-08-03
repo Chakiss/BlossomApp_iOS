@@ -29,7 +29,7 @@ class HistoryAppointmentDetailViewController: UIViewController, UITableViewDataS
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.title = "นัดหมาย"
+        self.title = "ประวัติ"
         CustomerManager.sharedInstance.getCustomerData(uid: appointment?.customerReference?.documentID ?? "") { customer in
             
             self.profile = "ลักษณะผิว" + " : " + (customer?.skinType ?? "") + "\n"

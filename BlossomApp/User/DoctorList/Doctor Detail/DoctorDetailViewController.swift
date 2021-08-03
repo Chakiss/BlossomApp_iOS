@@ -8,6 +8,7 @@
 import UIKit
 import Firebase
 import FirebaseStorage
+import GSImageViewerController
 
 class DoctorDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -58,7 +59,9 @@ class DoctorDetailViewController: UIViewController, UITableViewDelegate, UITable
         let score = (doctor?.score)! as Double
         self.doctorCurrentScoreLabel.text = "\(score)"
         
-        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+        self.doctorImageView.addGestureRecognizer(tap)
+        self.doctorImageView.isUserInteractionEnabled = true
         // Do any additional setup after loading the view.
     }
     
@@ -75,6 +78,14 @@ class DoctorDetailViewController: UIViewController, UITableViewDelegate, UITable
         self.doctorReviewNumberLabel.text = "\(reviewNumber) รีวิว"
         self.tableView.reloadData()
         
+    }
+    
+    @objc func handleTap(_ sender: UITapGestureRecognizer) {
+        // handling code
+        let imageInfo   = GSImageInfo(image: self.doctorImageView.image!, imageMode: .aspectFit)
+        let transitionInfo = GSTransitionInfo(fromView: self.doctorImageView)
+        let imageViewer = GSImageViewerController(imageInfo: imageInfo, transitionInfo: transitionInfo)
+        present(imageViewer, animated: true, completion: nil)
     }
     
     @IBAction func consultButtonTapped() {

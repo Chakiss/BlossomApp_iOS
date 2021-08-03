@@ -28,7 +28,7 @@ class LoginViewController: UIViewController, ASAuthorizationControllerPresentati
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "ลงทะเบียน"
+        self.title = "เข้าสู่ระบบ"
 
         self.loginButton.layer.cornerRadius = 22
         

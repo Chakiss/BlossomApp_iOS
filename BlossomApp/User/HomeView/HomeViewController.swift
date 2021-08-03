@@ -24,6 +24,8 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
     @IBOutlet weak var doctorNameLabel: UILabel!
     @IBOutlet weak var doctorAppointmentView: UIView!
     
+    @IBOutlet weak var medicineView: UIView!
+    
     @IBOutlet weak var productButton1: UIButton!
     @IBOutlet weak var productButton2: UIButton!
     @IBOutlet weak var productButton3: UIButton!
