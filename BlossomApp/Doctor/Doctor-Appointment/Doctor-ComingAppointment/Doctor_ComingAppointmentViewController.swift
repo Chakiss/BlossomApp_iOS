@@ -10,6 +10,7 @@ import Firebase
 import ConnectyCube
 import ConnectyCubeCalls
 import SwiftyUserDefaults
+
 class Doctor_ComingAppointmentViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     
@@ -32,15 +33,15 @@ class Doctor_ComingAppointmentViewController: UIViewController, UITableViewDataS
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        self.tableView.reloadData()
     }
         
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print(appointments)
         return appointments.count
      }
      
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-         //let doctor = self.doctorList[indexPath.row]
+         
          
          let cell = tableView.dequeueReusableCell(withIdentifier: "AppointmentCell", for: indexPath) as! AppointmentCell
         cell.appointment = self.appointments[indexPath.row]

@@ -28,9 +28,9 @@ class Doctor_AppointmentViewController: UIViewController {
         return viewController
     }()
 
-    private lazy var historyAppointmentViewController: HistoryAppointmentViewController = {
-        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        var viewController = storyboard.instantiateViewController(withIdentifier: "HistoryAppointmentViewController") as! HistoryAppointmentViewController
+    private lazy var historyAppointmentViewController: Doctor_HistoryAppointmentViewController = {
+        let storyboard = UIStoryboard(name: "Doctor", bundle: Bundle.main)
+        var viewController = storyboard.instantiateViewController(withIdentifier: "Doctor_HistoryAppointmentViewController") as! Doctor_HistoryAppointmentViewController
         return viewController
     }()
     
@@ -122,10 +122,11 @@ class Doctor_AppointmentViewController: UIViewController {
                     let isComplete = data["isCompleted"]  as! Bool
                     let preForm = data["preForm"] as? [String:Any] ?? ["":""]
                     let postForm = data["postForm"] as? [String:Any] ?? ["":""]
+                    let attacheImage = data["attachedImages"] as? [String] ?? []
                     
                     var appointment = Appointment(id: queryDocumentSnapshot.documentID, customerReference: cusRef!, doctorReference: doctorRef!, timeReference: timeRef!,sessionStart: sessionStart, sessionEnd: sessionEnd,preForm: preForm, postForm: postForm)
                     appointment.isComplete = isComplete
-                    
+                    appointment.attachedImages = attacheImage
                     return appointment
                 }) else {
                     return
@@ -149,7 +150,7 @@ class Doctor_AppointmentViewController: UIViewController {
                 self.doctorComingAppointmentViewController.tableView.reloadData()
                 
                 self.historyAppointmentViewController.appointments = completeAppointment
-
+                //self.doctorComingAppointmentViewController.tableView.reloadData()
             }
 
     }

@@ -21,6 +21,7 @@
 		1B187A70268F654500BB0122 /* BlossomAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B187A6F268F654500BB0122 /* BlossomAppTests.swift */; };
 		1B187A7B268F654500BB0122 /* BlossomAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B187A7A268F654500BB0122 /* BlossomAppUITests.swift */; };
 		1B19E49E26B5B4CF00A23BAE /* BlossomTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B19E49D26B5B4CF00A23BAE /* BlossomTabbarController.swift */; };
+		1B19E4A026B6CFDE00A23BAE /* Doctor-HistoryAppointmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B19E49F26B6CFDE00A23BAE /* Doctor-HistoryAppointmentViewController.swift */; };
 		1B1C2E2B2698867400F57122 /* Landing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C2E2A2698867400F57122 /* Landing.swift */; };
 		1B1C2E2D2698A77A00F57122 /* ProductsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C2E2C2698A77A00F57122 /* ProductsResponse.swift */; };
 		1B1C2E3426993C5B00F57122 /* Sets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C2E2E26993C5A00F57122 /* Sets.swift */; };
@@ -84,6 +85,8 @@
 		1BC3B21C26A2ADA5006EDD29 /* Nonce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC3B21B26A2ADA5006EDD29 /* Nonce.swift */; };
 		1BC5428926B835BD00C15521 /* BankTransferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC5428826B835BD00C15521 /* BankTransferViewController.swift */; };
 		1BC5428B26B835CA00C15521 /* BankTransferViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BC5428A26B835CA00C15521 /* BankTransferViewController.xib */; };
+		1BC5428D26B92B1900C15521 /* FormDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC5428C26B92B1900C15521 /* FormDetailCell.swift */; };
+		1BC5428F26B9374B00C15521 /* FormImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC5428E26B9374B00C15521 /* FormImageCell.swift */; };
 		1BCE64EB26A70964002EE71F /* SlotTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCE64EA26A70964002EE71F /* SlotTime.swift */; };
 		1BCE64ED26A719CF002EE71F /* SlotTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCE64EC26A719CF002EE71F /* SlotTimeCell.swift */; };
 		1BCE64F226A84B66002EE71F /* ComingAppointmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCE64F126A84B66002EE71F /* ComingAppointmentViewController.swift */; };
@@ -195,6 +198,7 @@
 		1B187A7A268F654500BB0122 /* BlossomAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlossomAppUITests.swift; sourceTree = "<group>"; };
 		1B187A7C268F654500BB0122 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1B19E49D26B5B4CF00A23BAE /* BlossomTabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlossomTabbarController.swift; sourceTree = "<group>"; };
+		1B19E49F26B6CFDE00A23BAE /* Doctor-HistoryAppointmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Doctor-HistoryAppointmentViewController.swift"; sourceTree = "<group>"; };
 		1B1C2E2A2698867400F57122 /* Landing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.swift; sourceTree = "<group>"; };
 		1B1C2E2C2698A77A00F57122 /* ProductsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsResponse.swift; sourceTree = "<group>"; };
 		1B1C2E2E26993C5A00F57122 /* Sets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sets.swift; sourceTree = "<group>"; };
@@ -259,6 +263,8 @@
 		1BC3B21B26A2ADA5006EDD29 /* Nonce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nonce.swift; sourceTree = "<group>"; };
 		1BC5428826B835BD00C15521 /* BankTransferViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankTransferViewController.swift; sourceTree = "<group>"; };
 		1BC5428A26B835CA00C15521 /* BankTransferViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BankTransferViewController.xib; sourceTree = "<group>"; };
+		1BC5428C26B92B1900C15521 /* FormDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormDetailCell.swift; sourceTree = "<group>"; };
+		1BC5428E26B9374B00C15521 /* FormImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormImageCell.swift; sourceTree = "<group>"; };
 		1BCE64EA26A70964002EE71F /* SlotTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotTime.swift; sourceTree = "<group>"; };
 		1BCE64EC26A719CF002EE71F /* SlotTimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotTimeCell.swift; sourceTree = "<group>"; };
 		1BCE64F126A84B66002EE71F /* ComingAppointmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComingAppointmentViewController.swift; sourceTree = "<group>"; };
@@ -486,6 +492,8 @@
 			isa = PBXGroup;
 			children = (
 				1B3D367726B2EEED000EFCEC /* HistoryAppointmentDetailViewController.swift */,
+				1BC5428C26B92B1900C15521 /* FormDetailCell.swift */,
+				1BC5428E26B9374B00C15521 /* FormImageCell.swift */,
 			);
 			path = "History Detail";
 			sourceTree = "<group>";
@@ -755,6 +763,7 @@
 		1BA04F4F26B0F60C0053F10D /* Doctor-History */ = {
 			isa = PBXGroup;
 			children = (
+				1B19E49F26B6CFDE00A23BAE /* Doctor-HistoryAppointmentViewController.swift */,
 			);
 			path = "Doctor-History";
 			sourceTree = "<group>";
@@ -1166,6 +1175,7 @@
 				1BCE650C26ABF5A2002EE71F /* Appointment.swift in Sources */,
 				1B19E49E26B5B4CF00A23BAE /* BlossomTabbarController.swift in Sources */,
 				1B27FDC226A5EA11000E8609 /* SlotDateCell.swift in Sources */,
+				1BC5428D26B92B1900C15521 /* FormDetailCell.swift in Sources */,
 				3CBF265926B441A800F640DB /* InboxMessage+Additions.swift in Sources */,
 				1B3721D82695AF46006265D3 /* ProfileHealthViewController.swift in Sources */,
 				1B1C2E3626993C5B00F57122 /* Options.swift in Sources */,
@@ -1183,6 +1193,7 @@
 				1BF58D4626ADBEDE00F2D620 /* OrderResponse.swift in Sources */,
 				1B3D367526B28408000EFCEC /* ProductHilight.swift in Sources */,
 				1B77591A2694775E000780BD /* MultiBannerView.swift in Sources */,
+				1B19E4A026B6CFDE00A23BAE /* Doctor-HistoryAppointmentViewController.swift in Sources */,
 				1BE101E7269DD2DD00F7323E /* Customer.swift in Sources */,
 				3CF7B50526AC23C200F937DE /* String+Extension.swift in Sources */,
 				1B13E6E7269ADC2100131105 /* LoginViewController.swift in Sources */,
@@ -1196,6 +1207,7 @@
 				1B8D861426A49C0B00A2ED57 /* MessageingViewController.swift in Sources */,
 				1BF58D4126ADBEDE00F2D620 /* OptionsOrder.swift in Sources */,
 				3C7D5E52269AE888002E5AB9 /* CartHeaderTableViewCell.swift in Sources */,
+				1BC5428F26B9374B00C15521 /* FormImageCell.swift in Sources */,
 				1B187A59268F654300BB0122 /* AppDelegate.swift in Sources */,
 				1BCE650A26ABCE83002EE71F /* ReviewCell.swift in Sources */,
 				1BA04F3D26AE84BA0053F10D /* Doctor-AppointmentViewController.swift in Sources */,
@@ -1421,7 +1433,7 @@
 				CODE_SIGN_ENTITLEMENTS = BlossomApp/BlossomApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = GZWLHGR8C3;
 				EXCLUDED_ARCHS = "";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
@@ -1451,7 +1463,7 @@
 				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = "";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = GZWLHGR8C3;
 				EXCLUDED_ARCHS = "";
 				INFOPLIST_FILE = BlossomApp/Info.plist;
