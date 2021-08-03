@@ -187,7 +187,7 @@ class AppointmentListViewController: UIViewController {
                 self.comingAppointmentViewController.tableView.reloadData()
                 
                 self.historyAppointmentViewController.appointments = completeAppointment
-                self.comingAppointmentViewController.tableView.reloadData()
+                
 
             }
     }

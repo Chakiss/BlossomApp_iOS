@@ -630,6 +630,7 @@
 			children = (
 				1B69AD4B26A402B200910679 /* Doctor-Home */,
 				1BA04F3A26AE84790053F10D /* Doctor-Appointment */,
+				1BA04F5026B0F6C30053F10D /* PostFromViewController.swift */,
 				1BA04F3B26AE84950053F10D /* Doctor-Chat */,
 			);
 			path = Doctor;
@@ -754,7 +755,6 @@
 		1BA04F4F26B0F60C0053F10D /* Doctor-History */ = {
 			isa = PBXGroup;
 			children = (
-				1BA04F5026B0F6C30053F10D /* PostFromViewController.swift */,
 			);
 			path = "Doctor-History";
 			sourceTree = "<group>";

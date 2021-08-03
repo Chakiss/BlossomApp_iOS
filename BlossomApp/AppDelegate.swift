@@ -19,6 +19,7 @@ enum Deeplinking {
     case appointment
     case chat
     case product(id:String?)
+    case doctor
     
     static func convert(from url: URL?) -> Deeplinking {
 
@@ -44,6 +45,9 @@ enum Deeplinking {
 
         case "chat":
             return Deeplinking.chat
+            
+        case "doctor":
+            return Deeplinking.doctor
 
         case "product":
             var id = ""
@@ -210,13 +214,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 tabbarController.selectedIndex = 1
             case .chat:
                 tabbarController.selectedIndex = 2
-            case .product, .home:
+            case .product, .home, .doctor:
                 break
             }
         } else {
             switch deeplinking {
             case .home:
                 tabbarController.selectedIndex = 0
+            case .doctor:
+                tabbarController.selectedIndex = 1
             case .orderList:
                 tabbarController.selectedIndex = 2
             case .appointment:

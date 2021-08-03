@@ -25,6 +25,18 @@ class BankTransferViewController: UIViewController {
     @IBAction func lineButtonTapped(_ sender: UIButton) {
         UIApplication.shared.open(URL(string: "https://lin.ee/iYHm3As")!, options: [:], completionHandler: nil)
     }
+    
+    
+    @IBAction func copySCBButtonTapped(_ sender: UIButton) {
+        UIPasteboard.general.string =  "2082364723"
+        showAlertDialogue(title: "คัดลอกสำเร็จ", message: "2082364723") {}
+    }
+    
+    @IBAction func copyKbankButtonTapped(_ sender: UIButton) {
+        UIPasteboard.general.string =  "0408729920"
+        
+        showAlertDialogue(title: "คัดลอกสำเร็จ", message: "0408729920") {}
+    }
     /*
     // MARK: - Navigation
 

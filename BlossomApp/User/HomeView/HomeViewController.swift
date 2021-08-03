@@ -234,6 +234,7 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
                     return promotion
                     
                 } ?? []
+                self.promotions.sort { $0.image < $1.image }
                 
                 self.multiBannerView.objects = self.promotions
                 self.multiBannerView.reload()
@@ -282,6 +283,18 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
         
         
     }
+    
+    @IBAction func openDoctor(_ sender: UITapGestureRecognizer) {
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            
+            appDelegate.deeplinking = .doctor
+            appDelegate.handleDeeplinking()
+            self.dismiss(animated: false, completion: {
+                self.navigationController?.popToRootViewController(animated: false)
+            })
+        }
+    }
+    
     
     @IBAction func openProduct() {
         

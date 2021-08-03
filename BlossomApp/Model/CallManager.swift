@@ -212,7 +212,7 @@ extension CallManager: PostFromViewControllerDelegate {
             }
         })
 
-        gotoAppointment(customerReferenceID: controller.customerDocID)
+        //gotoAppointment(customerReferenceID: controller.customerDocID)
 
     }
     

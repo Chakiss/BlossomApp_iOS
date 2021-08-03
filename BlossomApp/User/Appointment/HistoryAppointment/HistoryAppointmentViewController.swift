@@ -24,6 +24,11 @@ class HistoryAppointmentViewController: UIViewController, UITableViewDataSource,
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.tableView.reloadData()
+    }
+    
     @objc func refresh(_ sender: AnyObject) {
        // Code to refresh table view
         refreshControl.endRefreshing()
