@@ -60,6 +60,10 @@ class HistoryAppointmentDetailViewController: UIViewController, UITableViewDataS
      
     }
     
+    @IBAction func appoointmentAllTapped() {
+        
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
@@ -150,10 +154,10 @@ class HistoryAppointmentDetailViewController: UIViewController, UITableViewDataS
  
     @objc func handleTap(_ sender: UITapGestureRecognizer) {
         // handling code
-        print(sender.view?.tag)
+        
         let preform: [String:Any] = appointment?.preForm ?? ["":""]
         let imageArray: [String] = preform["attachedImages"] as! [String]   
-        var imageString = imageArray[sender.view?.tag ?? 0]
+        let imageString = imageArray[sender.view?.tag ?? 0]
         
         let imageRef = storage.reference(withPath: imageString )
         imageRef.getData(maxSize: 2 * 1024 * 1024) { (data, error) in

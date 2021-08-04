@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import ConnectyCube
 import SwiftDate
+import Alamofire
 
 class HomeViewController: UIViewController, MultiBannerViewDelegate {
    
@@ -45,6 +46,9 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
     
     var productHilights: [ProductHilight] = []
     
+    private var orders: [Order] = []
+    private var page: Int = 1
+    private var hasEnded: Bool = false
     var handle: AuthStateDidChangeListenerHandle?
     
     var profileButton: UIButton!
@@ -81,6 +85,11 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
         appointmentView.addGestureRecognizer(tapGestureRecognizer)
         appointmentView.isHidden = true
         
+        
+        let medicineGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(medicineTapped(tapGestureRecognizer:)))
+        medicineView.isUserInteractionEnabled = true
+        medicineView.addGestureRecognizer(medicineGestureRecognizer)
+        medicineView.isHidden = true
         medicineView.isHidden = true
         
         let reviewGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(openReview(tapGestureRecognizer:)))
@@ -91,12 +100,25 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
         doctorAppointmentView.addConerRadiusAndShadow()
         user = Auth.auth().currentUser
         getCustomer()
+        fetchProduct()
     }
     
     @objc func appointmentTapped(tapGestureRecognizer: UITapGestureRecognizer){
       
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
             appDelegate.deeplinking = .appointment
+            appDelegate.handleDeeplinking()
+            self.dismiss(animated: false, completion: {
+                self.navigationController?.popToRootViewController(animated: false)
+            })
+        }
+    
+    }
+    
+    @objc func medicineTapped(tapGestureRecognizer: UITapGestureRecognizer){
+      
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            appDelegate.deeplinking = .orderList
             appDelegate.handleDeeplinking()
             self.dismiss(animated: false, completion: {
                 self.navigationController?.popToRootViewController(animated: false)
@@ -125,6 +147,36 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
         }
     }
     
+    func fetchProduct(){
+        guard let customerPhone = CustomerManager.sharedInstance.customer?.phoneNumber else {
+            return
+        }
+        
+        APIProduct.getOrder(term: customerPhone, page: page) { [weak self] response in
+            ProgressHUD.dismiss()
+            
+
+            guard let response = response else {
+                return
+            }
+            
+            self?.page += 1
+            let newData = response.orders ?? []
+            self?.hasEnded = newData.isEmpty
+            self?.orders.append(contentsOf: newData)
+            self?.checkOrderIsPaid()
+            
+        }.request()
+        
+    }
+    
+    func checkOrderIsPaid(){
+        
+        if self.orders.contains(where: {$0.paid == false}) {
+            self.medicineView.isHidden = false
+        }
+        
+    }
     
     func getCustomer()  {
         
@@ -298,7 +350,7 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
             dialog.occupantIDs = [4663567]  // an ID of opponent
 
             Request.createDialog(dialog, successBlock: { (dialog) in
-                appDelegate.deeplinking = .chat
+                appDelegate.deeplinking = .chat(id: "4663567")
                 appDelegate.handleDeeplinking()
                 self.dismiss(animated: false, completion: {
                     self.navigationController?.popToRootViewController(animated: false)

@@ -139,7 +139,7 @@ class Doctor_ComingAppointmentViewController: UIViewController, UITableViewDataS
 
                     Request.createDialog(dialog, successBlock: { (dialog) in
                         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-                            appDelegate.deeplinking = .chat
+                            appDelegate.deeplinking = .chat(id: referenceConnectyCubeID)
                             appDelegate.handleDeeplinking()
                             self.dismiss(animated: false, completion: {
                                 self.navigationController?.popToRootViewController(animated: false)

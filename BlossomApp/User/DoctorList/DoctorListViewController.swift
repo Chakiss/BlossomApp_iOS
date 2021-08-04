@@ -131,14 +131,13 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
                         let region = Region(calendar: Calendar(identifier: .gregorian), zone: Zones.gmt, locale: Locales.englishUnitedStates)
                         let d = date.dateValue().startOfDay
                         
-                        if d.date.startOfDay == today {
+                       // if d.date.startOfDay == today {
                             self.doctorList[index].isHaveSlotToday = true
                             self.doctorList.sort { $0.isHaveSlotToday && !$1.isHaveSlotToday }
                             self.tableView.reloadData()
-                        }
+                        //}
                     }
                 }
-            
         }
         //
     }
@@ -225,7 +224,7 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
             }
         }
         
-        cell.doctorStarLabel.text = "4.75"//String(format: "%.2f",doctor.score!)
+        cell.doctorStarLabel.text = String(format: "%.2f",doctor.score!)
         cell.doctorReviewLabel.text = ""
         //cell.calculateReview(reviews: reviewList)
         //cell.calculateAppointMent(appointment: appointmentList)

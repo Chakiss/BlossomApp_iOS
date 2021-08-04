@@ -95,7 +95,7 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
                 
                 Request.createDialog(dialog, successBlock: { (dialog) in
                     if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-                        appDelegate.deeplinking = .chat
+                        appDelegate.deeplinking = .chat(id: String(referenceConnectyCubeID))
                         appDelegate.handleDeeplinking()
                         self.dismiss(animated: false, completion: {
                             self.navigationController?.popToRootViewController(animated: false)

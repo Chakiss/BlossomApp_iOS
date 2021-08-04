@@ -86,7 +86,7 @@ class PreFormViewController: UIViewController {
                 selectedButton += ",\(title)"
                }
         }
-        var formData = ["เรื่องที่ปรึกษา":selectedButton]
+        let formData = ["เรื่องที่ปรึกษา":selectedButton]
         
         var attachImage: [String] = []
         
@@ -113,11 +113,13 @@ class PreFormViewController: UIViewController {
             ProgressHUD.dismiss()
             
         }
+        self.navigationController?.popToRootViewController(animated: false)
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
             appDelegate.deeplinking = .appointment
             appDelegate.handleDeeplinking()
+            
             self.dismiss(animated: false, completion: {
-                self.navigationController?.popToRootViewController(animated: false)
+            
             })
 
         }

@@ -16,6 +16,8 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
     
     var dialogList:[ChatDialog] = []
     
+    var deeplinkID: String = ""
+    
     @IBOutlet weak var tableView: UITableView!
     
     func chatDidConnect() {
@@ -59,8 +61,8 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
     func contactAdmin() {
         showAlertDialogue(title: "ติดต่อ", message: "กล่องข้อความของ admin จะปรากฏขึ้น") {
             let dialog = ChatDialog(dialogID: nil, type: .private)
-            dialog.occupantIDs = [4648670]  // an ID of opponent
-
+            dialog.occupantIDs = [4663567]  // an ID of opponent
+            self.deeplinkID = "4663567"
             Request.createDialog(dialog, successBlock: { (dialog) in
                 self.viewWillAppear(true)
             }) { (error) in
@@ -78,6 +80,8 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
         Request.dialogs(with: Paginator.limit(100, skip: 0), extendedRequest: nil, successBlock: { (dialogs, usersIDs, paginator) in
             self.dialogList = dialogs
             self.dialogList.sort(by: { ($0.lastMessageDate ?? Date()).compare($1.lastMessageDate ?? Date()) == ComparisonResult.orderedDescending })
+           
+            self.checkDeepLink()
             self.tableView.reloadData()
            
             
@@ -87,6 +91,22 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
     
     }
     
+    func checkDeepLink() {
+        if !deeplinkID.isEmpty {
+            let dialog = self.dialogList.filter{ $0.recipientID == Int(deeplinkID) }.first
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let viewController = storyboard.instantiateViewController(withIdentifier: "MessageingViewController") as! MessageingViewController
+            viewController.chatdialog = dialog
+            viewController.customer = self.customer
+            viewController.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(viewController, animated: true)
+            
+            deeplinkID = ""
+            
+        
+        }
+    }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)

@@ -23,7 +23,7 @@ enum Deeplinking {
     case orderList
     case appointment
     case appointmentHistory
-    case chat
+    case chat(id:String?)
     case product(id:String?)
     case doctor
     
@@ -53,7 +53,11 @@ enum Deeplinking {
             return Deeplinking.orderList
 
         case "chat":
-            return Deeplinking.chat
+            var id = ""
+            if urlComponents.queryItems?.first?.name == "id" {
+                id = urlComponents.queryItems?.first?.value ?? ""
+            }
+            return Deeplinking.chat(id: id)
             
         case "doctor":
             return Deeplinking.doctor
@@ -219,7 +223,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             switch deeplinking {
             case .appointment, .appointmentHistory, .orderList:
                 tabbarController.selectedIndex = 1
-            case .chat:
+            case .chat(let id):
+                let nav = tabbarController.viewControllers?[2] as! UINavigationController
+                let productVC = nav.viewControllers.first as! ChatListViewController
+                productVC.deeplinkID = id ?? ""
                 tabbarController.selectedIndex = 2
             case .product, .home, .doctor:
                 break
@@ -237,7 +244,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 let productVC = nav.viewControllers.first as! ProductListViewController
                 productVC.deeplinkID = id ?? ""
                 tabbarController.selectedIndex = 3
-            case .chat:
+            case .chat(let id):
+                let nav = tabbarController.viewControllers?[4] as! UINavigationController
+                let productVC = nav.viewControllers.first as! ChatListViewController
+                productVC.deeplinkID = id ?? ""
                 tabbarController.selectedIndex = 4
             }
         }
