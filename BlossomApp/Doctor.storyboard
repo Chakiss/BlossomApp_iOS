@@ -1833,7 +1833,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JMV-dZ-Bgy">
-                                <rect key="frame" x="60" y="743" width="294" height="44"/>
+                                <rect key="frame" x="60" y="778" width="294" height="44"/>
                                 <color key="backgroundColor" red="0.95686274510000002" green="0.50196078430000002" blue="0.45098039220000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="2an-DD-ryo"/>
@@ -1852,6 +1852,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Chh-n0-Yq9" id="Sdp-sb-uCA"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="19Z-09-NbH">
                                 <rect key="frame" x="40" y="273" width="334" height="65"/>
@@ -1861,6 +1864,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Chh-n0-Yq9" id="yQU-Dc-lQY"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="นัดครั้งถัดไป" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6cA-sb-cVu">
                                 <rect key="frame" x="40" y="513" width="334" height="25.5"/>
@@ -1868,17 +1874,19 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" borderStyle="bezel" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7Xa-M8-j85">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7Xa-M8-j85">
                                 <rect key="frame" x="40" y="548.5" width="80" height="28.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="46c-8o-QqV"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="namePhonePad"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Chh-n0-Yq9" id="ivZ-HB-O6N"/>
+                                </connections>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="วัน" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UXs-aX-O2v">
-                                <rect key="frame" x="133" y="551" width="90" height="26"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="วัน" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UXs-aX-O2v">
+                                <rect key="frame" x="133" y="548.5" width="18.5" height="26"/>
                                 <fontDescription key="fontDescription" name="SukhumvitSet-SemiBold" family="Sukhumvit Set" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1897,6 +1905,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Chh-n0-Yq9" id="cRf-wB-enm"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ยาที่ใช้ในการรักษา" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9p9-8R-HGb">
                                 <rect key="frame" x="40" y="373" width="354" height="25.5"/>
@@ -1909,6 +1920,7 @@
                         <color key="backgroundColor" red="0.98823529409999999" green="0.97647058819999999" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="rzP-Ld-DIB" firstAttribute="leading" secondItem="QnE-wu-ktl" secondAttribute="leading" constant="40" id="4mc-dD-hBN"/>
+                            <constraint firstItem="UXs-aX-O2v" firstAttribute="leading" secondItem="7Xa-M8-j85" secondAttribute="trailing" constant="13" id="CaA-DA-BRH"/>
                             <constraint firstItem="6cA-sb-cVu" firstAttribute="top" secondItem="rzP-Ld-DIB" secondAttribute="bottom" constant="39.5" id="EVM-H4-cRb"/>
                             <constraint firstItem="QnE-wu-ktl" firstAttribute="trailing" secondItem="rzP-Ld-DIB" secondAttribute="trailing" constant="20" id="HKF-4g-g7E"/>
                             <constraint firstItem="rzP-Ld-DIB" firstAttribute="top" secondItem="9p9-8R-HGb" secondAttribute="bottom" constant="10" id="L4v-1q-cc8"/>
@@ -1923,7 +1935,7 @@
                             <constraint firstItem="IBT-p7-tfj" firstAttribute="top" secondItem="FKU-8H-1nM" secondAttribute="bottom" constant="10" id="bHi-6N-J0e"/>
                             <constraint firstItem="QnE-wu-ktl" firstAttribute="trailing" secondItem="19Z-09-NbH" secondAttribute="trailing" constant="40" id="gc0-LS-9f7"/>
                             <constraint firstItem="IBT-p7-tfj" firstAttribute="leading" secondItem="QnE-wu-ktl" secondAttribute="leading" constant="40" id="hF8-zr-BUl"/>
-                            <constraint firstItem="QnE-wu-ktl" firstAttribute="bottom" secondItem="JMV-dZ-Bgy" secondAttribute="bottom" constant="75" id="idr-Co-ZeS"/>
+                            <constraint firstItem="QnE-wu-ktl" firstAttribute="bottom" secondItem="JMV-dZ-Bgy" secondAttribute="bottom" constant="40" id="idr-Co-ZeS"/>
                             <constraint firstItem="9p9-8R-HGb" firstAttribute="leading" secondItem="QnE-wu-ktl" secondAttribute="leading" constant="40" id="jI9-3J-ZZ7"/>
                             <constraint firstItem="9p9-8R-HGb" firstAttribute="top" secondItem="19Z-09-NbH" secondAttribute="bottom" constant="35" id="kIB-0Y-lJz"/>
                             <constraint firstItem="FKU-8H-1nM" firstAttribute="leading" secondItem="QnE-wu-ktl" secondAttribute="leading" constant="40" id="kJn-rR-3zv"/>
@@ -1932,6 +1944,7 @@
                             <constraint firstItem="7Xa-M8-j85" firstAttribute="top" secondItem="6cA-sb-cVu" secondAttribute="bottom" constant="10" id="qrd-0k-E1i"/>
                             <constraint firstItem="7Xa-M8-j85" firstAttribute="leading" secondItem="QnE-wu-ktl" secondAttribute="leading" constant="40" id="rzy-6a-zqo"/>
                             <constraint firstItem="QnE-wu-ktl" firstAttribute="trailing" secondItem="JMV-dZ-Bgy" secondAttribute="trailing" constant="60" id="tA8-RW-NwV"/>
+                            <constraint firstItem="UXs-aX-O2v" firstAttribute="top" secondItem="7Xa-M8-j85" secondAttribute="top" id="xL8-Mx-gLT"/>
                             <constraint firstItem="QnE-wu-ktl" firstAttribute="trailing" secondItem="yed-J6-J3y" secondAttribute="trailing" constant="20" id="zUo-w3-sHG"/>
                         </constraints>
                     </view>
@@ -1945,7 +1958,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wyo-cv-bAE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3493" y="309"/>
+            <point key="canvasLocation" x="3492.753623188406" y="308.70535714285711"/>
         </scene>
     </scenes>
     <designables>

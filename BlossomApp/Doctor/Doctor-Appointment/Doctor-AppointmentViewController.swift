@@ -145,8 +145,8 @@ class Doctor_AppointmentViewController: UIViewController {
                         completeAppointment.append(appointment)
                     }
                  }
-                inCompleteAppointment.sort(by: { ($0.sessionStart ?? Timestamp()).compare($1.sessionStart ?? Timestamp()) == ComparisonResult.orderedDescending })
-                completeAppointment.sort(by: { ($0.sessionStart ?? Timestamp()).compare($1.sessionStart ?? Timestamp()) == ComparisonResult.orderedDescending })
+                inCompleteAppointment.sort(by: { ($0.sessionStart ?? Timestamp()).compare($1.sessionStart ?? Timestamp()) == ComparisonResult.orderedAscending })
+                completeAppointment.sort(by: { ($0.sessionStart ?? Timestamp()).compare($1.sessionStart ?? Timestamp()) == ComparisonResult.orderedAscending })
                 self.doctorComingAppointmentViewController.appointments = inCompleteAppointment
                 self.doctorComingAppointmentViewController.tableView.reloadData()
                 

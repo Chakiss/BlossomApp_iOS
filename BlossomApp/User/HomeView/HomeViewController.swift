@@ -352,9 +352,6 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
             Request.createDialog(dialog, successBlock: { (dialog) in
                 appDelegate.deeplinking = .chat(id: "4663567")
                 appDelegate.handleDeeplinking()
-                self.dismiss(animated: false, completion: {
-                    self.navigationController?.popToRootViewController(animated: false)
-                })
             }) { (error) in
 
             }

@@ -32,6 +32,7 @@ class CartViewController: UIViewController {
     private var cart: Cart?
     private var customer: Customer?
     private var currentCart: Bool = true
+    private var shippingFee: Int = 0
     
     weak var delegate: UpdateCartViewControllerDelegate?
     weak var prescriptDelegate: ProductListPrescriptionDelegate?
@@ -78,7 +79,8 @@ class CartViewController: UIViewController {
         let model = CartHeaderTableViewCell.Model(
             dateString: String.today(),
             priceText: "",
-            addressText: customer?.address?.address ?? "-"
+            addressText: customer?.address?.address ?? "-",
+            shippingText: ""
         )
         self.cartHeaderModel = model
         updateTotalPrice()
@@ -98,13 +100,32 @@ class CartViewController: UIViewController {
     }
 
     private func updateTotalPrice() {
-        let total = cart?.calculateTotalPriceInSatang().satangToBaht() ?? 0
+        var total = cart?.calculateTotalPriceInSatang().satangToBaht() ?? 0
+        
+        if !self.checkSetProduct() && (total > 0 && total < 2000 )  {
+            total += 60
+            shippingFee = 60
+            self.cartHeaderModel?.shippingText = "60"
+        } else {
+            shippingFee = 0
+            self.cartHeaderModel?.shippingText = "0"
+        }
+        
         let totalText = total.toAmountText()
         self.cartHeaderModel?.priceText = totalText
         checkoutButton.isEnabled = cart?.items.count ?? 0 > 0
         checkoutButton.alpha = checkoutButton.isEnabled ? 1.0 : 0.5
     }
 
+    private func checkSetProduct() -> Bool {
+        if let setProduct =  cart?.items.filter({ $0.product.code == "37" || $0.product.code == "38" || $0.product.code == "39" || $0.product.code == "40" || $0.product.code == "41" || $0.product.code == "42" || $0.product.code == "43" })  {
+            if setProduct.count > 0 {
+                return true
+            }
+        }
+        return false
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -153,7 +174,7 @@ class CartViewController: UIViewController {
                                   annotation: "",
                                   tag: "app",
                                   shippingType: "EMS",
-                                  shippingFee: 0,
+                                  shippingFee: shippingFee,
                                   orderDiscount: 0,
                                   purchasesAttributes: cart?.getPurcahseAttributes() ?? [])
         ProgressHUD.show()
@@ -198,7 +219,7 @@ class CartViewController: UIViewController {
                                   annotation: "",
                                   tag: "app",
                                   shippingType: "EMS",
-                                  shippingFee: 0,
+                                  shippingFee: shippingFee,
                                   orderDiscount: 0,
                                   purchasesAttributes: cart?.getPurcahseAttributes() ?? [])
         ProgressHUD.show()

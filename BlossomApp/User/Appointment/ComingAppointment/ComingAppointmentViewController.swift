@@ -109,6 +109,24 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
             
         }))
         
+        alert.addAction(UIAlertAction(title: "ยกเลิกหรือเปลี่ยนเวลานัด", style: .default, handler: { [weak self] (UIAlertAction) in
+            
+            if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                
+                let dialog = ChatDialog(dialogID: nil, type: .private)
+                dialog.occupantIDs = [4663567]  // an ID of opponent
+
+                Request.createDialog(dialog, successBlock: { (dialog) in
+                    appDelegate.deeplinking = .chat(id: "4663567")
+                    appDelegate.handleDeeplinking()
+                    
+                }) { (error) in
+
+                }
+                
+            }
+            
+        }))
         
         alert.addAction(UIAlertAction(title: "ยกเลิก", style: .destructive, handler:{ (UIAlertAction)in
             print("User click Dismiss button")
