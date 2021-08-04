@@ -13,10 +13,16 @@ import PushKit
 import UserNotifications
 import SwiftyUserDefaults
 
+protocol DeeplinkingHandler {
+    var shouldHandleDeeplink: Bool { get set }
+    func handleDeeplink()
+}
+
 enum Deeplinking {
     case home
     case orderList
     case appointment
+    case appointmentHistory
     case chat
     case product(id:String?)
     case doctor
@@ -39,7 +45,10 @@ enum Deeplinking {
         
         case "appointment":
             return Deeplinking.appointment
-            
+
+        case "appointmentHistory":
+            return Deeplinking.appointmentHistory
+
         case "orderList":
             return Deeplinking.orderList
 
@@ -208,9 +217,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         if Defaults[\.role] == "doctor"{
             switch deeplinking {
-            case .orderList:
-                tabbarController.selectedIndex = 1
-            case .appointment:
+            case .appointment, .appointmentHistory, .orderList:
                 tabbarController.selectedIndex = 1
             case .chat:
                 tabbarController.selectedIndex = 2
@@ -223,9 +230,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 tabbarController.selectedIndex = 0
             case .doctor:
                 tabbarController.selectedIndex = 1
-            case .orderList:
-                tabbarController.selectedIndex = 2
-            case .appointment:
+            case .appointment, .appointmentHistory, .orderList:
                 tabbarController.selectedIndex = 2
             case .product(let id):
                 let nav = tabbarController.viewControllers?[3] as! UINavigationController
@@ -235,6 +240,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             case .chat:
                 tabbarController.selectedIndex = 4
             }
+        }
+        
+        if let selectedViewController = tabbarController.selectedViewController as? UINavigationController,
+           let handler = selectedViewController.viewControllers.first as? DeeplinkingHandler {
+            handler.handleDeeplink()
         }
         
     }

@@ -29,6 +29,7 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
         super.viewDidLoad()
 
         backgroundTask = UIBackgroundTaskIdentifier.invalid
+        tableView.tableFooterView = UIView()
         
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)

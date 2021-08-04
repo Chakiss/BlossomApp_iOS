@@ -17,6 +17,7 @@ class MedicineListViewController: UIViewController {
     private var loading: Bool = false
     private var hasEnded: Bool = false
     
+    var shouldHandleDeeplink: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,17 +35,8 @@ class MedicineListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
-           let deeplinking = appDelegate.deeplinking {
-            switch deeplinking {
-            case .orderList:
-                refreshList()
-                appDelegate.deeplinking = nil
-            default:
-                break
-            }
-        } else if orders.isEmpty {
+                
+        if orders.isEmpty {
             refreshList()
         }
         
@@ -191,6 +183,22 @@ extension MedicineListViewController: UpdateCartViewControllerDelegate {
         orders.replaceSubrange(index..<index+1, with: [order])
         tableView.reloadData()
         
+    }
+    
+}
+
+extension MedicineListViewController: DeeplinkingHandler {
+    
+    func handleDeeplink() {
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+           let deeplinking = appDelegate.deeplinking {
+            switch deeplinking {
+            case .orderList:
+                refreshList()
+            default:
+                break
+            }
+        }
     }
     
 }

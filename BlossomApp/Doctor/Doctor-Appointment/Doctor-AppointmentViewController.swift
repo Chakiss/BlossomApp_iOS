@@ -18,6 +18,7 @@ class Doctor_AppointmentViewController: UIViewController {
     var customer: Customer?
     var appointments: [Appointment] = []
     var doctor: Doctor?
+    var shouldHandleDeeplink: Bool = false
     
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
@@ -200,5 +201,27 @@ class Doctor_AppointmentViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+
+}
+
+extension Doctor_AppointmentViewController: DeeplinkingHandler {
+    
+    func handleDeeplink() {
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+           let deeplinking = appDelegate.deeplinking {
+            switch deeplinking {
+            case .appointment:
+                debugPrint("go to appointment")
+                segmentedControl.selectedSegmentIndex = 0
+                selectionDidChange(segmentedControl)
+            case .appointmentHistory:
+                debugPrint("go to appointment history")
+                segmentedControl.selectedSegmentIndex = 1
+                selectionDidChange(segmentedControl)
+            default:
+                break
+            }
+        }
+    }
 
 }

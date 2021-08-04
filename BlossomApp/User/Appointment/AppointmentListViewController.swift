@@ -10,7 +10,8 @@ import Firebase
 
 class AppointmentListViewController: UIViewController {
 
-    
+    var shouldHandleDeeplink = true
+
     let db = Firestore.firestore()
     let storage = Storage.storage()
     
@@ -48,6 +49,10 @@ class AppointmentListViewController: UIViewController {
         setupView()
         getCustomer()
         // Do any additional setup after loading the view.
+        
+        if shouldHandleDeeplink {
+            handleDeeplink()
+        }
     }
     
     func getCustomer()  {
@@ -104,22 +109,9 @@ class AppointmentListViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        gotoOrderList()
+
     }
     
-    func gotoOrderList() {
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
-           let deeplinking = appDelegate.deeplinking {
-            switch deeplinking {
-            case .orderList:
-                debugPrint("go to order list")
-                segmentedControl.selectedSegmentIndex = 2
-                selectionDidChange(segmentedControl)
-            default:
-                break
-            }
-        }
-    }
     
     private func add(asChildViewController viewController: UIViewController) {
         // Add Child View Controller
@@ -246,4 +238,39 @@ class AppointmentListViewController: UIViewController {
     }
     */
 
+}
+
+extension AppointmentListViewController: DeeplinkingHandler {
+        
+    func handleDeeplink() {
+                
+        guard isViewLoaded else {
+            return
+        }
+        
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+           let deeplinking = appDelegate.deeplinking {
+            switch deeplinking {
+            case .appointment:
+                debugPrint("go to appointment")
+                segmentedControl.selectedSegmentIndex = 0
+                selectionDidChange(segmentedControl)
+            case .appointmentHistory:
+                debugPrint("go to appointment history")
+                segmentedControl.selectedSegmentIndex = 1
+                selectionDidChange(segmentedControl)
+            case .orderList:
+                debugPrint("go to order list")
+                segmentedControl.selectedSegmentIndex = 2
+                selectionDidChange(segmentedControl)
+                medicineListViewController.handleDeeplink()
+            default:
+                break
+            }
+            appDelegate.deeplinking = nil
+            shouldHandleDeeplink = false
+        }
+    }
+
+    
 }

@@ -29,6 +29,8 @@ class Doctor_ComingAppointmentViewController: UIViewController, UITableViewDataS
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        tableView.tableFooterView = UIView()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
