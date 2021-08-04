@@ -57,7 +57,7 @@ class DoctorDetailViewController: UIViewController, UITableViewDelegate, UITable
         self.doctorNickNameLabel.text = doctor?.displayName
         self.doctorNameLabel.text = (doctor?.firstName ?? "") + "  " + (doctor?.lastName ?? "")
         let score = (doctor?.score)! as Double
-        self.doctorCurrentScoreLabel.text = "\(score)"
+        self.doctorCurrentScoreLabel.text = String(format:"%.2f",score)
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
         self.doctorImageView.addGestureRecognizer(tap)
@@ -76,6 +76,13 @@ class DoctorDetailViewController: UIViewController, UITableViewDelegate, UITable
         }
         let reviewNumber = filterdReviews.count as Int
         self.doctorReviewNumberLabel.text = "\(reviewNumber) รีวิว"
+        
+        let review = (doctor?.review!)! as Int
+        let appointment = (doctor?.appointment!)! as Int
+        self.doctorReviewNumberLabel.text = "\(review) รีวิว  รักษา \(appointment) ครั้ง"
+        
+    
+        
         self.tableView.reloadData()
         
     }

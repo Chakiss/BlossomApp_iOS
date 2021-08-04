@@ -422,6 +422,7 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
     
     
     func textFieldDidEndEditing(_ textField: UITextField) {
+    
         if textField == nameTextField {
             if textField.text != customer?.firstName {
                 NotificationCenter.default.post(name: Notification.Name("BlossomProfileChanged"), object: nil)
@@ -450,6 +451,39 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
         
     }
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if (string == "\n") {
+            textField.resignFirstResponder()
+            return false
+        }
+        if textField == nameTextField {
+            if textField.text != customer?.firstName {
+                NotificationCenter.default.post(name: Notification.Name("BlossomProfileChanged"), object: nil)
+            }
+        }
+        else if textField == surNameTextField {
+            if textField.text != customer?.lastName {
+                NotificationCenter.default.post(name: Notification.Name("BlossomProfileChanged"), object: nil)
+            }
+        }
+        else if textField == addressTextField {
+            if textField.text != customer?.lastName {
+                NotificationCenter.default.post(name: Notification.Name("BlossomProfileChanged"), object: nil)
+            }
+        }
+        else if textField == birthDayTextField {
+            if textField.text != customer?.birthDayString {
+                NotificationCenter.default.post(name: Notification.Name("BlossomProfileChanged"), object: nil)
+            }
+        }
+        else if textField == phoneTextField {
+            if textField.text != customer?.phoneNumber {
+                NotificationCenter.default.post(name: Notification.Name("BlossomPhoneNumberChanged"), object: nil)
+            }
+        }
+        return true
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
         return false
@@ -464,21 +498,21 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
     }
     
     // hides text views
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if (text == "\n") {
-            textView.resignFirstResponder()
-            return false
-        }
-        return true
-    }
-    // hides text fields
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if (string == "\n") {
-            textField.resignFirstResponder()
-            return false
-        }
-        return true
-    }
+//    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+//        if (text == "\n") {
+//            textView.resignFirstResponder()
+//            return false
+//        }
+//        return true
+//    }
+//    // hides text fields
+//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//        if (string == "\n") {
+//            textField.resignFirstResponder()
+//            return false
+//        }
+//        return true
+//    }
     
     @objc func doneButtonPressed() {
         if let  datePicker = self.birthDayTextField.inputView as? UIDatePicker {

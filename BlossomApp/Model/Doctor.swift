@@ -20,7 +20,10 @@ class Doctor: Codable {
     var createdAt: String?
     var updatedAt: String?
     var displayPhoto: String?
+    
     var score: Double?
+    var appointment: Int?
+    var review: Int?
     
     var documentReference: DocumentReference?
     

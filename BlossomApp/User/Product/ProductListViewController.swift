@@ -40,7 +40,7 @@ class ProductListViewController: UIViewController, UITableViewDataSource, UITabl
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "ยา"
+        self.title = "ผลิตภัณฑ์"
         // Do any additional setup after loading the view.
         if customer == nil {
             customer = CustomerManager.sharedInstance.customer

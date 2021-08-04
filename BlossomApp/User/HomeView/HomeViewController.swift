@@ -77,6 +77,7 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
         appointmentView.addGestureRecognizer(tapGestureRecognizer)
         appointmentView.isHidden = true
         
+        medicineView.isHidden = true
         
         let reviewGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(openReview(tapGestureRecognizer:)))
         reviewImageView.isUserInteractionEnabled = true
