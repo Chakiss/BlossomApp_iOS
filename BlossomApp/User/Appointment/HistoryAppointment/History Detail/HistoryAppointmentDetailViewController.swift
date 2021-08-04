@@ -8,18 +8,16 @@
 import UIKit
 import Firebase
 import GSImageViewerController
+import SwiftDate
 
 class HistoryAppointmentDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    
+    @IBOutlet weak var userImageView: UIImageView!
+    @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var appointmentLabel: UILabel!
+    
     @IBOutlet weak var tableView: UITableView!
-
-    @IBOutlet weak var preFromLabel: UILabel!
-    
-    @IBOutlet weak var imageStackView: UIStackView!
-    @IBOutlet var preImageView: [UIImageView]!
-    
-    @IBOutlet weak var postFromLabel: UILabel!
-    
     
     var appointment: Appointment?
     let storage = Storage.storage()
@@ -38,7 +36,28 @@ class HistoryAppointmentDetailViewController: UIViewController, UITableViewDataS
             self.profile += "เคยรักษา" + " : " + (customer?.acneCaredDescription ?? "") + "\n"
             
             self.tableView.reloadData()
+            
+            self.userNameLabel.text =  customer?.displayName
+            
+            let imageRef = self.storage.reference(withPath: customer?.displayPhoto ?? "")
+            imageRef.getData(maxSize: 2 * 1024 * 1024) { (data, error) in
+                if error == nil {
+                    if let imgData = data {
+                        if let img = UIImage(data: imgData) {
+                            self.userImageView.image = img
+                        }
+                    }
+                }
+            }
         }
+        
+        let region = Region(calendar: Calendars.buddhist, zone: Zones.asiaBangkok, locale: Locales.thai)
+        let startDate = DateInRegion((appointment?.sessionStart?.dateValue())!, region: region)
+        let endDate = DateInRegion((appointment?.sessionEnd?.dateValue())!, region: region)
+        
+        self.appointmentLabel.text = String(format: "วันที่ %2d %@ %d เวลา %.2d:%.2d - %.2d:%.2d",startDate.day,startDate.monthName(.default),startDate.year,startDate.hour,startDate.minute,endDate.hour,endDate.minute)
+        
+     
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -49,7 +68,8 @@ class HistoryAppointmentDetailViewController: UIViewController, UITableViewDataS
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 1 {
-            if appointment?.attachedImages?.count ?? 0 > 0 {
+            let imageArray = appointment?.preForm?["attachedImages"] ?? []
+            if (imageArray as AnyObject).count > 0 {
                 return 2
             }
         }
@@ -78,13 +98,17 @@ class HistoryAppointmentDetailViewController: UIViewController, UITableViewDataS
                 let preform: [String:Any] = appointment?.preForm ?? ["":""]
                 var preformString = ""
                 for key in preform.keys {
-                    preformString += key + " : " + (preform[key] as! String) + "\n"
+                    if key != "attachedImages" {
+                        preformString += key + " : " + (preform[key] as! String) + "\n"
+                    }
                 }
                 cell.detailLabel.text = preformString
             } else {
                 let cellimage = tableView.dequeueReusableCell(withIdentifier: "FormImageCell", for: indexPath) as! FormImageCell
-                let imageArray = appointment?.attachedImages ?? []
+                let preform: [String:Any] = appointment?.preForm ?? ["":""]
+                let imageArray: [String] = preform["attachedImages"] as! [String]
                 for (index, image) in imageArray.enumerated() {
+                    if index > 2 { break }
                     let imageRef = storage.reference(withPath: image )
                     imageRef.getData(maxSize: 2 * 1024 * 1024) { (data, error) in
                         if error == nil {
@@ -113,7 +137,9 @@ class HistoryAppointmentDetailViewController: UIViewController, UITableViewDataS
             let postform: [String:Any] = appointment?.postForm ?? ["":""]
             var postformString = ""
             for key in postform.keys {
-                postformString += key + " : " + (postform[key] as! String) + "\n"
+                if key != "attachedImages" {
+                    postformString += key + " : " + (postform[key] as! String) + "\n"
+                }
             }
             cell.detailLabel.text = postformString
         }
@@ -125,7 +151,8 @@ class HistoryAppointmentDetailViewController: UIViewController, UITableViewDataS
     @objc func handleTap(_ sender: UITapGestureRecognizer) {
         // handling code
         print(sender.view?.tag)
-        let imageArray = appointment?.attachedImages ?? []
+        let preform: [String:Any] = appointment?.preForm ?? ["":""]
+        let imageArray: [String] = preform["attachedImages"] as! [String]   
         var imageString = imageArray[sender.view?.tag ?? 0]
         
         let imageRef = storage.reference(withPath: imageString )

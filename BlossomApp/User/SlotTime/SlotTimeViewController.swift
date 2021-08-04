@@ -58,7 +58,10 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
         }
         
         db.collection("doctors")
-            .document(doctorID).collection("slots")
+            .document(doctorID)
+            .collection("slots")
+            .whereField("platform", isEqualTo: "app")
+            //.whereField("date", isGreaterThan: Date().startOfDay.timeIntervalSince1970)
             .getDocuments { daySlot, error in
                 
             guard error == nil else {
@@ -71,13 +74,22 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
                 
             for queryDocumentSnapshot in slotDocuments {
                 let id = queryDocumentSnapshot.documentID
-                let today = Date().startOfDay
+                let data = queryDocumentSnapshot.data()
+                let dateTimeStamp = data["date"] as! Timestamp
+                
                 let region = Region(calendar: Calendar(identifier: .gregorian), zone: Zones.gmt, locale: Locales.englishUnitedStates)
-                let d = id.toDate("yyyy-MM-dd", region: region)
-                guard let date = d?.date, date >= today else {
-                    continue
+                let today = Date().startOfDay.convertTo(region: region)
+                let d = dateTimeStamp.dateValue().convertTo(region: region)
+                if d >= today {
+                    let slotDay = SlotDay(id: id)
+                    slotDay.date = dateTimeStamp
+                    self.slotDay.append(slotDay)
                 }
-                self.slotDay.append(SlotDay(id: id))
+                
+                //let d = id.toDate("yyyy-MM-dd", region: region)
+                //guard let date = d.date, date >= today else {
+                //    continue
+               // }
             }
 
             self.dayCollectionView.reloadData()
@@ -140,7 +152,7 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SlotDateCell", for: indexPath) as! SlotDateCell
             
             let region = Region(calendar: Calendars.gregorian, zone: Zones.asiaBangkok, locale: Locales.thai)
-            let date = slotDay.id?.toDate(region: region)
+            let date = slotDay.date?.dateValue().convertTo(region: region)//slotDay.id?.toDate(region: region)
             let day : Int = date!.day
             cell.dayLabel.text = String(day)
             cell.monthLabel.text = date?.monthName(.short)

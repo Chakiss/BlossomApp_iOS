@@ -6,10 +6,12 @@
 //
 
 import Foundation
+import Firebase
 
 class SlotDay: Codable {
     
     var id: String?
+    var date: Timestamp?
     
     
     private enum CodingKeys: String, CodingKey {

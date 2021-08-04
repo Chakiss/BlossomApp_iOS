@@ -291,6 +291,25 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
         
     }
     
+    @IBAction func contactAdmin() {
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            
+            let dialog = ChatDialog(dialogID: nil, type: .private)
+            dialog.occupantIDs = [4663567]  // an ID of opponent
+
+            Request.createDialog(dialog, successBlock: { (dialog) in
+                appDelegate.deeplinking = .chat
+                appDelegate.handleDeeplinking()
+                self.dismiss(animated: false, completion: {
+                    self.navigationController?.popToRootViewController(animated: false)
+                })
+            }) { (error) in
+
+            }
+            
+        }
+    }
+    
     @IBAction func openDoctor(_ sender: UITapGestureRecognizer) {
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
             

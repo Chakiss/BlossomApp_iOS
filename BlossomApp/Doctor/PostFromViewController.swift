@@ -22,32 +22,68 @@ class PostFromViewController: UIViewController {
     @IBOutlet weak var doneButton: UIButton!
     
     lazy var functions = Functions.functions()
+    let db = Firestore.firestore()
+    let storage = Storage.storage()
     
     var appointmentID: String = ""
     var customerDocID: String = ""
-    
+    var appointment: Appointment?
     weak var delegate: PostFromViewControllerDelegate?
-    
+    var attachedImage: [String] = []
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        let payload = ["appointmentID": appointmentID]
-        let functions = Functions.functions()
         
-        ProgressHUD.show()
-        functions.httpsCallable("app-appointments-markCompleted").call(payload) { [weak self] result, error in
-        
-            ProgressHUD.dismiss()
-            if error != nil {
-                let alert = UIAlertController(title: "กรุณาตรวจสอบ", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                self?.presentedViewController?.present(alert, animated: true, completion: nil)
+        db.collection("appointments")
+            .document(appointmentID)
+            .addSnapshotListener { snapshot, error in
+                let data = snapshot?.data()
+                let doctorRef = data?["doctorReference"]  as? DocumentReference ?? nil
+                let timeRef = data?["timeReference"]  as? DocumentReference ?? nil
+                let cusRef = data?["customerReference"]  as? DocumentReference ?? nil
+                let sessionStart = data?["sessionStart"] as! Timestamp
+                let sessionEnd = data?["sessionEnd"]  as! Timestamp
+                let isComplete = data?["isCompleted"]  as! Bool
+                let preForm = data?["preForm"] as? [String:Any] ?? ["":""]
+                let postForm = data?["postForm"] as? [String:Any] ?? ["":""]
+                let attacheImage = data?["attachedImages"] as? [String] ?? []
+                
+                self.appointment = Appointment(id: snapshot?.documentID ?? self.appointmentID, customerReference: cusRef!, doctorReference: doctorRef!, timeReference: timeRef!,sessionStart: sessionStart, sessionEnd: sessionEnd,preForm: preForm, postForm: postForm)
+                self.appointment?.isComplete = isComplete
+                self.appointment?.attachedImages = attacheImage
+                
+                //self.prepareImage()
             }
-        }
-
+               
     }
     
+    
+    func prepareImage(){
+        
+        
+        let imageArray = self.appointment?.attachedImages ?? []
+        for imageString in imageArray {
+            let imageRef = storage.reference(withPath: imageString )
+            imageRef.getData(maxSize: 2 * 1024 * 1024) { (data, error) in
+                if error == nil {
+                    if let imgData = data {
+                        if let img = UIImage(data: imgData) {
+                            
+                            if let imageData = img.jpeg(.low) {
+                                let strBase64:String = imageData.base64EncodedString(options: .lineLength64Characters)
+                                let encodeString:String = "data:image/jpeg;base64, \(strBase64)"
+                                self.attachedImage.append(encodeString)
+                            }
+                            
+                        }
+                    }
+                }
+            }
+        }
+        
+            
+    }
     
     @IBAction func doneButtonTapped() {
         
@@ -68,7 +104,11 @@ class PostFromViewController: UIViewController {
             guard let self = self else { return }
             self.delegate?.postFormDidFinish(controller: self)
             
+            
         }
+        
+
+
     }
 
 

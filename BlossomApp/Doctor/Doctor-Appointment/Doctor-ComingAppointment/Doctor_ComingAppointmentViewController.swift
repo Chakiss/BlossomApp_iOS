@@ -154,7 +154,8 @@ class Doctor_ComingAppointmentViewController: UIViewController, UITableViewDataS
             })
            
         }))
-        
+          
+        /*
         alert.addAction(UIAlertAction(title: "สั่งยา", style: .default , handler:{ [weak self] (UIAlertAction) in
             
             ProgressHUD.show()
@@ -170,6 +171,7 @@ class Doctor_ComingAppointmentViewController: UIViewController, UITableViewDataS
             }
             
         }))
+        */
         
         alert.addAction(UIAlertAction(title: "รายละเอียด", style: .default, handler: { [weak self] (UIAlertAction) in
             
