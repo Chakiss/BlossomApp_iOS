@@ -113,7 +113,7 @@ class ProductListViewController: UIViewController, UITableViewDataSource, UITabl
         cell.productImageView.addConerRadiusAndShadow()
         
         
-        cell.inventoryLabel.text = product.description_short?.count ?? 0 > 0 ? product.description_short : "........."
+        cell.inventoryLabel.text = product.description_short?.count ?? 0 > 0 ? product.description_short : "Set ผลิตภัณฑ์"
         
         return cell
     }
@@ -186,6 +186,7 @@ extension ProductListViewController {
                 ProgressHUD.dismiss()
                 guard let productsResponse = response.value else { return }
                 self.products = productsResponse.products ?? []
+                self.products.reverse()
                 self.tableView.reloadData()
                 self.checkDeepLink()
             }
