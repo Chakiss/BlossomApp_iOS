@@ -35,7 +35,7 @@ enum APIProduct {
             return "https://api.omise.co/charges"
         case .getChargeCreditCard(let chargeID, _):
             return "https://api.omise.co/charges/\(chargeID)"
-        case .updateOrderPayment(let bankName, let orderID,_):
+        case .updateOrderPayment(_, let orderID,_):
             return "https://www.shipnity.pro/api/v2/orders/\(orderID)/payment"
         case .getOrder:
             return "https://www.shipnity.pro/api/v2/orders"

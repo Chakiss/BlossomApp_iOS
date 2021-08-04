@@ -84,6 +84,10 @@ class ProductListViewController: UIViewController, UITableViewDataSource, UITabl
             return
         }
         
+        if Defaults[\.role] != "doctor" {
+            customer = CustomerManager.sharedInstance.customer
+        }
+        
         let viewController = CartViewController.initializeInstance(cart: CartManager.shared.currentCart!, customer: customer, prescriptDelegate: prescriptDelegate)
         self.navigationController?.pushViewController(viewController, animated: true)
         
