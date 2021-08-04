@@ -61,6 +61,10 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
         let barButton = UIBarButtonItem(customView: profileButton)
         self.navigationItem.leftBarButtonItem = barButton
                 
+        if let appdelegate = UIApplication.shared.delegate as? AppDelegate,
+           appdelegate.deeplinking != nil {
+            appdelegate.handleDeeplinking()
+        }
         
         getPromotion()
         getProduct_Hilight()

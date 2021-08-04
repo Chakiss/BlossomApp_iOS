@@ -33,6 +33,11 @@ class DoctorHomeViewController: UIViewController {
         self.navigationItem.leftBarButtonItem = barButton
         
         // Do any additional setup after loading the view.
+        if let appdelegate = UIApplication.shared.delegate as? AppDelegate,
+           appdelegate.deeplinking != nil {
+            appdelegate.handleDeeplinking()
+        }
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
