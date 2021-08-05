@@ -68,14 +68,9 @@ class DoctorDetailViewController: UIViewController, UITableViewDelegate, UITable
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
+        getReviewsData()
+
         
-        for review in self.reviewList {
-            if review.doctorReference == doctor?.documentReference {
-                filterdReviews.append(review)
-            }
-        }
-        let reviewNumber = filterdReviews.count as Int
-        self.doctorReviewNumberLabel.text = "\(reviewNumber) รีวิว"
         
         let review = (doctor?.review!)! as Int
         let appointment = (doctor?.appointment!)! as Int
@@ -85,6 +80,38 @@ class DoctorDetailViewController: UIViewController, UITableViewDelegate, UITable
         
         self.tableView.reloadData()
         
+    }
+    
+    func getReviewsData(){
+
+        db.collection("reviews")
+            .whereField("doctorReference",isEqualTo: doctor?.documentReference)
+            .addSnapshotListener { (querySnapshot, error) in
+            guard let documents = querySnapshot?.documents else {
+                print("No documents")
+                return
+            }
+            self.reviewList = documents.map { queryDocumentSnapshot -> Reviews in
+                let data = queryDocumentSnapshot.data()
+
+                let id = queryDocumentSnapshot.documentID
+                let appointmentReference = data["appointmentReference"] as? DocumentReference
+                let message = data["message"] as? String ?? ""
+                let createdAt = data["createdAt"] as? String ?? ""
+                let doctorReference = data["doctorReference"] as! DocumentReference
+                let score = data["score"] as? Int ?? 0
+                let type = data["type"] as? String ?? ""
+                let updatedAt = data["updatedAt"] as? String ?? ""
+                let patientReference = data["patientReference"] as? DocumentReference
+
+                return Reviews(id: id, appointmentReference: appointmentReference, message: message, createdAt: createdAt, doctorReference: doctorReference, score: score, type: type, updatedAt: updatedAt, patientReference: patientReference)
+                
+            }
+                
+                let reviewNumber = self.reviewList.count as Int
+                self.doctorReviewNumberLabel.text = "\(reviewNumber) รีวิว"
+                self.tableView.reloadData()
+        }
     }
     
     @objc func handleTap(_ sender: UITapGestureRecognizer) {
@@ -125,7 +152,7 @@ class DoctorDetailViewController: UIViewController, UITableViewDelegate, UITable
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filterdReviews.count + 1
+        return reviewList.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -136,7 +163,7 @@ class DoctorDetailViewController: UIViewController, UITableViewDelegate, UITable
             return cell
         }
         
-        let review = self.filterdReviews[indexPath.row - 1]
+        let review = self.reviewList[indexPath.row - 1]
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ReviewCell", for: indexPath) as! ReviewCell
         var score = review.score! as Int

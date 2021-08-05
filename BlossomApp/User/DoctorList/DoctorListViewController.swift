@@ -142,32 +142,7 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
         //
     }
     
-//    func getReviewsData(){
-//
-//        db.collection("reviews").addSnapshotListener { (querySnapshot, error) in
-//            guard let documents = querySnapshot?.documents else {
-//                print("No documents")
-//                return
-//            }
-//            self.reviewList = documents.map { queryDocumentSnapshot -> Reviews in
-//                let data = queryDocumentSnapshot.data()
-//
-//                let id = queryDocumentSnapshot.documentID
-//                let appointmentReference = data["appointmentReference"] as? DocumentReference
-//                let message = data["message"] as? String ?? ""
-//                let createdAt = data["createdAt"] as? String ?? ""
-//                let doctorReference = data["doctorReference"] as! DocumentReference
-//                let score = data["score"] as? Int ?? 0
-//                let type = data["type"] as? String ?? ""
-//                let updatedAt = data["updatedAt"] as? String ?? ""
-//                let patientReference = data["patientReference"] as? DocumentReference
-//
-//                return Reviews(id: id, appointmentReference: appointmentReference, message: message, createdAt: createdAt, doctorReference: doctorReference, score: score, type: type, updatedAt: updatedAt, patientReference: patientReference)
-//
-//            }
-//            self.tableView.reloadData()
-//        }
-//    }
+  
     
 //    func getAppointment() {
 //        db.collection("appointments")
