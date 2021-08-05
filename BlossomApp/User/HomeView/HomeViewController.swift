@@ -255,6 +255,26 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
                 
                 self.dateTimeLabel.text = String(format: "วันที่ %2d %@ %d เวลา %.2d:%.2d - %.2d:%.2d",startDate.day,startDate.monthName(.default),startDate.year,startDate.hour,startDate.minute,endDate.hour,endDate.minute)
                 
+                let today = Date().startOfDay
+                let sessionStartDate = appointment.sessionStart?.dateValue().date
+                let calendar = Calendar.current
+                let components = calendar.dateComponents([.day], from: today, to: sessionStartDate!)
+                let dayLeft = components.day ?? 0
+                if dayLeft <= 1 {
+                    if let tabItems = self.tabBarController?.tabBar.items {
+                        let tabItem = tabItems[2]
+                        tabItem.badgeValue = "N"
+                    }
+                } else {
+                    if let tabItems = self.tabBarController?.tabBar.items {
+                        let tabItem = tabItems[2]
+                        tabItem.badgeValue = nil
+                    }
+                }
+                //let region = Region(calendar: Calendar(identifier: .gregorian), zone: Zones.gmt, locale: Locales.englishUnitedStates)
+                //let d = date.dateValue().startOfDay
+                
+            
                 
                 self.doctorProfileImageView.layer.cornerRadius = self.doctorProfileImageView.frame.size.width/2
                 self.doctorNickNameLabel.text = doctor?.displayName

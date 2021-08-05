@@ -40,6 +40,7 @@
 		1B3721D82695AF46006265D3 /* ProfileHealthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3721D72695AF46006265D3 /* ProfileHealthViewController.swift */; };
 		1B3D367526B28408000EFCEC /* ProductHilight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D367426B28408000EFCEC /* ProductHilight.swift */; };
 		1B3D367826B2EEED000EFCEC /* HistoryAppointmentDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D367726B2EEED000EFCEC /* HistoryAppointmentDetailViewController.swift */; };
+		1B3F009126BBD1C6001B2062 /* AllAppointmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3F009026BBD1C6001B2062 /* AllAppointmentViewController.swift */; };
 		1B5312492693754200B88165 /* SukhumvitSet-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1B5312432693754200B88165 /* SukhumvitSet-Thin.ttf */; };
 		1B53124A2693754200B88165 /* SukhumvitSet-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1B5312442693754200B88165 /* SukhumvitSet-SemiBold.ttf */; };
 		1B53124B2693754200B88165 /* SukhumvitSet-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1B5312452693754200B88165 /* SukhumvitSet-Medium.ttf */; };
@@ -217,6 +218,7 @@
 		1B3721D72695AF46006265D3 /* ProfileHealthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHealthViewController.swift; sourceTree = "<group>"; };
 		1B3D367426B28408000EFCEC /* ProductHilight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductHilight.swift; sourceTree = "<group>"; };
 		1B3D367726B2EEED000EFCEC /* HistoryAppointmentDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryAppointmentDetailViewController.swift; sourceTree = "<group>"; };
+		1B3F009026BBD1C6001B2062 /* AllAppointmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllAppointmentViewController.swift; sourceTree = "<group>"; };
 		1B5312432693754200B88165 /* SukhumvitSet-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SukhumvitSet-Thin.ttf"; sourceTree = "<group>"; };
 		1B5312442693754200B88165 /* SukhumvitSet-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SukhumvitSet-SemiBold.ttf"; sourceTree = "<group>"; };
 		1B5312452693754200B88165 /* SukhumvitSet-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SukhumvitSet-Medium.ttf"; sourceTree = "<group>"; };
@@ -496,6 +498,14 @@
 				1BC5428E26B9374B00C15521 /* FormImageCell.swift */,
 			);
 			path = "History Detail";
+			sourceTree = "<group>";
+		};
+		1B3F008F26BBD185001B2062 /* AllAppointment */ = {
+			isa = PBXGroup;
+			children = (
+				1B3F009026BBD1C6001B2062 /* AllAppointmentViewController.swift */,
+			);
+			path = AllAppointment;
 			sourceTree = "<group>";
 		};
 		1B5312412693752E00B88165 /* Support files */ = {
@@ -789,6 +799,7 @@
 			children = (
 				1BCE64F326A84B79002EE71F /* HistoryAppointmentViewController.swift */,
 				1B3D367626B2EEC3000EFCEC /* History Detail */,
+				1B3F008F26BBD185001B2062 /* AllAppointment */,
 			);
 			path = HistoryAppointment;
 			sourceTree = "<group>";
@@ -1196,6 +1207,7 @@
 				1B19E4A026B6CFDE00A23BAE /* Doctor-HistoryAppointmentViewController.swift in Sources */,
 				1BE101E7269DD2DD00F7323E /* Customer.swift in Sources */,
 				3CF7B50526AC23C200F937DE /* String+Extension.swift in Sources */,
+				1B3F009126BBD1C6001B2062 /* AllAppointmentViewController.swift in Sources */,
 				1B13E6E7269ADC2100131105 /* LoginViewController.swift in Sources */,
 				1B7C910F26A5268600C341B6 /* DialogCell.swift in Sources */,
 				1B13E6EA269AE79E00131105 /* WebViewViewController.swift in Sources */,

@@ -24,6 +24,9 @@ class HistoryAppointmentDetailViewController: UIViewController, UITableViewDataS
     
     var profile = ""
     
+    @IBOutlet weak var allAppointmentButton: UIButton!
+    var isShowAppointmentButton = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -57,11 +60,19 @@ class HistoryAppointmentDetailViewController: UIViewController, UITableViewDataS
         
         self.appointmentLabel.text = String(format: "วันที่ %2d %@ %d เวลา %.2d:%.2d - %.2d:%.2d",startDate.day,startDate.monthName(.default),startDate.year,startDate.hour,startDate.minute,endDate.hour,endDate.minute)
         
-     
+        if isShowAppointmentButton == false {
+            self.allAppointmentButton.isHidden = true
+        }
+        
     }
     
     @IBAction func appoointmentAllTapped() {
         
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let viewController = storyboard.instantiateViewController(withIdentifier: "AllAppointmentViewController") as! AllAppointmentViewController
+        viewController.hidesBottomBarWhenPushed = true
+        viewController.customerReference = appointment?.customerReference
+        self.navigationController?.pushViewController(viewController, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
