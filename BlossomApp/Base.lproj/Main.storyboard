@@ -683,19 +683,19 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TSy-cg-vqv">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1170"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1200"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="aOX-9a-Reh">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="1170"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="1200"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EQE-Q3-1jE" userLabel="Banner">
-                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="290"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="320"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MUb-BB-PEU" customClass="MultiBannerView" customModule="BlossomApp" customModuleProvider="target">
-                                                                <rect key="frame" x="20" y="20" width="374" height="250"/>
+                                                                <rect key="frame" x="20" y="20" width="374" height="280"/>
                                                                 <color key="backgroundColor" red="0.98823529409999999" green="0.97647058819999999" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="250" id="bA6-of-dUh"/>
+                                                                    <constraint firstAttribute="height" constant="280" id="bA6-of-dUh"/>
                                                                 </constraints>
                                                             </view>
                                                         </subviews>
@@ -708,7 +708,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="00t-gR-Ba6" userLabel="Appointment">
-                                                        <rect key="frame" x="0.0" y="290" width="414" height="160"/>
+                                                        <rect key="frame" x="0.0" y="320" width="414" height="160"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zWC-HX-azq">
                                                                 <rect key="frame" x="20" y="0.0" width="374" height="1"/>
@@ -789,12 +789,12 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2ue-GU-1HR" userLabel="Medicine">
-                                                        <rect key="frame" x="0.0" y="450" width="414" height="160"/>
+                                                        <rect key="frame" x="0.0" y="480" width="414" height="160"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S6n-c9-OJ3">
                                                                 <rect key="frame" x="20" y="0.0" width="374" height="160"/>
                                                                 <subviews>
-                                                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="banner" translatesAutoresizingMaskIntoConstraints="NO" id="hDB-DJ-yFg">
+                                                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="medicine" translatesAutoresizingMaskIntoConstraints="NO" id="hDB-DJ-yFg">
                                                                         <rect key="frame" x="0.0" y="0.0" width="374" height="160"/>
                                                                         <gestureRecognizers/>
                                                                     </imageView>
@@ -818,7 +818,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IiK-HY-LfV" userLabel="Doctor">
-                                                        <rect key="frame" x="0.0" y="610" width="414" height="160"/>
+                                                        <rect key="frame" x="0.0" y="640" width="414" height="160"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HDX-AJ-qhw">
                                                                 <rect key="frame" x="20" y="0.0" width="374" height="160"/>
@@ -850,7 +850,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uar-ez-vTI" userLabel="Product">
-                                                        <rect key="frame" x="0.0" y="770" width="414" height="180"/>
+                                                        <rect key="frame" x="0.0" y="800" width="414" height="180"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ljq-Co-pIP">
                                                                 <rect key="frame" x="20" y="42.5" width="374" height="117.5"/>
@@ -922,7 +922,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t2f-ZZ-iCW" userLabel="Review">
-                                                        <rect key="frame" x="0.0" y="950" width="414" height="220"/>
+                                                        <rect key="frame" x="0.0" y="980" width="414" height="220"/>
                                                         <subviews>
                                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GaO-nM-gVB">
                                                                 <rect key="frame" x="20" y="0.0" width="374" height="1"/>
@@ -4736,7 +4736,6 @@
         <image name="apple_circle" width="980" height="980"/>
         <image name="appointment_promote" width="500" height="206"/>
         <image name="arrow_green" width="8" height="16"/>
-        <image name="banner" width="320" height="130"/>
         <image name="calendar_icon" width="18" height="20"/>
         <image name="camera" width="26" height="22"/>
         <image name="chat_icon" width="20" height="20"/>
@@ -4758,6 +4757,7 @@
         <image name="loginwithapple" width="300" height="44"/>
         <image name="loginwithfacebook" width="300" height="44"/>
         <image name="logo" width="346" height="452"/>
+        <image name="medicine" width="1000" height="412"/>
         <image name="placeholder" width="343" height="309"/>
         <image name="product_icon" width="19" height="20"/>
         <image name="star" width="15" height="15"/>
