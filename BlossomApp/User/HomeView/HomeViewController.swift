@@ -11,6 +11,7 @@ import Firebase
 import ConnectyCube
 import SwiftDate
 import Alamofire
+import SwiftyUserDefaults
 
 class HomeViewController: UIViewController, MultiBannerViewDelegate {
    
@@ -174,6 +175,7 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
         
         if self.orders.contains(where: {$0.paid == false}) {
             self.medicineView.isHidden = false
+            Defaults[\.orderList] = "N"
         }
         
     }

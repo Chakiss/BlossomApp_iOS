@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import SwiftyUserDefaults
 
 class AppointmentListViewController: UIViewController {
 
@@ -52,6 +53,14 @@ class AppointmentListViewController: UIViewController {
         
         if shouldHandleDeeplink {
             handleDeeplink()
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        if Defaults[\.orderList] == "N" {
+            
         }
     }
     

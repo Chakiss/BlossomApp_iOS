@@ -80,7 +80,8 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
         
         let chatMessage = self.chatMessageList[indexPath.row]
         if Defaults[\.role] == "customer"{
-            if  chatMessage.senderID == chatdialog?.userID {
+            let customerConnectyCubeID = UInt((customer?.referenceConnectyCubeID)!)!
+            if  chatMessage.senderID == customerConnectyCubeID {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath) as! SenderCell
                 cell.messageLabel.text = chatMessage.text
                 cell.timeLabel.text = chatMessage.dateSent?.toRelative(style: RelativeFormatter.defaultStyle(), locale: Locales.current)

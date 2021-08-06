@@ -21,6 +21,8 @@ class ProductListViewController: UIViewController, UITableViewDataSource, UITabl
     
     @IBOutlet weak var tableView: UITableView!
 
+    @IBOutlet weak var headerImageView: UIImageView!
+    
     private var products: [Product] = []
     
     var deeplinkID: String = ""
@@ -50,6 +52,11 @@ class ProductListViewController: UIViewController, UITableViewDataSource, UITabl
             let newBackButton = UIBarButtonItem(title: "ปิด", style: .plain, target: self, action: #selector(closePrescript(sender:)))
             self.navigationItem.leftBarButtonItem = newBackButton
         }
+        
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+        self.headerImageView.addGestureRecognizer(tap)
+        self.headerImageView.isUserInteractionEnabled = true
     }
     
     @objc private func closePrescript(sender: UIBarButtonItem) {
@@ -146,6 +153,13 @@ class ProductListViewController: UIViewController, UITableViewDataSource, UITabl
             
             self.navigationController?.pushViewController(viewController, animated: true)
         }
+    }
+    
+    @objc func handleTap(_ sender: UITapGestureRecognizer) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let viewController = storyboard.instantiateViewController(withIdentifier: "PromotionListViewController") as! PromotionListViewController
+        viewController.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(viewController, animated: true)
     }
 
 }

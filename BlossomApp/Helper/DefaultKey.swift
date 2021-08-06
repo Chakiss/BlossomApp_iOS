@@ -10,4 +10,5 @@ import SwiftyUserDefaults
 
 extension DefaultsKeys {
     var role: DefaultsKey<String?> { .init("role") }
+    var orderList: DefaultsKey<String?> { .init("orderList") }
 }

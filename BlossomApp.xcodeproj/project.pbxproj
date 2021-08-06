@@ -38,6 +38,8 @@
 		1B3721D226959645006265D3 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3721D126959645006265D3 /* ProfileViewController.swift */; };
 		1B3721D52695AF29006265D3 /* ProfileInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3721D42695AF29006265D3 /* ProfileInformationViewController.swift */; };
 		1B3721D82695AF46006265D3 /* ProfileHealthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3721D72695AF46006265D3 /* ProfileHealthViewController.swift */; };
+		1B38FD8026BD919200BFC40E /* PromotionListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B38FD7F26BD919200BFC40E /* PromotionListViewController.swift */; };
+		1B38FD8226BD9E5A00BFC40E /* PromotionListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B38FD8126BD9E5A00BFC40E /* PromotionListCell.swift */; };
 		1B3D367526B28408000EFCEC /* ProductHilight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D367426B28408000EFCEC /* ProductHilight.swift */; };
 		1B3D367826B2EEED000EFCEC /* HistoryAppointmentDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D367726B2EEED000EFCEC /* HistoryAppointmentDetailViewController.swift */; };
 		1B3F009126BBD1C6001B2062 /* AllAppointmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3F009026BBD1C6001B2062 /* AllAppointmentViewController.swift */; };
@@ -216,6 +218,8 @@
 		1B3721D126959645006265D3 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		1B3721D42695AF29006265D3 /* ProfileInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInformationViewController.swift; sourceTree = "<group>"; };
 		1B3721D72695AF46006265D3 /* ProfileHealthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHealthViewController.swift; sourceTree = "<group>"; };
+		1B38FD7F26BD919200BFC40E /* PromotionListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionListViewController.swift; sourceTree = "<group>"; };
+		1B38FD8126BD9E5A00BFC40E /* PromotionListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionListCell.swift; sourceTree = "<group>"; };
 		1B3D367426B28408000EFCEC /* ProductHilight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductHilight.swift; sourceTree = "<group>"; };
 		1B3D367726B2EEED000EFCEC /* HistoryAppointmentDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryAppointmentDetailViewController.swift; sourceTree = "<group>"; };
 		1B3F009026BBD1C6001B2062 /* AllAppointmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllAppointmentViewController.swift; sourceTree = "<group>"; };
@@ -602,6 +606,8 @@
 				1B53125D26937B5F00B88165 /* ProductListViewController.swift */,
 				1B1C2E3D26994FF700F57122 /* ProductDetailViewController.swift */,
 				1B1C2E3B269944C200F57122 /* ProductCell.swift */,
+				1B38FD7F26BD919200BFC40E /* PromotionListViewController.swift */,
+				1B38FD8126BD9E5A00BFC40E /* PromotionListCell.swift */,
 				1BF58D3A26ADBECB00F2D620 /* OrderResponse */,
 				1B1C2E3A269943AC00F57122 /* ProductResponse */,
 				3CF7B50626AC40B900F937DE /* APIProduct.swift */,
@@ -1197,6 +1203,7 @@
 				1BCE64FA26A88736002EE71F /* CallViewController.swift in Sources */,
 				1B5BC3BC269636D4004206AE /* DoctorCell.swift in Sources */,
 				1B8D861126A49B8400A2ED57 /* ReceiverCell.swift in Sources */,
+				1B38FD8026BD919200BFC40E /* PromotionListViewController.swift in Sources */,
 				1BCE64F626A84BA0002EE71F /* MedicineListViewController.swift in Sources */,
 				1BCE650126A9A1D0002EE71F /* LocalVideoView.swift in Sources */,
 				1B13E6E5269ADC0000131105 /* RegisterViewController.swift in Sources */,
@@ -1252,6 +1259,7 @@
 				1BA04F4926B0022D0053F10D /* BlossomReviewViewController.swift in Sources */,
 				1B77591F269479FA000780BD /* UIView+Additions.swift in Sources */,
 				1BCE64F226A84B66002EE71F /* ComingAppointmentViewController.swift in Sources */,
+				1B38FD8226BD9E5A00BFC40E /* PromotionListCell.swift in Sources */,
 				3CBF265B26B44A9400F640DB /* InboxTableViewController.swift in Sources */,
 				1B1C2E2D2698A77A00F57122 /* ProductsResponse.swift in Sources */,
 				1B3D367826B2EEED000EFCEC /* HistoryAppointmentDetailViewController.swift in Sources */,

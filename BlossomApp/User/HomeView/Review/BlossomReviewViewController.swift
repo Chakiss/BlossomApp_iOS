@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import GSImageViewerController
 
 class BlossomReviewViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
   
@@ -79,6 +80,15 @@ class BlossomReviewViewController: UIViewController, UITableViewDelegate, UITabl
 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let cell = tableView.cellForRow(at: indexPath) as! BlossomReviewCell
+        
+        let imageInfo   = GSImageInfo(image: cell.reviewImageView.image!, imageMode: .aspectFit)
+        let transitionInfo = GSTransitionInfo(fromView: cell.reviewImageView)
+        let imageViewer = GSImageViewerController(imageInfo: imageInfo, transitionInfo: transitionInfo)
+        present(imageViewer, animated: true, completion: nil)
         
     }
    
