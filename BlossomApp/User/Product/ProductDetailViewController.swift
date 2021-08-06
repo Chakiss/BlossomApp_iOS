@@ -47,6 +47,7 @@ class ProductDetailViewController: UIViewController {
         
         decreaseButton.addConerRadiusAndShadow()
         addButton.addConerRadiusAndShadow()
+        calculatePrice()
     }
     
     @IBAction func addQuantity(_ sender: Any) {
