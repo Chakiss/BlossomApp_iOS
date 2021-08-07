@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B13A28326BE3D080073A19F /* ReceiveCallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B13A28226BE3D080073A19F /* ReceiveCallViewController.swift */; };
 		1B13E6E5269ADC0000131105 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B13E6E4269ADC0000131105 /* RegisterViewController.swift */; };
 		1B13E6E7269ADC2100131105 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B13E6E6269ADC2100131105 /* LoginViewController.swift */; };
 		1B13E6EA269AE79E00131105 /* WebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B13E6E9269AE79E00131105 /* WebViewViewController.swift */; };
@@ -98,7 +99,6 @@
 		1BCE64F826A8543B002EE71F /* AppointmentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCE64F726A8543B002EE71F /* AppointmentCell.swift */; };
 		1BCE64FA26A88736002EE71F /* CallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCE64F926A88736002EE71F /* CallViewController.swift */; };
 		1BCE64FD26A8C86C002EE71F /* PreFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCE64FC26A8C86C002EE71F /* PreFormViewController.swift */; };
-		1BCE650026A9A1D0002EE71F /* RemoteConnectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCE64FE26A9A1D0002EE71F /* RemoteConnectionView.swift */; };
 		1BCE650126A9A1D0002EE71F /* LocalVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCE64FF26A9A1D0002EE71F /* LocalVideoView.swift */; };
 		1BCE650426ABB153002EE71F /* OmiseSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 1BCE650326ABB153002EE71F /* OmiseSDK */; };
 		1BCE650526ABB153002EE71F /* OmiseSDK in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 1BCE650326ABB153002EE71F /* OmiseSDK */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -181,6 +181,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1B13A28226BE3D080073A19F /* ReceiveCallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveCallViewController.swift; sourceTree = "<group>"; };
 		1B13E6E4269ADC0000131105 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		1B13E6E6269ADC2100131105 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		1B13E6E9269AE79E00131105 /* WebViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewViewController.swift; sourceTree = "<group>"; };
@@ -279,7 +280,6 @@
 		1BCE64F726A8543B002EE71F /* AppointmentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppointmentCell.swift; sourceTree = "<group>"; };
 		1BCE64F926A88736002EE71F /* CallViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallViewController.swift; sourceTree = "<group>"; };
 		1BCE64FC26A8C86C002EE71F /* PreFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreFormViewController.swift; sourceTree = "<group>"; };
-		1BCE64FE26A9A1D0002EE71F /* RemoteConnectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteConnectionView.swift; sourceTree = "<group>"; };
 		1BCE64FF26A9A1D0002EE71F /* LocalVideoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalVideoView.swift; sourceTree = "<group>"; };
 		1BCE650726ABB69E002EE71F /* DoctorProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorProfileCell.swift; sourceTree = "<group>"; };
 		1BCE650926ABCE82002EE71F /* ReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCell.swift; sourceTree = "<group>"; };
@@ -588,8 +588,8 @@
 				1BCE64F726A8543B002EE71F /* AppointmentCell.swift */,
 				1BCE64F926A88736002EE71F /* CallViewController.swift */,
 				1BCE64FF26A9A1D0002EE71F /* LocalVideoView.swift */,
-				1BCE64FE26A9A1D0002EE71F /* RemoteConnectionView.swift */,
 				1BCE650F26AD501F002EE71F /* CallKitAdapter.swift */,
+				1B13A28226BE3D080073A19F /* ReceiveCallViewController.swift */,
 				1BA04F5226B112700053F10D /* ReviewPage */,
 				1BCE64EE26A849D1002EE71F /* ComingAppointment */,
 				1BCE64EF26A849DE002EE71F /* HistoryAppointment */,
@@ -1203,6 +1203,7 @@
 				1BCE64FA26A88736002EE71F /* CallViewController.swift in Sources */,
 				1B5BC3BC269636D4004206AE /* DoctorCell.swift in Sources */,
 				1B8D861126A49B8400A2ED57 /* ReceiverCell.swift in Sources */,
+				1B13A28326BE3D080073A19F /* ReceiveCallViewController.swift in Sources */,
 				1B38FD8026BD919200BFC40E /* PromotionListViewController.swift in Sources */,
 				1BCE64F626A84BA0002EE71F /* MedicineListViewController.swift in Sources */,
 				1BCE650126A9A1D0002EE71F /* LocalVideoView.swift in Sources */,
@@ -1221,7 +1222,6 @@
 				3CF7B50A26AC43D900F937DE /* CreateOrderResponse.swift in Sources */,
 				3CBF265726B4415700F640DB /* BlossomApp.xcdatamodeld in Sources */,
 				1BCE64F426A84B79002EE71F /* HistoryAppointmentViewController.swift in Sources */,
-				1BCE650026A9A1D0002EE71F /* RemoteConnectionView.swift in Sources */,
 				1BC5428926B835BD00C15521 /* BankTransferViewController.swift in Sources */,
 				1B8D861426A49C0B00A2ED57 /* MessageingViewController.swift in Sources */,
 				1BF58D4126ADBEDE00F2D620 /* OptionsOrder.swift in Sources */,
@@ -1453,7 +1453,7 @@
 				CODE_SIGN_ENTITLEMENTS = BlossomApp/BlossomApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = GZWLHGR8C3;
 				EXCLUDED_ARCHS = "";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
@@ -1483,7 +1483,7 @@
 				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = "";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = GZWLHGR8C3;
 				EXCLUDED_ARCHS = "";
 				INFOPLIST_FILE = BlossomApp/Info.plist;

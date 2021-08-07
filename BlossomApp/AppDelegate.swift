@@ -160,6 +160,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         print("didReceiveRemoteNotification \(userInfo)")
         saveMessage(userInfo: userInfo)
         handlePush(userInfo: userInfo)
+        
     }
 
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Swift.Void) {
@@ -184,6 +185,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         print("\(userInfo)")
         saveMessage(from: response.notification.request.identifier, userInfo: userInfo)
         handlePush(userInfo: userInfo)
+
     }
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, openSettingsFor notification: UNNotification?) {

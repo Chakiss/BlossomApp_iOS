@@ -61,7 +61,7 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
             .document(doctorID)
             .collection("slots")
             .whereField("platform", isEqualTo: "app")
-            //.whereField("date", isGreaterThan: Date().startOfDay.timeIntervalSince1970)
+    
             .getDocuments { daySlot, error in
                 
             guard error == nil else {
@@ -104,7 +104,11 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     func getSlotTime(dayID: String) {
-        db.collection("doctors").document((doctor?.id)!).collection("slots").document(dayID).collection("times").getDocuments { timeSlot, error in
+        db.collection("doctors").document((doctor?.id)!)
+            .collection("slots").document(dayID)
+            .collection("times")
+            //.whereField("date", isGreaterThan: Timestamp(date: Date()))
+            .getDocuments { timeSlot, error in
             if error == nil {
                 
                 self.slotTime = (timeSlot!.documents.map { queryDocumentSnapshot -> SlotTime in
@@ -122,6 +126,9 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
                     return SlotTime(id: id, isBooked: isBooked, isCompleted: isCompleted, isLocked: isLocked, isPaid: isPaid, period: period, salePrice: salePrice, start: start, end: end)
                 })
                 if self.slotTime.count > 0 {
+                    print(Date().timeIntervalSince1970)
+                    
+                    self.slotTime = self.slotTime.filter({ Int64(Date().timeIntervalSince1970) < $0.start?.seconds ?? 0 })
                    //self.slotTimeSelected = self.slotTime[0]
                 }
                 self.timeCollectionView.reloadData()
@@ -174,6 +181,8 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
             
             
             if slotTime.isBooked == false{
+                
+                cell.isUserInteractionEnabled = true
                 if self.slotTimeSelected?.id == slotTime.id {
                     cell.backgroundCellView.backgroundColor = UIColor.blossomPrimary
                     
@@ -183,9 +192,26 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
                 }
                 
             } else {
+                
                 cell.backgroundCellView.backgroundColor = UIColor.blossomLightGray
+                cell.isUserInteractionEnabled = false
             }
             
+            let today = Date()
+            let startDateTime = slotTime.start?.dateValue()
+            let endDateTime = slotTime.end?.dateValue()
+
+//            //if today.day != startDateTime?.day {
+//                if  (startDateTime?.hour ?? 0 <= today.hour ) &&
+//                        //startDateTime?.hour ?? 0 < today.minute &&
+//                        //endDateTime?.hour ?? 0 < today.hour &&
+//                        endDateTime?.minute ?? 0 < today.minute
+//                {
+//                    cell.backgroundCellView.backgroundColor = UIColor.blossomLightGray
+//                    cell.isUserInteractionEnabled = false
+//                }
+//            //}
+
             return cell
         }
     }

@@ -129,9 +129,10 @@ class CallKitAdapter: NSObject, CXProviderDelegate {
     }
     
     open func reportIncomingCall(with userIDs: [Int], name: String, session: CallSession, userInfo: UserInfo, uuid: UUID, onAcceptAction: @escaping (_ userInfo: UserInfo) -> Void, completion: (() -> Void)? = nil) {
-        guard self.session == nil else {
-            return
-        }
+        
+        //guard self.session == nil else {
+        //    return
+       // }
         
         self.session = session
         self.userInfo = userInfo

@@ -9,6 +9,7 @@ import Foundation
 import ConnectyCube
 import ConnectyCubeCalls
 import PushKit
+import CallKit
 import SwiftyUserDefaults
 
 protocol CallManagerDelegate: AnyObject {
@@ -16,7 +17,9 @@ protocol CallManagerDelegate: AnyObject {
     func callManagerDidReceivedRemoteVideoTrack(videoTrack: CallVideoTrack)
 }
 
-class CallManager: NSObject {
+class CallManager: NSObject, CXProviderDelegate {
+    
+    
     
     var deviceToken: Data?
 
@@ -40,7 +43,11 @@ class CallManager: NSObject {
 
         CallClient.initializeRTC()
         CallClient.instance().add(self)
-        CallConfig.setAnswerTimeInterval(25)
+        CallConfig.setAnswerTimeInterval(60)
+        
+        let voipRegistry: PKPushRegistry = PKPushRegistry(queue: nil)
+        voipRegistry.delegate = self
+        voipRegistry.desiredPushTypes = [PKPushType.voIP]
     }
     
     func createSession(with type: CallConferenceType, opponentIDs: [NSNumber]) {
@@ -113,8 +120,8 @@ class CallManager: NSObject {
     }
     
     private func voipRegistration(connectyID: UInt, firebaseID: String) {
-        let mainQueue = DispatchQueue.main
-        let voipRegistry: PKPushRegistry = PKPushRegistry(queue: mainQueue)
+        //let mainQueue = DispatchQueue.main
+        let voipRegistry: PKPushRegistry = PKPushRegistry(queue: nil)
         voipRegistry.delegate = self
         voipRegistry.desiredPushTypes = [PKPushType.voIP]
 
@@ -165,6 +172,7 @@ class CallManager: NSObject {
 
 extension CallManager : CallViewControllerDelegate {
     
+   
     func callViewDidEndCall(info: CallKitAdapter.UserInfo) {
         let controller = UIApplication.shared.windows.first?.rootViewController
         handleDidEndCall(info: info, controller: controller)
@@ -250,6 +258,14 @@ extension CallManager : ProductListPrescriptionDelegate {
 extension CallManager : PKPushRegistryDelegate {
     // Handle updated push credentials
 
+    func providerDidReset(_ provider: CXProvider) {
+       print("providerDidReset")
+        print(provider)
+    }
+    func pushRegistry(_ registry: PKPushRegistry, didInvalidatePushTokenFor type: PKPushType) {
+        print("didInvalidatePushTokenFor")
+         print(type)
+    }
     func pushRegistry(_ registry: PKPushRegistry, didUpdate pushCredentials: PKPushCredentials, for type: PKPushType) {
         
         print(pushCredentials.token)
@@ -269,15 +285,21 @@ extension CallManager : PKPushRegistryDelegate {
         }
     }
     
-    // MARK: - PKPushRegistryDelegate protocol
-   func pushRegistry(_ registry: PKPushRegistry, didInvalidatePushTokenFor type: PKPushType) {
-       print("pushRegistry:didInvalidatePushTokenForType:")
-   }
+   
+  
     
-    // Handle incoming pushes
-    func pushRegistry(_ registry: PKPushRegistry, didReceiveIncomingPushWith payload: PKPushPayload, for type: PKPushType) {
-        print("didReceiveIncomingPushWithPayload")
+    func pushRegistry(_ registry: PKPushRegistry, didReceiveIncomingPushWith payload: PKPushPayload, for type: PKPushType, completion: @escaping () -> Void) {
+        let config = CXProviderConfiguration(localizedName: "My App")
+        config.includesCallsInRecents = false;
+        config.supportsVideo = true;
+        let provider = CXProvider(configuration: config)
+        provider.setDelegate(self, queue: nil)
+        let update = CXCallUpdate()
+        update.remoteHandle = CXHandle(type: .generic, value: "Pete Za")
+        update.hasVideo = true
+        provider.reportNewIncomingCall(with: UUID(), update: update, completion: { error in })
     }
+    
 
 }
 

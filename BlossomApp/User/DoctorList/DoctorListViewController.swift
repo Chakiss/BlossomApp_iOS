@@ -91,15 +91,45 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
                     let appointment = data["appointment"] as? Int ?? 0
                     let review = data["review"] as? Int ?? 0
                     
-                    
                     let doctor = Doctor(id: id, displayName: displayName, email: email, firstName: firstName, lastName: lastName, phonenumber: phoneNumber, connectyCubeID: referenceConnectyCubeID, story: story, createdAt: createdAt, updatedAt: updatedAt, displayPhoto: displayPhoto, score: score,documentReference: queryDocumentSnapshot.reference)
+                    
+                    self.db.collection("doctors")
+                        .document(queryDocumentSnapshot.documentID ?? "")
+                        .collection("slots")
+                        .whereField("platform", isEqualTo: "app")
+                        .getDocuments { daySlot, error in
+                            guard error == nil else {
+                                return
+                            }
+                            
+                            guard let slotDocuments = daySlot?.documents else {
+                                return
+                            }
+                            
+                            for queryDocumentSnapshot in slotDocuments {
+                                //let id = queryDocumentSnapshot.documentID
+                                let data = queryDocumentSnapshot.data()
+                                let date = data["date"] as! Timestamp
+                
+                                let today = Date().startOfDay
+                                let d = date.dateValue().startOfDay
+                                
+                                if d.date.startOfDay == today {
+                                    doctor.isHaveSlotToday = true
+                                    self.doctorList.sort(by: { $0.isHaveSlotToday && !$1.isHaveSlotToday })
+                                    self.tableView.reloadData()
+                                }
+                            }
+                        }
+                    
+                   
                     doctor.appointment = appointment
                     doctor.review = review
                     
                     return doctor
                     
                 }
-                self.checkSlotDoctor()
+                self.doctorList.sort(by: { $0.isHaveSlotToday && !$1.isHaveSlotToday })
                 self.tableView.reloadData()
                 
                 
@@ -131,11 +161,11 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
                         let region = Region(calendar: Calendar(identifier: .gregorian), zone: Zones.gmt, locale: Locales.englishUnitedStates)
                         let d = date.dateValue().startOfDay
                         
-                       // if d.date.startOfDay == today {
+                        if d.date.startOfDay >= today {
                             self.doctorList[index].isHaveSlotToday = true
                             self.doctorList.sort { $0.isHaveSlotToday && !$1.isHaveSlotToday }
                             self.tableView.reloadData()
-                        //}
+                        }
                     }
                 }
         }
@@ -184,7 +214,7 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
         cell.doctorNickNameLabel.text = doctor.displayName
         cell.doctorNameLabel.text = (doctor.firstName ?? "") + "  " + (doctor.lastName ?? "")
         
-        
+        cell.doctorImageView.image = UIImage(named: "placeholder")
         let imageRef = storage.reference(withPath: doctor.displayPhoto ?? "")
         imageRef.getData(maxSize: 2 * 1024 * 1024) { (data, error) in
             if error == nil {
