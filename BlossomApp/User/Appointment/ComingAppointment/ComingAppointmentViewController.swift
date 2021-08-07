@@ -109,7 +109,7 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
             
         }))
         
-        alert.addAction(UIAlertAction(title: "ยกเลิกหรือเปลี่ยนเวลานัด", style: .default, handler: { [weak self] (UIAlertAction) in
+        alert.addAction(UIAlertAction(title: "ติดต่อ Admin เพื่อเปลี่ยนหรือยกเลิกเวลานัด", style: .default, handler: { [weak self] (UIAlertAction) in
             
             if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
                 
