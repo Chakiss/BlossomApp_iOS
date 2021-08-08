@@ -24,9 +24,16 @@ class LandingViewController: UIViewController,MultiBannerViewDelegate {
 
         // Do any additional setup after loading the view.
         let landing1 = Promotion()
-        landing1.image = "https://firebasestorage.googleapis.com/v0/b/blossom-clinic-thailand.appspot.com/o/Landing%2FLanding1.png?alt=media&token=77956518-3c74-4f37-8ef9-777d98b1e25b"
+        landing1.image = "https://www.blossomclinicthailand.com/wp-content/uploads/2021/08/app-cover-1.png"
+        let landing2 = Promotion()
+        landing2.image = "https://www.blossomclinicthailand.com/wp-content/uploads/2021/08/app-cover-2.png"
+        let landing3 = Promotion()
+        landing3.image = "https://www.blossomclinicthailand.com/wp-content/uploads/2021/08/app-cover-3.png"
+        let landing4 = Promotion()
+        landing4.image = "https://www.blossomclinicthailand.com/wp-content/uploads/2021/08/app-cover-4.png"
+        
         multiBannerView.delegate = self
-        multiBannerView.objects = [landing1,landing1,landing1]
+        multiBannerView.objects = [landing1,landing2,landing3,landing4]
         multiBannerView.reload()
         
         self.registerButton.layer.cornerRadius = 22

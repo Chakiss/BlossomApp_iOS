@@ -51,7 +51,7 @@ class Cart {
     let id: String = UUID().uuidString
     private(set) var items: [CartItem] = []
     private(set) var purchaseOrder: Order?
-    
+    var shippingFee: Int = 0
     public func addItem(_ product: Product, quantity: Int = 1, purchaseID: String? = nil) {
         
         let item: CartItem = CartItem(product: product, quantity: quantity, purchaseID: purchaseID)
@@ -101,7 +101,7 @@ class Cart {
     }
     
     public func calculateTotalPriceInSatang() -> Int {
-        return items.map({ $0.product.priceInSatang() * $0.quantity }).reduce(0, +)
+        return items.map({ $0.product.priceInSatang() * $0.quantity }).reduce(0, +) + shippingFee
     }
     
     public func getPurcahseAttributes() -> [PurchasesAttribute] {

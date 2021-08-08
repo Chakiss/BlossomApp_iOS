@@ -105,7 +105,7 @@ enum APIProduct {
             ]
             debugPrint("\(endpoint()), \(parameters)")
 
-            AF.request(endpoint(), method: .post, parameters: parameters, headers: ["Authorization":"Basic c2tleV90ZXN0XzVuMHh6bjRrcHN2eGl6bGh2b3g6"])
+            AF.request(endpoint(), method: .post, parameters: parameters, headers: ["Authorization":"Basic c2tleV81bmdsbTNqYnpyb2dpcnRkdGY3Og=="])
                 .validate()
                 .responseDecodable(of: OmisePaymentResponse.self) { (response) in
                     guard let orderResponse = response.value else {
@@ -115,7 +115,7 @@ enum APIProduct {
                     completion(orderResponse)
                 }
         case let .getChargeCreditCard(_, completion):
-            AF.request(endpoint(), method: .get, headers: ["Authorization":"Basic c2tleV90ZXN0XzVuMHh6bjRrcHN2eGl6bGh2b3g6"])
+            AF.request(endpoint(), method: .get, headers: ["Authorization":"Basic c2tleV81bmdsbTNqYnpyb2dpcnRkdGY3Og=="])
                 .validate()
                 .responseDecodable(of: OmisePaymentResponse.self) { (response) in
                     guard let orderResponse = response.value else {

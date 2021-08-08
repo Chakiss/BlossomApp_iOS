@@ -12,6 +12,8 @@ import CommonKeyboard
 import PushKit
 import UserNotifications
 import SwiftyUserDefaults
+import FirebaseRemoteConfig
+
 
 protocol DeeplinkingHandler {
     var shouldHandleDeeplink: Bool { get set }
@@ -113,6 +115,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         CommonKeyboard.shared.enabled = true
             
         CallManager.manager.setupCallManager()
+        
+        let remoteConfig = RemoteConfig.remoteConfig()
+        let settings = RemoteConfigSettings()
+        settings.minimumFetchInterval = 43200 // 12 * 60 * 60
+        remoteConfig.configSettings = settings
+        RemoteConfig.remoteConfig().fetch {  _, error in
+            if let error = error {
+                
+                return
+            }
+            
+            RemoteConfig.remoteConfig().activate { _, _ in
+                
+            }
+        }
         
         return true
         

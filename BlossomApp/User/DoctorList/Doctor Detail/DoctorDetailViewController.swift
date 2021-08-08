@@ -133,7 +133,10 @@ class DoctorDetailViewController: UIViewController, UITableViewDelegate, UITable
         
         if CustomerManager.sharedInstance.customer?.isPhoneVerified == false {
             showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณายืนยันเบอร์โทรศัพท์") { [weak self] in
-                self?.showLoginView()
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let viewController = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
+                viewController.hidesBottomBarWhenPushed = true
+                self?.navigationController?.pushViewController(viewController, animated: true)
             }
         } else {
             

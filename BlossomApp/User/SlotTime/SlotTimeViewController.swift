@@ -197,20 +197,7 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
                 cell.isUserInteractionEnabled = false
             }
             
-            let today = Date()
-            let startDateTime = slotTime.start?.dateValue()
-            let endDateTime = slotTime.end?.dateValue()
-
-//            //if today.day != startDateTime?.day {
-//                if  (startDateTime?.hour ?? 0 <= today.hour ) &&
-//                        //startDateTime?.hour ?? 0 < today.minute &&
-//                        //endDateTime?.hour ?? 0 < today.hour &&
-//                        endDateTime?.minute ?? 0 < today.minute
-//                {
-//                    cell.backgroundCellView.backgroundColor = UIColor.blossomLightGray
-//                    cell.isUserInteractionEnabled = false
-//                }
-//            //}
+        
 
             return cell
         }

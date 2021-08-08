@@ -13,6 +13,9 @@
         <array key="SukhumvitSet-Bold.ttf">
             <string>SukhumvitSet-Bold</string>
         </array>
+        <array key="SukhumvitSet-Light.ttf">
+            <string>SukhumvitSet-Light</string>
+        </array>
         <array key="SukhumvitSet-Medium.ttf">
             <string>SukhumvitSet-Medium</string>
         </array>
@@ -2483,6 +2486,12 @@
                                     <action selector="submit" destination="RZV-WU-sgb" eventType="touchUpInside" id="Kfn-Ub-pXK"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="*รูปหน้าตรงและมุมด้านข้าง" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ma5-p6-5s9">
+                                <rect key="frame" x="66" y="366.5" width="128.5" height="19"/>
+                                <fontDescription key="fontDescription" name="SukhumvitSet-Light" family="Sukhumvit Set" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Gey-Un-qhp"/>
                         <color key="backgroundColor" red="0.98823529409999999" green="0.97647058819999999" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2499,7 +2508,9 @@
                             <constraint firstItem="E86-fe-wva" firstAttribute="leading" secondItem="Gey-Un-qhp" secondAttribute="leading" constant="40" id="Uci-jY-zJd"/>
                             <constraint firstItem="mDQ-G4-XWm" firstAttribute="top" secondItem="Gey-Un-qhp" secondAttribute="top" constant="60" id="UhE-3d-ztn"/>
                             <constraint firstItem="Gey-Un-qhp" firstAttribute="trailing" secondItem="6Q9-21-a2R" secondAttribute="trailing" constant="60" id="XCK-ms-jnP"/>
+                            <constraint firstItem="Ma5-p6-5s9" firstAttribute="firstBaseline" secondItem="JGZ-PV-Ql7" secondAttribute="firstBaseline" id="Ycv-0I-scS"/>
                             <constraint firstItem="Z53-gF-YhR" firstAttribute="leading" secondItem="rkK-04-aYZ" secondAttribute="leading" id="awA-e6-jg3"/>
+                            <constraint firstItem="Ma5-p6-5s9" firstAttribute="leading" secondItem="JGZ-PV-Ql7" secondAttribute="trailing" constant="8" symbolic="YES" id="bMV-9b-W8p"/>
                             <constraint firstItem="JGZ-PV-Ql7" firstAttribute="top" secondItem="Z53-gF-YhR" secondAttribute="bottom" constant="40" id="hkn-9i-iCV"/>
                             <constraint firstItem="JGZ-PV-Ql7" firstAttribute="leading" secondItem="Gey-Un-qhp" secondAttribute="leading" constant="40" id="lQG-iK-iy3"/>
                             <constraint firstItem="2U5-Ec-xtH" firstAttribute="top" secondItem="E86-fe-wva" secondAttribute="bottom" constant="10" id="rRk-b2-h5s"/>

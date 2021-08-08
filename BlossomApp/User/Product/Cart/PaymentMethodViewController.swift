@@ -9,6 +9,7 @@ import UIKit
 import FirebaseFunctions
 import Firebase
 import OmiseSDK
+import FirebaseRemoteConfig
 
 struct AppointmentOrder {
     let id: String
@@ -67,6 +68,15 @@ class PaymentMethodViewController: UIViewController {
             clearCart()
         }
         
+        
+        
+        let config = RemoteConfig.remoteConfig()
+        let showSCB = config["showSCB"].stringValue
+        if showSCB == "no" {
+            self.qrPaymentButton.isHidden = true
+        } else {
+            self.qrPaymentButton.isHidden = false
+        }
     }
     
     
@@ -294,7 +304,7 @@ fileprivate class CreditCardInputViewController: UIViewController {
     weak var delegate: CreditCardFormViewControllerDelegate?
     
     private lazy var omiseView: CreditCardFormViewController = {
-        let publicKey = "pkey_test_5mmq1gnwqw4n78r3sil"
+        let publicKey = "pkey_5ngemrt9grz0ail7cj0"
         let creditCardView = CreditCardFormViewController.makeCreditCardFormViewController(withPublicKey: publicKey)
         creditCardView.preferredPrimaryColor = UIColor.blossomPrimary
         creditCardView.preferredSecondaryColor = UIColor.blossomLightGray

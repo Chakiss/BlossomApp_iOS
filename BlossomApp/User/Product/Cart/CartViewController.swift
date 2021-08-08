@@ -102,7 +102,7 @@ class CartViewController: UIViewController {
     private func updateTotalPrice() {
         var total = cart?.calculateTotalPriceInSatang().satangToBaht() ?? 0
         
-        if !self.checkSetProduct() && (total > 0 && total < 2000 )  {
+        if !self.checkSetProduct() && (total > 0 && total < 1000 )  {
             total += 60
             shippingFee = 60
             self.cartHeaderModel?.shippingText = "60"
@@ -110,7 +110,7 @@ class CartViewController: UIViewController {
             shippingFee = 0
             self.cartHeaderModel?.shippingText = "0"
         }
-        
+        cart?.shippingFee = shippingFee
         let totalText = total.toAmountText()
         self.cartHeaderModel?.priceText = totalText
         checkoutButton.isEnabled = cart?.items.count ?? 0 > 0
