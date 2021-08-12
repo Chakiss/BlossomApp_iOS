@@ -368,11 +368,8 @@
                                                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4.5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8vn-9K-K9z">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4.5" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8vn-9K-K9z">
                                                             <rect key="frame" x="10" y="47" width="374" height="22.5"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="22.5" id="Zmo-70-YN1"/>
-                                                            </constraints>
                                                             <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="14"/>
                                                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -2717,12 +2714,12 @@
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="rating">
-                                        <integer key="value" value="3"/>
+                                        <integer key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="maxRating">
                                         <integer key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="image" keyPath="filledStarImage" value="filledStar"/>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="filledStarImage" value="star"/>
                                     <userDefinedRuntimeAttribute type="image" keyPath="emptyStarImage" value="emptyStar"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
@@ -4999,7 +4996,6 @@
         <image name="doctor_icon" width="16" height="20"/>
         <image name="emptyStar" width="3" height="3"/>
         <image name="facebook_circle" width="512" height="512"/>
-        <image name="filledStar" width="88" height="84"/>
         <image name="head_review" width="1000" height="412"/>
         <image name="home_icon" width="26" height="27"/>
         <image name="hot_deal" width="1000" height="412"/>

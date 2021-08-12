@@ -101,7 +101,7 @@ class Cart {
     }
     
     public func calculateTotalPriceInSatang() -> Int {
-        return items.map({ $0.product.priceInSatang() * $0.quantity }).reduce(0, +) + shippingFee
+        return items.map({ $0.product.priceInSatang() * $0.quantity }).reduce(0, +) + (shippingFee * 100)
     }
     
     public func getPurcahseAttributes() -> [PurchasesAttribute] {
