@@ -107,6 +107,8 @@
 		1BCE650C26ABF5A2002EE71F /* Appointment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCE650B26ABF5A2002EE71F /* Appointment.swift */; };
 		1BCE650E26AC4F3C002EE71F /* VerifyPhoneNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCE650D26AC4F3C002EE71F /* VerifyPhoneNumberViewController.swift */; };
 		1BCE651026AD501F002EE71F /* CallKitAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCE650F26AD501F002EE71F /* CallKitAdapter.swift */; };
+		1BE0AA9326C2E53F00439CBC /* AppleLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE0AA9226C2E53F00439CBC /* AppleLoginViewController.swift */; };
+		1BE0AA9526C2E86500439CBC /* FacebookLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE0AA9426C2E86500439CBC /* FacebookLoginViewController.swift */; };
 		1BE101E3269D575D00F7323E /* Doctor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE101E2269D575D00F7323E /* Doctor.swift */; };
 		1BE101E5269DC63200F7323E /* Reviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE101E4269DC63200F7323E /* Reviews.swift */; };
 		1BE101E7269DD2DD00F7323E /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE101E6269DD2DD00F7323E /* Customer.swift */; };
@@ -286,6 +288,8 @@
 		1BCE650B26ABF5A2002EE71F /* Appointment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appointment.swift; sourceTree = "<group>"; };
 		1BCE650D26AC4F3C002EE71F /* VerifyPhoneNumberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPhoneNumberViewController.swift; sourceTree = "<group>"; };
 		1BCE650F26AD501F002EE71F /* CallKitAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallKitAdapter.swift; sourceTree = "<group>"; };
+		1BE0AA9226C2E53F00439CBC /* AppleLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginViewController.swift; sourceTree = "<group>"; };
+		1BE0AA9426C2E86500439CBC /* FacebookLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookLoginViewController.swift; sourceTree = "<group>"; };
 		1BE101E2269D575D00F7323E /* Doctor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doctor.swift; sourceTree = "<group>"; };
 		1BE101E4269DC63200F7323E /* Reviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reviews.swift; sourceTree = "<group>"; };
 		1BE101E6269DD2DD00F7323E /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
@@ -643,6 +647,8 @@
 				1B5BC3B92696086A004206AE /* LandingViewController.swift */,
 				1B13E6E4269ADC0000131105 /* RegisterViewController.swift */,
 				1B13E6E6269ADC2100131105 /* LoginViewController.swift */,
+				1BE0AA9226C2E53F00439CBC /* AppleLoginViewController.swift */,
+				1BE0AA9426C2E86500439CBC /* FacebookLoginViewController.swift */,
 				1BC3B21B26A2ADA5006EDD29 /* Nonce.swift */,
 				1B69AD5526A4791A00910679 /* ConnectyCubeManager.swift */,
 			);
@@ -1253,6 +1259,7 @@
 				3C65030926AC11E900DAA98A /* UIFont+Extension.swift in Sources */,
 				1B1C2E3426993C5B00F57122 /* Sets.swift in Sources */,
 				1BCE64EB26A70964002EE71F /* SlotTime.swift in Sources */,
+				1BE0AA9526C2E86500439CBC /* FacebookLoginViewController.swift in Sources */,
 				1B53126126937B9400B88165 /* ChatListViewController.swift in Sources */,
 				1B53125E26937B5F00B88165 /* ProductListViewController.swift in Sources */,
 				1B69AD5A26A489CB00910679 /* DailogCell2.swift in Sources */,
@@ -1264,6 +1271,7 @@
 				1B1C2E2D2698A77A00F57122 /* ProductsResponse.swift in Sources */,
 				1B3D367826B2EEED000EFCEC /* HistoryAppointmentDetailViewController.swift in Sources */,
 				1BA04F4326AE8CF20053F10D /* Doctor_ComingAppointmentViewController.swift in Sources */,
+				1BE0AA9326C2E53F00439CBC /* AppleLoginViewController.swift in Sources */,
 				3CFE6374269B350E005235F1 /* PaymentMethodViewController.swift in Sources */,
 				1B531255269378C800B88165 /* UIColor+Extension.swift in Sources */,
 				1B5BC3BA2696086A004206AE /* LandingViewController.swift in Sources */,
@@ -1453,7 +1461,7 @@
 				CODE_SIGN_ENTITLEMENTS = BlossomApp/BlossomApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = GZWLHGR8C3;
 				EXCLUDED_ARCHS = "";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
@@ -1483,7 +1491,7 @@
 				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = "";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = GZWLHGR8C3;
 				EXCLUDED_ARCHS = "";
 				INFOPLIST_FILE = BlossomApp/Info.plist;
