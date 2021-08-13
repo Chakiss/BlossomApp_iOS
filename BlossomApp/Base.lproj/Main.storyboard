@@ -2478,13 +2478,103 @@
                     <view key="view" contentMode="scaleToFill" id="bDR-DS-HXR">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9si-Yu-LYO">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="OrderItemTableViewCell" rowHeight="126" id="QiQ-KW-del" customClass="OrderItemTableViewCell" customModule="BlossomApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="24.5" width="414" height="126"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="QiQ-KW-del" id="7FX-EL-mXB">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="126"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ack-qC-D2U">
+                                                    <rect key="frame" x="20" y="10" width="374" height="106"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="นายแพทย์ศุภกร ตั้งจิรคภัณฑ์" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8c3-18-0K5">
+                                                            <rect key="frame" x="10" y="48" width="260" height="19"/>
+                                                            <fontDescription key="fontDescription" name="SukhumvitSet-Medium" family="Sukhumvit Set" pointSize="12"/>
+                                                            <color key="textColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.54901960780000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="นายแพทย์ศุภกร ตั้งจิรคภัณฑ์" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dpg-KI-tQ0">
+                                                            <rect key="frame" x="10" y="77" width="354" height="19"/>
+                                                            <fontDescription key="fontDescription" name="SukhumvitSet-Medium" family="Sukhumvit Set" pointSize="12"/>
+                                                            <color key="textColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.54901960780000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dr.Earth" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uUi-mQ-13f">
+                                                            <rect key="frame" x="10" y="10" width="354" height="28"/>
+                                                            <fontDescription key="fontDescription" name="SukhumvitSet-SemiBold" family="Sukhumvit Set" pointSize="13"/>
+                                                            <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sad-Z6-Sr3" customClass="Button" customModule="BlossomApp" customModuleProvider="target">
+                                                            <rect key="frame" x="278" y="33" width="86" height="40"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="40" id="nKV-U8-dC0"/>
+                                                            </constraints>
+                                                            <inset key="contentEdgeInsets" minX="20" minY="5" maxX="20" maxY="5"/>
+                                                            <state key="normal" title="Button">
+                                                                <color key="titleColor" red="0.12549019610000001" green="0.47058823529999999" blue="0.29803921570000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                            </state>
+                                                        </button>
+                                                    </subviews>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="trailing" secondItem="Sad-Z6-Sr3" secondAttribute="trailing" constant="10" id="3HP-vm-AvZ"/>
+                                                        <constraint firstAttribute="bottom" secondItem="dpg-KI-tQ0" secondAttribute="bottom" constant="10" id="DIM-cg-6yc"/>
+                                                        <constraint firstItem="uUi-mQ-13f" firstAttribute="top" secondItem="ack-qC-D2U" secondAttribute="top" constant="10" id="Dbt-I0-SqK"/>
+                                                        <constraint firstItem="dpg-KI-tQ0" firstAttribute="top" secondItem="8c3-18-0K5" secondAttribute="bottom" constant="10" id="Neg-eW-Th9"/>
+                                                        <constraint firstAttribute="trailing" secondItem="uUi-mQ-13f" secondAttribute="trailing" constant="10" id="PRd-o7-883"/>
+                                                        <constraint firstItem="dpg-KI-tQ0" firstAttribute="leading" secondItem="ack-qC-D2U" secondAttribute="leading" constant="10" id="QYu-oK-Y11"/>
+                                                        <constraint firstAttribute="trailing" secondItem="8c3-18-0K5" secondAttribute="trailing" constant="104" id="RmA-Ia-mUa"/>
+                                                        <constraint firstItem="uUi-mQ-13f" firstAttribute="leading" secondItem="ack-qC-D2U" secondAttribute="leading" constant="10" id="TbI-sN-FAS"/>
+                                                        <constraint firstItem="Sad-Z6-Sr3" firstAttribute="centerY" secondItem="ack-qC-D2U" secondAttribute="centerY" id="bK4-yt-A31"/>
+                                                        <constraint firstItem="8c3-18-0K5" firstAttribute="top" secondItem="uUi-mQ-13f" secondAttribute="bottom" constant="10" id="hX1-bk-3v1"/>
+                                                        <constraint firstAttribute="trailing" secondItem="dpg-KI-tQ0" secondAttribute="trailing" constant="10" id="hZv-Tl-pgc"/>
+                                                        <constraint firstItem="8c3-18-0K5" firstAttribute="leading" secondItem="ack-qC-D2U" secondAttribute="leading" constant="10" id="mCh-SR-DkY"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstItem="ack-qC-D2U" firstAttribute="top" secondItem="7FX-EL-mXB" secondAttribute="top" constant="10" id="KEn-nt-kH4"/>
+                                                <constraint firstItem="ack-qC-D2U" firstAttribute="leading" secondItem="7FX-EL-mXB" secondAttribute="leading" constant="20" id="Ydl-yB-X9n"/>
+                                                <constraint firstAttribute="trailing" secondItem="ack-qC-D2U" secondAttribute="trailing" constant="20" id="bdD-B6-52j"/>
+                                                <constraint firstAttribute="bottom" secondItem="ack-qC-D2U" secondAttribute="bottom" constant="10" id="dSB-fn-TaF"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="addressLabel" destination="8c3-18-0K5" id="hEe-XH-FPg"/>
+                                            <outlet property="orderLabel" destination="uUi-mQ-13f" id="9oz-VU-YiU"/>
+                                            <outlet property="statusButton" destination="Sad-Z6-Sr3" id="4Rt-fX-X3M"/>
+                                            <outlet property="totalLabel" destination="dpg-KI-tQ0" id="6xv-to-PPz"/>
+                                            <outlet property="view" destination="ack-qC-D2U" id="lSE-eJ-ztS"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="FLf-Z3-8PB"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="FLf-Z3-8PB" firstAttribute="trailing" secondItem="9si-Yu-LYO" secondAttribute="trailing" id="5Qq-PW-QuI"/>
+                            <constraint firstItem="9si-Yu-LYO" firstAttribute="top" secondItem="FLf-Z3-8PB" secondAttribute="top" id="OXc-As-zym"/>
+                            <constraint firstItem="9si-Yu-LYO" firstAttribute="leading" secondItem="FLf-Z3-8PB" secondAttribute="leading" id="Quj-Oa-QYI"/>
+                            <constraint firstItem="FLf-Z3-8PB" firstAttribute="bottom" secondItem="9si-Yu-LYO" secondAttribute="bottom" id="RL2-DC-854"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="9si-Yu-LYO" id="Mdc-dn-Mf5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dRT-Z9-Uvl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3552" y="1061"/>
+            <point key="canvasLocation" x="3550.7246376811595" y="1060.7142857142858"/>
         </scene>
         <!--Pre Form View Controller-->
         <scene sceneID="Jxt-w4-Onh">

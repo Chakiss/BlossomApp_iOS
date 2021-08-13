@@ -155,6 +155,10 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
                             print(error)
                         })
                     }
+                    //if Defaults[\.role] == "customer" {
+                    //    PushMessage().pushTo(targetID: "", type: "chat", subType: "toDoctor", title: "ข้อความ", message: pushmessage, payload: ["":""])
+                    //} else {
+                    //}
                     
                 }
                 

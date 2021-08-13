@@ -41,6 +41,7 @@
 		1B3721D82695AF46006265D3 /* ProfileHealthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3721D72695AF46006265D3 /* ProfileHealthViewController.swift */; };
 		1B38FD8026BD919200BFC40E /* PromotionListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B38FD7F26BD919200BFC40E /* PromotionListViewController.swift */; };
 		1B38FD8226BD9E5A00BFC40E /* PromotionListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B38FD8126BD9E5A00BFC40E /* PromotionListCell.swift */; };
+		1B3A30FB26C6B255009FD035 /* PushMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3A30FA26C6B255009FD035 /* PushMessage.swift */; };
 		1B3D367526B28408000EFCEC /* ProductHilight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D367426B28408000EFCEC /* ProductHilight.swift */; };
 		1B3D367826B2EEED000EFCEC /* HistoryAppointmentDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D367726B2EEED000EFCEC /* HistoryAppointmentDetailViewController.swift */; };
 		1B3F009126BBD1C6001B2062 /* AllAppointmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3F009026BBD1C6001B2062 /* AllAppointmentViewController.swift */; };
@@ -223,6 +224,7 @@
 		1B3721D72695AF46006265D3 /* ProfileHealthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHealthViewController.swift; sourceTree = "<group>"; };
 		1B38FD7F26BD919200BFC40E /* PromotionListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionListViewController.swift; sourceTree = "<group>"; };
 		1B38FD8126BD9E5A00BFC40E /* PromotionListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionListCell.swift; sourceTree = "<group>"; };
+		1B3A30FA26C6B255009FD035 /* PushMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushMessage.swift; sourceTree = "<group>"; };
 		1B3D367426B28408000EFCEC /* ProductHilight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductHilight.swift; sourceTree = "<group>"; };
 		1B3D367726B2EEED000EFCEC /* HistoryAppointmentDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryAppointmentDetailViewController.swift; sourceTree = "<group>"; };
 		1B3F009026BBD1C6001B2062 /* AllAppointmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllAppointmentViewController.swift; sourceTree = "<group>"; };
@@ -722,6 +724,7 @@
 				1BCE64EA26A70964002EE71F /* SlotTime.swift */,
 				1BCE650B26ABF5A2002EE71F /* Appointment.swift */,
 				3C7A4D4826B05F9B001D541A /* CallManager.swift */,
+				1B3A30FA26C6B255009FD035 /* PushMessage.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1226,6 +1229,7 @@
 				1BA04F3F26AE85080053F10D /* Doctor_ChatListViewController.swift in Sources */,
 				1BCE64FA26A88736002EE71F /* CallViewController.swift in Sources */,
 				1B5BC3BC269636D4004206AE /* DoctorCell.swift in Sources */,
+				1B3A30FB26C6B255009FD035 /* PushMessage.swift in Sources */,
 				1B8D861126A49B8400A2ED57 /* ReceiverCell.swift in Sources */,
 				1B13A28326BE3D080073A19F /* ReceiveCallViewController.swift in Sources */,
 				1B38FD8026BD919200BFC40E /* PromotionListViewController.swift in Sources */,
@@ -1479,7 +1483,7 @@
 				CODE_SIGN_ENTITLEMENTS = BlossomApp/BlossomApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 20;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = GZWLHGR8C3;
 				EXCLUDED_ARCHS = "";
@@ -1490,7 +1494,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.0.1;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blossomclinic.blossomapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1510,7 +1514,7 @@
 				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = "";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_TEAM = GZWLHGR8C3;
 				EXCLUDED_ARCHS = "";
 				INFOPLIST_FILE = BlossomApp/Info.plist;
@@ -1519,7 +1523,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.0.1;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blossomclinic.blossomapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";

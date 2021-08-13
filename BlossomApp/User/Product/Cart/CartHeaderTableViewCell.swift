@@ -19,6 +19,7 @@ class CartHeaderTableViewCell: UITableViewCell {
         var priceText: String = ""
         var addressText: String = ""
         var shippingText: String = ""
+        var phoneNumberText: String = ""
     }
 
     @IBOutlet weak var stackViewContainer: UIView!
@@ -28,6 +29,7 @@ class CartHeaderTableViewCell: UITableViewCell {
     @IBOutlet weak var addressTitieLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var editAddressButton: UIButton!
+    @IBOutlet weak var phoneNumberLabel: UILabel!
     
     weak var delegate: CartHeaderTableViewCellDelegate?
     
@@ -46,6 +48,7 @@ class CartHeaderTableViewCell: UITableViewCell {
         shipingPriceLabel.text = ""
         addressTitieLabel.text = ""
         addressLabel.text = ""
+        phoneNumberLabel.text = ""
         editAddressButton.setTitle("แก้ไขที่อยู่", for: .normal)
 
         orderLabel.font = FontSize.body.bold()
@@ -53,7 +56,8 @@ class CartHeaderTableViewCell: UITableViewCell {
         shipingPriceLabel.font = FontSize.body2.regular()
         addressTitieLabel.font = FontSize.body2.regular()
         addressLabel.font = FontSize.body2.regular()
-
+        phoneNumberLabel.font = FontSize.body2.regular()
+        
         editAddressButton.backgroundColor = UIColor.blossomPrimary3
         editAddressButton.roundCorner(radius: 17)
     }
@@ -63,7 +67,8 @@ class CartHeaderTableViewCell: UITableViewCell {
         priceLabel.text = "ราคา \(model.priceText) บาท"
         shipingPriceLabel.text = "ค่าจัดส่ง \(model.shippingText) บาท"
         addressTitieLabel.text = "ที่อยู่จัดส่ง"
-        addressLabel.text = model.addressText        
+        addressLabel.text = model.addressText
+        phoneNumberLabel.text = model.phoneNumberText
         editAddressButton.isHidden =  Defaults[\.role] == "doctor"
     }
 

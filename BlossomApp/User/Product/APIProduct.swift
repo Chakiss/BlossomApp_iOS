@@ -22,6 +22,7 @@ enum APIProduct {
     case getChargeCreditCard(chargeID: String, completion: (OmisePaymentResponse?)->Swift.Void)
     case updateOrderPayment(bank: String, orderID: Int, completion: (Bool)->Swift.Void)
     case getOrder(term: String, page: Int, completion: (OrderResponse?)->Swift.Void)
+    case getOrderByID(shipnityID: String, completion: (OrderResponse?)->Swift.Void)
     
     func endpoint() -> String {
         switch self {
@@ -39,7 +40,10 @@ enum APIProduct {
             return "https://www.shipnity.pro/api/v2/orders/\(orderID)/payment"
         case .getOrder:
             return "https://www.shipnity.pro/api/v2/orders"
+        case .getOrderByID(let shipnityID, _):
+            return "https://www.shipnity.pro/api/v2/customers/\(shipnityID)/orders"
         }
+        
     }
     
     func request() {
@@ -153,7 +157,24 @@ enum APIProduct {
                     }
                     completion(orderResponse)
                 }
+            
+        case let .getOrderByID(_, completion: completion):
+            
+            debugPrint("getOrderByID :: \(endpoint())")
+            AF.request(endpoint(), method: .get, parameters: nil, headers: headers)
+                .validate()
+                .responseDecodable(of: OrderResponse.self) { (response) in
+                    guard let orderResponse = response.value else {
+                        completion(nil)
+                        return
+                    }
+                    completion(orderResponse)
+                }
+            
+            
         }
+        
+        
         
         
         

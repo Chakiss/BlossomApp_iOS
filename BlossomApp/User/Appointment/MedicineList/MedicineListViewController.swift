@@ -10,7 +10,11 @@ import SafariServices
 
 class MedicineListViewController: UIViewController {
     
-    private let tableView = UITableView(frame: .zero, style: .plain)
+    //private let tableView = UITableView(frame: .zero, style: .plain)
+
+    
+    @IBOutlet weak var tableView: UITableView!
+    
     private var refreshControl = UIRefreshControl()
     private var orders: [Order] = []
     private var page: Int = 1
@@ -18,6 +22,7 @@ class MedicineListViewController: UIViewController {
     private var hasEnded: Bool = false
     
     var shouldHandleDeeplink: Bool = false
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,16 +34,16 @@ class MedicineListViewController: UIViewController {
         let backButton = UIBarButtonItem(title: "ใบสั่งยา", style: .plain, target: self, action: nil)
         self.parent?.navigationItem.backBarButtonItem = backButton
         
-        
+       
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
                 
-        if orders.isEmpty {
+        //if orders.isEmpty {
             refreshList()
-        }
+        //}
         
     }
     
@@ -48,16 +53,16 @@ class MedicineListViewController: UIViewController {
     }
     
     private func setupTableView() {
-        tableView.register(OrderItemTableViewCell.self, forCellReuseIdentifier: "OrderItemTableViewCell")
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(tableView)
-        NSLayoutConstraint.activate([
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-        
+//        tableView.register(OrderItemTableViewCell.self, forCellReuseIdentifier: "OrderItemTableViewCell")
+//        tableView.translatesAutoresizingMaskIntoConstraints = false
+//        view.addSubview(tableView)
+//        NSLayoutConstraint.activate([
+//            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+//            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+//            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+//        ])
+//
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(refreshList), for: .valueChanged)
         tableView.refreshControl = refreshControl
@@ -68,14 +73,14 @@ class MedicineListViewController: UIViewController {
     }
     
     @objc private func refreshList() {
-        page = 1
+        //page = 1
         orders.removeAll()
         getList()
     }
     
     private func getList() {
         
-        guard let customerPhone = CustomerManager.sharedInstance.customer?.phoneNumber else {
+        guard let referenceShipnityID = CustomerManager.sharedInstance.customer?.referenceShipnityID else {
             return
         }
         
@@ -88,36 +93,27 @@ class MedicineListViewController: UIViewController {
         }
         
         loading = true
-        APIProduct.getOrder(term: customerPhone, page: page) { [weak self] response in
+        
+        APIProduct.getOrderByID(shipnityID: referenceShipnityID) { response in
+        
             ProgressHUD.dismiss()
-            self?.refreshControl.endRefreshing()
-            self?.loading = false
+            self.refreshControl.endRefreshing()
+            self.loading = false
 
             guard let response = response else {
                 return
             }
             
-            self?.page += 1
+            //self?.page += 1
             let newData = response.orders ?? []
-            self?.hasEnded = newData.isEmpty
-            self?.orders.append(contentsOf: newData)
-            self?.tableView.reloadData()
+            //self?.hasEnded = newData.isEmpty
+            self.orders.append(contentsOf: newData)
+            self.tableView.reloadData()
             
-            self?.refreshControl.endRefreshing()
-            
+
         }.request()
         
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 
@@ -139,7 +135,7 @@ extension MedicineListViewController: UITableViewDataSource, UITableViewDelegate
         let formatter = ISO8601DateFormatter()
         let date = formatter.date(from: paidAt) ?? Date()
         let title = "Order วันที่ \(String.dateFormat(date, format: "dd/MM/yyyy"))"
-        cell.setOrder(title: title, price: Double(order.price ?? "") ?? 0, paid: order.paid == true)
+        cell.setOrder(title: title, price: Double(order.price ?? "") ?? 0, paid: order.paid == true , address: order.address ?? "")
                 
         return cell
         
@@ -164,9 +160,9 @@ extension MedicineListViewController: UITableViewDataSource, UITableViewDelegate
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
-        if indexPath.row > orders.count-5 && !hasEnded {
-            getList()
-        }
+//        if indexPath.row > orders.count-5 && !hasEnded {
+//            getList()
+//        }
         
     }
     

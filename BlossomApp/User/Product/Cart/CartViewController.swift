@@ -80,7 +80,8 @@ class CartViewController: UIViewController {
             dateString: String.today(),
             priceText: "",
             addressText: customer?.address?.address ?? "-",
-            shippingText: ""
+            shippingText: "",
+            phoneNumberText: customer?.phoneNumber?.phonenumberformat() ?? "-"
         )
         self.cartHeaderModel = model
         updateTotalPrice()
@@ -257,6 +258,7 @@ class CartViewController: UIViewController {
     }
     
     @IBAction func checkoutCart(_ sender: Any) {
+        
         guard customer?.isPhoneVerified == true else {
             if Defaults[\.role] == "doctor" {
                 showAlertDialogue(title: "แจ้งเตือน", message: "ผู้รับคำปรึกษาต้องยืนยันเบอร์โทรศัพท์ก่อนทำการสั่งสินค้า") { }
