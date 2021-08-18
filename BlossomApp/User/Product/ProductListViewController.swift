@@ -91,8 +91,11 @@ class ProductListViewController: UIViewController, UITableViewDataSource, UITabl
             return
         }
         
-        if Defaults[\.role] != "doctor" {
-            customer = CustomerManager.sharedInstance.customer
+        guard let customer = customer else {
+            showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณาเข้าสู่ระบบ") { [weak self] in
+                self?.showLoginView()
+            }
+            return
         }
         
         let viewController = CartViewController.initializeInstance(cart: CartManager.shared.currentCart!, customer: customer, prescriptDelegate: prescriptDelegate)

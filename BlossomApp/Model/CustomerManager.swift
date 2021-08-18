@@ -36,6 +36,8 @@ class CustomerManager: NSObject {
      func logout() {
          user = Auth.auth().currentUser
          customer = nil
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.setCustomerUI()
      }
     
     func getCustomer(completion: @escaping ()->Swift.Void )  {

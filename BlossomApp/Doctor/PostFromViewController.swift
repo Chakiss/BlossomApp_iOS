@@ -30,6 +30,7 @@ class PostFromViewController: UIViewController, UITextFieldDelegate{
     var appointment: Appointment?
     weak var delegate: PostFromViewControllerDelegate?
     var attachedImage: [String] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -58,6 +59,26 @@ class PostFromViewController: UIViewController, UITextFieldDelegate{
                 //self.prepareImage()
             }
                
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        let alert = UIAlertController(title: "แจ้งเตือน", message: "การสนทนาสำเร็จหรือไม่ ฦ", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "ไม่สำเร็จ", style: .default, handler: {_ in
+            self.delegate?.postFormDidFinish(controller: self)
+        }))
+        alert.addAction(UIAlertAction(title: "สำเร็จ", style: .default, handler: {_ in
+            let payload = ["appointmentID": self.appointmentID]
+            let functions = Functions.functions()
+            
+            ProgressHUD.show()
+            functions.httpsCallable("app-appointments-markCompleted").call(payload) { result, error in
+
+                ProgressHUD.dismiss()
+        
+            }
+            
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
     
     @objc func keyboardWillShow(sender: NSNotification) {

@@ -11,11 +11,15 @@ import CommonKeyboard
 import SwiftDate
 import SwiftyUserDefaults
 
+import Firebase
+
 class MessageingViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ChatDelegate {
 
     var customer: Customer?
     var chatdialog: ChatDialog?
     var chatMessageList: [ChatMessage] = []
+    
+    let db = Firestore.firestore()
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -137,7 +141,7 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
                     event.notificationType = .push
                     event.usersIDs = [recipientID]
                     event.type = .oneShot
-        
+                    
                     let pushmessage = message.text! as String
                     var pushParameters = [String : String]()
                     pushParameters["message"] = pushmessage
@@ -155,10 +159,57 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
                             print(error)
                         })
                     }
-                    //if Defaults[\.role] == "customer" {
-                    //    PushMessage().pushTo(targetID: "", type: "chat", subType: "toDoctor", title: "ข้อความ", message: pushmessage, payload: ["":""])
-                    //} else {
-                    //}
+                    if Defaults[\.role] == "customer" {
+                        
+                        if recipientID == 4663567 {
+                            let recipientIDNSNumber = recipientID as NSNumber
+                            let recipientIDString = recipientIDNSNumber.stringValue
+                            self.db.collection("customers")
+                                .whereField("referenceConnectyCubeID", isEqualTo: recipientIDString)
+                                .getDocuments { querySnapshot, error in
+                                    guard error == nil else {
+                                        return
+                                    }
+                                    if querySnapshot?.count ?? 0 > 0 {
+                                        let document =  querySnapshot?.documents[0]
+                                        PushMessage().pushTo(targetID: document?.documentID ?? "", type: "chat", subType: "toCustomer", title: "ข้อความ", message: pushmessage, payload: ["":""])
+                                    }
+                                    
+                                }
+                        } else {
+                            self.db.collection("doctors")
+                                .whereField("referenceConnectyCubeID", isEqualTo: recipientID)
+                                .getDocuments { querySnapshot, error in
+                                    guard error == nil else {
+                                        return
+                                    }
+                                    if querySnapshot?.count ?? 0 > 0 {
+                                        let document =  querySnapshot?.documents[0]
+                                        PushMessage().pushTo(targetID: document?.documentID ?? "", type: "chat", subType: "toDoctor", title: "ข้อความ", message: pushmessage, payload: ["":""])
+                                    }
+                                    
+                                }
+                        }
+                        
+                    } else {
+                        let recipientIDNSNumber = recipientID as NSNumber
+                        let recipientIDString = recipientIDNSNumber.stringValue
+                        self.db.collection("customers")
+                            .whereField("referenceConnectyCubeID", isEqualTo: recipientIDString)
+                            .getDocuments { querySnapshot, error in
+                                guard error == nil else {
+                                    return
+                                }
+                                if querySnapshot?.count ?? 0 > 0 {
+                                    let document =  querySnapshot?.documents[0]
+                                    PushMessage().pushTo(targetID: document?.documentID ?? "", type: "chat", subType: "toCustomer", title: "ข้อความ", message: pushmessage, payload: ["":""])
+                                }
+                                
+                            }
+                        
+                        
+                        
+                    }
                     
                 }
                 

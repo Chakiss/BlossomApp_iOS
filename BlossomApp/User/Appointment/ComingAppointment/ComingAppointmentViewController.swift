@@ -75,7 +75,7 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
             let endDate = appointment.sessionEnd?.dateValue() ?? Date()
             
             let now = Date()
-            if now > startDate && now < endDate {
+            if now >= startDate && now <= endDate {
                 self?.attemptCall(with: .video, appointment: appointment)
             } else {
                 self?.outofTime()

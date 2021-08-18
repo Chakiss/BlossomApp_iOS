@@ -258,7 +258,8 @@ class CartViewController: UIViewController {
     }
     
     @IBAction func checkoutCart(_ sender: Any) {
-        
+       
+        /*
         guard customer?.isPhoneVerified == true else {
             if Defaults[\.role] == "doctor" {
                 showAlertDialogue(title: "แจ้งเตือน", message: "ผู้รับคำปรึกษาต้องยืนยันเบอร์โทรศัพท์ก่อนทำการสั่งสินค้า") { }
@@ -269,6 +270,7 @@ class CartViewController: UIViewController {
             }
             return
         }
+        */
         
         guard let error = cart?.checkInventory() else {
             if currentCart {

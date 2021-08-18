@@ -48,8 +48,7 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
     var productHilights: [ProductHilight] = []
     
     private var orders: [Order] = []
-    private var page: Int = 1
-    private var hasEnded: Bool = false
+    
     var handle: AuthStateDidChangeListenerHandle?
     
     var profileButton: UIButton!
@@ -149,11 +148,11 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
     }
     
     func fetchProduct(){
-        guard let customerPhone = CustomerManager.sharedInstance.customer?.phoneNumber else {
+        guard let referenceShipnityID = CustomerManager.sharedInstance.customer?.referenceShipnityID else {
             return
         }
         
-        APIProduct.getOrder(term: customerPhone, page: page) { [weak self] response in
+        APIProduct.getOrderByID(shipnityID: referenceShipnityID) { response in
             ProgressHUD.dismiss()
             
 
@@ -161,17 +160,16 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
                 return
             }
             
-            self?.page += 1
+            
             let newData = response.orders ?? []
-            self?.hasEnded = newData.isEmpty
-            self?.orders.append(contentsOf: newData)
-            self?.checkOrderIsPaid()
+            self.orders.append(contentsOf: newData)
+            self.checkOrderIsPaid()
             
         }.request()
         
     }
     
-    func checkOrderIsPaid(){
+    func    checkOrderIsPaid(){
         
         if self.orders.contains(where: {$0.paid == false}) {
             self.medicineView.isHidden = false

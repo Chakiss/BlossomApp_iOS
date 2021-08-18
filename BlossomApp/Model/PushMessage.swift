@@ -20,10 +20,12 @@ class PushMessage {
                                "subType": subType,
                                "title": title,
                                "message": message,
-                               "payload": payload] as [String : Any]
+                               "payload": "payload"] as [String : Any]
         
-        functions.httpsCallable("app-users-signUpWithEmailAndPassword").call(functionPayload) { result, error in
-            
+        functions.httpsCallable("app-messages-sendNotification").call(functionPayload) { result, error in
+            print(result)
+            print(error)
+            print(error)
         }
         
     }

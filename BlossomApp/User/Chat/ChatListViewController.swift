@@ -8,6 +8,7 @@
 import UIKit
 import ConnectyCube
 import Firebase
+import SwiftyUserDefaults
 
 class ChatListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ChatDelegate{
 
@@ -75,8 +76,17 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
     
-        self.customer = CustomerManager.sharedInstance.customer
-
+        let user = Auth.auth().currentUser
+        if user == nil {
+            return
+        }
+        if Defaults[\.role] == "customer"{
+            guard let customer = CustomerManager.sharedInstance.customer else {
+                return
+            }
+            self.customer = customer
+        }
+        
         Request.dialogs(with: Paginator.limit(100, skip: 0), extendedRequest: nil, successBlock: { (dialogs, usersIDs, paginator) in
             self.dialogList = dialogs
             self.dialogList.sort(by: { ($0.lastMessageDate ?? Date()).compare($1.lastMessageDate ?? Date()) == ComparisonResult.orderedDescending })

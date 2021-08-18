@@ -28,22 +28,33 @@ class ReviewViewController: UIViewController {
         self.ratingControl.delegate = self
 
         // Do any additional setup after loading the view.
-        let payload = ["appointmentID": appointmentID]
-        let functions = Functions.functions()
-        
-        ProgressHUD.show()
-        functions.httpsCallable("app-appointments-markCompleted").call(payload) { [weak self] result, error in
-        
-            ProgressHUD.dismiss()
-            if error != nil {
-                let alert = UIAlertController(title: "กรุณาตรวจสอบ", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                self?.presentedViewController?.present(alert, animated: true, completion: nil)
-            }
-        }
+      
     }
     
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        let alert = UIAlertController(title: "แจ้งเตือน", message: "การสนทนาสำเร็จหรือไม่ ?", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "ไม่สำเร็จ", style: .default, handler: {_ in
+            self.dismiss(animated: false, completion: {
+                self.navigationController?.popToRootViewController(animated: false)
+            })
+        }))
+        alert.addAction(UIAlertAction(title: "สำเร็จ", style: .default, handler: {_ in
+            let payload = ["appointmentID": self.appointmentID]
+            let functions = Functions.functions()
+            
+            ProgressHUD.show()
+            functions.httpsCallable("app-appointments-markCompleted").call(payload) { result, error in
+
+                ProgressHUD.dismiss()
+        
+            }
+            
+        }))
+        self.present(alert, animated: true, completion: nil)
+        
+    }
     @IBAction func doneButtonTapped() {
         
         ProgressHUD.show()

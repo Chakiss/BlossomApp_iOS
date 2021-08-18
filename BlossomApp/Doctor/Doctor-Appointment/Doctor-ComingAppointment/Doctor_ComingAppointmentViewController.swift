@@ -84,9 +84,9 @@ class Doctor_ComingAppointmentViewController: UIViewController, UITableViewDataS
               event.message = jsonString
 
               Request.createEvent(event, successBlock: {(events) in
-                
+                print("xxxx")
               }, errorBlock: {(error) in
-
+                print("error")
               })
             }
 
