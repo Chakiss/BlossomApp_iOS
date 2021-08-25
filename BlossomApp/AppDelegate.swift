@@ -103,7 +103,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         
         FirebaseApp.configure()
-       
+
         Messaging.messaging().subscribe(toTopic: "general") { error in
           print("Subscribed to general topic")
         }
@@ -111,6 +111,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
           print("Subscribed to announcement topic")
         }
     
+        
+        
         configUI()
         CommonKeyboard.shared.enabled = true
             

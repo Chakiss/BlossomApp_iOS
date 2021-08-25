@@ -33,7 +33,7 @@ class ReviewViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        
+       /*
         let alert = UIAlertController(title: "แจ้งเตือน", message: "การสนทนาสำเร็จหรือไม่ ?", preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "ไม่สำเร็จ", style: .default, handler: {_ in
             self.dismiss(animated: false, completion: {
@@ -53,7 +53,7 @@ class ReviewViewController: UIViewController {
             
         }))
         self.present(alert, animated: true, completion: nil)
-        
+        */
     }
     @IBAction func doneButtonTapped() {
         

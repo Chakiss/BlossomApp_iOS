@@ -89,8 +89,11 @@ class Doctor_ComingAppointmentViewController: UIViewController, UITableViewDataS
                 print("error")
               })
             }
-
-        
+            
+            PushMessage().pushTo(targetID: appointment.customerReference?.documentID ?? "", type: "chat", subType: "toCustomer", title: "ข้อความ", message: pushmessage, payload: ["":""])
+            
+            
+            
 
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let viewController = storyboard.instantiateViewController(withIdentifier: "CallViewController") as! CallViewController

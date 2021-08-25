@@ -38,6 +38,13 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        if self.appointments.count == 0 {
+            if let tabItems = self.tabBarController?.tabBar.items {
+                let tabItem = tabItems[2]
+                tabItem.badgeValue = nil
+            }
+        }
+        
         
     }
     
@@ -180,6 +187,9 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
                     
                 })
             }
+            
+            PushMessage().pushTo(targetID: appointment.doctorReference?.documentID ?? "", type: "chat", subType: "toDoctor", title: "ข้อความ", message: pushmessage, payload: ["":""])
+            
             
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let viewController = storyboard.instantiateViewController(withIdentifier: "CallViewController") as! CallViewController

@@ -8,8 +8,13 @@
 import UIKit
 import DLRadioButton
 import Firebase
+import SwiftDate
+import EventKit
+import ConnectyCube
 
 class PreFormViewController: UIViewController {
+  
+    
 
     
     lazy var functions = Functions.functions()
@@ -27,6 +32,12 @@ class PreFormViewController: UIViewController {
     
     var appointmentID: String = ""
     
+    var doctor: Doctor?
+    var slotDaySelected: SlotDay?
+    var slotTimeSelected: SlotTime?
+    
+    var attachImage: [String] = []
+    var formData: [String:String] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,9 +97,10 @@ class PreFormViewController: UIViewController {
                 selectedButton += ",\(title)"
                }
         }
-        let formData = ["เรื่องที่ปรึกษา":selectedButton]
         
-        var attachImage: [String] = []
+        formData = ["เรื่องที่ปรึกษา":selectedButton]
+        
+        attachImage = []
         
         if !image1String.isEmpty {
             attachImage.append(image1String)
@@ -102,27 +114,51 @@ class PreFormViewController: UIViewController {
             attachImage.append(image3String)
         }
         
-        
-        ProgressHUD.show()
-        let payload = ["appointmentID": self.appointmentID,
-                       "type": "pre",
-                       "images": attachImage,
-                       "form": formData ] as [String : Any] 
-        
-        functions.httpsCallable("app-appointments-updateForm").call(payload) { result, error in
-            ProgressHUD.dismiss()
+        if attachImage.count == 0 {
+            showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณาแนบรูปอย่างน้อย 1 รูป") {}
+        }
+        else {
+            let alert = UIAlertController(title: "ยืนยัน", message: "คุณต้องการที่จะนัดหมายในเวลานี้ใช่หรือไม่​?", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "ยกเลิก", style: .default, handler: nil))
+            alert.addAction(UIAlertAction(title: "ยืนยัน", style: .default, handler: {_ in
+                ProgressHUD.show()
+                
+                let payload = ["doctorID": self.doctor?.id,
+                               "slotID": self.slotDaySelected?.id,
+                               "timeID": self.slotTimeSelected?.id ]
+                
+                self.functions.httpsCallable("app-orders-createAppointmentOrder").call(payload) { result, error in
+                    
+                    ProgressHUD.dismiss()
+                    if error != nil {
+                        let alert = UIAlertController(title: "กรุณาตรวจสอบ", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
+                        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                    else {
+                        print(result?.data as Any)
+                        let order = result?.data as? [String : String] ?? ["":""]
+                        if self.slotTimeSelected?.salePrice == 0 {
+                            if let orderID = order["orderID"] {
+                                self.makeAppointmentOrderPaid(orderID: orderID)
+                            }
+                            
+                        } else if let orderID = order["orderID"] {
+                            // Make Payment
+                            let paymentMethodViewController = PaymentMethodViewController.initializeInstance(cart: nil, appointmentOrder: AppointmentOrder(id: orderID, amount: self.slotTimeSelected?.salePrice ?? 0))
+                            paymentMethodViewController.delegate = self
+                            self.navigationController?.pushViewController(paymentMethodViewController, animated: true)
+                        }
+                    }
+                    
+                }
+                
+            }))
+            self.present(alert, animated: true, completion: nil)
             
         }
-        self.navigationController?.popToRootViewController(animated: false)
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-            appDelegate.deeplinking = .appointment
-            appDelegate.handleDeeplinking()
-            
-            self.dismiss(animated: false, completion: {
-            
-            })
-
-        }
+        
+        
          
     }
     
@@ -145,14 +181,139 @@ class PreFormViewController: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
+    func makeAppointmentOrderPaid(orderID: String){
+     
+        ProgressHUD.show()
+        let payload = ["orderID": orderID]
+        
+        functions.httpsCallable("app-orders-markAppointmentOrderPaid").call(payload) { result, error in
+        
+            ProgressHUD.dismiss()
+            if error != nil {
+                let alert = UIAlertController(title: "กรุณาตรวจสอบ", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+            else {
+                let appointment = result?.data as? [String : String] ?? ["":""]
+                
+                // 1
+                let eventStore = EKEventStore()
+                
+                // 2
+                switch EKEventStore.authorizationStatus(for: .event) {
+                case .authorized:
+                    self.insertEvent(store: eventStore)
+                case .denied:
+                    print("Access denied")
+                case .notDetermined:
+                    // 3
+                    eventStore.requestAccess(to: .event, completion:
+                                                {[weak self] (granted: Bool, error: Error?) -> Void in
+                                                    if granted {
+                                                        self!.insertEvent(store: eventStore)
+                                                    } else {
+                                                        print("Access denied")
+                                                    }
+                                                })
+                default:
+                    print("Case default")
+                }
+                
+                let event = Event()
+                event.notificationType = .push
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+                let recipientID = NSNumber(value:self.doctor?.referenceConnectyCubeID ?? 0)
+                event.usersIDs = [recipientID]
+                event.type = .oneShot
+
+                let pushmessage = "มีการนัดหมายปรึกษาแพทย์เพิ่มเข้ามา"
+                var pushParameters = [String : String]()
+                pushParameters["message"] = pushmessage
+
+                if let jsonData = try? JSONSerialization.data(withJSONObject: pushParameters,
+                                                              options: .prettyPrinted) {
+                    let jsonString = String(bytes: jsonData,
+                                            encoding: String.Encoding.utf8)
+
+                    event.message = jsonString
+
+                    Request.createEvent(event, successBlock: {(events) in
+
+                    }, errorBlock: {(error) in
+
+                    })
+                }
+
+                
+                if let appointmentID = appointment["appointmentID"] {
+                    self.appointmentID = appointmentID
+                    self.updateForm()
+
+                }
+                
+
+                
+            }
+
+        }
     }
-    */
+    
+    func insertEvent(store: EKEventStore) {
+        
+        let messageString = "มีนัดกับ " + ((doctor?.displayName ?? "") as String)
+          let event:EKEvent = EKEvent(eventStore: store)
+          //let startDate = Date()
+        
+          event.title = "Blossom App นัดหมาย"
+          event.startDate = self.slotTimeSelected?.start?.dateValue()
+          event.endDate = self.slotTimeSelected?.end?.dateValue()
+          event.notes = messageString
+          event.calendar = store.defaultCalendarForNewEvents
+          do {
+              try store.save(event, span: .thisEvent)
+          } catch let error as NSError {
+          print("failed to save event with error : \(error)")
+          }
+          print("Saved Event")
+    }
 
+
+    
+    func updateForm(){
+        
+        if attachImage.count == 0 {
+            showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณาแนบรูปอย่างน้อย 1 รูป") {}
+        } else {
+            ProgressHUD.show()
+            let payload = ["appointmentID": self.appointmentID,
+                           "type": "pre",
+                           "images": attachImage,
+                           "form": formData ] as [String : Any]
+            
+            functions.httpsCallable("app-appointments-updateForm").call(payload) { result, error in
+                ProgressHUD.dismiss()
+                
+            }
+            self.navigationController?.popToRootViewController(animated: false)
+            if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                appDelegate.deeplinking = .appointment
+                appDelegate.handleDeeplinking()
+                
+                self.dismiss(animated: false, completion: {
+                    
+                })
+                
+            }
+        }
+    }
+}
+
+extension PreFormViewController : UpdateCartViewControllerDelegate {
+    
+    func appointmentOrderSuccess(orderID: String) {
+        self.navigationController?.popViewController(animated: true)
+        makeAppointmentOrderPaid(orderID: orderID)
+    }
+    
 }

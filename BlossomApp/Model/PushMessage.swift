@@ -20,7 +20,7 @@ class PushMessage {
                                "subType": subType,
                                "title": title,
                                "message": message,
-                               "payload": "payload"] as [String : Any]
+                               "payload": "[]"] as [String : Any]
         
         functions.httpsCallable("app-messages-sendNotification").call(functionPayload) { result, error in
             print(result)

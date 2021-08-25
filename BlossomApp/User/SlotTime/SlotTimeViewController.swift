@@ -239,9 +239,19 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     @IBAction func makeAppointmentButtonTapped() {
         
-        let alert = UIAlertController(title: "ยืนยัน", message: "คุณต้องการที่จะนัดหมายในเวลานั้นใช่หรือไม่​?", preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "ยกเลือก", style: .default, handler: nil))
+        let alert = UIAlertController(title: "ยืนยัน", message: "คุณต้องการที่จะนัดหมายในเวลานี้ใช่หรือไม่​?", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "ยกเลิก", style: .default, handler: nil))
         alert.addAction(UIAlertAction(title: "ยืนยัน", style: .default, handler: {_ in
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let viewController = storyboard.instantiateViewController(withIdentifier: "PreFormViewController") as! PreFormViewController
+            viewController.modalPresentationStyle = .fullScreen
+            viewController.doctor = self.doctor
+            viewController.slotDaySelected = self.slotDaySelected
+            viewController.slotTimeSelected = self.slotTimeSelected
+            self.navigationController?.pushViewController(viewController, animated: true)
+            //self.navigationController?.present(viewController, animated: true, completion: nil)
+            /*
             ProgressHUD.show()
         
             let payload = ["doctorID": self.doctor?.id,
@@ -273,70 +283,11 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
                 }
 
             }
-            
+          */
         }))
         self.present(alert, animated: true, completion: nil)
         
-           
-        
-       
-        /*
-        if self.slotTimeSelected?.salePrice == 0 {
-            let payload = ["doctorID": doctor?.id,
-                           "slotID":self.slotDaySelected?.id,
-                           "timeID":self.slotTimeSelected?.id ]
-            ProgressHUD.show()
-            functions.httpsCallable("app-orders-createAppointmentOrder").call(payload) { result, error in
-            
-                ProgressHUD.dismiss()
-                if error != nil {
-                    let alert = UIAlertController(title: "กรุณาตรวจสอบ", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
-                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                    self.present(alert, animated: true, completion: nil)
-                }
-                else {
-                    print(result?.data as Any)
-                    let order = result?.data as? [String : String] ?? ["":""]
-                    
-                        if let orderID = order["orderID"] {
-                            self.makeAppointmentOrderPaid(orderID: orderID)
-                        }
-                        
-                    
-                }
 
-            }
-          
-        } else {
-            
-            let payload = ["doctorID": doctor?.id,
-                           "slotID":self.slotDaySelected?.id,
-                           "timeID":self.slotTimeSelected?.id ]
-            ProgressHUD.show()
-            functions.httpsCallable("app-orders-createAppointmentOrder").call(payload) { result, error in
-            
-                ProgressHUD.dismiss()
-                if error != nil {
-                    let alert = UIAlertController(title: "กรุณาตรวจสอบ", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
-                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                    self.present(alert, animated: true, completion: nil)
-                }
-                else {
-                    print(result?.data as Any)
-                    let order = result?.data as? [String : String] ?? ["":""]
-                    
-                    // Make Payment
-                    let paymentMethodViewController = PaymentMethodViewController.initializeInstance(cart: nil, appointmentOrder: AppointmentOrder(id: order["orderID"] ?? "", amount: self.slotTimeSelected?.salePrice ?? 0))
-                    paymentMethodViewController.delegate = self
-                    paymentMethodViewController.isBankTransfer = false
-                    self.navigationController?.pushViewController(paymentMethodViewController, animated: true)
-
-                }
-
-            }
-
-          }
-       */
     }
         
     func makeAppointmentOrderPaid(orderID: String){

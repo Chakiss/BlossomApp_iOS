@@ -218,7 +218,9 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
                 }
                 
                 self?.appointments = appointments!
+                self?.appointments.sort(by: { ($0.sessionStart ?? Timestamp()).compare($1.sessionStart ?? Timestamp()) == ComparisonResult.orderedAscending })
                 
+                self?.appointments = self?.appointments.filter({ $0.sessionStart?.dateValue().day ?? 0 >= Date().day }) ?? []
                 if let count = self?.appointments.count, count > 0 {
                     self?.displayAppointment()
                 }
@@ -364,6 +366,8 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
     }
     
     @IBAction func contactAdmin() {
+        UIApplication.shared.open(URL(string: "https://lin.ee/iYHm3As")!, options: [:], completionHandler: nil)
+        /*
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
             
             let dialog = ChatDialog(dialogID: nil, type: .private)
@@ -377,6 +381,7 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
             }
             
         }
+         */
     }
     
     @IBAction func openDoctor(_ sender: UITapGestureRecognizer) {

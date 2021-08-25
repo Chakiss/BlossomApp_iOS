@@ -62,7 +62,7 @@ class PostFromViewController: UIViewController, UITextFieldDelegate{
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        let alert = UIAlertController(title: "แจ้งเตือน", message: "การสนทนาสำเร็จหรือไม่ ฦ", preferredStyle: UIAlertController.Style.alert)
+        let alert = UIAlertController(title: "แจ้งเตือน", message: "การสนทนาสำเร็จหรือไม่ ?", preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "ไม่สำเร็จ", style: .default, handler: {_ in
             self.delegate?.postFormDidFinish(controller: self)
         }))

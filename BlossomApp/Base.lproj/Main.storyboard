@@ -2722,8 +2722,8 @@
                                     <action selector="submit" destination="RZV-WU-sgb" eventType="touchUpInside" id="Kfn-Ub-pXK"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="*รูปหน้าตรงและมุมด้านข้าง" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ma5-p6-5s9">
-                                <rect key="frame" x="66" y="366.5" width="128.5" height="19"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="*รูปหน้าตรงและมุมด้านข้าง อย่างน้อย 1 รูป" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ma5-p6-5s9">
+                                <rect key="frame" x="66" y="366.5" width="205" height="19"/>
                                 <fontDescription key="fontDescription" name="SukhumvitSet-Light" family="Sukhumvit Set" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>

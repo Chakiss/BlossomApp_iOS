@@ -89,7 +89,7 @@ class AppointmentListViewController: UIViewController {
         segmentedControl.removeAllSegments()
         segmentedControl.insertSegment(withTitle: "การนัดหมาย", at: 0, animated: false)
         segmentedControl.insertSegment(withTitle: "ประวัติ", at: 1, animated: false)
-        segmentedControl.insertSegment(withTitle: "ใบสั่งยา", at: 2, animated: false)
+        segmentedControl.insertSegment(withTitle: "ใบสั่งผลิตภัณฑ์", at: 2, animated: false)
         segmentedControl.addTarget(self, action: #selector(selectionDidChange(_:)), for: .valueChanged)
 
         // Select First Segment
@@ -183,6 +183,9 @@ class AppointmentListViewController: UIViewController {
                         completeAppointment.append(appointment)
                     }
                  }
+                inCompleteAppointment.sort(by: { ($0.sessionStart ?? Timestamp()).compare($1.sessionStart ?? Timestamp()) == ComparisonResult.orderedAscending })
+                
+                inCompleteAppointment = inCompleteAppointment.filter({ $0.sessionStart?.dateValue().startOfDay ?? Date().startOfDay >= Date().startOfDay })
                 
                 self.comingAppointmentViewController.appointments = inCompleteAppointment
                 self.comingAppointmentViewController.tableView.reloadData()
