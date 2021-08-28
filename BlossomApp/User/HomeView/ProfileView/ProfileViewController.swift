@@ -146,15 +146,15 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
     @objc func saveUserData(){
         if isChangeProfile == true {
             ProgressHUD.show()
-            let payload = ["birthDate": customer?.birthDayString,
+            let payload = ["birthDate": customer?.birthDayString ?? "",
                            "firstName": profileInformationViewController.nameTextField.text!,
                            "lastName": profileInformationViewController.surNameTextField.text!,
-                           "gender": customer?.genderString,
+                           "gender": customer?.genderString ?? "",
                            "address": profileInformationViewController.addressTextField.text!,
-                           "provinceID": "0",
-                           "districtID": "0",
-                           "subDistrictID": "0",
-                           "zipcodeID": "0"]
+                           "provinceID": profileInformationViewController.selectedProvince?.pROVINCE_ID ?? 0,
+                           "districtID": profileInformationViewController.selectedDistricts?.dISTRICT_ID ?? 0,
+                           "subDistrictID": profileInformationViewController.selectedSubDistricts?.sUB_DISTRICT_ID ?? 0,
+                           "zipcodeID": profileInformationViewController.selectedZipCodes?.zIPCODE_ID ?? 0] as [String : Any]
             
             functions.httpsCallable("app-users-updateProfile").call(payload) { [weak self] result, error in
                 ProgressHUD.dismiss()

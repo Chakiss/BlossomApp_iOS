@@ -3439,16 +3439,16 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="1166"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S9h-Bq-po7" userLabel="Content View">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="970"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1248"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="gSd-je-5Xd">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="970"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="1248"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o4K-5T-5eF">
-                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="970"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1248"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5dz-Rq-CP1">
-                                                                <rect key="frame" x="20" y="20" width="374" height="930"/>
+                                                                <rect key="frame" x="20" y="20" width="374" height="1208"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ชื่อ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PhK-j6-cql">
                                                                         <rect key="frame" x="20" y="20" width="16.5" height="22.5"/>
@@ -3489,19 +3489,19 @@
                                                                         </connections>
                                                                     </textField>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="เพศ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ed8-db-QRe">
-                                                                        <rect key="frame" x="20" y="452.5" width="23.5" height="22.5"/>
+                                                                        <rect key="frame" x="20" y="442.5" width="23.5" height="22.5"/>
                                                                         <fontDescription key="fontDescription" name="SukhumvitSet-Bold" family="Sukhumvit Set" pointSize="14"/>
                                                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ที่อยู่" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SV3-nf-hay">
-                                                                        <rect key="frame" x="20" y="545.5" width="26" height="22.5"/>
+                                                                        <rect key="frame" x="20" y="535.5" width="26" height="22.5"/>
                                                                         <fontDescription key="fontDescription" name="SukhumvitSet-Bold" family="Sukhumvit Set" pointSize="14"/>
                                                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="meM-wv-GWX">
-                                                                        <rect key="frame" x="20" y="495" width="334" height="35"/>
+                                                                        <rect key="frame" x="20" y="485" width="334" height="35"/>
                                                                         <subviews>
                                                                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nxi-XP-hxV" customClass="DLRadioButton">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="70" height="35"/>
@@ -3655,7 +3655,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="อีเมลล์" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gbA-x6-aog">
-                                                                        <rect key="frame" x="20" y="312" width="36" height="34"/>
+                                                                        <rect key="frame" x="20" y="312" width="36" height="24"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <color key="tintColor" red="0.97647058819999999" green="0.69411764710000001" blue="0.65098039220000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="14"/>
@@ -3665,26 +3665,26 @@
                                                                         </connections>
                                                                     </textField>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="บัญชี" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OF3-9O-NWC">
-                                                                        <rect key="frame" x="20" y="692" width="30" height="22.5"/>
+                                                                        <rect key="frame" x="20" y="970" width="30" height="22.5"/>
                                                                         <fontDescription key="fontDescription" name="SukhumvitSet-Bold" family="Sukhumvit Set" pointSize="14"/>
                                                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="วันเดือนปีเกิด" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vu7-UH-2yw">
-                                                                        <rect key="frame" x="20" y="366" width="76.5" height="22.5"/>
+                                                                        <rect key="frame" x="20" y="356" width="76.5" height="22.5"/>
                                                                         <fontDescription key="fontDescription" name="SukhumvitSet-Bold" family="Sukhumvit Set" pointSize="14"/>
                                                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="facebook_circle" translatesAutoresizingMaskIntoConstraints="NO" id="hZC-r1-9qT">
-                                                                        <rect key="frame" x="20" y="730" width="35" height="35"/>
+                                                                        <rect key="frame" x="20" y="1008" width="35" height="35"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="35" id="ZHY-X9-Xr0"/>
                                                                             <constraint firstAttribute="width" constant="35" id="pBV-MV-rbX"/>
                                                                         </constraints>
                                                                     </imageView>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9UW-AR-SwG">
-                                                                        <rect key="frame" x="295" y="732.5" width="59" height="30"/>
+                                                                        <rect key="frame" x="295" y="1010.5" width="59" height="30"/>
                                                                         <color key="backgroundColor" red="0.98039215690000003" green="0.49019607840000001" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="30" id="MLY-TT-I6c"/>
@@ -3694,7 +3694,7 @@
                                                                         <state key="normal" title="เชื่อมต่อ"/>
                                                                     </button>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NVv-6m-ccE">
-                                                                        <rect key="frame" x="295" y="787.5" width="59" height="30"/>
+                                                                        <rect key="frame" x="295" y="1065.5" width="59" height="30"/>
                                                                         <color key="backgroundColor" red="0.98039215690000003" green="0.49019607840000001" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="30" id="614-lb-5Ya"/>
@@ -3704,14 +3704,14 @@
                                                                         <state key="normal" title="เชื่อมต่อ"/>
                                                                     </button>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="apple_circle" translatesAutoresizingMaskIntoConstraints="NO" id="tFk-Mw-KkS">
-                                                                        <rect key="frame" x="20" y="785" width="35" height="35"/>
+                                                                        <rect key="frame" x="20" y="1063" width="35" height="35"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="35" id="pCB-uY-EiC"/>
                                                                             <constraint firstAttribute="width" constant="35" id="yzW-FB-Vjd"/>
                                                                         </constraints>
                                                                     </imageView>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pfH-X9-zt2">
-                                                                        <rect key="frame" x="20" y="866" width="334" height="44"/>
+                                                                        <rect key="frame" x="20" y="1144" width="334" height="44"/>
                                                                         <color key="backgroundColor" red="0.98039215690000003" green="0.49019607840000001" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="44" id="CJy-LP-3gt"/>
@@ -3730,7 +3730,7 @@
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NqC-0f-KBe">
-                                                                        <rect key="frame" x="20" y="345" width="231" height="1"/>
+                                                                        <rect key="frame" x="20" y="335" width="231" height="1"/>
                                                                         <color key="backgroundColor" red="0.90980392160000001" green="0.90980392160000001" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="56Z-97-yBb"/>
@@ -3738,11 +3738,11 @@
                                                                         </constraints>
                                                                     </view>
                                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q5Y-se-57f">
-                                                                        <rect key="frame" x="20" y="588" width="334" height="84"/>
+                                                                        <rect key="frame" x="20" y="568" width="334" height="44"/>
                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                         <color key="tintColor" red="0.95686274510000002" green="0.50196078430000002" blue="0.45098039220000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <constraints>
-                                                                            <constraint firstAttribute="height" constant="84" id="h6d-en-lKj"/>
+                                                                            <constraint firstAttribute="height" constant="44" id="h6d-en-lKj"/>
                                                                         </constraints>
                                                                         <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="14"/>
                                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -3751,19 +3751,19 @@
                                                                         </connections>
                                                                     </textView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ชื่อ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vXP-sy-RjA">
-                                                                        <rect key="frame" x="70" y="736.5" width="16.5" height="22.5"/>
+                                                                        <rect key="frame" x="70" y="1014.5" width="16.5" height="22.5"/>
                                                                         <fontDescription key="fontDescription" name="SukhumvitSet-Bold" family="Sukhumvit Set" pointSize="14"/>
                                                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ชื่อ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1br-WH-oK1">
-                                                                        <rect key="frame" x="70" y="791.5" width="16.5" height="22.5"/>
+                                                                        <rect key="frame" x="70" y="1069.5" width="16.5" height="22.5"/>
                                                                         <fontDescription key="fontDescription" name="SukhumvitSet-Bold" family="Sukhumvit Set" pointSize="14"/>
                                                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="วันเดือนปีเกิด" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bWh-Kj-PGZ">
-                                                                        <rect key="frame" x="20" y="408.5" width="334" height="24"/>
+                                                                        <rect key="frame" x="20" y="398.5" width="334" height="24"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <color key="tintColor" red="0.97647058819999999" green="0.69411764710000001" blue="0.65098039220000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="14"/>
@@ -3771,6 +3771,90 @@
                                                                         <connections>
                                                                             <outlet property="delegate" destination="Cle-S5-b8D" id="z2E-kp-ucD"/>
                                                                         </connections>
+                                                                    </textField>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="จังหวัด" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BPb-Az-Ux9">
+                                                                        <rect key="frame" x="20" y="632" width="41" height="22.5"/>
+                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Bold" family="Sukhumvit Set" pointSize="14"/>
+                                                                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="อำเภอ" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9Pe-lE-Z4U">
+                                                                        <rect key="frame" x="20" y="750.5" width="140" height="34"/>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <color key="tintColor" red="0.97647058819999999" green="0.69411764710000001" blue="0.65098039220000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" constant="140" id="XxB-0m-ejE"/>
+                                                                        </constraints>
+                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="14"/>
+                                                                        <textInputTraits key="textInputTraits"/>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="keyboardOffset">
+                                                                                <real key="value" value="0.0"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                    </textField>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="อำเภอ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AWe-cz-bba">
+                                                                        <rect key="frame" x="20" y="718" width="36.5" height="22.5"/>
+                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Bold" family="Sukhumvit Set" pointSize="14"/>
+                                                                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="ตำบล" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cMR-yb-idN">
+                                                                        <rect key="frame" x="20" y="829.5" width="140" height="34"/>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <color key="tintColor" red="0.97647058819999999" green="0.69411764710000001" blue="0.65098039220000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" constant="140" id="Q6w-PL-iX4"/>
+                                                                        </constraints>
+                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="14"/>
+                                                                        <textInputTraits key="textInputTraits"/>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="keyboardOffset">
+                                                                                <real key="value" value="0.0"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                    </textField>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ตำบล" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ouC-Xw-h5r">
+                                                                        <rect key="frame" x="20" y="797" width="33.5" height="22.5"/>
+                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Bold" family="Sukhumvit Set" pointSize="14"/>
+                                                                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="รหัสไปรษณีย์" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xh7-Bf-NxV">
+                                                                        <rect key="frame" x="20" y="915.5" width="140" height="34"/>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <color key="tintColor" red="0.97647058819999999" green="0.69411764710000001" blue="0.65098039220000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" constant="140" id="gza-zX-nzD"/>
+                                                                        </constraints>
+                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="14"/>
+                                                                        <textInputTraits key="textInputTraits"/>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="keyboardOffset">
+                                                                                <real key="value" value="0.0"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                    </textField>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="รหัสไปรษณีย์" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ubY-BN-e1T">
+                                                                        <rect key="frame" x="20" y="883" width="74.5" height="22.5"/>
+                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Bold" family="Sukhumvit Set" pointSize="14"/>
+                                                                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="จังหวัด" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="itt-sm-tD6">
+                                                                        <rect key="frame" x="20" y="664.5" width="140" height="34"/>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <color key="tintColor" red="0.97647058819999999" green="0.69411764710000001" blue="0.65098039220000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" constant="140" id="obM-wo-bfY"/>
+                                                                        </constraints>
+                                                                        <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="14"/>
+                                                                        <textInputTraits key="textInputTraits"/>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="keyboardOffset">
+                                                                                <real key="value" value="0.0"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
                                                                     </textField>
                                                                 </subviews>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -3782,6 +3866,7 @@
                                                                     <constraint firstItem="Q5Y-se-57f" firstAttribute="leading" secondItem="5dz-Rq-CP1" secondAttribute="leading" constant="20" id="2EO-YF-aUw"/>
                                                                     <constraint firstItem="aJj-ZZ-2HW" firstAttribute="top" secondItem="JhN-Ei-cwc" secondAttribute="bottom" constant="20" id="2cR-Iy-L5c"/>
                                                                     <constraint firstItem="Ed8-db-QRe" firstAttribute="leading" secondItem="JhN-Ei-cwc" secondAttribute="leading" id="3AT-IS-3uK"/>
+                                                                    <constraint firstItem="Xh7-Bf-NxV" firstAttribute="top" secondItem="ubY-BN-e1T" secondAttribute="bottom" constant="10" id="3Ap-jj-ZSu"/>
                                                                     <constraint firstAttribute="trailing" secondItem="pfH-X9-zt2" secondAttribute="trailing" constant="20" symbolic="YES" id="3s9-bi-glw"/>
                                                                     <constraint firstItem="bG7-6p-K14" firstAttribute="leading" secondItem="JhN-Ei-cwc" secondAttribute="leading" id="4uD-AO-Lpu"/>
                                                                     <constraint firstItem="vXP-sy-RjA" firstAttribute="leading" secondItem="hZC-r1-9qT" secondAttribute="trailing" constant="15" id="8d2-U1-PB2"/>
@@ -3791,30 +3876,41 @@
                                                                     <constraint firstAttribute="trailing" secondItem="Q5Y-se-57f" secondAttribute="trailing" constant="20" id="D0Q-8t-5Zf"/>
                                                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="aJj-ZZ-2HW" secondAttribute="trailing" constant="20" symbolic="YES" id="DGC-Kw-MLA"/>
                                                                     <constraint firstItem="wQf-dh-YrY" firstAttribute="leading" secondItem="bG7-6p-K14" secondAttribute="leading" id="DHu-wx-nif"/>
+                                                                    <constraint firstItem="ouC-Xw-h5r" firstAttribute="top" secondItem="9Pe-lE-Z4U" secondAttribute="bottom" constant="12.5" id="Dsz-RZ-Ajx"/>
+                                                                    <constraint firstItem="Xh7-Bf-NxV" firstAttribute="leading" secondItem="5dz-Rq-CP1" secondAttribute="leading" constant="20" symbolic="YES" id="FG5-j1-qF6"/>
                                                                     <constraint firstItem="bWh-Kj-PGZ" firstAttribute="top" secondItem="Vu7-UH-2yw" secondAttribute="bottom" constant="20" id="Fq6-IF-HKI"/>
                                                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Ed8-db-QRe" secondAttribute="trailing" constant="20" symbolic="YES" id="GAe-AT-CWs"/>
                                                                     <constraint firstItem="tFk-Mw-KkS" firstAttribute="top" secondItem="hZC-r1-9qT" secondAttribute="bottom" constant="20" id="H1t-Ep-sAj"/>
                                                                     <constraint firstAttribute="trailing" secondItem="meM-wv-GWX" secondAttribute="trailing" constant="20" symbolic="YES" id="H4u-cN-ovi"/>
-                                                                    <constraint firstItem="OF3-9O-NWC" firstAttribute="top" secondItem="Q5Y-se-57f" secondAttribute="bottom" constant="20" id="Hz9-bs-aVZ"/>
+                                                                    <constraint firstItem="9Pe-lE-Z4U" firstAttribute="top" secondItem="AWe-cz-bba" secondAttribute="bottom" constant="10" id="HJx-q5-w9F"/>
                                                                     <constraint firstItem="Itu-3g-3TI" firstAttribute="leading" secondItem="bG7-6p-K14" secondAttribute="trailing" constant="20" id="Ix2-xa-hTk"/>
                                                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="SV3-nf-hay" secondAttribute="trailing" constant="20" symbolic="YES" id="JKb-xy-iJd"/>
                                                                     <constraint firstItem="NVv-6m-ccE" firstAttribute="centerY" secondItem="tFk-Mw-KkS" secondAttribute="centerY" id="JMl-kM-FUo"/>
                                                                     <constraint firstAttribute="trailing" secondItem="9UW-AR-SwG" secondAttribute="trailing" constant="20" symbolic="YES" id="Jhq-n6-XPs"/>
+                                                                    <constraint firstItem="itt-sm-tD6" firstAttribute="top" secondItem="BPb-Az-Ux9" secondAttribute="bottom" constant="10" id="KUy-t0-RKw"/>
                                                                     <constraint firstItem="meM-wv-GWX" firstAttribute="leading" secondItem="5dz-Rq-CP1" secondAttribute="leading" constant="20" symbolic="YES" id="KwL-OR-41a"/>
+                                                                    <constraint firstItem="BPb-Az-Ux9" firstAttribute="leading" secondItem="5dz-Rq-CP1" secondAttribute="leading" constant="20" symbolic="YES" id="LWb-Sj-93j"/>
                                                                     <constraint firstItem="kw8-tx-G0h" firstAttribute="leading" secondItem="bG7-6p-K14" secondAttribute="leading" id="LXY-In-OOv"/>
+                                                                    <constraint firstItem="cMR-yb-idN" firstAttribute="top" secondItem="ouC-Xw-h5r" secondAttribute="bottom" constant="10" id="LYl-9W-KlP"/>
+                                                                    <constraint firstItem="ouC-Xw-h5r" firstAttribute="leading" secondItem="5dz-Rq-CP1" secondAttribute="leading" constant="20" symbolic="YES" id="MZs-hl-6qE"/>
                                                                     <constraint firstItem="gbA-x6-aog" firstAttribute="leading" secondItem="bG7-6p-K14" secondAttribute="leading" id="Odc-cQ-BUK"/>
                                                                     <constraint firstItem="SV3-nf-hay" firstAttribute="top" secondItem="meM-wv-GWX" secondAttribute="bottom" constant="15.5" id="QUC-mP-RmB"/>
                                                                     <constraint firstItem="hZC-r1-9qT" firstAttribute="top" secondItem="OF3-9O-NWC" secondAttribute="bottom" constant="15.5" id="RTg-rK-LB4"/>
+                                                                    <constraint firstItem="AWe-cz-bba" firstAttribute="top" secondItem="itt-sm-tD6" secondAttribute="bottom" constant="19.5" id="Rdf-2X-6mj"/>
                                                                     <constraint firstItem="Ed8-db-QRe" firstAttribute="leading" secondItem="5dz-Rq-CP1" secondAttribute="leading" constant="20" id="SiM-t4-Wqr"/>
                                                                     <constraint firstItem="9UW-AR-SwG" firstAttribute="centerY" secondItem="hZC-r1-9qT" secondAttribute="centerY" id="Ude-xP-wOM"/>
+                                                                    <constraint firstItem="OF3-9O-NWC" firstAttribute="top" secondItem="Xh7-Bf-NxV" secondAttribute="bottom" constant="20.5" id="VTW-DP-VM8"/>
                                                                     <constraint firstItem="kw8-tx-G0h" firstAttribute="bottom" secondItem="bG7-6p-K14" secondAttribute="bottom" id="VXM-CK-xSq"/>
+                                                                    <constraint firstItem="9Pe-lE-Z4U" firstAttribute="leading" secondItem="5dz-Rq-CP1" secondAttribute="leading" constant="20" symbolic="YES" id="VeW-ut-7fW"/>
                                                                     <constraint firstItem="Ed8-db-QRe" firstAttribute="top" secondItem="bWh-Kj-PGZ" secondAttribute="bottom" constant="20" id="Vwq-dT-87y"/>
                                                                     <constraint firstItem="1br-WH-oK1" firstAttribute="centerY" secondItem="tFk-Mw-KkS" secondAttribute="centerY" id="Y78-sb-tPP"/>
                                                                     <constraint firstItem="Ed8-db-QRe" firstAttribute="leading" secondItem="tb0-aC-1H4" secondAttribute="leading" id="YXZ-I4-9cy"/>
+                                                                    <constraint firstItem="cMR-yb-idN" firstAttribute="leading" secondItem="5dz-Rq-CP1" secondAttribute="leading" constant="20" symbolic="YES" id="Z8k-eS-bHk"/>
+                                                                    <constraint firstItem="ubY-BN-e1T" firstAttribute="top" secondItem="cMR-yb-idN" secondAttribute="bottom" constant="19.5" id="a4e-mB-kn2"/>
                                                                     <constraint firstItem="NqC-0f-KBe" firstAttribute="leading" secondItem="gbA-x6-aog" secondAttribute="leading" id="arw-gO-E0b"/>
                                                                     <constraint firstItem="bG7-6p-K14" firstAttribute="top" secondItem="aJj-ZZ-2HW" secondAttribute="bottom" constant="20" id="bQ9-uv-HKk"/>
                                                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="tb0-aC-1H4" secondAttribute="trailing" constant="20" symbolic="YES" id="cKj-ej-vyV"/>
-                                                                    <constraint firstItem="Q5Y-se-57f" firstAttribute="top" secondItem="SV3-nf-hay" secondAttribute="bottom" constant="20" id="dbI-PL-CxL"/>
+                                                                    <constraint firstItem="Q5Y-se-57f" firstAttribute="top" secondItem="SV3-nf-hay" secondAttribute="bottom" constant="10" id="dbI-PL-CxL"/>
                                                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="wQf-dh-YrY" secondAttribute="trailing" constant="20" symbolic="YES" id="dxQ-1v-JS5"/>
                                                                     <constraint firstItem="NVv-6m-ccE" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1br-WH-oK1" secondAttribute="trailing" constant="8" symbolic="YES" id="eDl-35-gBF"/>
                                                                     <constraint firstAttribute="trailing" secondItem="NVv-6m-ccE" secondAttribute="trailing" constant="20" symbolic="YES" id="eVY-Ys-j4F"/>
@@ -3824,18 +3920,23 @@
                                                                     <constraint firstAttribute="bottom" secondItem="pfH-X9-zt2" secondAttribute="bottom" constant="20" id="gi3-zs-zBg"/>
                                                                     <constraint firstItem="kw8-tx-G0h" firstAttribute="trailing" secondItem="NqC-0f-KBe" secondAttribute="trailing" id="i6d-Hz-yh3"/>
                                                                     <constraint firstItem="tFk-Mw-KkS" firstAttribute="leading" secondItem="5dz-Rq-CP1" secondAttribute="leading" constant="20" id="iVy-UQ-OkC"/>
+                                                                    <constraint firstItem="itt-sm-tD6" firstAttribute="leading" secondItem="5dz-Rq-CP1" secondAttribute="leading" constant="20" symbolic="YES" id="jKq-pa-VEW"/>
                                                                     <constraint firstItem="gbA-x6-aog" firstAttribute="top" secondItem="wQf-dh-YrY" secondAttribute="bottom" constant="20" id="jYh-8x-PSv"/>
                                                                     <constraint firstItem="aJj-ZZ-2HW" firstAttribute="leading" secondItem="tb0-aC-1H4" secondAttribute="leading" id="jp9-d3-ziM"/>
+                                                                    <constraint firstItem="BPb-Az-Ux9" firstAttribute="top" secondItem="Q5Y-se-57f" secondAttribute="bottom" constant="20" id="lBh-33-HQM"/>
                                                                     <constraint firstAttribute="trailing" secondItem="Itu-3g-3TI" secondAttribute="trailing" constant="20" id="lhL-Dc-MKB"/>
                                                                     <constraint firstItem="Ed8-db-QRe" firstAttribute="leading" secondItem="aJX-z6-wpX" secondAttribute="leading" id="mi4-wc-V9U"/>
                                                                     <constraint firstItem="pfH-X9-zt2" firstAttribute="top" secondItem="tFk-Mw-KkS" secondAttribute="bottom" constant="46" id="mj3-lu-hyd"/>
                                                                     <constraint firstItem="hZC-r1-9qT" firstAttribute="leading" secondItem="5dz-Rq-CP1" secondAttribute="leading" constant="20" id="nE3-kB-K7g"/>
+                                                                    <constraint firstItem="AWe-cz-bba" firstAttribute="leading" secondItem="5dz-Rq-CP1" secondAttribute="leading" constant="20" symbolic="YES" id="ofR-Az-aNh"/>
                                                                     <constraint firstItem="kw8-tx-G0h" firstAttribute="trailing" secondItem="bG7-6p-K14" secondAttribute="trailing" id="op6-JH-Qqv"/>
                                                                     <constraint firstItem="OF3-9O-NWC" firstAttribute="leading" secondItem="5dz-Rq-CP1" secondAttribute="leading" constant="20" id="qON-jF-xm0"/>
                                                                     <constraint firstItem="pfH-X9-zt2" firstAttribute="leading" secondItem="5dz-Rq-CP1" secondAttribute="leading" constant="20" symbolic="YES" id="qOe-WD-qfx"/>
                                                                     <constraint firstItem="Ed8-db-QRe" firstAttribute="leading" secondItem="PhK-j6-cql" secondAttribute="leading" id="qkd-3w-Lil"/>
                                                                     <constraint firstItem="NqC-0f-KBe" firstAttribute="bottom" secondItem="gbA-x6-aog" secondAttribute="bottom" id="r3N-i8-Exh"/>
+                                                                    <constraint firstItem="ubY-BN-e1T" firstAttribute="leading" secondItem="5dz-Rq-CP1" secondAttribute="leading" constant="20" symbolic="YES" id="rPv-UI-0g2"/>
                                                                     <constraint firstItem="PhK-j6-cql" firstAttribute="top" secondItem="5dz-Rq-CP1" secondAttribute="top" constant="20" id="s1R-Ip-UjB"/>
+                                                                    <constraint firstItem="SV3-nf-hay" firstAttribute="leading" secondItem="5dz-Rq-CP1" secondAttribute="leading" constant="20" symbolic="YES" id="t2w-km-g1d"/>
                                                                     <constraint firstItem="aJX-z6-wpX" firstAttribute="top" secondItem="PhK-j6-cql" secondAttribute="bottom" constant="10" id="uJV-r7-mfl"/>
                                                                     <constraint firstItem="Ed8-db-QRe" firstAttribute="leading" secondItem="SV3-nf-hay" secondAttribute="leading" id="uYA-n0-5M1"/>
                                                                     <constraint firstItem="JhN-Ei-cwc" firstAttribute="top" secondItem="tb0-aC-1H4" secondAttribute="bottom" constant="20" id="ub9-iL-F8E"/>
@@ -3894,6 +3995,7 @@
                         <outlet property="birthDayTextField" destination="bWh-Kj-PGZ" id="Dv4-8Z-gmO"/>
                         <outlet property="connectAppleButton" destination="NVv-6m-ccE" id="NMZ-R9-Olq"/>
                         <outlet property="connectFacebookButton" destination="9UW-AR-SwG" id="5m1-Pc-WsC"/>
+                        <outlet property="districtTextField" destination="9Pe-lE-Z4U" id="rM9-gA-xiM"/>
                         <outlet property="emailTextField" destination="gbA-x6-aog" id="vvW-pl-JrX"/>
                         <outlet property="facebookNameLabel" destination="vXP-sy-RjA" id="NVE-HL-oSQ"/>
                         <outlet property="gendorView" destination="meM-wv-GWX" id="sgQ-FA-Blj"/>
@@ -3902,7 +4004,10 @@
                         <outlet property="nameTextField" destination="aJX-z6-wpX" id="8pi-vN-8b6"/>
                         <outlet property="phoneTextField" destination="bG7-6p-K14" id="iqF-yX-Ij0"/>
                         <outlet property="phoneVerifyButton" destination="Itu-3g-3TI" id="ud9-v7-bcf"/>
+                        <outlet property="postCodeTextField" destination="Xh7-Bf-NxV" id="vvw-nD-pO9"/>
+                        <outlet property="provinceTextField" destination="itt-sm-tD6" id="PJg-CL-amH"/>
                         <outlet property="signOutButton" destination="pfH-X9-zt2" id="VjR-ge-BEL"/>
+                        <outlet property="subDistrictTextField" destination="cMR-yb-idN" id="NzG-Fk-TW8"/>
                         <outlet property="surNameTextField" destination="JhN-Ei-cwc" id="1sa-5F-eQt"/>
                     </connections>
                 </viewController>

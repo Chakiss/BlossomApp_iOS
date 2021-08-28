@@ -107,6 +107,10 @@ class CustomerManager: NSObject {
                 let tmpAddress = documentData["address"] as? [String : Any] ?? [:]
                 var address = Address()
                 address.address = tmpAddress["address"] as? String ?? ""
+                address.zipcodeID = tmpAddress["zipcodeID"] as? Int ?? 0
+                address.provinceID = tmpAddress["provinceID"] as? Int ?? 0
+                address.districtID = tmpAddress["districtID"] as? Int ?? 0
+                address.subDistrictID = tmpAddress["subDistrictID"] as? Int ?? 0
                 
                 
                 let genderString = gender

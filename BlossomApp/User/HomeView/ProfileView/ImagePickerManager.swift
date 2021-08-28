@@ -40,9 +40,10 @@ class ImagePickerManager: NSObject, UIImagePickerControllerDelegate, UINavigatio
     func pickImage(_ viewController: UIViewController, _ callback: @escaping ((UIImage) -> ())) {
         pickImageCallback = callback;
         self.viewController = viewController;
-
+        
         alert.popoverPresentationController?.sourceView = self.viewController!.view
-
+        let bounds = CGRect(x: self.viewController!.view.bounds.width/2, y: self.viewController!.view.bounds.height/2 - 200, width: 200, height: 100)
+        alert.popoverPresentationController?.sourceRect = bounds
         viewController.present(alert, animated: true, completion: nil)
     }
     func openCamera(){

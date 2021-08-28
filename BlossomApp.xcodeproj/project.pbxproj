@@ -108,6 +108,11 @@
 		1BCE650C26ABF5A2002EE71F /* Appointment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCE650B26ABF5A2002EE71F /* Appointment.swift */; };
 		1BCE650E26AC4F3C002EE71F /* VerifyPhoneNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCE650D26AC4F3C002EE71F /* VerifyPhoneNumberViewController.swift */; };
 		1BCE651026AD501F002EE71F /* CallKitAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCE650F26AD501F002EE71F /* CallKitAdapter.swift */; };
+		1BDEA9FF26D5FFCD0038CD49 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BDEA9FE26D5FFCD0038CD49 /* AdSupport.framework */; };
+		1BDEAA0126D68ACD0038CD49 /* ZipCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDEAA0026D68ACC0038CD49 /* ZipCode.swift */; };
+		1BDEAA0326D69AC00038CD49 /* Province.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDEAA0226D69AC00038CD49 /* Province.swift */; };
+		1BDEAA0526D69B1E0038CD49 /* District.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDEAA0426D69B1E0038CD49 /* District.swift */; };
+		1BDEAA0726D69BBF0038CD49 /* SubDistrict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDEAA0626D69BBF0038CD49 /* SubDistrict.swift */; };
 		1BE0AA9326C2E53F00439CBC /* AppleLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE0AA9226C2E53F00439CBC /* AppleLoginViewController.swift */; };
 		1BE0AA9526C2E86500439CBC /* FacebookLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE0AA9426C2E86500439CBC /* FacebookLoginViewController.swift */; };
 		1BE101E3269D575D00F7323E /* Doctor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE101E2269D575D00F7323E /* Doctor.swift */; };
@@ -290,6 +295,11 @@
 		1BCE650B26ABF5A2002EE71F /* Appointment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appointment.swift; sourceTree = "<group>"; };
 		1BCE650D26AC4F3C002EE71F /* VerifyPhoneNumberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPhoneNumberViewController.swift; sourceTree = "<group>"; };
 		1BCE650F26AD501F002EE71F /* CallKitAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallKitAdapter.swift; sourceTree = "<group>"; };
+		1BDEA9FE26D5FFCD0038CD49 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		1BDEAA0026D68ACC0038CD49 /* ZipCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZipCode.swift; sourceTree = "<group>"; };
+		1BDEAA0226D69AC00038CD49 /* Province.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Province.swift; sourceTree = "<group>"; };
+		1BDEAA0426D69B1E0038CD49 /* District.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = District.swift; sourceTree = "<group>"; };
+		1BDEAA0626D69BBF0038CD49 /* SubDistrict.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubDistrict.swift; sourceTree = "<group>"; };
 		1BE0AA9226C2E53F00439CBC /* AppleLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginViewController.swift; sourceTree = "<group>"; };
 		1BE0AA9426C2E86500439CBC /* FacebookLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookLoginViewController.swift; sourceTree = "<group>"; };
 		1BE101E2269D575D00F7323E /* Doctor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doctor.swift; sourceTree = "<group>"; };
@@ -345,6 +355,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1BDEA9FF26D5FFCD0038CD49 /* AdSupport.framework in Frameworks */,
 				1BCE650426ABB153002EE71F /* OmiseSDK in Frameworks */,
 				DC2AE2A13027CA0FF0DB346C /* Pods_BlossomApp.framework in Frameworks */,
 			);
@@ -725,6 +736,10 @@
 				1BCE650B26ABF5A2002EE71F /* Appointment.swift */,
 				3C7A4D4826B05F9B001D541A /* CallManager.swift */,
 				1B3A30FA26C6B255009FD035 /* PushMessage.swift */,
+				1BDEAA0026D68ACC0038CD49 /* ZipCode.swift */,
+				1BDEAA0226D69AC00038CD49 /* Province.swift */,
+				1BDEAA0426D69B1E0038CD49 /* District.swift */,
+				1BDEAA0626D69BBF0038CD49 /* SubDistrict.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -883,6 +898,7 @@
 		5A33B9B51641CF67E01E1D2A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1BDEA9FE26D5FFCD0038CD49 /* AdSupport.framework */,
 				AC264B58EA94DFC12E339130 /* Pods_BlossomApp.framework */,
 				E18FAEDD43FEC1799872D6F0 /* Pods_BlossomApp_BlossomAppUITests.framework */,
 				F87A667F55FB1100E8DD11C7 /* Pods_BlossomAppTests.framework */,
@@ -1190,6 +1206,7 @@
 			files = (
 				1B69AD5326A4601400910679 /* DoctorDetailViewController.swift in Sources */,
 				1B1C2E3926993C5B00F57122 /* Product.swift in Sources */,
+				1BDEAA0526D69B1E0038CD49 /* District.swift in Sources */,
 				1BCE650826ABB69E002EE71F /* DoctorProfileCell.swift in Sources */,
 				1B69AD5626A4791A00910679 /* ConnectyCubeManager.swift in Sources */,
 				1B1C2E3726993C5B00F57122 /* Paginate.swift in Sources */,
@@ -1225,6 +1242,7 @@
 				1B1C2E3626993C5B00F57122 /* Options.swift in Sources */,
 				1BA04F4B26B03B470053F10D /* BlossomReview.swift in Sources */,
 				1B775922269491A4000780BD /* Promotion.swift in Sources */,
+				1BDEAA0126D68ACD0038CD49 /* ZipCode.swift in Sources */,
 				1B69AD4D26A402C800910679 /* DoctorHomeViewController.swift in Sources */,
 				1BA04F3F26AE85080053F10D /* Doctor_ChatListViewController.swift in Sources */,
 				1BCE64FA26A88736002EE71F /* CallViewController.swift in Sources */,
@@ -1294,10 +1312,12 @@
 				1B3D367826B2EEED000EFCEC /* HistoryAppointmentDetailViewController.swift in Sources */,
 				1BA04F4326AE8CF20053F10D /* Doctor_ComingAppointmentViewController.swift in Sources */,
 				1BE0AA9326C2E53F00439CBC /* AppleLoginViewController.swift in Sources */,
+				1BDEAA0726D69BBF0038CD49 /* SubDistrict.swift in Sources */,
 				3CFE6374269B350E005235F1 /* PaymentMethodViewController.swift in Sources */,
 				1B531255269378C800B88165 /* UIColor+Extension.swift in Sources */,
 				1B5BC3BA2696086A004206AE /* LandingViewController.swift in Sources */,
 				1BF58D4226ADBEDE00F2D620 /* Orders.swift in Sources */,
+				1BDEAA0326D69AC00038CD49 /* Province.swift in Sources */,
 				1B3721D52695AF29006265D3 /* ProfileInformationViewController.swift in Sources */,
 				1B13E6EE269B2F3F00131105 /* ProgressView.swift in Sources */,
 				3CF7B50E26AC456000F937DE /* CreateOrderRequest.swift in Sources */,

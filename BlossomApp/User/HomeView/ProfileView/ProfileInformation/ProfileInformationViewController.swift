@@ -23,9 +23,33 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
     @IBOutlet weak var birthDayTextField: UITextField!
     let datePicker = UIDatePicker()
 
+    let postCodePicker = UIPickerView()
+    let provincePicker = UIPickerView()
+    let districtPicker = UIPickerView()
+    let subDistrictPicker = UIPickerView()
+    
+    var provinces: [Province]  = []
+    var zipCodes: [ZipCode]  = []
+    var districts: [District]  = []
+    var subDistricts: [SubDistrict]  = []
+    
+    var filteredZipCodes: [ZipCode]  = []
+    var filteredDistricts: [District]  = []
+    var filteredSubDistricts: [SubDistrict]  = []
+    
+    var selectedProvince: Province?
+    var selectedZipCodes: ZipCode?
+    var selectedDistricts: District?
+    var selectedSubDistricts: SubDistrict?
+    
     var showLogout: Bool = true
     
     @IBOutlet weak var addressTextField: UITextView!
+    
+    @IBOutlet weak var postCodeTextField: UITextField!
+    @IBOutlet weak var provinceTextField: UITextField!
+    @IBOutlet weak var districtTextField: UITextField!
+    @IBOutlet weak var subDistrictTextField: UITextField!
     
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var phoneTextField: UITextField!
@@ -61,10 +85,17 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
 
         signOutButton.isHidden = !showLogout
         birthDayTextField.addInputViewDatePicker(target: self, selector: #selector(doneButtonPressed))
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        
+        getProvinces()
+        getZipCodes()
+        getDistricts()
+        getSubDistricts()
         
         informationView.addConerRadiusAndShadow()
         nameTextField.addBottomBorder()
@@ -80,7 +111,139 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
         signOutButton.layer.cornerRadius = 22
         
         
+    }
+    
+    func getZipCodes(){
         
+        
+        let urlString = "https://raw.githubusercontent.com/Cerberus/Thailand-Address/master/zipcodes.json"
+        
+        self.loadJson(fromURLString: urlString) { (result) in
+            switch result {
+            case .success(let data):
+                
+                DispatchQueue.main.async {
+                    self.zipCodes = try! JSONDecoder().decode([ZipCode].self, from: data)
+                    
+                    if self.customer?.address?.zipcodeID  == 0 {
+                        self.postCodeTextField.text = ""
+                    } else {
+                        self.postCodeTextField.text = self.zipCodes.filter({$0.zIPCODE_ID == self.customer?.address?.zipcodeID}).first?.zIPCODE
+                        
+                        self.selectedZipCodes = self.zipCodes.filter({$0.zIPCODE_ID == self.customer?.address?.zipcodeID}).first
+                    }
+                }
+                
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
+    }
+    func getProvinces(){
+        
+    
+        let urlString = "https://raw.githubusercontent.com/Cerberus/Thailand-Address/master/provinces.json"
+        
+        self.loadJson(fromURLString: urlString) { (result) in
+            switch result {
+            case .success(let data):
+                
+                DispatchQueue.main.async {
+                    self.provinces = try! JSONDecoder().decode([Province].self, from: data)
+                    if self.customer?.address?.provinceID  == 0 {
+                        self.provinceTextField.text = ""
+                    } else {
+                        self.provinceTextField.text = self.provinces.filter({$0.pROVINCE_ID == self.customer?.address?.provinceID}).first?.pROVINCE_NAME
+                        
+                        
+                        self.selectedProvince = self.provinces.filter({$0.pROVINCE_ID == self.customer?.address?.provinceID}).first
+                        
+                        
+
+                    }
+                }
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    func getDistricts(){
+    
+        let urlString = "https://raw.githubusercontent.com/Cerberus/Thailand-Address/master/districts.json"
+        
+        self.loadJson(fromURLString: urlString) { (result) in
+            switch result {
+            case .success(let data):
+                DispatchQueue.main.async {
+                    self.districts = try! JSONDecoder().decode([District].self, from: data)
+                    if self.customer?.address?.districtID  == 0 {
+                        self.districtTextField.text = ""
+                    }else {
+                        self.districtTextField.text = self.districts.filter({$0.dISTRICT_ID == self.customer?.address?.districtID}).first?.dISTRICT_NAME
+                        
+                        self.selectedDistricts = self.districts.filter({$0.dISTRICT_ID == self.customer?.address?.districtID}).first
+                    }
+                }
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    func getSubDistricts(){
+    
+        let urlString = "https://raw.githubusercontent.com/Cerberus/Thailand-Address/master/subDistricts.json"
+        
+        self.loadJson(fromURLString: urlString) { (result) in
+            switch result {
+            case .success(let data):
+                DispatchQueue.main.async {
+                    self.subDistricts = try! JSONDecoder().decode([SubDistrict].self, from: data)
+                    if self.customer?.address?.subDistrictID  == 0 {
+                        self.subDistrictTextField.text = ""
+                    }else {
+                        self.subDistrictTextField.text = self.subDistricts.filter({$0.sUB_DISTRICT_ID == self.customer?.address?.subDistrictID}).first?.sUB_DISTRICT_NAME
+                        
+                        self.selectedSubDistricts = self.subDistricts.filter({$0.sUB_DISTRICT_ID == self.customer?.address?.subDistrictID}).first
+                    }
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+//    func displayAddress()  {
+//       
+//        if customer?.address?.provinceID  == 0 {
+//            self.provinceTextField.text = ""
+//        }
+//        if customer?.address?.districtID  == 0 {
+//            self.districtTextField.text = ""
+//        }
+//        if customer?.address?.subDistrictID  == 0 {
+//            self.subDistrictTextField.text = ""
+//        }
+//    }
+    private func loadJson(fromURLString urlString: String,
+                          completion: @escaping (Result<Data, Error>) -> Void) {
+        
+        if let url = URL(string: urlString) {
+            let urlSession = URLSession(configuration: .default).dataTask(with: url) { (data, response, error) in
+                if let error = error {
+                    completion(.failure(error))
+                }
+                
+                if let data = data {
+                    completion(.success(data))
+                }
+            }
+            
+            urlSession.resume()
+        }
         
     }
     
@@ -117,6 +280,8 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
         self.addressTextField.text = customer?.address?.address
         
         
+        setPicker()
+        
         let userInfoList: [UserInfo] = user?.providerData ?? []
         for userInfo in userInfoList {
             print(userInfo.providerID)
@@ -129,6 +294,41 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
         
         checkLinkAccount()
             
+    }
+    
+    func setPicker() {
+        
+        
+        postCodePicker.delegate = self
+        postCodePicker.dataSource = self
+        postCodeTextField.inputView = postCodePicker
+        
+        
+        provincePicker.delegate = self
+        provincePicker.dataSource = self
+        provinceTextField.inputView = provincePicker
+        
+        
+        districtPicker.delegate = self
+        districtPicker.dataSource = self
+        districtTextField.inputView = districtPicker
+        
+        
+        subDistrictPicker.delegate = self
+        subDistrictPicker.dataSource = self
+        subDistrictTextField.inputView = subDistrictPicker
+        
+    }
+    
+    @objc func doneDatePicker(){
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd/yyyy"
+        postCodeTextField.text = formatter.string(from: datePicker.date)
+        self.view.endEditing(true)
+    }
+
+    @objc func cancelDatePicker(){
+        self.view.endEditing(true)
     }
     
     @IBAction func phoneNumberVerifyButtonTapped() {
@@ -624,8 +824,79 @@ extension UITextField {
         self.inputAccessoryView = toolBar
     }
     
+    
     @objc func cancelPressed() {
         self.resignFirstResponder()
     }
-    
+  
+}
+
+extension ProfileInformationViewController :UIPickerViewDelegate, UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if pickerView == postCodePicker {
+            return filteredZipCodes.count
+        } else if pickerView == provincePicker {
+            return provinces.count
+        } else if pickerView == districtPicker {
+            return filteredDistricts.count
+        } else {
+            return filteredSubDistricts.count
+        }
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if pickerView == postCodePicker {
+            if filteredZipCodes.count == 1 {
+                postCodeTextField.text = filteredZipCodes[row].zIPCODE
+            }
+            return filteredZipCodes[row].zIPCODE
+        } else if pickerView == provincePicker {
+            return provinces[row].pROVINCE_NAME
+        } else if pickerView == districtPicker {
+            return filteredDistricts[row].dISTRICT_NAME
+        } else {
+            return filteredSubDistricts[row].sUB_DISTRICT_NAME
+        }
+        
+    }
+
+
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if pickerView == provincePicker {
+            
+            provinceTextField.text = provinces[row].pROVINCE_NAME
+            selectedProvince = provinces[row]
+            
+            filteredDistricts = districts.filter({$0.pROVINCE_ID == provinces[row].pROVINCE_ID})
+
+            
+            
+        }  else if pickerView == districtPicker {
+            
+            districtTextField.text = filteredDistricts[row].dISTRICT_NAME
+            selectedDistricts = filteredDistricts[row]
+            
+            filteredSubDistricts = subDistricts.filter({$0.dISTRICT_ID == filteredDistricts[row].dISTRICT_ID})
+            
+            
+        } else if pickerView == subDistrictPicker {
+            
+            subDistrictTextField.text = filteredSubDistricts[row].sUB_DISTRICT_NAME
+            selectedSubDistricts = filteredSubDistricts[row]
+            
+            filteredZipCodes = zipCodes.filter({$0.sUB_DISTRICT_ID == String(filteredSubDistricts[row].sUB_DISTRICT_ID!)})
+            
+        } else if pickerView == postCodePicker {
+            
+            postCodeTextField.text = filteredZipCodes[row].zIPCODE
+            selectedZipCodes = filteredZipCodes[row]
+        }
+        
+        NotificationCenter.default.post(name: Notification.Name("BlossomProfileChanged"), object: nil)
+        
+    }
 }
