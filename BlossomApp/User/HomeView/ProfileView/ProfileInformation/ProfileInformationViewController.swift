@@ -93,9 +93,9 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
         super.viewWillAppear(true)
         
         getProvinces()
-        getZipCodes()
         getDistricts()
         getSubDistricts()
+        getZipCodes()
         
         informationView.addConerRadiusAndShadow()
         nameTextField.addBottomBorder()
@@ -131,6 +131,11 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
                         self.postCodeTextField.text = self.zipCodes.filter({$0.zIPCODE_ID == self.customer?.address?.zipcodeID}).first?.zIPCODE
                         
                         self.selectedZipCodes = self.zipCodes.filter({$0.zIPCODE_ID == self.customer?.address?.zipcodeID}).first
+                        
+//                        if (self.selectedProvince != nil) {
+//                            self.filteredZipCodes = self.zipCodes.filter({Int($0.pROVINCE_ID ?? "0") == self.selectedProvince?.pROVINCE_ID})
+//                        }
+                        
                     }
                 }
                 
@@ -151,16 +156,15 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
             case .success(let data):
                 
                 DispatchQueue.main.async {
-                    self.provinces = try! JSONDecoder().decode([Province].self, from: data)
+                    let provinces = try! JSONDecoder().decode([Province].self, from: data)
+                    self.provinces = provinces.sorted(by: {$0.pROVINCE_NAME! < $1.pROVINCE_NAME!})
                     if self.customer?.address?.provinceID  == 0 {
                         self.provinceTextField.text = ""
                     } else {
                         self.provinceTextField.text = self.provinces.filter({$0.pROVINCE_ID == self.customer?.address?.provinceID}).first?.pROVINCE_NAME
                         
-                        
                         self.selectedProvince = self.provinces.filter({$0.pROVINCE_ID == self.customer?.address?.provinceID}).first
-                        
-                        
+                    
 
                     }
                 }
@@ -185,6 +189,10 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
                         self.districtTextField.text = self.districts.filter({$0.dISTRICT_ID == self.customer?.address?.districtID}).first?.dISTRICT_NAME
                         
                         self.selectedDistricts = self.districts.filter({$0.dISTRICT_ID == self.customer?.address?.districtID}).first
+                        
+                        if (self.selectedProvince != nil) {
+                            self.filteredDistricts = self.districts.filter({$0.pROVINCE_ID == self.selectedProvince?.pROVINCE_ID})
+                        }
                     }
                 }
                 
@@ -206,8 +214,11 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
                         self.subDistrictTextField.text = ""
                     }else {
                         self.subDistrictTextField.text = self.subDistricts.filter({$0.sUB_DISTRICT_ID == self.customer?.address?.subDistrictID}).first?.sUB_DISTRICT_NAME
-                        
                         self.selectedSubDistricts = self.subDistricts.filter({$0.sUB_DISTRICT_ID == self.customer?.address?.subDistrictID}).first
+                        
+                        if (self.selectedProvince != nil) {
+                            self.filteredSubDistricts = self.subDistricts.filter({$0.pROVINCE_ID == self.selectedProvince?.pROVINCE_ID})
+                        }
                     }
                 }
             case .failure(let error):
@@ -216,18 +227,7 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
         }
     }
     
-//    func displayAddress()  {
-//       
-//        if customer?.address?.provinceID  == 0 {
-//            self.provinceTextField.text = ""
-//        }
-//        if customer?.address?.districtID  == 0 {
-//            self.districtTextField.text = ""
-//        }
-//        if customer?.address?.subDistrictID  == 0 {
-//            self.subDistrictTextField.text = ""
-//        }
-//    }
+
     private func loadJson(fromURLString urlString: String,
                           completion: @escaping (Result<Data, Error>) -> Void) {
         
@@ -302,22 +302,73 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
         postCodePicker.delegate = self
         postCodePicker.dataSource = self
         postCodeTextField.inputView = postCodePicker
-        
+        postCodePicker.tag = 1
+        postCodeTextField.tag = 1
+        self.createToolbar(textField: postCodeTextField)
         
         provincePicker.delegate = self
         provincePicker.dataSource = self
         provinceTextField.inputView = provincePicker
-        
+        provincePicker.tag = 2
+        provinceTextField.tag = 2
+        self.createToolbar(textField: provinceTextField)
         
         districtPicker.delegate = self
         districtPicker.dataSource = self
         districtTextField.inputView = districtPicker
-        
+        districtPicker.tag = 3
+        districtTextField.tag = 3
+        self.createToolbar(textField: districtTextField)
         
         subDistrictPicker.delegate = self
         subDistrictPicker.dataSource = self
         subDistrictTextField.inputView = subDistrictPicker
+        subDistrictPicker.tag = 4
+        subDistrictTextField.tag = 4
+        self.createToolbar(textField: subDistrictTextField)
+    }
+    
+    func createToolbar(textField: UITextField) {
+
+        let toolBar = UIToolbar()
+        toolBar.sizeToFit()
+
+        //Customizations
+        toolBar.barTintColor = .blossomPrimary2
+        toolBar.tintColor = .white
+
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(self.doneButton(sender:)))
+
+        toolBar.setItems([doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
         
+        textField.inputAccessoryView = toolBar
+        doneButton.tag = textField.tag
+        
+    }
+    
+    @objc func doneButton(sender: AnyObject) {
+        
+        let button = sender as! UIBarButtonItem
+        var picker = UIPickerView()
+        if button.tag == 1 {
+            picker = postCodePicker
+        } else if button.tag == 2 {
+            picker = provincePicker
+        } else if button.tag == 3 {
+            picker = districtPicker
+        } else {
+            picker = subDistrictPicker
+        }
+        let row = picker.selectedRow(inComponent: 0);
+        picker.selectRow(row, inComponent: 0, animated: true)
+
+        print(sender)
+        view.endEditing(true)
+    }
+
+    func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     @objc func doneDatePicker(){
@@ -867,33 +918,43 @@ extension ProfileInformationViewController :UIPickerViewDelegate, UIPickerViewDa
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerView == provincePicker {
+            if provinces.count > 0 {
+                provinceTextField.text = provinces[row].pROVINCE_NAME
+                selectedProvince = provinces[row]
             
-            provinceTextField.text = provinces[row].pROVINCE_NAME
-            selectedProvince = provinces[row]
-            
-            filteredDistricts = districts.filter({$0.pROVINCE_ID == provinces[row].pROVINCE_ID})
+                filteredDistricts = districts.filter({$0.pROVINCE_ID == provinces[row].pROVINCE_ID})
+            }
 
             
             
         }  else if pickerView == districtPicker {
-            
+            if filteredDistricts.count > 0 {
             districtTextField.text = filteredDistricts[row].dISTRICT_NAME
             selectedDistricts = filteredDistricts[row]
             
             filteredSubDistricts = subDistricts.filter({$0.dISTRICT_ID == filteredDistricts[row].dISTRICT_ID})
+            }
             
             
         } else if pickerView == subDistrictPicker {
-            
-            subDistrictTextField.text = filteredSubDistricts[row].sUB_DISTRICT_NAME
-            selectedSubDistricts = filteredSubDistricts[row]
-            
-            filteredZipCodes = zipCodes.filter({$0.sUB_DISTRICT_ID == String(filteredSubDistricts[row].sUB_DISTRICT_ID!)})
+            if filteredSubDistricts.count > 0 {
+                subDistrictTextField.text = filteredSubDistricts[row].sUB_DISTRICT_NAME
+                selectedSubDistricts = filteredSubDistricts[row]
+    
+                filteredZipCodes = zipCodes.filter({$0.sUB_DISTRICT_ID == String(filteredSubDistricts[row].sUB_DISTRICT_ID!)})
+                
+                if filteredZipCodes.count == 1 {
+                    self.selectedZipCodes = filteredZipCodes.first
+                    postCodeTextField.text = self.selectedZipCodes?.zIPCODE
+                    
+                }
+            }
             
         } else if pickerView == postCodePicker {
-            
-            postCodeTextField.text = filteredZipCodes[row].zIPCODE
-            selectedZipCodes = filteredZipCodes[row]
+            if filteredZipCodes.count > 0 {
+                postCodeTextField.text = filteredZipCodes[row].zIPCODE
+                selectedZipCodes = filteredZipCodes[row]
+            }
         }
         
         NotificationCenter.default.post(name: Notification.Name("BlossomProfileChanged"), object: nil)

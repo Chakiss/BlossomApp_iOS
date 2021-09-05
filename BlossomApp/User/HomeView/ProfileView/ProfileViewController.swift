@@ -157,7 +157,7 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
                            "zipcodeID": profileInformationViewController.selectedZipCodes?.zIPCODE_ID ?? 0] as [String : Any]
             
             functions.httpsCallable("app-users-updateProfile").call(payload) { [weak self] result, error in
-                ProgressHUD.dismiss()
+                
                 Auth.auth().currentUser?.reload()
                 self?.delegate?.profileDidSave()
                 self?.saveHealtData()
@@ -219,6 +219,7 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
                              "allergicDrug": allergicDrugString]
         
         functions.httpsCallable("app-users-updateMedicalProfile").call(payloadHealth) { [weak self] result, error in
+            ProgressHUD.dismiss()
             Auth.auth().currentUser?.reload()
             self?.navigationController?.popViewController(animated: true)
             
