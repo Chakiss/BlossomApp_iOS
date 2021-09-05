@@ -174,7 +174,7 @@ class CartViewController: UIViewController {
                                   email: customer.email ?? "",
                                   annotation: "",
                                   tag: "app",
-                                  shippingType: "EMS",
+                                  shippingType: "J&T Express",
                                   shippingFee: shippingFee,
                                   orderDiscount: 0,
                                   purchasesAttributes: cart?.getPurcahseAttributes() ?? [])
@@ -219,7 +219,7 @@ class CartViewController: UIViewController {
                                   email: customer.email ?? "",
                                   annotation: "",
                                   tag: "app",
-                                  shippingType: "EMS",
+                                  shippingType: "J&T Express",
                                   shippingFee: shippingFee,
                                   orderDiscount: 0,
                                   purchasesAttributes: cart?.getPurcahseAttributes() ?? [])
