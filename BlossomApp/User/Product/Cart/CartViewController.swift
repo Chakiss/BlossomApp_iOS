@@ -79,7 +79,7 @@ class CartViewController: UIViewController {
         let model = CartHeaderTableViewCell.Model(
             dateString: String.today(),
             priceText: "",
-            addressText: customer?.address?.address ?? "-",
+            addressText: customer?.address?.formattedAddress ?? "-",
             shippingText: "",
             phoneNumberText: customer?.phoneNumber?.phonenumberformat() ?? "-"
         )
@@ -101,10 +101,10 @@ class CartViewController: UIViewController {
     }
 
     private func updateTotalPrice() {
-        var total = cart?.calculateTotalPriceInSatang().satangToBaht() ?? 0
+        
+        let total = cart?.calculateTotalPriceInSatang().satangToBaht() ?? 0
         
         if !self.checkSetProduct() && (total > 0 && total < 1000 )  {
-            total += 60
             shippingFee = 60
             self.cartHeaderModel?.shippingText = "60"
         } else {
@@ -112,7 +112,7 @@ class CartViewController: UIViewController {
             self.cartHeaderModel?.shippingText = "0"
         }
         cart?.shippingFee = shippingFee
-        let totalText = total.toAmountText()
+        let totalText = (total + Double(shippingFee)).toAmountText()
         self.cartHeaderModel?.priceText = totalText
         checkoutButton.isEnabled = cart?.items.count ?? 0 > 0
         checkoutButton.alpha = checkoutButton.isEnabled ? 1.0 : 0.5
@@ -154,7 +154,7 @@ class CartViewController: UIViewController {
             return
         }
         
-        guard let address = customer.address?.address, !address.isEmpty else {
+        guard let address = customer.address?.formattedAddress, !address.isEmpty else {
             if Defaults[\.role] == "doctor" {
                 showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณาแจ้งให้ผู้รับคำปรึกษาระบุที่อยู่จัดส่ง") { }
             } else {
@@ -199,7 +199,7 @@ class CartViewController: UIViewController {
             return
         }
         
-        guard let address = customer.address?.address, !address.isEmpty else {
+        guard let address = customer.address?.formattedAddress, !address.isEmpty else {
             if Defaults[\.role] == "doctor" {
                 showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณาแจ้งให้ผู้รับคำปรึกษาระบุที่อยู่จัดส่ง") { }
             } else {

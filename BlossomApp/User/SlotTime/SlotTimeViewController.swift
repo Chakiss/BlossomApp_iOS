@@ -180,7 +180,7 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
             cell.timeLabel.text = self.slotTime[indexPath.row].id
             
             
-            if slotTime.isBooked == false{
+            if slotTime.isBooked == false && slotTime.isPaid == false && slotTime.isCompleted == false {
                 
                 cell.isUserInteractionEnabled = true
                 if self.slotTimeSelected?.id == slotTime.id {
@@ -213,7 +213,7 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
         }
         else {
             let slotTime = self.slotTime[indexPath.row]
-            if slotTime.isBooked == false{
+            if slotTime.isBooked == false && slotTime.isPaid == false && slotTime.isCompleted == false {
                 self.slotTimeSelected = self.slotTime[indexPath.row]
                 collectionView.reloadData()
                 checkAppointmentButton()

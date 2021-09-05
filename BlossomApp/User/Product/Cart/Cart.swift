@@ -101,7 +101,11 @@ class Cart {
     }
     
     public func calculateTotalPriceInSatang() -> Int {
-        return items.map({ $0.product.priceInSatang() * $0.quantity }).reduce(0, +) + (shippingFee * 100)
+        return items.map({ $0.product.priceInSatang() * $0.quantity }).reduce(0, +) //+ (shippingFee * 100)
+    }
+    
+    public func shippingFeeInSatang() -> Int {
+        return (shippingFee * 100)
     }
     
     public func getPurcahseAttributes() -> [PurchasesAttribute] {
@@ -183,8 +187,8 @@ class CartManager {
         let cart = Cart()
         cart.updatePO(order)
         order.purchases?.forEach({ item in
-            let product = Product(from: item)
-            cart.addItem(product, quantity: item.quantity ?? 0, purchaseID: "\(item.id ?? 0)")
+                let product = Product(from: item)
+                cart.addItem(product, quantity: item.quantity ?? 0, purchaseID: "\(item.id ?? 0)")
         })        
         return cart
     }

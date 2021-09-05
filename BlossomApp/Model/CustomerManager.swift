@@ -111,6 +111,8 @@ class CustomerManager: NSObject {
                 address.provinceID = tmpAddress["provinceID"] as? Int ?? 0
                 address.districtID = tmpAddress["districtID"] as? Int ?? 0
                 address.subDistrictID = tmpAddress["subDistrictID"] as? Int ?? 0
+                address.formattedAddress = tmpAddress["formattedAddress"] as? String ?? ""
+                
                 
                 
                 let genderString = gender

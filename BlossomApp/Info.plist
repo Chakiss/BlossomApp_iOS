@@ -75,9 +75,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCalendarsUsageDescription</key>
-	<string>Blossom app need to access your calender to add event on it</string>
+	<string>Blossom app need to access your calender to add event on it.</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Blossom app wants to access your camera to take a photo.</string>
+	<string>Blossom app wants to access your camera to take a photo for medical consult.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Blossom app wants to access your microphone to contact to doctor.</string>
 	<key>NSPhotoLibraryUsageDescription</key>

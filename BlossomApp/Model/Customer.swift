@@ -137,7 +137,7 @@ class Customer: Codable {
 struct Address: Codable  {
     var address: String?
     var districtID: Int?
-    var formattedAddress: Int?
+    var formattedAddress: String?
     var provinceID: Int?
     var subDistrictID: Int?
     var zipcodeID: Int?

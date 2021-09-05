@@ -234,7 +234,7 @@ extension PaymentMethodViewController : CreditCardFormViewControllerDelegate {
     func creditCardFormViewController(_ controller: CreditCardFormViewController, didSucceedWithToken token: Token) {
         
         let orderID = appointmentOrder != nil ? "\(appointmentOrder!.id)" : "\(cart?.purchaseOrder?.id ?? 0)"
-        let amountSatang = appointmentOrder != nil ? appointmentOrder!.amount*100 : cart?.calculateTotalPriceInSatang() ?? 0
+        let amountSatang = appointmentOrder != nil ? appointmentOrder!.amount*100 : (cart?.calculateTotalPriceInSatang() ?? 0) + (cart?.shippingFeeInSatang() ?? 0) 
         let ref = appointmentOrder != nil ? "1Z\(appointmentOrder!.id)" : "2Z\(cart?.purchaseOrder?.id ?? 0)"
         ProgressHUD.show()
         APIProduct.chargeCreditCard(orderID: orderID, amountSatang: amountSatang, token: token.id, ref: ref) { [weak self, weak controller] response in

@@ -100,7 +100,7 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
         doctorAppointmentView.addConerRadiusAndShadow()
         user = Auth.auth().currentUser
         getCustomer()
-        fetchProduct()
+        
     }
     
     @objc func appointmentTapped(tapGestureRecognizer: UITapGestureRecognizer){
@@ -160,7 +160,6 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
                 return
             }
             
-            
             let newData = response.orders ?? []
             self.orders.append(contentsOf: newData)
             self.checkOrderIsPaid()
@@ -169,7 +168,7 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
         
     }
     
-    func    checkOrderIsPaid(){
+    func checkOrderIsPaid(){
         
         if self.orders.contains(where: {$0.paid == false}) {
             self.medicineView.isHidden = false
@@ -188,7 +187,7 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
             
             self?.customer = customer            
             self?.getAppointmentData()
-            
+            self?.fetchProduct()
         }
         
     }
