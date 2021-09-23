@@ -11,6 +11,7 @@ import ConnectyCubeCalls
 import PushKit
 import CallKit
 import SwiftyUserDefaults
+import Firebase
 
 protocol CallManagerDelegate: AnyObject {
     func callManagerDidEndCall()
@@ -31,6 +32,8 @@ class CallManager: NSObject, CXProviderDelegate {
     private(set) var videoCapture: CallCameraCapture?
 
     weak var delegate: CallManagerDelegate?
+    
+    private weak var functions = Functions.functions()
     
     private override init() { }
     
@@ -271,6 +274,16 @@ extension CallManager : PKPushRegistryDelegate {
         print(pushCredentials.token)
         let deviceToken = pushCredentials.token.map { String(format: "%02x", $0) }.joined()
         print("pushRegistry -> deviceToken :\(deviceToken)")
+        
+        
+        let payload = ["token": deviceToken,
+                       "os": "ios"] as [String : Any]
+        
+        functions?.httpsCallable("app-users-addDeviceToken").call(payload) { result, error in
+            ProgressHUD.dismiss()
+            
+        }
+        
         let deviceIdentifier: String = UIDevice.current.identifierForVendor!.uuidString
 
         let subscription: Subscription! = Subscription()
@@ -295,7 +308,7 @@ extension CallManager : PKPushRegistryDelegate {
         let provider = CXProvider(configuration: config)
         provider.setDelegate(self, queue: nil)
         let update = CXCallUpdate()
-        update.remoteHandle = CXHandle(type: .generic, value: "Pete Za")
+        update.remoteHandle = CXHandle(type: .generic, value: "Blossom Clinic App")
         update.hasVideo = true
         provider.reportNewIncomingCall(with: UUID(), update: update, completion: { error in })
     }

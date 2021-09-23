@@ -138,6 +138,7 @@ class CustomerManager: NSObject {
     func saveDeviceToken(_ deviceToken: Data) {
         CallManager.manager.deviceToken = deviceToken
         Messaging.messaging().apnsToken = deviceToken
+        
     }
 
 }

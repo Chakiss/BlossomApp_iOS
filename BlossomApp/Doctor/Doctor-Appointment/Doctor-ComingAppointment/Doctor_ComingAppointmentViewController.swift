@@ -10,6 +10,7 @@ import Firebase
 import ConnectyCube
 import ConnectyCubeCalls
 import SwiftyUserDefaults
+import Firebase
 
 
 class Doctor_ComingAppointmentViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
@@ -22,6 +23,8 @@ class Doctor_ComingAppointmentViewController: UIViewController, UITableViewDataS
     var customer: Customer?
     var appointments: [Appointment] = []
     var doctor: Doctor?
+    
+    lazy var functions = Functions.functions()
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -54,6 +57,13 @@ class Doctor_ComingAppointmentViewController: UIViewController, UITableViewDataS
      }
 
     func attemptCall(with type: CallConferenceType, appointment: Appointment) {
+        
+        
+        let payload = ["appointmentID": appointment.id!] as [String : Any]
+        
+        functions.httpsCallable("app-messages-sendVOIPNotification").call(payload) { result, error in
+            
+        }
         
         var opponentID = NSNumber(integerLiteral: 0)
         appointment.customerReference?.getDocument(completion: { snapshot, error in

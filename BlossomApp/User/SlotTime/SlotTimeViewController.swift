@@ -10,6 +10,7 @@ import Firebase
 import SwiftDate
 import EventKit
 import ConnectyCube
+import UserNotifications
 
 class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
@@ -23,6 +24,9 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     var slotDaySelected: SlotDay?
     var slotTimeSelected: SlotTime?
+    
+    let notificationCenter = UNUserNotificationCenter.current()
+
     
     @IBOutlet weak var dayCollectionView: UICollectionView!
     @IBOutlet weak var timeCollectionView: UICollectionView!
@@ -388,8 +392,33 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
           print("failed to save event with error : \(error)")
           }
           print("Saved Event")
+        
+      
+        scheduleNotification()
     }
     
+    func scheduleNotification() {
+//        
+//        let content = UNMutableNotificationContent() // Содержимое уведомления
+//        
+//        content.title = notificationType
+//        content.body = "This is example how to create"
+//        content.sound = UNNotificationSound.default
+//        content.badge = 1
+//        
+//        let date = self.slotTimeSelected?.start?.dateValue() ?? Date()
+//        let triggerDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second,], from: date)
+//        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
+//        let identifier = "Local Notification"
+//        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+//        
+//        notificationCenter.add(request) { (error) in
+//            if let error = error {
+//                print("Error \(error.localizedDescription)")
+//            }
+//        }
+    }
+
 }
 
 extension SlotTimeViewController : UpdateCartViewControllerDelegate {

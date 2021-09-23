@@ -10,6 +10,7 @@ import PushKit
 import SwiftDate
 import ConnectyCube
 import ConnectyCubeCalls
+import Firebase
 
 class ComingAppointmentViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, PKPushRegistryDelegate {
 
@@ -24,6 +25,8 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
     var appointments: [Appointment] = []
     
     var parentVC: AppointmentListViewController!
+    
+    lazy var functions = Functions.functions()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -154,6 +157,13 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
         self.present(alert, animated: true, completion: nil)
     }
     func attemptCall(with type: CallConferenceType, appointment: Appointment) {
+        
+        
+        let payload = ["appointmentID": appointment.id!] as [String : Any]
+                        
+        functions.httpsCallable("app-messages-sendVOIPNotification").call(payload) { result, error in
+    
+        }
         
         var opponentID = NSNumber(integerLiteral: 0)
         appointment.doctorReference?.getDocument(completion: { snapshot, error in

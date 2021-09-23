@@ -50,7 +50,7 @@ class ReceiveCallViewController: UIViewController, CXProviderDelegate, PKPushReg
            let provider = CXProvider(configuration: config)
            provider.setDelegate(self, queue: nil)
            let update = CXCallUpdate()
-           update.remoteHandle = CXHandle(type: .generic, value: "Pete Za")
+           update.remoteHandle = CXHandle(type: .generic, value: "Blossom Clinic App")
            update.hasVideo = true
            provider.reportNewIncomingCall(with: UUID(), update: update, completion: { error in })
        }

@@ -22,13 +22,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JHU-AU-i9A">
-                    <rect key="frame" x="62" y="258" width="290" height="290"/>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="JHU-AU-i9A" secondAttribute="height" multiplier="1:1" id="eiJ-iq-DRY"/>
-                    </constraints>
+                    <rect key="frame" x="20" y="84" width="374" height="537.5"/>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8nT-j9-nkA" customClass="Button" customModule="BlossomApp" customModuleProvider="target">
-                    <rect key="frame" x="62" y="588" width="290" height="44"/>
+                    <rect key="frame" x="30" y="661.5" width="354" height="44"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="M7O-Fa-1X4"/>
                     </constraints>
@@ -41,14 +38,16 @@
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="JHU-AU-i9A" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.7" id="FvG-UJ-HbM"/>
-                <constraint firstItem="8nT-j9-nkA" firstAttribute="width" secondItem="JHU-AU-i9A" secondAttribute="width" id="LNo-yP-HfR"/>
-                <constraint firstItem="JHU-AU-i9A" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" constant="-50" id="aoH-7E-vQb"/>
-                <constraint firstItem="8nT-j9-nkA" firstAttribute="centerX" secondItem="JHU-AU-i9A" secondAttribute="centerX" id="kWY-rN-TCi"/>
-                <constraint firstItem="JHU-AU-i9A" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="lbp-Re-e6P"/>
-                <constraint firstItem="8nT-j9-nkA" firstAttribute="top" secondItem="JHU-AU-i9A" secondAttribute="bottom" constant="40" id="yTZ-dE-tW4"/>
+                <constraint firstItem="JHU-AU-i9A" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="0cH-q9-vCB"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="JHU-AU-i9A" secondAttribute="trailing" constant="20" id="B5o-8G-BRL"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="8nT-j9-nkA" secondAttribute="trailing" constant="30" id="H8F-gw-Hu9"/>
+                <constraint firstItem="8nT-j9-nkA" firstAttribute="top" secondItem="JHU-AU-i9A" secondAttribute="bottom" constant="40" id="Hx4-Xd-D30"/>
+                <constraint firstItem="8nT-j9-nkA" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="30" id="KVp-nG-Fw1"/>
+                <constraint firstItem="JHU-AU-i9A" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="40" id="VQI-6a-Kyc"/>
+                <constraint firstItem="8nT-j9-nkA" firstAttribute="centerX" secondItem="JHU-AU-i9A" secondAttribute="centerX" id="ggy-hO-V7Y"/>
+                <constraint firstItem="JHU-AU-i9A" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.6" id="xz8-O3-aXu"/>
             </constraints>
-            <point key="canvasLocation" x="-25" y="52"/>
+            <point key="canvasLocation" x="-26.086956521739133" y="51.5625"/>
         </view>
     </objects>
     <resources>
