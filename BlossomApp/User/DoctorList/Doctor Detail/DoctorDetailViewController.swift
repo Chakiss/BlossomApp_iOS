@@ -131,6 +131,12 @@ class DoctorDetailViewController: UIViewController, UITableViewDelegate, UITable
             return
         }
         
+        guard (CustomerManager.sharedInstance.customer?.acneType?.count ?? 0 > 0 || CustomerManager.sharedInstance.customer?.skinType?.count ?? 0 > 0) else {
+            showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณากรอกข้อมูลสุขภาพให้ครบถ้วย") { [weak self] in
+                self?.showProfile()
+            }
+            return
+        }
         
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)

@@ -30,17 +30,15 @@ class VerifyPhoneNumberViewController: UIViewController {
     @IBAction func verifyButtonTapped(){
         
         ProgressHUD.show()
-        let credential = PhoneAuthProvider.provider().credential(
-          withVerificationID: verificationID,
-            verificationCode: otpTextField.text ?? ""
-        )
+        let payload = ["token": verificationID,
+                       "code": otpTextField.text ?? ""]
         
-        Auth.auth().signIn(with: credential) { authResult, error in
+        functions.httpsCallable("app-messages-verifyPhoneNumberOTP").call(payload) { result, error in
             ProgressHUD.dismiss()
             if error == nil {
-            
-                let payload = ["phoneNumber": self.phoneNumber]
-                self.functions.httpsCallable("app-users-markPhoneNumberVerified").call(payload) { result, error in
+                
+                let payloadMarkPhoneNumberVerified = ["phoneNumber": self.phoneNumber]
+                self.functions.httpsCallable("app-users-markPhoneNumberVerified").call(payloadMarkPhoneNumberVerified) { result, error in
                     Auth.auth().currentUser?.reload()
                     self.dismiss(animated: true, completion: nil)
                     
@@ -49,12 +47,33 @@ class VerifyPhoneNumberViewController: UIViewController {
                 let alert = UIAlertController(title: "เกิดข้อผิดพลาด", message: error?.localizedDescription,  preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "ตกลง", style: .default, handler: {(_: UIAlertAction!) in}))
                 self.present(alert, animated: true, completion: nil)
-            }
-            // User is signed in
-            // ...
+                       }
         }
-        
-        
+//        let credential = PhoneAuthProvider.provider().credential(
+//          withVerificationID: verificationID,
+//            verificationCode: otpTextField.text ?? ""
+//        )
+//
+//        Auth.auth().signIn(with: credential) { authResult, error in
+//            ProgressHUD.dismiss()
+//            if error == nil {
+//
+//                let payload = ["phoneNumber": self.phoneNumber]
+//                self.functions.httpsCallable("app-users-markPhoneNumberVerified").call(payload) { result, error in
+//                    Auth.auth().currentUser?.reload()
+//                    self.dismiss(animated: true, completion: nil)
+//
+//                }
+//            } else {
+//                let alert = UIAlertController(title: "เกิดข้อผิดพลาด", message: error?.localizedDescription,  preferredStyle: .alert)
+//                alert.addAction(UIAlertAction(title: "ตกลง", style: .default, handler: {(_: UIAlertAction!) in}))
+//                self.present(alert, animated: true, completion: nil)
+//            }
+//            // User is signed in
+//            // ...
+//        }
+//
+//
     }
 
     /*

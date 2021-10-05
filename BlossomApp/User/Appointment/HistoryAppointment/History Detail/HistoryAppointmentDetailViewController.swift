@@ -15,6 +15,7 @@ class HistoryAppointmentDetailViewController: UIViewController, UITableViewDataS
     
     @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var ageLabel: UILabel!
     @IBOutlet weak var appointmentLabel: UILabel!
     
     @IBOutlet weak var tableView: UITableView!
@@ -42,6 +43,11 @@ class HistoryAppointmentDetailViewController: UIViewController, UITableViewDataS
             
             self.userNameLabel.text =  customer?.displayName
             
+          
+            
+            self.ageLabel.text = "อายุ " + self.getAgeFromDOF(date: customer?.birthDate! ?? "") + " ปี"
+            
+            
             let imageRef = self.storage.reference(withPath: customer?.displayPhoto ?? "")
             imageRef.getData(maxSize: 2 * 1024 * 1024) { (data, error) in
                 if error == nil {
@@ -65,6 +71,25 @@ class HistoryAppointmentDetailViewController: UIViewController, UITableViewDataS
         }
         
     }
+    
+    func getAgeFromDOF(date: String) -> String {//(Int,Int,Int) {
+        
+        if date.count == 0 { return "" }
+        
+        let dateFormater = DateFormatter()
+        dateFormater.dateFormat = "YYYY-MM-dd"
+        let dateOfBirth = dateFormater.date(from: date)
+        
+        let calender = Calendar.current
+        
+        let dateComponent = calender.dateComponents([.year, .month, .day], from:
+                                                        dateOfBirth!, to: Date())
+        
+        //return (dateComponent.year!, dateComponent.month!, dateComponent.day!)
+        return String(dateComponent.year!)
+        
+    }
+
     
     @IBAction func appoointmentAllTapped() {
         

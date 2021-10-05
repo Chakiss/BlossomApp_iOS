@@ -405,17 +405,17 @@ extension CartViewController: CartHeaderTableViewCellDelegate {
             return
         }
         
-        showProfile()
+        self.showProfile()
     }
     
-    private func showProfile() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let viewController = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
-        viewController.showLogout = false
-        viewController.delegate = self
-        viewController.hidesBottomBarWhenPushed = true
-        self.navigationController?.pushViewController(viewController, animated: true)
-    }
+//    private func showProfile() {
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let viewController = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
+//        viewController.showLogout = false
+//        viewController.delegate = self
+//        viewController.hidesBottomBarWhenPushed = true
+//        self.navigationController?.pushViewController(viewController, animated: true)
+//    }
     
 }
 

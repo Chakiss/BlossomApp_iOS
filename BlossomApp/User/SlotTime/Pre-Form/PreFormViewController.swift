@@ -23,12 +23,16 @@ class PreFormViewController: UIViewController {
     
     @IBOutlet weak var submitButton: UIButton!
     
+    var imageArray: [UIImage] = []
+    
     @IBOutlet weak var imageView1: UIImageView!
     @IBOutlet weak var imageView2: UIImageView!
     @IBOutlet weak var imageView3: UIImageView!
     var selectedImage1: Bool = false
     var selectedImage2: Bool = false
     var selectedImage3: Bool = false
+    
+    @IBOutlet weak var collectionView: UICollectionView!
     
     var appointmentID: String = ""
     
@@ -45,48 +49,49 @@ class PreFormViewController: UIViewController {
         self.topicButton.isMultipleSelectionEnabled = true
         self.submitButton.layer.cornerRadius = 22
         // Do any additional setup after loading the view.
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
-        imageView1.isUserInteractionEnabled = true
-        imageView1.addGestureRecognizer(tapGestureRecognizer)
-        let tapGestureRecognizer2 = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
-        imageView2.isUserInteractionEnabled = true
-        imageView2.addGestureRecognizer(tapGestureRecognizer2)
-        let tapGestureRecognizer3 = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
-        imageView3.isUserInteractionEnabled = true
-        imageView3.addGestureRecognizer(tapGestureRecognizer3)
+//        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+//        imageView1.isUserInteractionEnabled = true
+//        imageView1.addGestureRecognizer(tapGestureRecognizer)
+//        let tapGestureRecognizer2 = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+//        imageView2.isUserInteractionEnabled = true
+//        imageView2.addGestureRecognizer(tapGestureRecognizer2)
+//        let tapGestureRecognizer3 = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+//        imageView3.isUserInteractionEnabled = true
+//        imageView3.addGestureRecognizer(tapGestureRecognizer3)
     
     }
     
     
     
     @IBAction func submit() {
-        var image1String = ""
-        if selectedImage1 == true {
-            if let imageData = imageView1.image!.jpeg(.low) {
-                let strBase64:String = imageData.base64EncodedString(options: .lineLength64Characters)
-                let encodeString:String = "data:image/jpeg;base64, \(strBase64)"
-                image1String = encodeString
-                
-            }
-        }
-        
-        var image2String = ""
-        if selectedImage2 == true {
-            if let imageData = imageView2.image!.jpeg(.low) {
-                let strBase64:String = imageData.base64EncodedString(options: .lineLength64Characters)
-                let encodeString:String = "data:image/jpeg;base64, \(strBase64)"
-                image2String = encodeString
-            }
-        }
-        
-        var image3String = ""
-        if selectedImage3 == true {
-            if let imageData = imageView3.image!.jpeg(.low) {
-                let strBase64:String = imageData.base64EncodedString(options: .lineLength64Characters)
-                let encodeString:String = "data:image/jpeg;base64, \(strBase64)"
-                image3String = encodeString
-            }
-        }
+//        var image1String = ""
+//        if selectedImage1 == true {
+//            if let imageData = imageView1.image!.jpeg(.low) {
+//                let strBase64:String = imageData.base64EncodedString(options: .lineLength64Characters)
+//                let encodeString:String = "data:image/jpeg;base64, \(strBase64)"
+//                image1String = encodeString
+//
+//            }
+//        }
+//
+//        var image2String = ""
+//        if selectedImage2 == true {
+//            if let imageData = imageView2.image!.jpeg(.low) {
+//                let strBase64:String = imageData.base64EncodedString(options: .lineLength64Characters)
+//                let encodeString:String = "data:image/jpeg;base64, \(strBase64)"
+//                image2String = encodeString
+//            }
+//        }
+//
+//        var image3String = ""
+//        if selectedImage3 == true {
+//            if let imageData = imageView3.image!.jpeg(.low) {
+//                let strBase64:String = imageData.base64EncodedString(options: .lineLength64Characters)
+//                let encodeString:String = "data:image/jpeg;base64, \(strBase64)"
+//                image3String = encodeString
+//            }
+//        }
+//
         
         var selectedButton:String = ""
         for button in topicButton.selectedButtons() {
@@ -102,17 +107,25 @@ class PreFormViewController: UIViewController {
         
         attachImage = []
         
-        if !image1String.isEmpty {
-            attachImage.append(image1String)
+        for image in imageArray {
+            if let imageData = image.jpeg(.low) {
+                let strBase64:String = imageData.base64EncodedString(options: .lineLength64Characters)
+                let encodeString:String = "data:image/jpeg;base64, \(strBase64)"
+                attachImage.append(encodeString)
+            }
         }
         
-        if !image2String.isEmpty {
-            attachImage.append(image2String)
-        }
-        
-        if !image3String.isEmpty {
-            attachImage.append(image3String)
-        }
+//        if !image1String.isEmpty {
+//            attachImage.append(image1String)
+//        }
+//
+//        if !image2String.isEmpty {
+//            attachImage.append(image2String)
+//        }
+//
+//        if !image3String.isEmpty {
+//            attachImage.append(image3String)
+//        }
         
         if attachImage.count == 0 {
             showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณาแนบรูปอย่างน้อย 1 รูป") {}
@@ -162,23 +175,6 @@ class PreFormViewController: UIViewController {
          
     }
     
-    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer){
-        
-        ImagePickerManager().pickImage(self){ image in
-            let tappedImage = tapGestureRecognizer.view as! UIImageView
-            if tappedImage.tag == 1 {
-                self.imageView1.image = image
-                self.selectedImage1 = true
-            } else if tappedImage.tag == 2 {
-                self.imageView2.image = image
-                self.selectedImage2 = true
-            } else {
-                self.imageView3.image = image
-                self.selectedImage3 = true
-            }
-            
-        }
-    }
     
 
     func makeAppointmentOrderPaid(orderID: String){
@@ -315,5 +311,49 @@ extension PreFormViewController : UpdateCartViewControllerDelegate {
         self.navigationController?.popViewController(animated: true)
         makeAppointmentOrderPaid(orderID: orderID)
     }
+    
+}
+
+
+extension PreFormViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height)
+    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return imageArray.count + 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell: ImageCell? = (collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as! ImageCell)
+        if indexPath.row < imageArray.count {
+            cell?.imageView.image = imageArray[indexPath.row] as? UIImage
+        }
+    
+        return cell ?? UICollectionViewCell()
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+       
+        
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.row == imageArray.count   {
+            ImagePickerManager().pickImage(self){ image in
+                print(image)
+                self.imageArray.append(image)
+                collectionView.reloadData()
+            }
+        }
+    }
+    
+    
     
 }

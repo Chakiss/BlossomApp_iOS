@@ -288,9 +288,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         let navAttributes = [NSAttributedString.Key.font: UIFont(name: "SukhumvitSet-Bold", size: 16),
                              NSAttributedString.Key.foregroundColor: UIColor.white]
+        
         UINavigationBar.appearance().titleTextAttributes = navAttributes as [NSAttributedString.Key : Any]
         UINavigationBar.appearance().barTintColor = UIColor.blossomPrimary
+        UINavigationBar.appearance().isTranslucent = false
         
+        if #available(iOS 15, *) {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = UIColor.blossomPrimary
+            appearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white,
+                                              NSAttributedString.Key.font:UIFont(name: "SukhumvitSet-SemiBold", size: 16) ?? UIFont.systemFont(ofSize: 16)]
+            UINavigationBar.appearance().standardAppearance = appearance
+            UINavigationBar.appearance().scrollEdgeAppearance = appearance
+            
+           
+          
+            let tabbarAppearance = UITabBarAppearance()
+            tabbarAppearance.configureWithOpaqueBackground()
+            tabbarAppearance.backgroundColor = UIColor.white
+            
+            UITabBar.appearance().standardAppearance = tabbarAppearance
+            UITabBar.appearance().scrollEdgeAppearance = tabbarAppearance
+            
+            
+        }
     }
     
     // MARK: -
