@@ -35,6 +35,8 @@
 		1B1C2E3926993C5B00F57122 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C2E3326993C5B00F57122 /* Product.swift */; };
 		1B1C2E3C269944C200F57122 /* ProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C2E3B269944C200F57122 /* ProductCell.swift */; };
 		1B1C2E3E26994FF700F57122 /* ProductDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C2E3D26994FF700F57122 /* ProductDetailViewController.swift */; };
+		1B21B32E270CB60200218E72 /* PreFormImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B21B32D270CB60200218E72 /* PreFormImage.swift */; };
+		1B21B331270CBDCC00218E72 /* GaleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B21B330270CBDCC00218E72 /* GaleryViewController.swift */; };
 		1B27FDC226A5EA11000E8609 /* SlotDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B27FDC126A5EA11000E8609 /* SlotDateCell.swift */; };
 		1B27FDC426A5F01A000E8609 /* SlotDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B27FDC326A5F01A000E8609 /* SlotDay.swift */; };
 		1B29A3D32697E92300556A55 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1B29A3D22697E92300556A55 /* GoogleService-Info.plist */; };
@@ -223,6 +225,8 @@
 		1B1C2E3326993C5B00F57122 /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		1B1C2E3B269944C200F57122 /* ProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCell.swift; sourceTree = "<group>"; };
 		1B1C2E3D26994FF700F57122 /* ProductDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailViewController.swift; sourceTree = "<group>"; };
+		1B21B32D270CB60200218E72 /* PreFormImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreFormImage.swift; sourceTree = "<group>"; };
+		1B21B330270CBDCC00218E72 /* GaleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GaleryViewController.swift; sourceTree = "<group>"; };
 		1B27FDC126A5EA11000E8609 /* SlotDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotDateCell.swift; sourceTree = "<group>"; };
 		1B27FDC326A5F01A000E8609 /* SlotDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotDay.swift; sourceTree = "<group>"; };
 		1B29A3D22697E92300556A55 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -485,6 +489,14 @@
 			path = ProductResponse;
 			sourceTree = "<group>";
 		};
+		1B21B32F270CBD4E00218E72 /* GalleryView */ = {
+			isa = PBXGroup;
+			children = (
+				1B21B330270CBDCC00218E72 /* GaleryViewController.swift */,
+			);
+			path = GalleryView;
+			sourceTree = "<group>";
+		};
 		1B3721D026959296006265D3 /* ProfileView */ = {
 			isa = PBXGroup;
 			children = (
@@ -519,6 +531,8 @@
 				1B3D367726B2EEED000EFCEC /* HistoryAppointmentDetailViewController.swift */,
 				1BC5428C26B92B1900C15521 /* FormDetailCell.swift */,
 				1BC5428E26B9374B00C15521 /* FormImageCell.swift */,
+				1B21B32D270CB60200218E72 /* PreFormImage.swift */,
+				1B21B32F270CBD4E00218E72 /* GalleryView */,
 			);
 			path = "History Detail";
 			sourceTree = "<group>";
@@ -1236,6 +1250,7 @@
 				3CF7B50726AC40B900F937DE /* APIProduct.swift in Sources */,
 				1B69AD5826A47C8400910679 /* CustomerManager.swift in Sources */,
 				1B69AD5026A40D8B00910679 /* DoctorProfileViewController.swift in Sources */,
+				1B21B32E270CB60200218E72 /* PreFormImage.swift in Sources */,
 				1BCE650C26ABF5A2002EE71F /* Appointment.swift in Sources */,
 				1B19E49E26B5B4CF00A23BAE /* BlossomTabbarController.swift in Sources */,
 				1B27FDC226A5EA11000E8609 /* SlotDateCell.swift in Sources */,
@@ -1263,6 +1278,7 @@
 				1B77591A2694775E000780BD /* MultiBannerView.swift in Sources */,
 				1B19E4A026B6CFDE00A23BAE /* Doctor-HistoryAppointmentViewController.swift in Sources */,
 				1BE101E7269DD2DD00F7323E /* Customer.swift in Sources */,
+				1B21B331270CBDCC00218E72 /* GaleryViewController.swift in Sources */,
 				3CF7B50526AC23C200F937DE /* String+Extension.swift in Sources */,
 				1B685B6127089D18008BBBC8 /* ImageCell.swift in Sources */,
 				1B3F009126BBD1C6001B2062 /* AllAppointmentViewController.swift in Sources */,

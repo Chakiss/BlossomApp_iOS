@@ -9,8 +9,9 @@ import UIKit
 import Firebase
 import GSImageViewerController
 import SwiftDate
+import SwiftPhotoGallery
 
-class HistoryAppointmentDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class HistoryAppointmentDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate {
     
     
     @IBOutlet weak var userImageView: UIImageView!
@@ -24,6 +25,8 @@ class HistoryAppointmentDetailViewController: UIViewController, UITableViewDataS
     let storage = Storage.storage()
     
     var profile = ""
+    var index: Int = 0
+    var imageLoadedArray: [UIImage] = []
     
     @IBOutlet weak var allAppointmentButton: UIButton!
     var isShowAppointmentButton = true
@@ -145,29 +148,7 @@ class HistoryAppointmentDetailViewController: UIViewController, UITableViewDataS
                 cell.detailLabel.text = preformString
             } else {
                 let cellimage = tableView.dequeueReusableCell(withIdentifier: "FormImageCell", for: indexPath) as! FormImageCell
-                let preform: [String:Any] = appointment?.preForm ?? ["":""]
-                let imageArray: [String] = preform["attachedImages"] as! [String]
-                for (index, image) in imageArray.enumerated() {
-                    if index > 2 { break }
-                    let imageRef = storage.reference(withPath: image )
-                    imageRef.getData(maxSize: 2 * 1024 * 1024) { (data, error) in
-                        if error == nil {
-                            if let imgData = data {
-                                if let img = UIImage(data: imgData) {
-                                    cellimage.preImageView[index].image = img
-                                    
-                                    let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
-                                    cellimage.preImageView[index].addGestureRecognizer(tap)
-                                    cellimage.preImageView[index].isUserInteractionEnabled = true
-                                    
-                                }
-                            }
-                        } else {
-                            cellimage.preImageView[index].image = UIImage(named: "placeholder")
-                            
-                        }
-                    }
-                }
+
                 
                 return cellimage
             }
@@ -212,4 +193,77 @@ class HistoryAppointmentDetailViewController: UIViewController, UITableViewDataS
        
     }
 
+}
+
+extension HistoryAppointmentDetailViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        let preform: [String:Any] = appointment?.preForm ?? ["":""]
+        let imageArray = preform["attachedImages"] as! [String]
+        return  imageArray.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell: PreFormImage = (collectionView.dequeueReusableCell(withReuseIdentifier: "PreFormImage", for: indexPath) as! PreFormImage)
+        
+        let preform: [String:Any] = appointment?.preForm ?? ["":""]
+        let imageArray: [String] = preform["attachedImages"] as! [String]
+        let imageRef = storage.reference(withPath: imageArray[indexPath.row] )
+        imageRef.getData(maxSize: 2 * 1024 * 1024) { (data, error) in
+            if error == nil {
+                if let imgData = data {
+                    if let img = UIImage(data: imgData) {
+                        cell.imageView.image = img
+                        self.imageLoadedArray.append(img)
+                        
+                    }
+                }
+            } else {
+                cell.imageView.image = UIImage(named: "placeholder")
+                
+            }
+        }
+
+
+        return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("Collection view at row \(collectionView.tag) selected index path \(indexPath)")
+        
+        let gallery = SwiftPhotoGallery(delegate: self, dataSource: self)
+        gallery.backgroundColor = UIColor.black
+        gallery.pageIndicatorTintColor = UIColor.gray.withAlphaComponent(0.5)
+        gallery.currentPageIndicatorTintColor = UIColor(red: 0.0, green: 0.66, blue: 0.875, alpha: 1.0)
+        gallery.hidePageControl = false
+        gallery.modalPresentationStyle = .custom
+        gallery.transitioningDelegate = self
+
+
+        present(gallery, animated: true, completion: { () -> Void in
+            gallery.currentPage = self.index
+        })
+    }
+}
+
+// MARK: SwiftPhotoGalleryDataSource Methods
+extension HistoryAppointmentDetailViewController: SwiftPhotoGalleryDataSource {
+
+    func numberOfImagesInGallery(gallery: SwiftPhotoGallery) -> Int {
+        return self.imageLoadedArray.count
+    }
+    
+    func imageInGallery(gallery: SwiftPhotoGallery, forIndex: Int) -> UIImage? {
+       return self.imageLoadedArray[forIndex]
+        
+    }
+}
+
+
+// MARK: SwiftPhotoGalleryDelegate Methods
+extension HistoryAppointmentDetailViewController: SwiftPhotoGalleryDelegate {
+
+    func galleryDidTapToClose(gallery: SwiftPhotoGallery) {
+        self.index = gallery.currentPage
+        dismiss(animated: true, completion: nil)
+    }
 }
