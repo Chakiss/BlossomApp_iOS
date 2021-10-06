@@ -169,29 +169,7 @@ class HistoryAppointmentDetailViewController: UIViewController, UITableViewDataS
         return cell
     }
  
-    @objc func handleTap(_ sender: UITapGestureRecognizer) {
-        // handling code
-        
-        let preform: [String:Any] = appointment?.preForm ?? ["":""]
-        let imageArray: [String] = preform["attachedImages"] as! [String]   
-        let imageString = imageArray[sender.view?.tag ?? 0]
-        
-        let imageRef = storage.reference(withPath: imageString )
-        imageRef.getData(maxSize: 2 * 1024 * 1024) { (data, error) in
-            if error == nil {
-                if let imgData = data {
-                    if let img = UIImage(data: imgData) {
-                        let imageInfo   = GSImageInfo(image: img, imageMode: .aspectFit)
-                        let transitionInfo = GSTransitionInfo(fromView: self.tableView)
-                        let imageViewer = GSImageViewerController(imageInfo: imageInfo, transitionInfo: transitionInfo)
-                        self.present(imageViewer, animated: true, completion: nil)
-                        
-                    }
-                }
-            }
-        }
-       
-    }
+   
 
 }
 

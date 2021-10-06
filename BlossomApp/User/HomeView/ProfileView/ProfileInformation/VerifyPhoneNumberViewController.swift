@@ -33,7 +33,7 @@ class VerifyPhoneNumberViewController: UIViewController {
         let payload = ["token": verificationID,
                        "code": otpTextField.text ?? ""]
         
-        functions.httpsCallable("app-messages-verifyPhoneNumberOTP").call(payload) { result, error in
+        functions.httpsCallable("app-users-verifyPhoneNumberOTP").call(payload) { result, error in
             ProgressHUD.dismiss()
             if error == nil {
                 

@@ -398,7 +398,7 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
         
         let payload = ["phoneNumber": phoneNumber]
         
-        functions.httpsCallable("app-messages-requestPhoneNumberOTP").call(payload) { result, error in
+        functions.httpsCallable("app-users-requestPhoneNumberOTP").call(payload) { result, error in
             ProgressHUD.dismiss()
             if error != nil {
                 let alert = UIAlertController(title: "กรุณาตรวจสอบ", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
@@ -406,12 +406,15 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
                 self.present(alert, animated: true, completion: nil)
             }
             else {
+                if let data = result?.data as? [String: Any]{
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let viewController = storyboard.instantiateViewController(withIdentifier: "VerifyPhoneNumberViewController") as! VerifyPhoneNumberViewController
+                    viewController.verificationID = data["token"] as! String
+                    viewController.phoneNumber = phoneNumber!
+                    self.navigationController?.present(viewController, animated: true, completion: nil)
+                }
                 
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let viewController = storyboard.instantiateViewController(withIdentifier: "VerifyPhoneNumberViewController") as! VerifyPhoneNumberViewController
-                viewController.verificationID = "token"
-                viewController.phoneNumber = phoneNumber!
-                self.navigationController?.present(viewController, animated: true, completion: nil)
+                
             }
         }
 //        PhoneAuthProvider.provider()
