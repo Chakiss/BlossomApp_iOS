@@ -119,7 +119,7 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
             
         }))
         
-        alert.addAction(UIAlertAction(title: "ติดต่อ Admin เพื่อเปลี่ยนหรือยกเลิกเวลานัด", style: .default, handler: { [weak self] (UIAlertAction) in
+        alert.addAction(UIAlertAction(title: "ติดต่อ Admin เพื่อเปลี่ยนหรือยกเลิกเวลานัด", style: .default, handler: { (UIAlertAction) in
             
             if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
                 
@@ -136,6 +136,18 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
                 
             }
             
+        }))
+        
+        alert.addAction(UIAlertAction(title: "แก้ไข", style: .destructive, handler:{ (UIAlertAction)in
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let viewController = storyboard.instantiateViewController(withIdentifier: "PreFormViewController") as! PreFormViewController
+            viewController.modalPresentationStyle = .fullScreen
+            viewController.appointment = appointment
+            //viewController.doctor = appointment.doctorReference
+            //viewController.slotDaySelected = appointment.slot
+            //viewController.slotTimeSelected = appointment.slotTimeSelected
+            viewController.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(viewController, animated: true)
         }))
         
         alert.addAction(UIAlertAction(title: "ยกเลิก", style: .destructive, handler:{ (UIAlertAction)in

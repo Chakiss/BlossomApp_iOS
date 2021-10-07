@@ -25,16 +25,12 @@ class PreFormViewController: UIViewController {
     
     var imageArray: [UIImage] = []
     
-    @IBOutlet weak var imageView1: UIImageView!
-    @IBOutlet weak var imageView2: UIImageView!
-    @IBOutlet weak var imageView3: UIImageView!
-    var selectedImage1: Bool = false
-    var selectedImage2: Bool = false
-    var selectedImage3: Bool = false
+    
     
     @IBOutlet weak var collectionView: UICollectionView!
     
     var appointmentID: String = ""
+    let storage = Storage.storage()
     
     var doctor: Doctor?
     var slotDaySelected: SlotDay?
@@ -43,64 +39,71 @@ class PreFormViewController: UIViewController {
     var attachImage: [String] = []
     var formData: [String:String] = [:]
     
+    var appointment: Appointment?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.topicButton.isMultipleSelectionEnabled = true
         self.submitButton.layer.cornerRadius = 22
-        // Do any additional setup after loading the view.
-//        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
-//        imageView1.isUserInteractionEnabled = true
-//        imageView1.addGestureRecognizer(tapGestureRecognizer)
-//        let tapGestureRecognizer2 = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
-//        imageView2.isUserInteractionEnabled = true
-//        imageView2.addGestureRecognizer(tapGestureRecognizer2)
-//        let tapGestureRecognizer3 = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
-//        imageView3.isUserInteractionEnabled = true
-//        imageView3.addGestureRecognizer(tapGestureRecognizer3)
+
     
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        if appointment != nil {
+            self.appointmentID = appointment?.id ?? ""
+            let preform: [String:Any] = appointment?.preForm ?? ["":""]
+
+            let topicString = preform["เรื่องที่ปรึกษา"] as! String
+            let arrayTopic = topicString.components(separatedBy: ",")
+            for topic in arrayTopic {
+                for button in topicButton.otherButtons {
+                    if topic == "สิว" {
+                        topicButton.isSelected = true
+                    } else if topic == "ปรับรูปหน้า" {
+                        button.isSelected = true
+                    } else if topic == "ปรึกษาปัญหาผิวอื่นๆ" {
+                        button.isSelected = true
+                    } else if topic == "ติดตามการรักษา" {
+                        button.isSelected = true
+                    }
+                }
+            }
+
+            let attachedImageArray = preform["attachedImages"] as! [String]
+            
+            for imageData in attachedImageArray {
+                let imageRef = storage.reference(withPath: imageData )
+                imageRef.getData(maxSize: 2 * 1024 * 1024) { (data, error) in
+                    if error == nil {
+                        if let imgData = data {
+                            if let img = UIImage(data: imgData) {
+                                self.imageArray.append(img)
+                                self.collectionView.reloadData()
+                            }
+                        }
+                    }
+                }
+            }
+            
+        }
+    }
     
     
     @IBAction func submit() {
-//        var image1String = ""
-//        if selectedImage1 == true {
-//            if let imageData = imageView1.image!.jpeg(.low) {
-//                let strBase64:String = imageData.base64EncodedString(options: .lineLength64Characters)
-//                let encodeString:String = "data:image/jpeg;base64, \(strBase64)"
-//                image1String = encodeString
-//
-//            }
-//        }
-//
-//        var image2String = ""
-//        if selectedImage2 == true {
-//            if let imageData = imageView2.image!.jpeg(.low) {
-//                let strBase64:String = imageData.base64EncodedString(options: .lineLength64Characters)
-//                let encodeString:String = "data:image/jpeg;base64, \(strBase64)"
-//                image2String = encodeString
-//            }
-//        }
-//
-//        var image3String = ""
-//        if selectedImage3 == true {
-//            if let imageData = imageView3.image!.jpeg(.low) {
-//                let strBase64:String = imageData.base64EncodedString(options: .lineLength64Characters)
-//                let encodeString:String = "data:image/jpeg;base64, \(strBase64)"
-//                image3String = encodeString
-//            }
-//        }
-//
+        
         
         var selectedButton:String = ""
         for button in topicButton.selectedButtons() {
             let title = (button.titleLabel?.text)! as String
             if selectedButton.isEmpty {
                 selectedButton = title
-               } else {
+            } else {
                 selectedButton += ",\(title)"
-               }
+            }
         }
         
         formData = ["เรื่องที่ปรึกษา":selectedButton]
@@ -115,60 +118,59 @@ class PreFormViewController: UIViewController {
             }
         }
         
-//        if !image1String.isEmpty {
-//            attachImage.append(image1String)
-//        }
-//
-//        if !image2String.isEmpty {
-//            attachImage.append(image2String)
-//        }
-//
-//        if !image3String.isEmpty {
-//            attachImage.append(image3String)
-//        }
+        
         
         if attachImage.count == 0 {
             showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณาแนบรูปอย่างน้อย 1 รูป") {}
         }
         else {
-            let alert = UIAlertController(title: "ยืนยัน", message: "คุณต้องการที่จะนัดหมายในเวลานี้ใช่หรือไม่​?", preferredStyle: UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: "ยกเลิก", style: .default, handler: nil))
-            alert.addAction(UIAlertAction(title: "ยืนยัน", style: .default, handler: {_ in
-                ProgressHUD.show()
-                
-                let payload = ["doctorID": self.doctor?.id,
-                               "slotID": self.slotDaySelected?.id,
-                               "timeID": self.slotTimeSelected?.id ]
-                
-                self.functions.httpsCallable("app-orders-createAppointmentOrder").call(payload) { result, error in
-                    
-                    ProgressHUD.dismiss()
-                    if error != nil {
-                        let alert = UIAlertController(title: "กรุณาตรวจสอบ", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
-                        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                        self.present(alert, animated: true, completion: nil)
-                    }
-                    else {
-                        print(result?.data as Any)
-                        let order = result?.data as? [String : String] ?? ["":""]
-                        if self.slotTimeSelected?.salePrice == 0 {
-                            if let orderID = order["orderID"] {
-                                self.makeAppointmentOrderPaid(orderID: orderID)
-                            }
-                            
-                        } else if let orderID = order["orderID"] {
-                            // Make Payment
-                            let paymentMethodViewController = PaymentMethodViewController.initializeInstance(cart: nil, appointmentOrder: AppointmentOrder(id: orderID, amount: self.slotTimeSelected?.salePrice ?? 0))
-                            paymentMethodViewController.delegate = self
-                            self.navigationController?.pushViewController(paymentMethodViewController, animated: true)
-                        }
-                    }
-                    
-                }
-                
-            }))
-            self.present(alert, animated: true, completion: nil)
             
+            if appointment != nil {
+                
+                self.updateForm()
+                
+            } else {
+                
+                
+                
+                let alert = UIAlertController(title: "ยืนยัน", message: "คุณต้องการที่จะนัดหมายในเวลานี้ใช่หรือไม่​?", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "ยกเลิก", style: .default, handler: nil))
+                alert.addAction(UIAlertAction(title: "ยืนยัน", style: .default, handler: {_ in
+                    ProgressHUD.show()
+                    
+                    let payload = ["doctorID": self.doctor?.id,
+                                   "slotID": self.slotDaySelected?.id,
+                                   "timeID": self.slotTimeSelected?.id ]
+                    
+                    self.functions.httpsCallable("app-orders-createAppointmentOrder").call(payload) { result, error in
+                        
+                        ProgressHUD.dismiss()
+                        if error != nil {
+                            let alert = UIAlertController(title: "กรุณาตรวจสอบ", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
+                            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                            self.present(alert, animated: true, completion: nil)
+                        }
+                        else {
+                            print(result?.data as Any)
+                            let order = result?.data as? [String : String] ?? ["":""]
+                            if self.slotTimeSelected?.salePrice == 0 {
+                                if let orderID = order["orderID"] {
+                                    self.makeAppointmentOrderPaid(orderID: orderID)
+                                }
+                                
+                            } else if let orderID = order["orderID"] {
+                                // Make Payment
+                                let paymentMethodViewController = PaymentMethodViewController.initializeInstance(cart: nil, appointmentOrder: AppointmentOrder(id: orderID, amount: self.slotTimeSelected?.salePrice ?? 0))
+                                paymentMethodViewController.delegate = self
+                                self.navigationController?.pushViewController(paymentMethodViewController, animated: true)
+                            }
+                        }
+                        
+                    }
+                    
+                }))
+                self.present(alert, animated: true, completion: nil)
+            }
         }
         
         
@@ -290,17 +292,23 @@ class PreFormViewController: UIViewController {
             functions.httpsCallable("app-appointments-updateForm").call(payload) { result, error in
                 ProgressHUD.dismiss()
                 
+                if self.appointment != nil {
+                    self.navigationController?.popViewController(animated: true)
+                } else {
+                    self.navigationController?.popToRootViewController(animated: false)
+                    if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                        appDelegate.deeplinking = .appointment
+                        appDelegate.handleDeeplinking()
+                        
+                        self.dismiss(animated: false, completion: {
+                            
+                        })
+                        
+                    }
+                }
             }
-            self.navigationController?.popToRootViewController(animated: false)
-            if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-                appDelegate.deeplinking = .appointment
-                appDelegate.handleDeeplinking()
-                
-                self.dismiss(animated: false, completion: {
-                    
-                })
-                
-            }
+            
+          
         }
     }
 }

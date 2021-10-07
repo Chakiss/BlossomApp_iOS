@@ -197,19 +197,19 @@ class PostFromViewController: UIViewController, UITextFieldDelegate{
         if textField == doxyTextField {
             for button in self.carePlanButton.otherButtons {
                 if button.titleLabel!.text! == "Doxy" {
-                    button.isSelected = true;
+                    button.isSelected = true
                 }
             }
         } else if textField == acnotinTextField {
             for button in self.carePlanButton.otherButtons {
                 if button.titleLabel!.text! == "Acnotin" {
-                    button.isSelected = true;
+                    button.isSelected = true
                 }
             }
         } else if textField == amoxicillinTextField {
             for button in self.carePlanButton.otherButtons {
                 if button.titleLabel!.text! == "Amoxicillin" {
-                    button.isSelected = true;
+                    button.isSelected = true
                 }
             }
         }
