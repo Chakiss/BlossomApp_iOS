@@ -138,14 +138,12 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
             
         }))
         
-        alert.addAction(UIAlertAction(title: "แก้ไข", style: .destructive, handler:{ (UIAlertAction)in
+        alert.addAction(UIAlertAction(title: "แก้ไข", style: .default, handler:{ (UIAlertAction)in
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let viewController = storyboard.instantiateViewController(withIdentifier: "PreFormViewController") as! PreFormViewController
             viewController.modalPresentationStyle = .fullScreen
             viewController.appointment = appointment
-            //viewController.doctor = appointment.doctorReference
-            //viewController.slotDaySelected = appointment.slot
-            //viewController.slotTimeSelected = appointment.slotTimeSelected
+            
             viewController.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(viewController, animated: true)
         }))

@@ -91,6 +91,12 @@ class PaymentMethodViewController: UIViewController {
     
     @IBAction func bankTransferButtonTapped(_ sender: Any) {
         let bankTeansferView = BankTransferViewController.initializeInstance()
+        if let cart = cart {
+            bankTeansferView.cart = cart
+        } else if let order = appointmentOrder {
+            
+        }
+        
         self.navigationController?.pushViewController(bankTeansferView, animated: true)
     }
     
