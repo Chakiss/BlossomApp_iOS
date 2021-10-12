@@ -94,7 +94,20 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
         }))
         
         alert.addAction(UIAlertAction(title: "แชท", style: .default , handler:{ (UIAlertAction)in
+            let payload = ["targetUserID": appointment.doctorReference?.documentID] as [String : Any]
             
+            self.functions.httpsCallable("app-messages-createChatChannel").call(payload) { result, error in
+                ProgressHUD.dismiss()
+                
+                if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                    appDelegate.deeplinking = .chat(id: "")
+                    appDelegate.handleDeeplinking()
+                    self.dismiss(animated: false, completion: {
+                        self.navigationController?.popToRootViewController(animated: false)
+                    })
+                }
+            }
+           /*
             appointment.doctorReference?.getDocument(completion: { doctorDocument, error in
                 
                 let data = doctorDocument?.data()
@@ -116,7 +129,7 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
                 }
                 
             })
-            
+            */
         }))
         
         alert.addAction(UIAlertAction(title: "ติดต่อ Admin เพื่อเปลี่ยนหรือยกเลิกเวลานัด", style: .default, handler: { (UIAlertAction) in

@@ -47,7 +47,7 @@ class BankTransferViewController: UIViewController {
                 ]
                 
                 ProgressHUD.show()
-                self.functions.httpsCallable("app-payments-uploadAndVerifyPayment").call(payload) { result, error in
+                self.functions.httpsCallable("app-payments-verifySlip").call(payload) { result, error in
 
                     ProgressHUD.dismiss()
                     if error == nil {
@@ -58,7 +58,7 @@ class BankTransferViewController: UIViewController {
                         //let code = FunctionsErrorCode(rawValue: error.code)
                         let message = error?.localizedDescription
                         
-                        self.showAlertDialogue(title: "เกิดข้อผิดพลาก", message: message ?? "", completion: {
+                        self.showAlertDialogue(title: "เกิดข้อผิดพลาด", message: message ?? "", completion: {
                             
                         })
                     }

@@ -267,8 +267,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 tabbarController.selectedIndex = 3
             case .chat(let id):
                 let nav = tabbarController.viewControllers?[4] as! UINavigationController
-                let productVC = nav.viewControllers.first as! ChatListViewController
-                productVC.deeplinkID = id ?? ""
+                //let productVC = nav.viewControllers.first as! ChatListViewController
+                //productVC.deeplinkID = id ?? ""
                 tabbarController.selectedIndex = 4
             }
         }

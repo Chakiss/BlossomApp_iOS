@@ -10,7 +10,7 @@ import ConnectyCube
 import Firebase
 import SwiftyUserDefaults
 
-class ChatListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ChatDelegate{
+class ChatListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
 
     var user: Firebase.User!
     var customer: Customer?
@@ -19,25 +19,13 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
     
     var deeplinkID: String = ""
     
+    private var channelList: [Channel] = []
+    
     @IBOutlet weak var tableView: UITableView!
     
-    func chatDidConnect() {
-        print("chatDidConnect")
-    }
+    let db = Firestore.firestore()
+    lazy var functions = Functions.functions()
     
-    func chatDidReconnect() {
-        print("chatDidReconnect")
-    }
-    
-    func chatDidDisconnectWithError(_ error: Error) {
-        print(error)
-        print("chatDidReconnect")
-    }
-    
-    func chatDidNotConnectWithError(_ error: Error) {
-        print(error)
-        print("chatDidReconnect")
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "แชท"
@@ -89,17 +77,43 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
             self.customer = customer
         }
         
-        Request.dialogs(with: Paginator.limit(100, skip: 0), extendedRequest: nil, successBlock: { (dialogs, usersIDs, paginator) in
-            self.dialogList = dialogs
-            self.dialogList.sort(by: { ($0.lastMessageDate ?? Date()).compare($1.lastMessageDate ?? Date()) == ComparisonResult.orderedDescending })
-           
-            self.checkDeepLink()
-            self.tableView.reloadData()
-           
+       
+                
+        db.collection("channels")
+            .whereField("customerReference", isEqualTo: customer?.documentReference as Any)
+            .order(by: "createdAt")
+            .addSnapshotListener { snapshot, error in
+                
+                guard (snapshot?.documents) != nil else {
+                    print("No documents")
+                    return
+                }
+                let channels = (snapshot?.documents.map { queryDocumentSnapshot -> Channel  in
+                    let data = queryDocumentSnapshot.data()
+                    let doctorRef = data["doctorReference"]  as? DocumentReference ?? nil
+                    let cusRef = data["customerReference"]  as? DocumentReference ?? nil
+                    let createdAt = data["createdAt"]  as? Timestamp ?? nil
+                    let updatedAt = data["updatedAt"]  as? Timestamp ?? nil
+                    
+                    var channel = Channel(id: queryDocumentSnapshot.documentID)
+                    channel.doctorReference = doctorRef
+                    channel.customerReference = cusRef
+                    channel.createdAt = createdAt
+                    channel.updateAt = updatedAt
+                
+                    return channel
+                })
+                
+                guard channels != nil else {
+                    return
+                }
+                
+                self.channelList = channels ?? []
+                self.tableView.reloadData()
             
-        }) { (error) in
-            print(error)
-        }
+            }
+        
+
     
     }
     
@@ -130,32 +144,33 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
         return 75
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dialogList.count
+        return channelList.count
         
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        
-        let dialog = self.dialogList[indexPath.row]
+        let channel = self.channelList[indexPath.row]
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "DialogCell", for: indexPath) as! DialogCell
-        //let dialog: ChatDialog = ChatApp.dialogs.sortedData.object(indexPath)!
-        //cell.setTitle(title: dialog.name, imageUrl: "")
-        cell.titleLabel.text = dialog.name
-        cell.setLastMessageText(lastMessageText: dialog.lastMessageText, date: dialog.updatedAt!, unreadMessageCount:dialog.unreadMessagesCount)
-        cell.dialog = dialog
-        //cell.getImageDoctor()
+        cell.channel = channel
+        cell.getImageDoctor()
+        
         return cell
     }
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let dialog = self.dialogList[indexPath.row]
-    
+        
+        
+        let cell = tableView.cellForRow(at: indexPath) as! DialogCell
+        
+        let channelSelected = cell.channel
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let viewController = storyboard.instantiateViewController(withIdentifier: "MessageingViewController") as! MessageingViewController
-        viewController.chatdialog = dialog
+//        viewController.chatdialog = dialog
+        viewController.channelMessage = channelSelected
         viewController.customer = self.customer
         viewController.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(viewController, animated: true)

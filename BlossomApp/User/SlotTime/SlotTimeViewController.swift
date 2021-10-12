@@ -65,7 +65,6 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
             .document(doctorID)
             .collection("slots")
             .whereField("platform", isEqualTo: "app")
-    
             .getDocuments { daySlot, error in
                 
             guard error == nil else {

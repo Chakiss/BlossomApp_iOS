@@ -91,6 +91,8 @@
 		1BA04F4D26B03D760053F10D /* BlossomReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA04F4C26B03D760053F10D /* BlossomReviewCell.swift */; };
 		1BA04F5126B0F6C30053F10D /* PostFromViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA04F5026B0F6C30053F10D /* PostFromViewController.swift */; };
 		1BA04F5426B112F30053F10D /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA04F5326B112F30053F10D /* ReviewViewController.swift */; };
+		1BA10918270EE654000B0371 /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA10917270EE654000B0371 /* Channel.swift */; };
+		1BA1091A2711ECA6000B0371 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA109192711ECA6000B0371 /* Message.swift */; };
 		1BC3B21926A1CFA1006EDD29 /* ImagePickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC3B21826A1CFA1006EDD29 /* ImagePickerManager.swift */; };
 		1BC3B21C26A2ADA5006EDD29 /* Nonce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC3B21B26A2ADA5006EDD29 /* Nonce.swift */; };
 		1BC5428926B835BD00C15521 /* BankTransferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC5428826B835BD00C15521 /* BankTransferViewController.swift */; };
@@ -281,6 +283,8 @@
 		1BA04F4C26B03D760053F10D /* BlossomReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlossomReviewCell.swift; sourceTree = "<group>"; };
 		1BA04F5026B0F6C30053F10D /* PostFromViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostFromViewController.swift; sourceTree = "<group>"; };
 		1BA04F5326B112F30053F10D /* ReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
+		1BA10917270EE654000B0371 /* Channel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
+		1BA109192711ECA6000B0371 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		1BC3B21826A1CFA1006EDD29 /* ImagePickerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerManager.swift; sourceTree = "<group>"; };
 		1BC3B21A26A297C0006EDD29 /* BlossomApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BlossomApp.entitlements; sourceTree = "<group>"; };
 		1BC3B21B26A2ADA5006EDD29 /* Nonce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nonce.swift; sourceTree = "<group>"; };
@@ -756,6 +760,8 @@
 				1BDEAA0226D69AC00038CD49 /* Province.swift */,
 				1BDEAA0426D69B1E0038CD49 /* District.swift */,
 				1BDEAA0626D69BBF0038CD49 /* SubDistrict.swift */,
+				1BA10917270EE654000B0371 /* Channel.swift */,
+				1BA109192711ECA6000B0371 /* Message.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1274,6 +1280,7 @@
 				1B13E6E5269ADC0000131105 /* RegisterViewController.swift in Sources */,
 				1BA04F5426B112F30053F10D /* ReviewViewController.swift in Sources */,
 				1BF58D4626ADBEDE00F2D620 /* OrderResponse.swift in Sources */,
+				1BA10918270EE654000B0371 /* Channel.swift in Sources */,
 				1B3D367526B28408000EFCEC /* ProductHilight.swift in Sources */,
 				1B77591A2694775E000780BD /* MultiBannerView.swift in Sources */,
 				1B19E4A026B6CFDE00A23BAE /* Doctor-HistoryAppointmentViewController.swift in Sources */,
@@ -1302,6 +1309,7 @@
 				1B1C2E3E26994FF700F57122 /* ProductDetailViewController.swift in Sources */,
 				1B53125B26937B3400B88165 /* AppointmentListViewController.swift in Sources */,
 				3C857DA326AE727C00DEF13E /* QRPaymentViewController.swift in Sources */,
+				1BA1091A2711ECA6000B0371 /* Message.swift in Sources */,
 				3CF7B50C26AC443700F937DE /* JSONEncodingHelper.swift in Sources */,
 				1B1C2E3526993C5B00F57122 /* Subproducts.swift in Sources */,
 				1BE101E5269DC63200F7323E /* Reviews.swift in Sources */,
@@ -1523,7 +1531,7 @@
 				CODE_SIGN_ENTITLEMENTS = BlossomApp/BlossomApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 35;
+				CURRENT_PROJECT_VERSION = 36;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = GZWLHGR8C3;
 				EXCLUDED_ARCHS = "";
@@ -1688,7 +1696,7 @@
 				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = "";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 35;
+				CURRENT_PROJECT_VERSION = 36;
 				DEVELOPMENT_TEAM = GZWLHGR8C3;
 				EXCLUDED_ARCHS = "";
 				INFOPLIST_FILE = BlossomApp/Info.plist;

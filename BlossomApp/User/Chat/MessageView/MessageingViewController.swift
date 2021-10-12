@@ -16,10 +16,15 @@ import Firebase
 class MessageingViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ChatDelegate {
 
     var customer: Customer?
+    var channelMessage: Channel?
+    
     var chatdialog: ChatDialog?
     var chatMessageList: [ChatMessage] = []
     
+    lazy var functions = Functions.functions()
     let db = Firestore.firestore()
+    let storage = Storage.storage()
+    var user = Auth.auth().currentUser
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -48,82 +53,170 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
         
         
        
-        Chat.instance.addDelegate(self)
+        //Chat.instance.addDelegate(self)
         
        
         // Do any additional setup after loading the view.
     }
     
     func requestMessages() {
-        Request.messages(withDialogID: chatdialog?.id ?? "",
-                         extendedRequest: ["date_sent[gt]":"1455098137"],
-                         paginator: Paginator.limit(2000, skip: 0),
-                         successBlock: { (messages, paginator) in
-                            self.chatMessageList = messages
-                            self.chatMessageList.sort(by: { $0.createdAt!.compare($1.createdAt!) == ComparisonResult.orderedAscending })
-                            self.tableView.reloadData()
-                            self.scrollToBottom()
-                         }) { (error) in
-            
-        }
+//        Request.messages(withDialogID: chatdialog?.id ?? "",
+//                         extendedRequest: ["date_sent[gt]":"1455098137"],
+//                         paginator: Paginator.limit(2000, skip: 0),
+//                         successBlock: { (messages, paginator) in
+//                            self.chatMessageList = messages
+//                            self.chatMessageList.sort(by: { $0.createdAt!.compare($1.createdAt!) == ComparisonResult.orderedAscending })
+//                            self.tableView.reloadData()
+//                            self.scrollToBottom()
+//                         }) { (error) in
+//
+//        }
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        requestMessages()
+        
+        self.db.collection("channels")
+            .document(self.channelMessage?.id ?? "")
+            .collection("messages")
+            .order(by: "createdAt")
+            .addSnapshotListener { messageData, error in
+                let messages = (messageData?.documents.map {messageSnapshot -> Message in
+                    
+                    
+                    let data = messageSnapshot.data()
+                    var message = Message(id: messageSnapshot.documentID)
+                    
+                    let isRead = data["isRead"]  as? Bool ?? nil
+                    let messageText = data["message"] as? String ?? ""
+                    let sendFrom = data["sendFrom"]  as? DocumentReference ?? nil
+                    let sendTo = data["sendTo"]  as? DocumentReference ?? nil
+                    let createdAt = data["createdAt"]  as? Timestamp ?? nil
+                    let updatedAt = data["updatedAt"]  as? Timestamp ?? nil
+                    
+                    
+                    message.isRead = isRead
+                    message.message = messageText
+                    
+                    message.sendFrom = sendFrom
+                    message.sendTo = sendTo
+                    
+                    message.createdAt = createdAt
+                    message.updateAt = updatedAt
+                    return message
+                })
+                self.channelMessage?.message = messages
+                self.tableView.reloadData()
+                self.scrollToBottom()
+
+            }
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return chatMessageList.count
+        return self.channelMessage?.message?.count ?? 0
         
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         
-        let chatMessage = self.chatMessageList[indexPath.row]
+        let chatMessage = self.channelMessage?.message?[indexPath.row]
+        
+        //if chatMessage?.sendFrom == user
         if Defaults[\.role] == "customer"{
-            let customerConnectyCubeID = UInt((customer?.referenceConnectyCubeID)!)!
-            if  chatMessage.senderID == customerConnectyCubeID {
+            
+            //let customerConnectyCubeID = UInt((customer?.referenceConnectyCubeID)!)!
+//            if  chatMessage.senderID == customerConnectyCubeID {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath) as! SenderCell
-                cell.messageLabel.text = chatMessage.text
-                cell.timeLabel.text = chatMessage.dateSent?.toRelative(style: RelativeFormatter.defaultStyle(), locale: Locales.current)
+            cell.messageLabel.text = chatMessage?.message
+            cell.timeLabel.text = chatMessage?.createdAt?.dateValue().timeAgoDisplay()
                 return cell
-            } else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "ReceiverCell", for: indexPath) as! ReceiverCell
-                cell.messageLabel.text = chatMessage.text
-                cell.timeLabel.text = chatMessage.dateSent?.toRelative(style: RelativeFormatter.defaultStyle(), locale: Locales.current)
-                return cell
-            }
+//            } else {
+//                let cell = tableView.dequeueReusableCell(withIdentifier: "ReceiverCell", for: indexPath) as! ReceiverCell
+//                cell.messageLabel.text = chatMessage.text
+//                cell.timeLabel.text = chatMessage.dateSent?.toRelative(style: RelativeFormatter.defaultStyle(), locale: Locales.current)
+//                return cell
+//            }
         } else {
             
-            if  chatMessage.senderID == chatdialog?.userID {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "ReceiverCell", for: indexPath) as! ReceiverCell
-                cell.messageLabel.text = chatMessage.text
-                cell.timeLabel.text = chatMessage.dateSent?.toRelative(style: RelativeFormatter.defaultStyle(), locale: Locales.current)
-                return cell
-                
-            } else {
+            //if  chatMessage.senderID == chatdialog?.userID {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath) as! SenderCell
-                cell.messageLabel.text = chatMessage.text
-                cell.timeLabel.text = chatMessage.dateSent?.toRelative(style: RelativeFormatter.defaultStyle(), locale: Locales.current)
+            cell.messageLabel.text = chatMessage?.message
+            cell.timeLabel.text = chatMessage?.createdAt?.dateValue().timeAgoDisplay()
                 return cell
-            }
+//            } else {
+//                let cell = tableView.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath) as! SenderCell
+//                cell.messageLabel.text = "chatMessage.text"
+//                cell.timeLabel.text = "1234"
+//                return cell
+//            }
             
         }
        
     }
     
-    func chatDidReceive(_ message: ChatMessage) {
-        
-        
-        self.chatMessageList.append(message)
-        self.tableView.reloadData()
-        self.scrollToBottom()
+
+    @IBAction func sendImageButtonTapped() {
+        ImagePickerManager().pickImage(self){ image in
+            
+            if let imageData = image.jpeg(.low) {
+                let strBase64:String = imageData.base64EncodedString(options: .lineLength64Characters)
+                let encodeString:String = "data:image/jpeg;base64, \(strBase64)"
+                
+                
+                let payload = [
+                    "channelID": self.channelMessage?.id ?? "",
+                    "message": ".",
+                    "images": encodeString
+                    
+                ] as [String : Any]
+                
+                self.functions.httpsCallable("app-messages-pushChannelMessage").call(payload) { result, error in
+
+                
+                    if error == nil {
+                    
+                    } else {
+                        //let code = FunctionsErrorCode(rawValue: error.code)
+                        let message = error?.localizedDescription
+                        
+                        self.showAlertDialogue(title: "เกิดข้อผิดพลาก", message: message ?? "", completion: {
+                            
+                        })
+                    }
+                }
+            }
+           
+        }
     }
 
     @IBAction func sendMessageButtonTapped() {
+        if self.textField.text?.count ?? 0 > 0 {
+            let payload = [
+                "channelID": self.channelMessage?.id ?? "",
+                "message": self.textField.text ?? "",
+                "images": ""
+                
+            ] as [String : Any]
+            
+            self.functions.httpsCallable("app-messages-pushChannelMessage").call(payload) { result, error in
+                
+                
+                if error == nil {
+                    self.textField.text = ""
+                    self.tableView.reloadData()
+                    self.scrollToBottom()
+                } else {
+                    
+                    let message = error?.localizedDescription
+                    self.showAlertDialogue(title: "เกิดข้อผิดพลาก", message: message ?? "", completion: {
+                        
+                    })
+                }
+            }
+        }
+        /*
         if self.textField.text?.count ?? 0 > 0 {
             let message = ChatMessage()
             message.text = self.textField.text
@@ -216,14 +309,14 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
             })
         }
         
-        
+        */
     }
     
     func scrollToBottom(){
         DispatchQueue.main.async {
-            if self.chatMessageList.count > 0 {
-                let indexPath = IndexPath(row: self.chatMessageList.count-1, section: 0)
-                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            if self.channelMessage?.message?.count ?? 0 > 0 {
+                let indexPath = IndexPath(row: (self.channelMessage?.message?.count ?? 0) - 1, section: 0)
+                self.tableView.scrollToRow(at: indexPath, at: .none, animated: true)
             }
         }
     }
