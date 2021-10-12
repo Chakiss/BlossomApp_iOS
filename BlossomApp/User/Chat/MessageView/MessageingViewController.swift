@@ -10,6 +10,7 @@ import ConnectyCube
 import CommonKeyboard
 import SwiftDate
 import SwiftyUserDefaults
+import Kingfisher
 
 import Firebase
 
@@ -35,7 +36,7 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.title = chatdialog?.name
+        //self.title = chatdialog?.name
         
         tableView.keyboardDismissMode = .interactive
         
@@ -94,6 +95,7 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
                     let sendTo = data["sendTo"]  as? DocumentReference ?? nil
                     let createdAt = data["createdAt"]  as? Timestamp ?? nil
                     let updatedAt = data["updatedAt"]  as? Timestamp ?? nil
+                    let images = data["images"]  as? [String] ?? []
                     
                     
                     message.isRead = isRead
@@ -104,6 +106,7 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
                     
                     message.createdAt = createdAt
                     message.updateAt = updatedAt
+                    message.images = images
                     return message
                 })
                 self.channelMessage?.message = messages
@@ -111,6 +114,21 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
                 self.scrollToBottom()
 
             }
+        
+        
+        let payload: [String: Any] = [
+                    "channelID": self.channelMessage?.id
+        ]
+        
+        
+        self.functions.httpsCallable("app-messages-markChannelMessagesRead").call(payload) { result, error in
+
+            if error == nil {
+            
+            } else {
+            
+            }
+        }
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -123,34 +141,48 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
         
         let chatMessage = self.channelMessage?.message?[indexPath.row]
         
-        //if chatMessage?.sendFrom == user
-        if Defaults[\.role] == "customer"{
+        
+        if chatMessage?.sendFrom?.documentID == user?.uid {
             
-            //let customerConnectyCubeID = UInt((customer?.referenceConnectyCubeID)!)!
-//            if  chatMessage.senderID == customerConnectyCubeID {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath) as! SenderCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath) as! SenderCell
             cell.messageLabel.text = chatMessage?.message
             cell.timeLabel.text = chatMessage?.createdAt?.dateValue().timeAgoDisplay()
-                return cell
-//            } else {
-//                let cell = tableView.dequeueReusableCell(withIdentifier: "ReceiverCell", for: indexPath) as! ReceiverCell
-//                cell.messageLabel.text = chatMessage.text
-//                cell.timeLabel.text = chatMessage.dateSent?.toRelative(style: RelativeFormatter.defaultStyle(), locale: Locales.current)
-//                return cell
-//            }
+            if chatMessage?.images?.count ?? 0 > 0 {
+                cell.messageLabel.text = ""
+                cell.chatImageView.image = UIImage(named: "300")
+                
+                let storageRef = storage.reference().child(chatMessage?.images?[0] ?? "");
+                storageRef.downloadURL { (URL, error) -> Void in
+                  if (error != nil) {
+                    // Handle any errors
+                  } else {
+                      cell.chatImageView.kf.setImage(with: URL)
+                  }
+                }
+                
+            }
+            return cell
+            
         } else {
             
-            //if  chatMessage.senderID == chatdialog?.userID {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath) as! SenderCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ReceiverCell", for: indexPath) as! ReceiverCell
             cell.messageLabel.text = chatMessage?.message
             cell.timeLabel.text = chatMessage?.createdAt?.dateValue().timeAgoDisplay()
-                return cell
-//            } else {
-//                let cell = tableView.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath) as! SenderCell
-//                cell.messageLabel.text = "chatMessage.text"
-//                cell.timeLabel.text = "1234"
-//                return cell
-//            }
+            if chatMessage?.images?.count ?? 0 > 0 {
+                cell.messageLabel.text = ""
+                cell.chatImageView.image = UIImage(named: "300")
+                
+                let storageRef = storage.reference().child(chatMessage?.images?[0] ?? "");
+                storageRef.downloadURL { (URL, error) -> Void in
+                  if (error != nil) {
+                    // Handle any errors
+                  } else {
+                      cell.chatImageView.kf.setImage(with: URL)
+                  }
+                }
+            }
+            return cell
+
             
         }
        
@@ -168,13 +200,14 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
                 let payload = [
                     "channelID": self.channelMessage?.id ?? "",
                     "message": ".",
-                    "images": encodeString
+                    "images": [encodeString]
                     
                 ] as [String : Any]
                 
+                ProgressHUD.show()
                 self.functions.httpsCallable("app-messages-pushChannelMessage").call(payload) { result, error in
 
-                
+                    ProgressHUD.dismiss()
                     if error == nil {
                     
                     } else {

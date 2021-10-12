@@ -4739,25 +4739,32 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4Oh-6v-AeP">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4Oh-6v-AeP">
                                 <rect key="frame" x="0.0" y="44" width="414" height="748"/>
                                 <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ReceiverCell" rowHeight="64" id="xup-4o-UZf" customClass="ReceiverCell" customModule="BlossomApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="414" height="64"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ReceiverCell" rowHeight="145" id="xup-4o-UZf" customClass="ReceiverCell" customModule="BlossomApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="145"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xup-4o-UZf" id="awG-xK-E1r">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="64"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="145"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gdQ-zJ-jeN">
-                                                    <rect key="frame" x="20" y="10" width="94.5" height="44"/>
+                                                    <rect key="frame" x="20" y="10" width="125" height="125"/>
                                                     <subviews>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wCm-ru-23F">
+                                                            <rect key="frame" x="8" y="8" width="109" height="109"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" secondItem="wCm-ru-23F" secondAttribute="height" multiplier="1:1" id="0UG-OI-eZe"/>
+                                                                <constraint firstAttribute="width" relation="lessThanOrEqual" constant="100" id="Uz8-b3-8pu"/>
+                                                            </constraints>
+                                                        </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ข้อความล่าสุด" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rD4-lT-JXR">
-                                                            <rect key="frame" x="8" y="8" width="78.5" height="28"/>
+                                                            <rect key="frame" x="8" y="8" width="109" height="109"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" relation="lessThanOrEqual" constant="150" id="pQ9-hs-aOj"/>
+                                                                <constraint firstAttribute="width" relation="lessThanOrEqual" constant="300" id="pQ9-hs-aOj"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="14"/>
                                                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -4766,15 +4773,19 @@
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.98823529409999999" green="0.90588235289999997" blue="0.89411764709999997" alpha="0.53919536564625847" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
+                                                        <constraint firstAttribute="bottom" secondItem="wCm-ru-23F" secondAttribute="bottom" constant="8" id="7e0-A0-3EL"/>
                                                         <constraint firstAttribute="trailing" secondItem="rD4-lT-JXR" secondAttribute="trailing" constant="8" id="7m1-NM-iGA"/>
+                                                        <constraint firstItem="wCm-ru-23F" firstAttribute="top" secondItem="gdQ-zJ-jeN" secondAttribute="top" constant="8" id="M7R-Qb-vy8"/>
                                                         <constraint firstItem="rD4-lT-JXR" firstAttribute="bottom" secondItem="gdQ-zJ-jeN" secondAttribute="bottomMargin" id="Qz4-PU-AZU"/>
+                                                        <constraint firstItem="wCm-ru-23F" firstAttribute="leading" secondItem="gdQ-zJ-jeN" secondAttribute="leading" constant="8" id="WfS-zS-XT9"/>
                                                         <constraint firstItem="rD4-lT-JXR" firstAttribute="leading" secondItem="gdQ-zJ-jeN" secondAttribute="leadingMargin" id="XHO-wW-AOl"/>
-                                                        <constraint firstAttribute="width" relation="lessThanOrEqual" priority="999" constant="150" id="up4-S0-9P8"/>
+                                                        <constraint firstAttribute="trailing" secondItem="wCm-ru-23F" secondAttribute="trailing" constant="8" id="iSr-ML-7Jr"/>
+                                                        <constraint firstAttribute="width" relation="lessThanOrEqual" priority="999" constant="300" id="up4-S0-9P8"/>
                                                         <constraint firstItem="rD4-lT-JXR" firstAttribute="top" secondItem="gdQ-zJ-jeN" secondAttribute="topMargin" id="wV9-bA-sdn"/>
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="เวลา" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="avQ-0e-DQN">
-                                                    <rect key="frame" x="126.5" y="10" width="18" height="16"/>
+                                                    <rect key="frame" x="157" y="10" width="18" height="16"/>
                                                     <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="10"/>
                                                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -4790,22 +4801,30 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="borderView" destination="gdQ-zJ-jeN" id="5ar-kS-Bqb"/>
+                                            <outlet property="chatImageView" destination="wCm-ru-23F" id="il5-ib-xYp"/>
                                             <outlet property="messageLabel" destination="rD4-lT-JXR" id="L36-RU-rCu"/>
                                             <outlet property="timeLabel" destination="avQ-0e-DQN" id="TCT-D1-dby"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SenderCell" rowHeight="64" id="eve-nJ-Vjz" customClass="SenderCell" customModule="BlossomApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="108.5" width="414" height="64"/>
+                                        <rect key="frame" x="0.0" y="189.5" width="414" height="64"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eve-nJ-Vjz" id="yz4-Au-rhb">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="64"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="33a-sv-8fv">
-                                                    <rect key="frame" x="299.5" y="10" width="94.5" height="44"/>
+                                                    <rect key="frame" x="350" y="10" width="44" height="44"/>
                                                     <subviews>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yh7-hU-4Ro">
+                                                            <rect key="frame" x="8" y="8" width="28" height="28"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" secondItem="yh7-hU-4Ro" secondAttribute="height" multiplier="1:1" id="Ijf-qc-wDl"/>
+                                                                <constraint firstAttribute="width" relation="lessThanOrEqual" constant="300" id="JGX-bX-VU4"/>
+                                                            </constraints>
+                                                        </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ข้อความล่าสุด" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4V4-3z-zsq">
-                                                            <rect key="frame" x="8" y="8" width="78.5" height="28"/>
+                                                            <rect key="frame" x="8" y="8" width="28" height="28"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" relation="lessThanOrEqual" constant="150" id="2jn-Bz-ZM0"/>
@@ -4817,15 +4836,19 @@
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.98984760049999998" green="0.78878802059999997" blue="0.71701222659999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
+                                                        <constraint firstItem="yh7-hU-4Ro" firstAttribute="top" secondItem="33a-sv-8fv" secondAttribute="top" constant="8" id="9LI-WT-lDk"/>
                                                         <constraint firstItem="4V4-3z-zsq" firstAttribute="bottom" secondItem="33a-sv-8fv" secondAttribute="bottomMargin" id="GOQ-hY-thM"/>
                                                         <constraint firstItem="4V4-3z-zsq" firstAttribute="top" secondItem="33a-sv-8fv" secondAttribute="topMargin" id="Kvl-Jl-AgD"/>
                                                         <constraint firstAttribute="trailing" secondItem="4V4-3z-zsq" secondAttribute="trailing" constant="8" id="Pea-Bs-FlL"/>
+                                                        <constraint firstItem="yh7-hU-4Ro" firstAttribute="leading" secondItem="33a-sv-8fv" secondAttribute="leading" constant="8" id="kzZ-8C-UOu"/>
+                                                        <constraint firstAttribute="bottom" secondItem="yh7-hU-4Ro" secondAttribute="bottom" constant="8" id="ogw-7X-3Vr"/>
+                                                        <constraint firstAttribute="trailing" secondItem="yh7-hU-4Ro" secondAttribute="trailing" constant="8" id="q0U-3J-arG"/>
                                                         <constraint firstItem="4V4-3z-zsq" firstAttribute="leading" secondItem="33a-sv-8fv" secondAttribute="leadingMargin" id="qFk-nU-REV"/>
                                                         <constraint firstAttribute="width" relation="lessThanOrEqual" priority="999" constant="150" id="tjT-qd-CHH"/>
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="เวลา" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oyR-Yt-oBf">
-                                                    <rect key="frame" x="260" y="10" width="18" height="16"/>
+                                                    <rect key="frame" x="310.5" y="10" width="18" height="16"/>
                                                     <fontDescription key="fontDescription" name="SukhumvitSet-Text" family="Sukhumvit Set" pointSize="10"/>
                                                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -4841,6 +4864,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="borderView" destination="33a-sv-8fv" id="yy4-Dw-na6"/>
+                                            <outlet property="chatImageView" destination="yh7-hU-4Ro" id="4Fh-ky-naf"/>
                                             <outlet property="messageLabel" destination="4V4-3z-zsq" id="tYq-7T-1KV"/>
                                             <outlet property="timeLabel" destination="oyR-Yt-oBf" id="6NO-sY-sqc"/>
                                         </connections>

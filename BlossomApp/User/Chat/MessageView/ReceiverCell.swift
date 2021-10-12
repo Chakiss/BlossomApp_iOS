@@ -12,6 +12,7 @@ class ReceiverCell: UITableViewCell {
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var borderView: UIView!
+    @IBOutlet weak var chatImageView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
