@@ -150,6 +150,7 @@ class CallKitAdapter: NSObject, CXProviderDelegate {
         print("[CallKitAdapter] Activating audio session.")
         let audioSession = CallAudioSession.instance()
         audioSession.useManualAudio = true
+        audioSession.currentAudioDevice = .speaker
         // disabling audio unit for local mic recording in recorder to enable it later
         session.recorder?.isLocalAudioEnabled = false
         if (!audioSession.isInitialized) {
@@ -271,6 +272,7 @@ class CallKitAdapter: NSObject, CXProviderDelegate {
         callAudioSession.audioSessionDidActivate(audioSession)
         // enabling audio now
         callAudioSession.isAudioEnabled = true
+        callAudioSession.currentAudioDevice = .speaker
         // enabling local mic recording in recorder (if recorder is active) as of interruptions are over now
         self.session?.recorder?.isLocalAudioEnabled = true
     }

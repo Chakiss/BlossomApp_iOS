@@ -254,6 +254,7 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
         
         self.nameTextField.text = self.customer?.firstName
         self.surNameTextField.text = self.customer?.lastName
+        self.nickNameTextField.text = self.customer?.nickName
         
         if self.customer?.phoneNumber?.count ?? 0 > 0 {
             self.phoneTextField.text = self.customer?.phoneNumber?.phonenumberformat()
@@ -706,6 +707,11 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
         }
         else if textField == surNameTextField {
             if textField.text != customer?.lastName {
+                NotificationCenter.default.post(name: Notification.Name("BlossomProfileChanged"), object: nil)
+            }
+        }
+        else if textField == nickNameTextField {
+            if textField.text != customer?.nickName {
                 NotificationCenter.default.post(name: Notification.Name("BlossomProfileChanged"), object: nil)
             }
         }

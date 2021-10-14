@@ -149,6 +149,7 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
             let payload = ["birthDate": customer?.birthDayString ?? "",
                            "firstName": profileInformationViewController.nameTextField.text!,
                            "lastName": profileInformationViewController.surNameTextField.text!,
+                           "nickName": profileInformationViewController.nickNameTextField.text!,
                            "gender": customer?.genderString ?? "",
                            "address": profileInformationViewController.addressTextField.text!,
                            "provinceID": profileInformationViewController.selectedProvince?.pROVINCE_ID ?? 0,
