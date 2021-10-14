@@ -312,6 +312,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             UITabBar.appearance().scrollEdgeAppearance = tabbarAppearance
             
             
+        } else {
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.alignment = .center
+            let attributes = [NSAttributedString.Key.font: UIFont(name: "SukhumvitSet-SemiBold", size: 10),
+                              NSAttributedString.Key.paragraphStyle: paragraphStyle]
+            
+            let appearance = UITabBarItem.appearance()
+            appearance.setTitleTextAttributes(attributes as [NSAttributedString.Key : Any], for: .normal)
+            
+            
+            let appearanceUITabBar = UITabBarAppearance()
+            appearanceUITabBar.stackedLayoutAppearance.normal.titleTextAttributes = attributes as [NSAttributedString.Key : Any]
+            appearanceUITabBar.backgroundColor = UIColor.white
+            UITabBar.appearance().standardAppearance = appearanceUITabBar
+            
         }
     }
     
