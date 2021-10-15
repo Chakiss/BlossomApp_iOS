@@ -19,6 +19,7 @@ struct Message: Codable {
     var sendFrom: DocumentReference?
     var sendTo: DocumentReference?
     var images: [String]?
+    var from: String?
     
     
 

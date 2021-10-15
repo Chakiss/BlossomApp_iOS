@@ -11,6 +11,7 @@ import CommonKeyboard
 import SwiftDate
 import SwiftyUserDefaults
 import Kingfisher
+import GSImageViewerController
 
 import Firebase
 
@@ -20,7 +21,10 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
     var channelMessage: Channel?
     
     var chatdialog: ChatDialog?
+    // case normal
     var chatMessageList: [ChatMessage] = []
+    // case chat with admin
+    var adminMessage: [Message] = []
     
     lazy var functions = Functions.functions()
     let db = Firestore.firestore()
@@ -77,72 +81,140 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        
-        self.db.collection("channels")
-            .document(self.channelMessage?.id ?? "")
-            .collection("messages")
-            .order(by: "createdAt")
-            .addSnapshotListener { messageData, error in
-                let messages = (messageData?.documents.map {messageSnapshot -> Message in
+        if self.channelMessage != nil {
+            self.db.collection("channels")
+                .document(self.channelMessage?.id ?? "")
+                .collection("messages")
+                .order(by: "createdAt")
+                .addSnapshotListener { messageData, error in
+                    let messages = (messageData?.documents.map {messageSnapshot -> Message in
+                        
+                        
+                        let data = messageSnapshot.data()
+                        var message = Message(id: messageSnapshot.documentID)
+                        
+                        let isRead = data["isRead"]  as? Bool ?? nil
+                        let messageText = data["message"] as? String ?? ""
+                        let sendFrom = data["sendFrom"]  as? DocumentReference ?? nil
+                        let sendTo = data["sendTo"]  as? DocumentReference ?? nil
+                        let createdAt = data["createdAt"]  as? Timestamp ?? nil
+                        let updatedAt = data["updatedAt"]  as? Timestamp ?? nil
+                        let images = data["images"]  as? [String] ?? []
+                        
+                        
+                        message.isRead = isRead
+                        message.message = messageText
+                        
+                        message.sendFrom = sendFrom
+                        message.sendTo = sendTo
+                        
+                        message.createdAt = createdAt
+                        message.updateAt = updatedAt
+                        message.images = images
+                        return message
+                    })
+                    self.channelMessage?.message = messages
+                    self.tableView.reloadData()
+                    self.scrollToBottom()
                     
+                }
+            
+            
+            let payload: [String: Any] = [
+                "channelID": self.channelMessage?.id
+            ]
+            
+            
+            self.functions.httpsCallable("app-messages-markChannelMessagesRead").call(payload) { result, error in
+                
+                if error == nil {
                     
-                    let data = messageSnapshot.data()
-                    var message = Message(id: messageSnapshot.documentID)
+                } else {
                     
-                    let isRead = data["isRead"]  as? Bool ?? nil
-                    let messageText = data["message"] as? String ?? ""
-                    let sendFrom = data["sendFrom"]  as? DocumentReference ?? nil
-                    let sendTo = data["sendTo"]  as? DocumentReference ?? nil
-                    let createdAt = data["createdAt"]  as? Timestamp ?? nil
-                    let updatedAt = data["updatedAt"]  as? Timestamp ?? nil
-                    let images = data["images"]  as? [String] ?? []
-                    
-                    
-                    message.isRead = isRead
-                    message.message = messageText
-                    
-                    message.sendFrom = sendFrom
-                    message.sendTo = sendTo
-                    
-                    message.createdAt = createdAt
-                    message.updateAt = updatedAt
-                    message.images = images
-                    return message
-                })
-                self.channelMessage?.message = messages
-                self.tableView.reloadData()
-                self.scrollToBottom()
-
+                }
             }
-        
-        
-        let payload: [String: Any] = [
-                    "channelID": self.channelMessage?.id
-        ]
-        
-        
-        self.functions.httpsCallable("app-messages-markChannelMessagesRead").call(payload) { result, error in
-
-            if error == nil {
+        } else {
             
-            } else {
+            self.db.collection("channels")
+                .document(user?.uid ?? "")
+                .collection("messages")
+                .order(by: "createdAt")
+                .addSnapshotListener { messageData, error in
+                    let messages = (messageData?.documents.map {messageSnapshot -> Message in
+                        
+                        
+                        let data = messageSnapshot.data()
+                        var message = Message(id: messageSnapshot.documentID)
+                        
+                        let isRead = data["isRead"]  as? Bool ?? nil
+                        let messageText = data["message"] as? String ?? ""
+                        let images = data["images"]  as? [String] ?? []
+                        let from = data["from"]  as? String ?? ""
+                        let sendFrom = data["sendFrom"]  as? DocumentReference ?? nil
+                        let sendTo = data["sendTo"]  as? DocumentReference ?? nil
+                        let createdAt = data["createdAt"]  as? Timestamp ?? nil
+                        let updatedAt = data["updatedAt"]  as? Timestamp ?? nil
+                        
+                        
+                        
+                        message.isRead = isRead
+                        message.message = messageText
+                        
+                        message.sendFrom = sendFrom
+                        message.sendTo = sendTo
+                        
+                        message.createdAt = createdAt
+                        message.updateAt = updatedAt
+                        message.images = images
+                        
+                        message.from = from
+                        return message
+                    })
+                    self.adminMessage = messages ?? []
+                    self.tableView.reloadData()
+                    self.scrollToBottom()
+                    
+                }
             
+            
+            let payload: [String: Any] = [
+                "channelID": user?.uid
+            ]
+            
+            
+            self.functions.httpsCallable("app-messages-markChannelMessagesRead").call(payload) { result, error in
+                
+                if error == nil {
+                    
+                } else {
+                    
+                }
             }
         }
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.channelMessage?.message?.count ?? 0
+        if self.channelMessage != nil {
+            return self.channelMessage?.message?.count ?? 0
+        } else {
+            return self.adminMessage.count
+        }
         
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        var chatMessage: Message!
         
-        let chatMessage = self.channelMessage?.message?[indexPath.row]
+        if self.channelMessage != nil {
+            chatMessage = self.channelMessage?.message?[indexPath.row]
+        } else {
+            chatMessage = self.adminMessage[indexPath.row]
+        }
         
         
-        if chatMessage?.sendFrom?.documentID == user?.uid {
+        
+        if chatMessage?.sendFrom?.documentID == user?.uid  ||  chatMessage.from == "user" {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath) as! SenderCell
             cell.messageLabel.text = chatMessage?.message
@@ -150,7 +222,7 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
             if chatMessage?.images?.count ?? 0 > 0 {
                 cell.messageLabel.text = ""
                 cell.chatImageView.image = UIImage(named: "300")
-                
+                cell.chatImageView.image = UIImage(named: "placeholder")
                 let storageRef = storage.reference().child(chatMessage?.images?[0] ?? "");
                 storageRef.downloadURL { (URL, error) -> Void in
                   if (error != nil) {
@@ -159,6 +231,8 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
                       cell.chatImageView.kf.setImage(with: URL)
                   }
                 }
+                
+                cell.parent = self
                 
             }
             return cell
@@ -171,7 +245,7 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
             if chatMessage?.images?.count ?? 0 > 0 {
                 cell.messageLabel.text = ""
                 cell.chatImageView.image = UIImage(named: "300")
-                
+                cell.chatImageView.image = UIImage(named: "placeholder")
                 let storageRef = storage.reference().child(chatMessage?.images?[0] ?? "");
                 storageRef.downloadURL { (URL, error) -> Void in
                   if (error != nil) {
@@ -180,6 +254,8 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
                       cell.chatImageView.kf.setImage(with: URL)
                   }
                 }
+                cell.parent = self
+                
             }
             return cell
 
@@ -188,6 +264,9 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
        
     }
     
+    
+   
+
 
     @IBAction func sendImageButtonTapped() {
         ImagePickerManager().pickImage(self){ image in
@@ -196,56 +275,107 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
                 let strBase64:String = imageData.base64EncodedString(options: .lineLength64Characters)
                 let encodeString:String = "data:image/jpeg;base64, \(strBase64)"
                 
-                
+                if self.channelMessage != nil {
+                    let payload = [
+                        "channelID": self.channelMessage?.id ?? "",
+                        "message": "",
+                        "images": [encodeString]
+                        
+                    ] as [String : Any]
+                    
+                    ProgressHUD.show()
+                    self.functions.httpsCallable("app-messages-pushChannelMessage").call(payload) { result, error in
+                        
+                        ProgressHUD.dismiss()
+                        if error == nil {
+                            
+                        } else {
+                            //let code = FunctionsErrorCode(rawValue: error.code)
+                            let message = error?.localizedDescription
+                            
+                            self.showAlertDialogue(title: "เกิดข้อผิดพลาก", message: message ?? "", completion: {
+                                
+                            })
+                        }
+                    }
+                    
+                } else {
+                    let payload = [
+                        "message": "",
+                        "images": [encodeString]
+                        
+                    ] as [String : Any]
+                    
+                    ProgressHUD.show()
+                    self.functions.httpsCallable("app-messages-submitAdminMessage").call(payload) { result, error in
+                        
+                        ProgressHUD.dismiss()
+                        if error == nil {
+                            
+                        } else {
+                            //let code = FunctionsErrorCode(rawValue: error.code)
+                            let message = error?.localizedDescription
+                            
+                            self.showAlertDialogue(title: "เกิดข้อผิดพลาก", message: message ?? "", completion: {
+                                
+                            })
+                        }
+                    }
+                }
+            }
+            
+        }
+    }
+    
+    @IBAction func sendMessageButtonTapped() {
+        if self.channelMessage != nil {
+            
+            if self.textField.text?.count ?? 0 > 0 {
                 let payload = [
                     "channelID": self.channelMessage?.id ?? "",
-                    "message": ".",
-                    "images": [encodeString]
+                    "message": self.textField.text ?? "",
+                    "images": ""
                     
                 ] as [String : Any]
                 
-                ProgressHUD.show()
                 self.functions.httpsCallable("app-messages-pushChannelMessage").call(payload) { result, error in
-
-                    ProgressHUD.dismiss()
-                    if error == nil {
                     
+                    
+                    if error == nil {
+                        self.textField.text = ""
+                        self.tableView.reloadData()
+                        self.scrollToBottom()
                     } else {
-                        //let code = FunctionsErrorCode(rawValue: error.code)
-                        let message = error?.localizedDescription
                         
+                        let message = error?.localizedDescription
                         self.showAlertDialogue(title: "เกิดข้อผิดพลาก", message: message ?? "", completion: {
                             
                         })
                     }
                 }
             }
-           
-        }
-    }
-
-    @IBAction func sendMessageButtonTapped() {
-        if self.textField.text?.count ?? 0 > 0 {
-            let payload = [
-                "channelID": self.channelMessage?.id ?? "",
-                "message": self.textField.text ?? "",
-                "images": ""
-                
-            ] as [String : Any]
-            
-            self.functions.httpsCallable("app-messages-pushChannelMessage").call(payload) { result, error in
-                
-                
-                if error == nil {
-                    self.textField.text = ""
-                    self.tableView.reloadData()
-                    self.scrollToBottom()
-                } else {
+        } else {
+            if self.textField.text?.count ?? 0 > 0 {
+                let payload = [
+                    "message": self.textField.text ?? "",
+                    "images": ""
                     
-                    let message = error?.localizedDescription
-                    self.showAlertDialogue(title: "เกิดข้อผิดพลาก", message: message ?? "", completion: {
+                ] as [String : Any]
+                
+                self.functions.httpsCallable("app-messages-submitAdminMessage").call(payload) { result, error in
+                    
+                    
+                    if error == nil {
+                        self.textField.text = ""
+                        self.tableView.reloadData()
+                        self.scrollToBottom()
+                    } else {
                         
-                    })
+                        let message = error?.localizedDescription
+                        self.showAlertDialogue(title: "เกิดข้อผิดพลาก", message: message ?? "", completion: {
+                            
+                        })
+                    }
                 }
             }
         }

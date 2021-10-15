@@ -48,7 +48,6 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
             }
         }
         
-        
     }
     
     @objc func refresh(_ sender: AnyObject) {
@@ -107,6 +106,7 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
                     })
                 }
             }
+            
            /*
             appointment.doctorReference?.getDocument(completion: { doctorDocument, error in
                 
@@ -133,21 +133,26 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
         }))
         
         alert.addAction(UIAlertAction(title: "ติดต่อ Admin เพื่อเปลี่ยนหรือยกเลิกเวลานัด", style: .default, handler: { (UIAlertAction) in
-            
-            if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-                
-                let dialog = ChatDialog(dialogID: nil, type: .private)
-                dialog.occupantIDs = [4663567]  // an ID of opponent
-
-                Request.createDialog(dialog, successBlock: { (dialog) in
-                    appDelegate.deeplinking = .chat(id: "4663567")
-                    appDelegate.handleDeeplinking()
-                    
-                }) { (error) in
-
-                }
-                
-            }
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let viewController = storyboard.instantiateViewController(withIdentifier: "MessageingViewController") as! MessageingViewController
+            viewController.title = "Admin"
+            viewController.customer = CustomerManager.sharedInstance.customer
+            viewController.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(viewController, animated: true)
+//            if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+//
+//                let dialog = ChatDialog(dialogID: nil, type: .private)
+//                dialog.occupantIDs = [4663567]  // an ID of opponent
+//
+//                Request.createDialog(dialog, successBlock: { (dialog) in
+//                    appDelegate.deeplinking = .chat(id: "4663567")
+//                    appDelegate.handleDeeplinking()
+//
+//                }) { (error) in
+//
+//                }
+//
+//            }
             
         }))
         

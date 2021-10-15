@@ -49,19 +49,12 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
     
     @objc
     func contactAdmin() {
-        UIApplication.shared.open(URL(string: "https://lin.ee/iYHm3As")!, options: [:], completionHandler: nil)
-        /*
-         showAlertDialogue(title: "ติดต่อ", message: "กล่องข้อความของ admin จะปรากฏขึ้น") {
-         let dialog = ChatDialog(dialogID: nil, type: .private)
-         dialog.occupantIDs = [4663567]  // an ID of opponent
-         self.deeplinkID = "4663567"
-         Request.createDialog(dialog, successBlock: { (dialog) in
-         self.viewWillAppear(true)
-         }) { (error) in
-         
-         }
-         }
-         */
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let viewController = storyboard.instantiateViewController(withIdentifier: "MessageingViewController") as! MessageingViewController
+        viewController.title = "Admin"
+        viewController.customer = self.customer
+        viewController.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(viewController, animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
