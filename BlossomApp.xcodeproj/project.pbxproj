@@ -93,6 +93,7 @@
 		1BA04F5426B112F30053F10D /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA04F5326B112F30053F10D /* ReviewViewController.swift */; };
 		1BA10918270EE654000B0371 /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA10917270EE654000B0371 /* Channel.swift */; };
 		1BA1091A2711ECA6000B0371 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA109192711ECA6000B0371 /* Message.swift */; };
+		1BBB1F242719E6600033D4C9 /* ShippingFeeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BBB1F232719E6600033D4C9 /* ShippingFeeResponse.swift */; };
 		1BC3B21926A1CFA1006EDD29 /* ImagePickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC3B21826A1CFA1006EDD29 /* ImagePickerManager.swift */; };
 		1BC3B21C26A2ADA5006EDD29 /* Nonce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC3B21B26A2ADA5006EDD29 /* Nonce.swift */; };
 		1BC5428926B835BD00C15521 /* BankTransferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC5428826B835BD00C15521 /* BankTransferViewController.swift */; };
@@ -285,6 +286,7 @@
 		1BA04F5326B112F30053F10D /* ReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
 		1BA10917270EE654000B0371 /* Channel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
 		1BA109192711ECA6000B0371 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		1BBB1F232719E6600033D4C9 /* ShippingFeeResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShippingFeeResponse.swift; sourceTree = "<group>"; };
 		1BC3B21826A1CFA1006EDD29 /* ImagePickerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerManager.swift; sourceTree = "<group>"; };
 		1BC3B21A26A297C0006EDD29 /* BlossomApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BlossomApp.entitlements; sourceTree = "<group>"; };
 		1BC3B21B26A2ADA5006EDD29 /* Nonce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nonce.swift; sourceTree = "<group>"; };
@@ -883,6 +885,7 @@
 				1BF58D3B26ADBEDE00F2D620 /* OptionsOrder.swift */,
 				1BF58D3C26ADBEDE00F2D620 /* Orders.swift */,
 				1BF58D3F26ADBEDE00F2D620 /* Purchases.swift */,
+				1BBB1F232719E6600033D4C9 /* ShippingFeeResponse.swift */,
 			);
 			name = OrderResponse;
 			path = ProductResponse/OrderResponse;
@@ -1234,6 +1237,7 @@
 				1B69AD5626A4791A00910679 /* ConnectyCubeManager.swift in Sources */,
 				1B1C2E3726993C5B00F57122 /* Paginate.swift in Sources */,
 				1BA04F4526AEF09F0053F10D /* DefaultKey.swift in Sources */,
+				1BBB1F242719E6600033D4C9 /* ShippingFeeResponse.swift in Sources */,
 				1B27FDC426A5F01A000E8609 /* SlotDay.swift in Sources */,
 				1B187A5D268F654300BB0122 /* ViewController.swift in Sources */,
 				1B1C2E2B2698867400F57122 /* Landing.swift in Sources */,
@@ -1531,7 +1535,7 @@
 				CODE_SIGN_ENTITLEMENTS = BlossomApp/BlossomApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 39;
+				CURRENT_PROJECT_VERSION = 40;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = GZWLHGR8C3;
 				EXCLUDED_ARCHS = "";
@@ -1696,7 +1700,7 @@
 				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = "";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 39;
+				CURRENT_PROJECT_VERSION = 40;
 				DEVELOPMENT_TEAM = GZWLHGR8C3;
 				EXCLUDED_ARCHS = "";
 				INFOPLIST_FILE = BlossomApp/Info.plist;
