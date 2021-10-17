@@ -318,6 +318,81 @@ class DialogCell: UITableViewCell {
   //  }
     }
     
+    func getAdmin(){
+        
+        self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width/2
+        self.profileImageView.image = UIImage(named: "placeholder")
+        self.titleLabel.text = "Admin blossom"
+        self.messageTextLabel.text = ""
+        
+        let user = Auth.auth().currentUser
+        
+        db.collection("channels")
+            .document(user?.uid ?? "")
+            .collection("messages")
+            .order(by: "createdAt")
+            .addSnapshotListener { messageData, error in
+                let messages = (messageData?.documents.map {messageSnapshot -> Message in
+                    
+                    
+                    let data = messageSnapshot.data()
+                    var message = Message(id: messageSnapshot.documentID)
+                    
+                    let isRead = data["isRead"]  as? Bool ?? nil
+                    let messageText = data["message"] as? String ?? ""
+                    let images = data["images"]  as? [String] ?? []
+                    let from = data["from"]  as? String ?? ""
+                    let sendFrom = data["sendFrom"]  as? DocumentReference ?? nil
+                    let sendTo = data["sendTo"]  as? DocumentReference ?? nil
+                    let createdAt = data["createdAt"]  as? Timestamp ?? nil
+                    let updatedAt = data["updatedAt"]  as? Timestamp ?? nil
+                    
+                    
+                    
+                    message.isRead = isRead
+                    message.message = messageText
+                    
+                    message.sendFrom = sendFrom
+                    message.sendTo = sendTo
+                    
+                    message.createdAt = createdAt
+                    message.updateAt = updatedAt
+                    message.images = images
+                    
+                    message.from = from
+                    return message
+                })
+                
+                //self.adminMessage = messages ?? []
+                //self.tableView.reloadData()
+                //self.scrollToBottom()
+                //self.channel?.message = messages
+                
+                if let messageDisplay = messages , messageDisplay.count > 0 {
+                    
+                    self.messageTextLabel.text =  messageDisplay.last?.message
+                    self.dateLabel.text = messageDisplay.last?.createdAt?.dateValue().timeAgoDisplay()
+                    if messageDisplay.last?.images?.count ?? 0 > 0 {
+                        self.messageTextLabel.text = "ส่งรูปภาพ"
+                    }
+                    
+                    self.badgeView.text = ""
+                    self.badgeView.isHidden = true
+                    for message in messageDisplay {
+                        if message.isRead  == false{
+                            self.badgeView.text = "N"
+                            self.badgeView.isHidden = false
+                        }
+                    }
+                    
+                } else {
+                    self.messageTextLabel.text = "ไม่มีข้อความ"
+                }
+                
+                
+            }
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         

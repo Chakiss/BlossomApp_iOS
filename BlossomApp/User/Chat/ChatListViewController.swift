@@ -197,25 +197,37 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
     
     }
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 75
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0 {
+            return 1
+        }
         return channelList.count
         
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let channel = self.channelList[indexPath.row]
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "DialogCell", for: indexPath) as! DialogCell
-        cell.channel = channel
-        if Defaults[\.role] == "customer" {
-            cell.getDoctor()
+        
+        if indexPath.section == 0 {
+            cell.getAdmin()
         } else {
-            cell.getCutomerData()
+            let channel = self.channelList[indexPath.row]
+            cell.channel = channel
+            if Defaults[\.role] == "customer" {
+                cell.getDoctor()
+            } else {
+                cell.getCutomerData()
+            }
         }
+        
         
         return cell
     }

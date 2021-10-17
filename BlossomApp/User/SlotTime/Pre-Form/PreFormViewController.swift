@@ -42,6 +42,8 @@ class PreFormViewController: UIViewController {
     
     var appointment: Appointment?
     
+    var isEditMode:Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -56,6 +58,9 @@ class PreFormViewController: UIViewController {
         alignedFlowLayout.itemSize = CGSize(width: 100, height: 100)
         collectionView.collectionViewLayout = alignedFlowLayout
 
+        if isEditMode == true {
+            submitButton.setTitle("บันทึก", for: .normal)
+        }
     
     }
     

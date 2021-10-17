@@ -161,7 +161,7 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
             let viewController = storyboard.instantiateViewController(withIdentifier: "PreFormViewController") as! PreFormViewController
             viewController.modalPresentationStyle = .fullScreen
             viewController.appointment = appointment
-            
+            viewController.isEditMode = true
             viewController.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(viewController, animated: true)
         }))

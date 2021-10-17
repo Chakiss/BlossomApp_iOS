@@ -234,6 +234,8 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
                 
                 cell.parent = self
                 
+            } else {
+                cell.chatImageView.image = nil
             }
             return cell
             
@@ -256,6 +258,8 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
                 }
                 cell.parent = self
                 
+            } else {
+                cell.chatImageView.image = nil
             }
             return cell
 
@@ -328,12 +332,14 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     @IBAction func sendMessageButtonTapped() {
+        let message = self.textField.text
+        self.textField.text = ""
         if self.channelMessage != nil {
             
-            if self.textField.text?.count ?? 0 > 0 {
+            if message?.count ?? 0 > 0 {
                 let payload = [
                     "channelID": self.channelMessage?.id ?? "",
-                    "message": self.textField.text ?? "",
+                    "message": message ?? "",
                     "images": ""
                     
                 ] as [String : Any]
@@ -342,22 +348,21 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
                     
                     
                     if error == nil {
-                        self.textField.text = ""
                         self.tableView.reloadData()
                         self.scrollToBottom()
                     } else {
                         
-                        let message = error?.localizedDescription
-                        self.showAlertDialogue(title: "เกิดข้อผิดพลาก", message: message ?? "", completion: {
+                        let errorMessage = error?.localizedDescription
+                        self.showAlertDialogue(title: "เกิดข้อผิดพลาก", message: errorMessage ?? "", completion: {
                             
                         })
                     }
                 }
             }
         } else {
-            if self.textField.text?.count ?? 0 > 0 {
+            if message?.count ?? 0 > 0 {
                 let payload = [
-                    "message": self.textField.text ?? "",
+                    "message": message ?? "",
                     "images": ""
                     
                 ] as [String : Any]
@@ -366,7 +371,6 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
                     
                     
                     if error == nil {
-                        self.textField.text = ""
                         self.tableView.reloadData()
                         self.scrollToBottom()
                     } else {
@@ -477,10 +481,18 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
     
     func scrollToBottom(){
         DispatchQueue.main.async {
-            if self.channelMessage?.message?.count ?? 0 > 0 {
-                let indexPath = IndexPath(row: (self.channelMessage?.message?.count ?? 0) - 1, section: 0)
-                self.tableView.scrollToRow(at: indexPath, at: .none, animated: true)
+            if self.channelMessage != nil {
+                if self.channelMessage?.message?.count ?? 0 > 0 {
+                    let indexPath = IndexPath(row: (self.channelMessage?.message?.count ?? 0) - 1, section: 0)
+                    self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+                }
+            } else {
+                if self.adminMessage.count > 0 {
+                    let indexPath = IndexPath(row: (self.adminMessage.count ) - 1, section: 0)
+                    self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+                }
             }
+            
         }
     }
     /*
