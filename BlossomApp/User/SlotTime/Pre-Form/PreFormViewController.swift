@@ -11,6 +11,7 @@ import Firebase
 import SwiftDate
 import EventKit
 import ConnectyCube
+import AlignedCollectionViewFlowLayout
 
 class PreFormViewController: UIViewController {
   
@@ -46,6 +47,14 @@ class PreFormViewController: UIViewController {
 
         self.topicButton.isMultipleSelectionEnabled = true
         self.submitButton.layer.cornerRadius = 22
+        
+        let alignedFlowLayout = AlignedCollectionViewFlowLayout(
+            horizontalAlignment: .left,
+            verticalAlignment: .top
+        )
+        alignedFlowLayout.minimumInteritemSpacing = 10
+        alignedFlowLayout.itemSize = CGSize(width: 100, height: 100)
+        collectionView.collectionViewLayout = alignedFlowLayout
 
     
     }
