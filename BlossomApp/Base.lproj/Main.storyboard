@@ -4945,6 +4945,7 @@
                     <navigationItem key="navigationItem" id="973-RB-r5T"/>
                     <connections>
                         <outlet property="bottomConstraint" destination="z3v-me-1jl" id="A7I-VN-Jy6"/>
+                        <outlet property="keyboardHeightLayoutConstraint" destination="EEL-Wi-6dM" id="CGJ-0U-geu"/>
                         <outlet property="tableView" destination="4Oh-6v-AeP" id="8hc-Dd-d0T"/>
                         <outlet property="textField" destination="b6u-fB-pOr" id="47Y-jp-lVB"/>
                     </connections>

@@ -37,6 +37,8 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet var bottomConstraint: NSLayoutConstraint!
     let keyboardObserver = CommonKeyboardObserver()
     
+    @IBOutlet var keyboardHeightLayoutConstraint: NSLayoutConstraint?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -51,19 +53,50 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
                 : 0
             )
             UIView.animate(info, animations: { [weak self] in
+                
                 self?.bottomConstraint.constant = bottom
                 self?.view.layoutIfNeeded()
             })
         }
         
         
-       
+        NotificationCenter.default.addObserver(self,
+               selector: #selector(self.keyboardNotification(notification:)),
+               name: UIResponder.keyboardWillChangeFrameNotification,
+               object: nil)
+        
         //Chat.instance.addDelegate(self)
         
        
         // Do any additional setup after loading the view.
     }
+    deinit {
+         NotificationCenter.default.removeObserver(self)
+       }
     
+    @objc func keyboardNotification(notification: NSNotification) {
+       guard let userInfo = notification.userInfo else { return }
+
+       let endFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+       let endFrameY = endFrame?.origin.y ?? 0
+       let duration:TimeInterval = (userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0
+       let animationCurveRawNSN = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber
+       let animationCurveRaw = animationCurveRawNSN?.uintValue ?? UIView.AnimationOptions.curveEaseInOut.rawValue
+       let animationCurve:UIView.AnimationOptions = UIView.AnimationOptions(rawValue: animationCurveRaw)
+
+       if endFrameY >= UIScreen.main.bounds.size.height {
+         self.keyboardHeightLayoutConstraint?.constant = 0.0
+       } else {
+         self.keyboardHeightLayoutConstraint?.constant = ( endFrame?.size.height ?? 0.0) - 25
+       }
+
+       UIView.animate(
+         withDuration: duration,
+         delay: TimeInterval(0),
+         options: animationCurve,
+         animations: { self.view.layoutIfNeeded() },
+         completion: nil)
+     }
     func requestMessages() {
 //        Request.messages(withDialogID: chatdialog?.id ?? "",
 //                         extendedRequest: ["date_sent[gt]":"1455098137"],
