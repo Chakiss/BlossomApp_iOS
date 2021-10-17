@@ -15,8 +15,10 @@ protocol PostFromViewControllerDelegate: AnyObject {
 
 class PostFromViewController: UIViewController, UITextFieldDelegate{
 
-    @IBOutlet var diagnoseButton : DLRadioButton!
-    @IBOutlet var carePlanButton : DLRadioButton!
+    @IBOutlet var diagnoseButton: DLRadioButton!
+    @IBOutlet weak var diagnoseTextField: UITextField!
+    @IBOutlet var carePlanButton: DLRadioButton!
+    @IBOutlet weak var carePlanTextField: UITextField!
     
     @IBOutlet weak var doxyTextField: UITextField!
     @IBOutlet weak var acnotinTextField: UITextField!
@@ -144,6 +146,9 @@ class PostFromViewController: UIViewController, UITextFieldDelegate{
                 diagnoseString = diagnoseString + button.titleLabel!.text!
             }
         }
+        if diagnoseTextField.text?.count ?? 0 > 0 {
+            diagnoseString = diagnoseString + (diagnoseTextField.text! )
+        }
         
         var carePlanString = ""
         for button in carePlanButton.selectedButtons() {
@@ -154,6 +159,8 @@ class PostFromViewController: UIViewController, UITextFieldDelegate{
                 title = title + " " + acnotinTextField.text! + " สัปดาห์"
             } else if button.titleLabel!.text! == "Amoxicillin" {
                 title = title + " " + amoxicillinTextField.text! + " สัปดาห์"
+            } else if button.titleLabel!.text! == "อื่น ๆ" {
+                title = title + " " + carePlanTextField.text!
             }
             
             if carePlanString.count > 0 {
@@ -195,7 +202,7 @@ class PostFromViewController: UIViewController, UITextFieldDelegate{
                     button.isSelected = true
                 }
             }
-        } else if textField == acnotinTextField {
+        }  else if textField == acnotinTextField {
             for button in self.carePlanButton.otherButtons {
                 if button.titleLabel!.text! == "Acnotin" {
                     button.isSelected = true
@@ -204,6 +211,18 @@ class PostFromViewController: UIViewController, UITextFieldDelegate{
         } else if textField == amoxicillinTextField {
             for button in self.carePlanButton.otherButtons {
                 if button.titleLabel!.text! == "Amoxicillin" {
+                    button.isSelected = true
+                }
+            }
+        } else if textField == carePlanTextField {
+            for button in self.carePlanButton.otherButtons {
+                if button.titleLabel!.text! == "อื่นๆ" {
+                    button.isSelected = true
+                }
+            }
+        } else if textField == diagnoseTextField {
+            for button in self.diagnoseButton.otherButtons {
+                if button.titleLabel!.text! == "อื่นๆ" {
                     button.isSelected = true
                 }
             }
