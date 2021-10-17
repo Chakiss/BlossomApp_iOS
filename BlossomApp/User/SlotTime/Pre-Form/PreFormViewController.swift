@@ -337,10 +337,13 @@ extension PreFormViewController: UICollectionViewDelegate, UICollectionViewDataS
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
         
         let cell: ImageCell? = (collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as! ImageCell)
         if indexPath.row < imageArray.count {
             cell?.imageView.image = imageArray[indexPath.row] as? UIImage
+        } else {
+            cell?.imageView.image = UIImage(named: "image-upload")
         }
     
         return cell ?? UICollectionViewCell()
@@ -360,6 +363,16 @@ extension PreFormViewController: UICollectionViewDelegate, UICollectionViewDataS
                 self.imageArray.append(image)
                 collectionView.reloadData()
             }
+        } else {
+            let alert = UIAlertController(title: "ลบรูป", message: "คุณต้องการลบรูปใช่หรือไม่ ?", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "ยกเลิก", style: .cancel, handler: { _ in
+
+            }))
+            alert.addAction(UIAlertAction(title: "ตกลง", style: .default, handler: {(_: UIAlertAction!) in
+                self.imageArray.remove(at: indexPath.row)
+                collectionView.reloadData()
+            }))
+            self.present(alert, animated: true, completion: nil)
         }
     }
     
