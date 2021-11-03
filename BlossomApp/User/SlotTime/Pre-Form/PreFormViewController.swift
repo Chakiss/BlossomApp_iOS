@@ -61,7 +61,7 @@ class PreFormViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
         
         if appointment != nil {
             self.appointmentID = appointment?.id ?? ""
