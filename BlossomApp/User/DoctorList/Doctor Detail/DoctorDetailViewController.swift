@@ -70,13 +70,9 @@ class DoctorDetailViewController: UIViewController, UITableViewDelegate, UITable
         
         getReviewsData()
 
-        
-        
-        let review = (doctor?.review!)! as Int
-        let appointment = (doctor?.appointment!)! as Int
-        self.doctorReviewNumberLabel.text = "\(review) รีวิว  รักษา \(appointment) ครั้ง"
-        
-    
+        if let review = doctor?.review, let appointment = doctor?.appointment {
+            self.doctorReviewNumberLabel.text = "\(review) รีวิว  รักษา \(appointment) ครั้ง"
+        }
         
         self.tableView.reloadData()
         
