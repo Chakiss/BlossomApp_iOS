@@ -53,7 +53,7 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
         
         self.slotDay = []
         

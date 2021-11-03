@@ -29,7 +29,7 @@ class Doctor_HistoryAppointmentViewController:  UIViewController, UITableViewDat
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
         self.tableView.reloadData()
     }
     

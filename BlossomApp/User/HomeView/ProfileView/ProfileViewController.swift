@@ -82,7 +82,7 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
     
     }
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
         
         self.profileImageView.circleView()
         self.profileImageView.addShadow()

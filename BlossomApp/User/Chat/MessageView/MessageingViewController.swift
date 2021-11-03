@@ -113,7 +113,7 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
     
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
         if self.channelMessage != nil {
             self.db.collection("channels")
                 .document(self.channelMessage?.id ?? "")
