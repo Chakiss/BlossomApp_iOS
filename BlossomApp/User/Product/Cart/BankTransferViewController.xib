@@ -96,7 +96,7 @@
                         <action selector="updateImage" destination="-1" eventType="touchUpInside" id="myu-br-T4r"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Bs-KO-GzT">
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Bs-KO-GzT">
                     <rect key="frame" x="61" y="448" width="292" height="45"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="45" id="a1l-xB-REg"/>

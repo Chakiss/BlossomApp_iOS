@@ -62,7 +62,8 @@ class Doctor_ComingAppointmentViewController: UIViewController, UITableViewDataS
         let payload = ["appointmentID": appointment.id!] as [String : Any]
         
         functions.httpsCallable("app-messages-sendVOIPNotification").call(payload) { result, error in
-            
+            print(result)
+            print("xxxxx")
         }
         
         var opponentID = NSNumber(integerLiteral: 0)

@@ -37,6 +37,7 @@
 		1B1C2E3E26994FF700F57122 /* ProductDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C2E3D26994FF700F57122 /* ProductDetailViewController.swift */; };
 		1B21B32E270CB60200218E72 /* PreFormImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B21B32D270CB60200218E72 /* PreFormImage.swift */; };
 		1B21B331270CBDCC00218E72 /* GaleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B21B330270CBDCC00218E72 /* GaleryViewController.swift */; };
+		1B279A54271F2A91007FD84D /* CampaignFirstTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B279A53271F2A90007FD84D /* CampaignFirstTime.swift */; };
 		1B27FDC226A5EA11000E8609 /* SlotDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B27FDC126A5EA11000E8609 /* SlotDateCell.swift */; };
 		1B27FDC426A5F01A000E8609 /* SlotDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B27FDC326A5F01A000E8609 /* SlotDay.swift */; };
 		1B29A3D32697E92300556A55 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1B29A3D22697E92300556A55 /* GoogleService-Info.plist */; };
@@ -230,6 +231,7 @@
 		1B1C2E3D26994FF700F57122 /* ProductDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailViewController.swift; sourceTree = "<group>"; };
 		1B21B32D270CB60200218E72 /* PreFormImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreFormImage.swift; sourceTree = "<group>"; };
 		1B21B330270CBDCC00218E72 /* GaleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GaleryViewController.swift; sourceTree = "<group>"; };
+		1B279A53271F2A90007FD84D /* CampaignFirstTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampaignFirstTime.swift; sourceTree = "<group>"; };
 		1B27FDC126A5EA11000E8609 /* SlotDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotDateCell.swift; sourceTree = "<group>"; };
 		1B27FDC326A5F01A000E8609 /* SlotDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotDay.swift; sourceTree = "<group>"; };
 		1B29A3D22697E92300556A55 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -764,6 +766,7 @@
 				1BDEAA0626D69BBF0038CD49 /* SubDistrict.swift */,
 				1BA10917270EE654000B0371 /* Channel.swift */,
 				1BA109192711ECA6000B0371 /* Message.swift */,
+				1B279A53271F2A90007FD84D /* CampaignFirstTime.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1340,6 +1343,7 @@
 				1BCE64F226A84B66002EE71F /* ComingAppointmentViewController.swift in Sources */,
 				1B38FD8226BD9E5A00BFC40E /* PromotionListCell.swift in Sources */,
 				3CBF265B26B44A9400F640DB /* InboxTableViewController.swift in Sources */,
+				1B279A54271F2A91007FD84D /* CampaignFirstTime.swift in Sources */,
 				1B1C2E2D2698A77A00F57122 /* ProductsResponse.swift in Sources */,
 				1B3D367826B2EEED000EFCEC /* HistoryAppointmentDetailViewController.swift in Sources */,
 				1BA04F4326AE8CF20053F10D /* Doctor_ComingAppointmentViewController.swift in Sources */,
@@ -1535,7 +1539,7 @@
 				CODE_SIGN_ENTITLEMENTS = BlossomApp/BlossomApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 40;
+				CURRENT_PROJECT_VERSION = 42;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = GZWLHGR8C3;
 				EXCLUDED_ARCHS = "";
@@ -1546,7 +1550,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1.0;
+				MARKETING_VERSION = 2.1.1;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1700,7 +1704,7 @@
 				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = "";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 40;
+				CURRENT_PROJECT_VERSION = 42;
 				DEVELOPMENT_TEAM = GZWLHGR8C3;
 				EXCLUDED_ARCHS = "";
 				INFOPLIST_FILE = BlossomApp/Info.plist;
@@ -1709,7 +1713,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1.0;
+				MARKETING_VERSION = 2.1.1;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",

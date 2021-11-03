@@ -26,7 +26,8 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
     var slotTimeSelected: SlotTime?
     
     let notificationCenter = UNUserNotificationCenter.current()
-
+    
+    var campaignFirstTime: CampaignFirstTime?
     
     @IBOutlet weak var dayCollectionView: UICollectionView!
     @IBOutlet weak var timeCollectionView: UICollectionView!
@@ -102,6 +103,22 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
                 self.getSlotTime(dayID: self.slotDay[0].id!)
             }
                 
+        }
+        
+        
+        
+        self.functions.httpsCallable("app-users-getFirstTimeAppointmentCampaign").call(nil) { result, error in
+         
+            if error == nil {
+                if let data = result?.data as? [String: Any] {
+                    let price = data["salePrice"] as! Int
+                    self.salePriceLabel.text = ("\(price) บาท")
+                    self.campaignFirstTime = CampaignFirstTime(isCampaignActivated: data["isCampaignActivated"] as! Bool,
+                                                      isFirstTimeUser: data["isFirstTimeUser"] as! Bool,
+                                                      salePrice: price)
+                }
+                
+            }
         }
         
     }
@@ -251,42 +268,15 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
             viewController.modalPresentationStyle = .fullScreen
             viewController.doctor = self.doctor
             viewController.slotDaySelected = self.slotDaySelected
+            if self.campaignFirstTime?.isCampaignActivated == true {
+                if self.campaignFirstTime?.isFirstTimeUser == true {
+                    self.slotTimeSelected?.salePrice = self.campaignFirstTime?.salePrice
+                }
+            }
+            
             viewController.slotTimeSelected = self.slotTimeSelected
             self.navigationController?.pushViewController(viewController, animated: true)
-            //self.navigationController?.present(viewController, animated: true, completion: nil)
-            /*
-            ProgressHUD.show()
-        
-            let payload = ["doctorID": self.doctor?.id,
-                           "slotID":self.slotDaySelected?.id,
-                           "timeID":self.slotTimeSelected?.id ]
-            
-            self.functions.httpsCallable("app-orders-createAppointmentOrder").call(payload) { result, error in
-            
-                ProgressHUD.dismiss()
-                if error != nil {
-                    let alert = UIAlertController(title: "กรุณาตรวจสอบ", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
-                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                    self.present(alert, animated: true, completion: nil)
-                }
-                else {
-                    print(result?.data as Any)
-                    let order = result?.data as? [String : String] ?? ["":""]
-                    if self.slotTimeSelected?.salePrice == 0 {
-                        if let orderID = order["orderID"] {
-                            self.makeAppointmentOrderPaid(orderID: orderID)
-                        }
-                        
-                    } else if let orderID = order["orderID"] {
-                      // Make Payment
-                        let paymentMethodViewController = PaymentMethodViewController.initializeInstance(cart: nil, appointmentOrder: AppointmentOrder(id: orderID, amount: self.slotTimeSelected?.salePrice ?? 0))
-                        paymentMethodViewController.delegate = self
-                        self.navigationController?.pushViewController(paymentMethodViewController, animated: true)
-                    }
-                }
-
-            }
-          */
+         
         }))
         self.present(alert, animated: true, completion: nil)
         
@@ -363,7 +353,9 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     let viewController = storyboard.instantiateViewController(withIdentifier: "PreFormViewController") as! PreFormViewController
                     viewController.modalPresentationStyle = .fullScreen
+                    viewController.doctor = self.doctor
                     viewController.appointmentID = appointmentID
+                    
                     self.navigationController?.present(viewController, animated: true, completion: nil)
                 }
                 

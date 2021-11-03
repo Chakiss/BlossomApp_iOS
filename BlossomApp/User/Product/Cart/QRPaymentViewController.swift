@@ -69,7 +69,11 @@ class QRPaymentViewController: UIViewController {
                 let data = result?.data()
                 let isPaid = data?["status"] as? String ?? ""
                 if isPaid == "paid" {
-                    self?.updateOrderPayment(paidAt: Date(), orderID:orderID,paymentRef:"")
+                    if self?.appointmentOrder?.count ?? 0 > 0 {
+                        self?.delegate?.qrPaymentComplete()
+                    } else {
+                        self?.updateOrderPayment(paidAt: Date(), orderID:orderID,paymentRef:"")
+                    }
                 }
             })
         }

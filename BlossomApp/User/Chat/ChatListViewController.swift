@@ -49,12 +49,14 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
     
     @objc
     func contactAdmin() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let viewController = storyboard.instantiateViewController(withIdentifier: "MessageingViewController") as! MessageingViewController
-        viewController.title = "Admin"
-        viewController.customer = self.customer
-        viewController.hidesBottomBarWhenPushed = true
-        self.navigationController?.pushViewController(viewController, animated: true)
+        if self.customer != nil {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let viewController = storyboard.instantiateViewController(withIdentifier: "MessageingViewController") as! MessageingViewController
+            viewController.title = "Admin"
+            viewController.customer = self.customer
+            viewController.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -69,10 +71,9 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
             guard let customer = CustomerManager.sharedInstance.customer else {
                 return
             }
+            
             self.customer = customer
-            
-            
-            
+
             
             db.collection("channels")
                 .whereField("customerReference", isEqualTo: customer.documentReference as Any)
@@ -107,7 +108,7 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
                     
                 }
             
-        } else {
+        } else if Defaults[\.role] == "doctor" {
             getDoctor()
         }
         
@@ -206,7 +207,9 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return 1
+            if user != nil {
+                return 1
+            }
         }
         return channelList.count
         
@@ -217,13 +220,15 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
         let cell = tableView.dequeueReusableCell(withIdentifier: "DialogCell", for: indexPath) as! DialogCell
         
         if indexPath.section == 0 {
-            cell.getAdmin()
+            if user != nil {
+                cell.getAdmin()
+            }
         } else {
             let channel = self.channelList[indexPath.row]
             cell.channel = channel
             if Defaults[\.role] == "customer" {
                 cell.getDoctor()
-            } else {
+            } else if Defaults[\.role] == "doctor"  {
                 cell.getCutomerData()
             }
         }
@@ -242,9 +247,10 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
         let channelSelected = cell.channel
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let viewController = storyboard.instantiateViewController(withIdentifier: "MessageingViewController") as! MessageingViewController
-        //        viewController.chatdialog = dialog
         viewController.title = cell.titleLabel.text
-        viewController.channelMessage = channelSelected
+        if indexPath.section == 1 {
+            viewController.channelMessage = channelSelected
+        }
         viewController.customer = self.customer
         viewController.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(viewController, animated: true)

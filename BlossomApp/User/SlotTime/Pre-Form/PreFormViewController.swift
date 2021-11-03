@@ -80,11 +80,6 @@ class PreFormViewController: UIViewController {
                     } else if topic == button.titleLabel!.text! {
                         button.isSelected = true
                     }
-//                    } else if topic == "ปรึกษาปัญหาผิวอื่นๆ" {
-//                        button.isSelected = true
-//                    } else if topic == "ติดตามการรักษา" {
-//                        button.isSelected = true
-//                    }
                 }
             }
 

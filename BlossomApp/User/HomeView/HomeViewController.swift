@@ -367,13 +367,14 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
     @IBAction func contactAdmin() {
         //UIApplication.shared.open(URL(string: "https://lin.ee/iYHm3As")!, options: [:], completionHandler: nil)
         //let channelSelected =
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let viewController = storyboard.instantiateViewController(withIdentifier: "MessageingViewController") as! MessageingViewController
-        viewController.title = "Admin"
-        viewController.customer = self.customer
-        viewController.hidesBottomBarWhenPushed = true
-        self.navigationController?.pushViewController(viewController, animated: true)
-        
+        if self.customer != nil {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let viewController = storyboard.instantiateViewController(withIdentifier: "MessageingViewController") as! MessageingViewController
+            viewController.title = "Admin"
+            viewController.customer = self.customer
+            viewController.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }
         
        // let docRef = db.collection("channels").document(user?.uid ?? "")
         

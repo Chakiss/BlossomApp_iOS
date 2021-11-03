@@ -35,10 +35,12 @@ class SenderCell: UITableViewCell {
     
     @objc func handleTap(_ sender: UITapGestureRecognizer) {
         // handling code
-        let imageInfo   = GSImageInfo(image: self.chatImageView.image!, imageMode: .aspectFit)
-        let transitionInfo = GSTransitionInfo(fromView: self.chatImageView)
-        let imageViewer = GSImageViewerController(imageInfo: imageInfo, transitionInfo: transitionInfo)
-        parent?.present(imageViewer, animated: true, completion: nil)
+        if self.chatImageView.image != nil {
+            let imageInfo   = GSImageInfo(image: self.chatImageView.image!, imageMode: .aspectFit)
+            let transitionInfo = GSTransitionInfo(fromView: self.chatImageView)
+            let imageViewer = GSImageViewerController(imageInfo: imageInfo, transitionInfo: transitionInfo)
+            parent?.present(imageViewer, animated: true, completion: nil)
+        }
     }
 
 }
