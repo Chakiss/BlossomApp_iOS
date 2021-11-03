@@ -14,10 +14,7 @@ import ConnectyCube
 import AlignedCollectionViewFlowLayout
 
 class PreFormViewController: UIViewController {
-  
-    
-
-    
+      
     lazy var functions = Functions.functions()
     
     @IBOutlet weak var topicButton: DLRadioButton!
@@ -25,11 +22,10 @@ class PreFormViewController: UIViewController {
     @IBOutlet weak var submitButton: UIButton!
     
     var imageArray: [UIImage] = []
-    
-    
-    
+        
     @IBOutlet weak var collectionView: UICollectionView!
-    
+    private weak var pickerManager: ImagePickerManager?
+
     var appointmentID: String = ""
     let storage = Storage.storage()
     
@@ -71,13 +67,13 @@ class PreFormViewController: UIViewController {
             self.appointmentID = appointment?.id ?? ""
             let preform: [String:Any] = appointment?.preForm ?? ["":""]
 
-            let topicString = preform["เรื่องที่ปรึกษา"] as! String
+            let topicString = (preform["เรื่องที่ปรึกษา"] as? String) ?? ""
             let arrayTopic = topicString.components(separatedBy: ",")
             for topic in arrayTopic {
                 for button in topicButton.otherButtons {
                     if topic == "สิว" {
                         topicButton.isSelected = true
-                    } else if topic == button.titleLabel!.text! {
+                    } else if topic == button.titleLabel?.text {
                         button.isSelected = true
                     }
 //                    } else if topic == "ปรึกษาปัญหาผิวอื่นๆ" {
@@ -88,16 +84,16 @@ class PreFormViewController: UIViewController {
                 }
             }
 
-            let attachedImageArray = preform["attachedImages"] as! [String]
+            let attachedImageArray: [String] = (preform["attachedImages"] as? [String]) ?? []
             
             for imageData in attachedImageArray {
                 let imageRef = storage.reference(withPath: imageData )
-                imageRef.getData(maxSize: 2 * 1024 * 1024) { (data, error) in
+                imageRef.getData(maxSize: 2 * 1024 * 1024) { [weak self] (data, error) in
                     if error == nil {
                         if let imgData = data {
                             if let img = UIImage(data: imgData) {
-                                self.imageArray.append(img)
-                                self.collectionView.reloadData()
+                                self?.imageArray.append(img)
+                                self?.collectionView.reloadData()
                             }
                         }
                     }
@@ -355,7 +351,7 @@ extension PreFormViewController: UICollectionViewDelegate, UICollectionViewDataS
         
         let cell: ImageCell? = (collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as! ImageCell)
         if indexPath.row < imageArray.count {
-            cell?.imageView.image = imageArray[indexPath.row] as? UIImage
+            cell?.imageView.image = imageArray[indexPath.row]
         } else {
             cell?.imageView.image = UIImage(named: "image-upload")
         }
@@ -372,19 +368,21 @@ extension PreFormViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.row == imageArray.count   {
-            ImagePickerManager().pickImage(self){ image in
-                print(image)
-                self.imageArray.append(image)
-                collectionView.reloadData()
+            let pickerManager = ImagePickerManager()
+            pickerManager.pickImage(self) { [weak self] image in
+                //print(image)
+                self?.imageArray.append(image)
+                self?.collectionView.reloadData()
             }
+            self.pickerManager = pickerManager
         } else {
             let alert = UIAlertController(title: "ลบรูป", message: "คุณต้องการลบรูปใช่หรือไม่ ?", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "ยกเลิก", style: .cancel, handler: { _ in
 
             }))
-            alert.addAction(UIAlertAction(title: "ตกลง", style: .default, handler: {(_: UIAlertAction!) in
-                self.imageArray.remove(at: indexPath.row)
-                collectionView.reloadData()
+            alert.addAction(UIAlertAction(title: "ตกลง", style: .default, handler: { [weak self] _ in
+                self?.imageArray.remove(at: indexPath.row)
+                self?.collectionView.reloadData()
             }))
             self.present(alert, animated: true, completion: nil)
         }

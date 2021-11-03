@@ -248,7 +248,6 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
             
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let viewController = storyboard.instantiateViewController(withIdentifier: "PreFormViewController") as! PreFormViewController
-            viewController.modalPresentationStyle = .fullScreen
             viewController.doctor = self.doctor
             viewController.slotDaySelected = self.slotDaySelected
             viewController.slotTimeSelected = self.slotTimeSelected
