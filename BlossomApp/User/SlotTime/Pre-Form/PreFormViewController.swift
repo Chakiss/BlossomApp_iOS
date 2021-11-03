@@ -24,7 +24,7 @@ class PreFormViewController: UIViewController {
     var imageArray: [UIImage] = []
         
     @IBOutlet weak var collectionView: UICollectionView!
-    private weak var pickerManager: ImagePickerManager?
+    private var pickerManager: ImagePickerManager?
 
     var appointmentID: String = ""
     let storage = Storage.storage()
@@ -65,7 +65,7 @@ class PreFormViewController: UIViewController {
         
         if appointment != nil {
             self.appointmentID = appointment?.id ?? ""
-            let preform: [String:Any] = appointment?.preForm ?? ["":""]
+            let preform: [String:Any] = appointment?.preForm ?? [:]
 
             let topicString = (preform["เรื่องที่ปรึกษา"] as? String) ?? ""
             let arrayTopic = topicString.components(separatedBy: ",")
@@ -90,11 +90,9 @@ class PreFormViewController: UIViewController {
                 let imageRef = storage.reference(withPath: imageData )
                 imageRef.getData(maxSize: 2 * 1024 * 1024) { [weak self] (data, error) in
                     if error == nil {
-                        if let imgData = data {
-                            if let img = UIImage(data: imgData) {
-                                self?.imageArray.append(img)
-                                self?.collectionView.reloadData()
-                            }
+                        if let imgData = data, let img = UIImage(data: imgData) {
+                            self?.imageArray.append(img)
+                            self?.collectionView.reloadData()
                         }
                     }
                 }
@@ -109,11 +107,12 @@ class PreFormViewController: UIViewController {
         
         var selectedButton:String = ""
         for button in topicButton.selectedButtons() {
-            let title = (button.titleLabel?.text)! as String
-            if selectedButton.isEmpty {
-                selectedButton = title
-            } else {
-                selectedButton += ",\(title)"
+            if let title = button.titleLabel?.text {
+                if selectedButton.isEmpty {
+                    selectedButton = title
+                } else {
+                    selectedButton += ",\(title)"
+                }
             }
         }
         
@@ -146,16 +145,19 @@ class PreFormViewController: UIViewController {
                 
                 let alert = UIAlertController(title: "ยืนยัน", message: "คุณต้องการที่จะนัดหมายในเวลานี้ใช่หรือไม่​?", preferredStyle: UIAlertController.Style.alert)
                 alert.addAction(UIAlertAction(title: "ยกเลิก", style: .default, handler: nil))
-                alert.addAction(UIAlertAction(title: "ยืนยัน", style: .default, handler: {_ in
+                alert.addAction(UIAlertAction(title: "ยืนยัน", style: .default, handler: { [weak self] _ in
                     ProgressHUD.show()
                     
+                    guard let self = self else { return }
                     let payload = ["doctorID": self.doctor?.id,
                                    "slotID": self.slotDaySelected?.id,
                                    "timeID": self.slotTimeSelected?.id ]
                     
-                    self.functions.httpsCallable("app-orders-createAppointmentOrder").call(payload) { result, error in
+                    self.functions.httpsCallable("app-orders-createAppointmentOrder").call(payload) { [weak self] result, error in
                         
                         ProgressHUD.dismiss()
+                        guard let self = self else { return }
+
                         if error != nil {
                             let alert = UIAlertController(title: "กรุณาตรวจสอบ", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
                             alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
@@ -218,9 +220,9 @@ class PreFormViewController: UIViewController {
                 case .notDetermined:
                     // 3
                     eventStore.requestAccess(to: .event, completion:
-                                                {[weak self] (granted: Bool, error: Error?) -> Void in
+                                                { [weak self] (granted: Bool, error: Error?) -> Void in
                                                     if granted {
-                                                        self!.insertEvent(store: eventStore)
+                                                        self?.insertEvent(store: eventStore)
                                                     } else {
                                                         print("Access denied")
                                                     }
@@ -300,9 +302,10 @@ class PreFormViewController: UIViewController {
                            "images": attachImage,
                            "form": formData ] as [String : Any]
             
-            functions.httpsCallable("app-appointments-updateForm").call(payload) { result, error in
+            functions.httpsCallable("app-appointments-updateForm").call(payload) { [weak self] result, error in
                 ProgressHUD.dismiss()
                 
+                guard let self = self else { return }
                 if self.appointment != nil {
                     self.navigationController?.popViewController(animated: true)
                 } else {
@@ -368,13 +371,12 @@ extension PreFormViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.row == imageArray.count   {
-            let pickerManager = ImagePickerManager()
-            pickerManager.pickImage(self) { [weak self] image in
+            pickerManager = ImagePickerManager()
+            pickerManager?.pickImage(self) { [weak self] image in
                 //print(image)
                 self?.imageArray.append(image)
                 self?.collectionView.reloadData()
             }
-            self.pickerManager = pickerManager
         } else {
             let alert = UIAlertController(title: "ลบรูป", message: "คุณต้องการลบรูปใช่หรือไม่ ?", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "ยกเลิก", style: .cancel, handler: { _ in
