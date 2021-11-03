@@ -54,7 +54,7 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
         
         self.slotDay = []
         
@@ -265,7 +265,6 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
             
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let viewController = storyboard.instantiateViewController(withIdentifier: "PreFormViewController") as! PreFormViewController
-            viewController.modalPresentationStyle = .fullScreen
             viewController.doctor = self.doctor
             viewController.slotDaySelected = self.slotDaySelected
             if self.campaignFirstTime?.isCampaignActivated == true {

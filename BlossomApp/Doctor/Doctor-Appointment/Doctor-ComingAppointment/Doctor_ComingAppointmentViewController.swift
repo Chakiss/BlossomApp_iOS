@@ -38,7 +38,7 @@ class Doctor_ComingAppointmentViewController: UIViewController, UITableViewDataS
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
     }
         
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

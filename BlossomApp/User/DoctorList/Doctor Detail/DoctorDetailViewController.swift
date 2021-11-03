@@ -66,17 +66,13 @@ class DoctorDetailViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
         
         getReviewsData()
 
-        
-        
-        let review = (doctor?.review!)! as Int
-        let appointment = (doctor?.appointment!)! as Int
-        self.doctorReviewNumberLabel.text = "\(review) รีวิว  รักษา \(appointment) ครั้ง"
-        
-    
+        if let review = doctor?.review, let appointment = doctor?.appointment {
+            self.doctorReviewNumberLabel.text = "\(review) รีวิว  รักษา \(appointment) ครั้ง"
+        }
         
         self.tableView.reloadData()
         
@@ -86,11 +82,13 @@ class DoctorDetailViewController: UIViewController, UITableViewDelegate, UITable
 
         db.collection("reviews")
             .whereField("doctorReference",isEqualTo: doctor?.documentReference)
-            .addSnapshotListener { (querySnapshot, error) in
-            guard let documents = querySnapshot?.documents else {
+            .addSnapshotListener { [weak self] (querySnapshot, error) in
+                
+            guard let self = self, let documents = querySnapshot?.documents else {
                 print("No documents")
                 return
             }
+                
             self.reviewList = documents.map { queryDocumentSnapshot -> Reviews in
                 let data = queryDocumentSnapshot.data()
 
@@ -108,7 +106,7 @@ class DoctorDetailViewController: UIViewController, UITableViewDelegate, UITable
                 
             }
                 
-                let reviewNumber = self.reviewList.count as Int
+                let reviewNumber = self.reviewList.count
                 self.doctorReviewNumberLabel.text = "\(reviewNumber) รีวิว"
                 self.tableView.reloadData()
         }

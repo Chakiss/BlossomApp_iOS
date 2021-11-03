@@ -49,7 +49,7 @@ class ProfileHealthViewController: UIViewController,UITextFieldDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
         
         informationView.addConerRadiusAndShadow()
         

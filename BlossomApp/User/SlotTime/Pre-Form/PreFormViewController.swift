@@ -14,10 +14,7 @@ import ConnectyCube
 import AlignedCollectionViewFlowLayout
 
 class PreFormViewController: UIViewController {
-  
-    
-
-    
+      
     lazy var functions = Functions.functions()
     
     @IBOutlet weak var topicButton: DLRadioButton!
@@ -25,11 +22,10 @@ class PreFormViewController: UIViewController {
     @IBOutlet weak var submitButton: UIButton!
     
     var imageArray: [UIImage] = []
-    
-    
-    
+        
     @IBOutlet weak var collectionView: UICollectionView!
-    
+    private var pickerManager: ImagePickerManager?
+
     var appointmentID: String = ""
     let storage = Storage.storage()
     
@@ -65,35 +61,33 @@ class PreFormViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
         
         if appointment != nil {
             self.appointmentID = appointment?.id ?? ""
-            let preform: [String:Any] = appointment?.preForm ?? ["":""]
+            let preform: [String:Any] = appointment?.preForm ?? [:]
 
-            let topicString = preform["เรื่องที่ปรึกษา"] as! String
+            let topicString = (preform["เรื่องที่ปรึกษา"] as? String) ?? ""
             let arrayTopic = topicString.components(separatedBy: ",")
             for topic in arrayTopic {
                 for button in topicButton.otherButtons {
                     if topic == "สิว" {
                         topicButton.isSelected = true
-                    } else if topic == button.titleLabel!.text! {
+                    } else if topic == button.titleLabel?.text {
                         button.isSelected = true
                     }
                 }
             }
 
-            let attachedImageArray = preform["attachedImages"] as! [String]
+            let attachedImageArray: [String] = (preform["attachedImages"] as? [String]) ?? []
             
             for imageData in attachedImageArray {
                 let imageRef = storage.reference(withPath: imageData )
-                imageRef.getData(maxSize: 2 * 1024 * 1024) { (data, error) in
+                imageRef.getData(maxSize: 2 * 1024 * 1024) { [weak self] (data, error) in
                     if error == nil {
-                        if let imgData = data {
-                            if let img = UIImage(data: imgData) {
-                                self.imageArray.append(img)
-                                self.collectionView.reloadData()
-                            }
+                        if let imgData = data, let img = UIImage(data: imgData) {
+                            self?.imageArray.append(img)
+                            self?.collectionView.reloadData()
                         }
                     }
                 }
@@ -108,11 +102,12 @@ class PreFormViewController: UIViewController {
         
         var selectedButton:String = ""
         for button in topicButton.selectedButtons() {
-            let title = (button.titleLabel?.text)! as String
-            if selectedButton.isEmpty {
-                selectedButton = title
-            } else {
-                selectedButton += ",\(title)"
+            if let title = button.titleLabel?.text {
+                if selectedButton.isEmpty {
+                    selectedButton = title
+                } else {
+                    selectedButton += ",\(title)"
+                }
             }
         }
         
@@ -145,16 +140,19 @@ class PreFormViewController: UIViewController {
                 
                 let alert = UIAlertController(title: "ยืนยัน", message: "คุณต้องการที่จะนัดหมายในเวลานี้ใช่หรือไม่​?", preferredStyle: UIAlertController.Style.alert)
                 alert.addAction(UIAlertAction(title: "ยกเลิก", style: .default, handler: nil))
-                alert.addAction(UIAlertAction(title: "ยืนยัน", style: .default, handler: {_ in
+                alert.addAction(UIAlertAction(title: "ยืนยัน", style: .default, handler: { [weak self] _ in
                     ProgressHUD.show()
                     
+                    guard let self = self else { return }
                     let payload = ["doctorID": self.doctor?.id,
                                    "slotID": self.slotDaySelected?.id,
                                    "timeID": self.slotTimeSelected?.id ]
                     
-                    self.functions.httpsCallable("app-orders-createAppointmentOrder").call(payload) { result, error in
+                    self.functions.httpsCallable("app-orders-createAppointmentOrder").call(payload) { [weak self] result, error in
                         
                         ProgressHUD.dismiss()
+                        guard let self = self else { return }
+
                         if error != nil {
                             let alert = UIAlertController(title: "กรุณาตรวจสอบ", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
                             alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
@@ -217,9 +215,9 @@ class PreFormViewController: UIViewController {
                 case .notDetermined:
                     // 3
                     eventStore.requestAccess(to: .event, completion:
-                                                {[weak self] (granted: Bool, error: Error?) -> Void in
+                                                { [weak self] (granted: Bool, error: Error?) -> Void in
                                                     if granted {
-                                                        self!.insertEvent(store: eventStore)
+                                                        self?.insertEvent(store: eventStore)
                                                     } else {
                                                         print("Access denied")
                                                     }
@@ -299,9 +297,10 @@ class PreFormViewController: UIViewController {
                            "images": attachImage,
                            "form": formData ] as [String : Any]
             
-            functions.httpsCallable("app-appointments-updateForm").call(payload) { result, error in
+            functions.httpsCallable("app-appointments-updateForm").call(payload) { [weak self] result, error in
                 ProgressHUD.dismiss()
                 
+                guard let self = self else { return }
                 if self.appointment != nil {
                     self.navigationController?.popViewController(animated: true)
                 } else {
@@ -350,7 +349,7 @@ extension PreFormViewController: UICollectionViewDelegate, UICollectionViewDataS
         
         let cell: ImageCell? = (collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as! ImageCell)
         if indexPath.row < imageArray.count {
-            cell?.imageView.image = imageArray[indexPath.row] as? UIImage
+            cell?.imageView.image = imageArray[indexPath.row]
         } else {
             cell?.imageView.image = UIImage(named: "image-upload")
         }
@@ -367,19 +366,20 @@ extension PreFormViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.row == imageArray.count   {
-            ImagePickerManager().pickImage(self){ image in
-                print(image)
-                self.imageArray.append(image)
-                collectionView.reloadData()
+            pickerManager = ImagePickerManager()
+            pickerManager?.pickImage(self) { [weak self] image in
+                //print(image)
+                self?.imageArray.append(image)
+                self?.collectionView.reloadData()
             }
         } else {
             let alert = UIAlertController(title: "ลบรูป", message: "คุณต้องการลบรูปใช่หรือไม่ ?", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "ยกเลิก", style: .cancel, handler: { _ in
 
             }))
-            alert.addAction(UIAlertAction(title: "ตกลง", style: .default, handler: {(_: UIAlertAction!) in
-                self.imageArray.remove(at: indexPath.row)
-                collectionView.reloadData()
+            alert.addAction(UIAlertAction(title: "ตกลง", style: .default, handler: { [weak self] _ in
+                self?.imageArray.remove(at: indexPath.row)
+                self?.collectionView.reloadData()
             }))
             self.present(alert, animated: true, completion: nil)
         }

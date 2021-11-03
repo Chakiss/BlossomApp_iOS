@@ -60,7 +60,7 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
         
         let user = Auth.auth().currentUser
         if user == nil {

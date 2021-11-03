@@ -159,7 +159,6 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
         alert.addAction(UIAlertAction(title: "แก้ไข", style: .default, handler:{ (UIAlertAction)in
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let viewController = storyboard.instantiateViewController(withIdentifier: "PreFormViewController") as! PreFormViewController
-            viewController.modalPresentationStyle = .fullScreen
             viewController.appointment = appointment
             viewController.isEditMode = true
             viewController.hidesBottomBarWhenPushed = true

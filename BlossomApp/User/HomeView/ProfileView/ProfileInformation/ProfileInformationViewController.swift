@@ -92,7 +92,7 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
         
         getProvinces()
         getDistricts()

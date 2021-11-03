@@ -76,7 +76,7 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
     
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
 
         multiBannerView.delegate = self
 
