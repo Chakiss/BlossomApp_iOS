@@ -48,7 +48,6 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
             }
         }
         
-        
     }
     
     @objc func refresh(_ sender: AnyObject) {
@@ -94,7 +93,21 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
         }))
         
         alert.addAction(UIAlertAction(title: "แชท", style: .default , handler:{ (UIAlertAction)in
+            let payload = ["targetUserID": appointment.doctorReference?.documentID] as [String : Any]
             
+            self.functions.httpsCallable("app-messages-createChatChannel").call(payload) { result, error in
+                ProgressHUD.dismiss()
+                
+                if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                    appDelegate.deeplinking = .chat(id: "")
+                    appDelegate.handleDeeplinking()
+                    self.dismiss(animated: false, completion: {
+                        self.navigationController?.popToRootViewController(animated: false)
+                    })
+                }
+            }
+            
+           /*
             appointment.doctorReference?.getDocument(completion: { doctorDocument, error in
                 
                 let data = doctorDocument?.data()
@@ -116,26 +129,40 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
                 }
                 
             })
+            */
+        }))
+        
+        alert.addAction(UIAlertAction(title: "ติดต่อ Admin เพื่อเปลี่ยนหรือยกเลิกเวลานัด", style: .default, handler: { (UIAlertAction) in
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let viewController = storyboard.instantiateViewController(withIdentifier: "MessageingViewController") as! MessageingViewController
+            viewController.title = "Admin"
+            viewController.customer = CustomerManager.sharedInstance.customer
+            viewController.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(viewController, animated: true)
+//            if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+//
+//                let dialog = ChatDialog(dialogID: nil, type: .private)
+//                dialog.occupantIDs = [4663567]  // an ID of opponent
+//
+//                Request.createDialog(dialog, successBlock: { (dialog) in
+//                    appDelegate.deeplinking = .chat(id: "4663567")
+//                    appDelegate.handleDeeplinking()
+//
+//                }) { (error) in
+//
+//                }
+//
+//            }
             
         }))
         
-        alert.addAction(UIAlertAction(title: "ติดต่อ Admin เพื่อเปลี่ยนหรือยกเลิกเวลานัด", style: .default, handler: { [weak self] (UIAlertAction) in
-            
-            if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-                
-                let dialog = ChatDialog(dialogID: nil, type: .private)
-                dialog.occupantIDs = [4663567]  // an ID of opponent
-
-                Request.createDialog(dialog, successBlock: { (dialog) in
-                    appDelegate.deeplinking = .chat(id: "4663567")
-                    appDelegate.handleDeeplinking()
-                    
-                }) { (error) in
-
-                }
-                
-            }
-            
+        alert.addAction(UIAlertAction(title: "แก้ไข", style: .default, handler:{ (UIAlertAction)in
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let viewController = storyboard.instantiateViewController(withIdentifier: "PreFormViewController") as! PreFormViewController
+            viewController.appointment = appointment
+            viewController.isEditMode = true
+            viewController.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(viewController, animated: true)
         }))
         
         alert.addAction(UIAlertAction(title: "ยกเลิก", style: .destructive, handler:{ (UIAlertAction)in

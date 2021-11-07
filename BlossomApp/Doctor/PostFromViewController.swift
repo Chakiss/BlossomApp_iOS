@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import DLRadioButton
 
 protocol PostFromViewControllerDelegate: AnyObject {
     func postFormDidFinish(controller: PostFromViewController)
@@ -14,11 +15,20 @@ protocol PostFromViewControllerDelegate: AnyObject {
 
 class PostFromViewController: UIViewController, UITextFieldDelegate{
 
+    @IBOutlet var diagnoseButton: DLRadioButton!
     @IBOutlet weak var diagnoseTextField: UITextField!
+    @IBOutlet var carePlanButton: DLRadioButton!
     @IBOutlet weak var carePlanTextField: UITextField!
-    @IBOutlet weak var nextAppointmentTextField: UITextField!
-    @IBOutlet weak var medicineTextField: UITextField!
     
+    @IBOutlet weak var doxyTextField: UITextField!
+    @IBOutlet weak var acnotinTextField: UITextField!
+    @IBOutlet weak var amoxicillinTextField: UITextField!
+    
+    @IBOutlet var carePlanTextView : UITextView!
+    @IBOutlet var suggestTextView : UITextView!
+    @IBOutlet weak var nextAppointmentTextField: UITextField!
+    
+
     @IBOutlet weak var doneButton: UIButton!
     
     lazy var functions = Functions.functions()
@@ -34,9 +44,20 @@ class PostFromViewController: UIViewController, UITextFieldDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.diagnoseButton.isMultipleSelectionEnabled = true;
+        self.carePlanButton.isMultipleSelectionEnabled = true;
+        
+        self.carePlanTextView.layer.borderColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0).cgColor
+        self.carePlanTextView.layer.borderWidth = 1.0
+        self.carePlanTextView.layer.cornerRadius = 5
+        
+        self.suggestTextView.layer.borderColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0).cgColor
+        self.suggestTextView.layer.borderWidth = 1.0
+        self.suggestTextView.layer.cornerRadius = 5
         // Do any additional setup after loading the view.
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(sender:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(sender:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+       // NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+       // NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
         
         db.collection("appointments")
             .document(appointmentID)
@@ -58,7 +79,7 @@ class PostFromViewController: UIViewController, UITextFieldDelegate{
                 
                 //self.prepareImage()
             }
-               
+          
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -81,13 +102,7 @@ class PostFromViewController: UIViewController, UITextFieldDelegate{
         self.present(alert, animated: true, completion: nil)
     }
     
-    @objc func keyboardWillShow(sender: NSNotification) {
-         self.view.frame.origin.y = -150 // Move view 150 points upward
-    }
-
-    @objc func keyboardWillHide(sender: NSNotification) {
-         self.view.frame.origin.y = 0 // Move view to original position
-    }
+  
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
@@ -123,10 +138,44 @@ class PostFromViewController: UIViewController, UITextFieldDelegate{
     @IBAction func doneButtonTapped() {
         
         ProgressHUD.show()
-        let formData = ["วินิจฉัย":diagnoseTextField.text,
-                        "แผนการรักษา":carePlanTextField.text,
-                        "นัดครั้งถัดไป":nextAppointmentTextField.text,
-                        "ยาที่ใช้ในการรักษา":medicineTextField.text]
+        var diagnoseString = ""
+        for button in diagnoseButton.selectedButtons() {
+            if diagnoseString.count > 0 {
+                diagnoseString = diagnoseString + " , " + button.titleLabel!.text!
+            } else {
+                diagnoseString = diagnoseString + button.titleLabel!.text!
+            }
+        }
+        if diagnoseTextField.text?.count ?? 0 > 0 {
+            diagnoseString = diagnoseString + (diagnoseTextField.text! )
+        }
+        
+        var carePlanString = ""
+        for button in carePlanButton.selectedButtons() {
+            var title = button.titleLabel!.text!
+            if button.titleLabel!.text! == "Doxy" {
+                title =  title + " " + doxyTextField.text! + " สัปดาห์"
+            } else if button.titleLabel!.text! == "Acnotin" {
+                title = title + " " + acnotinTextField.text! + " สัปดาห์"
+            } else if button.titleLabel!.text! == "Amoxicillin" {
+                title = title + " " + amoxicillinTextField.text! + " สัปดาห์"
+            } else if button.titleLabel!.text! == "อื่น ๆ" {
+                title = title + " " + carePlanTextField.text!
+            }
+            
+            if carePlanString.count > 0 {
+                carePlanString = carePlanString + " , " + title
+            } else {
+                carePlanString = carePlanString + title
+            }
+        }
+        
+        
+        let formData = ["วินิจฉัย": diagnoseString,
+                        "การรักษา": carePlanString,
+                        "แผนการรักษาเพิ่มเติม": carePlanTextView.text!,
+                        "แนะนำคนไข้": suggestTextView.text!,
+                        "นัด": nextAppointmentTextField.text! + " สัปดาห์"]
         
         let payload = ["appointmentID": self.appointmentID,
                        "type": "post",
@@ -146,5 +195,37 @@ class PostFromViewController: UIViewController, UITextFieldDelegate{
 
     }
 
-
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == doxyTextField {
+            for button in self.carePlanButton.otherButtons {
+                if button.titleLabel!.text! == "Doxy" {
+                    button.isSelected = true
+                }
+            }
+        }  else if textField == acnotinTextField {
+            for button in self.carePlanButton.otherButtons {
+                if button.titleLabel!.text! == "Acnotin" {
+                    button.isSelected = true
+                }
+            }
+        } else if textField == amoxicillinTextField {
+            for button in self.carePlanButton.otherButtons {
+                if button.titleLabel!.text! == "Amoxicillin" {
+                    button.isSelected = true
+                }
+            }
+        } else if textField == carePlanTextField {
+            for button in self.carePlanButton.otherButtons {
+                if button.titleLabel!.text! == "อื่นๆ" {
+                    button.isSelected = true
+                }
+            }
+        } else if textField == diagnoseTextField {
+            for button in self.diagnoseButton.otherButtons {
+                if button.titleLabel!.text! == "อื่นๆ" {
+                    button.isSelected = true
+                }
+            }
+        }
+    }
 }

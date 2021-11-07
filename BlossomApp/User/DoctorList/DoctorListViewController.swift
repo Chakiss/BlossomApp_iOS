@@ -10,6 +10,7 @@ import Firebase
 import FirebaseStorage
 import GSImageViewerController
 import SwiftDate
+import Kingfisher
 
 class DoctorListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -214,20 +215,33 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
         cell.doctorNickNameLabel.text = doctor.displayName
         cell.doctorNameLabel.text = (doctor.firstName ?? "") + "  " + (doctor.lastName ?? "")
         
-        cell.doctorImageView.image = UIImage(named: "placeholder")
-        let imageRef = storage.reference(withPath: doctor.displayPhoto ?? "")
-        imageRef.getData(maxSize: 2 * 1024 * 1024) { (data, error) in
-            if error == nil {
-                if let imgData = data {
-                    if let img = UIImage(data: imgData) {
-                        cell.doctorImageView.image = img
-                    }
-                }
-            } else {
-                cell.doctorImageView.image = UIImage(named: "placeholder")
-                
+        //
+        
+        let storageRef = storage.reference().child(doctor.displayPhoto ?? "")
+       
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"
+        metadata.cacheControl = "public,max-age=2592000"
+        
+        
+        storageRef.downloadURL { (URL, error) -> Void in
+          if (error != nil) {
+              cell.doctorImageView.image = UIImage(named: "placeholder")
+          } else {
+              cell.doctorImageView.kf.setImage(with: URL)
+          }
+            
+            guard let URL = URL else {
+                return
             }
+        
+            //let resource = Source(downloadURL: URL, cacheKey: doctor)
+            //let resource = Source(URL:URL, cacheKey: doctor)
+            //
+            //cell.doctorImageView.kf_setImageWithResource(resource)
         }
+        
+      
         
         cell.doctorStarLabel.text = String(format: "%.2f",doctor.score!)
         cell.doctorReviewLabel.text = ""

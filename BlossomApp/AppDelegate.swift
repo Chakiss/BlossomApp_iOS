@@ -267,8 +267,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 tabbarController.selectedIndex = 3
             case .chat(let id):
                 let nav = tabbarController.viewControllers?[4] as! UINavigationController
-                let productVC = nav.viewControllers.first as! ChatListViewController
-                productVC.deeplinkID = id ?? ""
+                //let productVC = nav.viewControllers.first as! ChatListViewController
+                //productVC.deeplinkID = id ?? ""
                 tabbarController.selectedIndex = 4
             }
         }
@@ -288,9 +288,46 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         let navAttributes = [NSAttributedString.Key.font: UIFont(name: "SukhumvitSet-Bold", size: 16),
                              NSAttributedString.Key.foregroundColor: UIColor.white]
+        
         UINavigationBar.appearance().titleTextAttributes = navAttributes as [NSAttributedString.Key : Any]
         UINavigationBar.appearance().barTintColor = UIColor.blossomPrimary
+        UINavigationBar.appearance().isTranslucent = false
         
+        if #available(iOS 15, *) {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = UIColor.blossomPrimary
+            appearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white,
+                                              NSAttributedString.Key.font:UIFont(name: "SukhumvitSet-SemiBold", size: 16) ?? UIFont.systemFont(ofSize: 16)]
+            UINavigationBar.appearance().standardAppearance = appearance
+            UINavigationBar.appearance().scrollEdgeAppearance = appearance
+            
+           
+          
+            let tabbarAppearance = UITabBarAppearance()
+            tabbarAppearance.configureWithOpaqueBackground()
+            tabbarAppearance.backgroundColor = UIColor.white
+            
+            UITabBar.appearance().standardAppearance = tabbarAppearance
+            UITabBar.appearance().scrollEdgeAppearance = tabbarAppearance
+            
+            
+        } else {
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.alignment = .center
+            let attributes = [NSAttributedString.Key.font: UIFont(name: "SukhumvitSet-SemiBold", size: 10),
+                              NSAttributedString.Key.paragraphStyle: paragraphStyle]
+            
+            let appearance = UITabBarItem.appearance()
+            appearance.setTitleTextAttributes(attributes as [NSAttributedString.Key : Any], for: .normal)
+            
+            
+            let appearanceUITabBar = UITabBarAppearance()
+            appearanceUITabBar.stackedLayoutAppearance.normal.titleTextAttributes = attributes as [NSAttributedString.Key : Any]
+            appearanceUITabBar.backgroundColor = UIColor.white
+            UITabBar.appearance().standardAppearance = appearanceUITabBar
+            
+        }
     }
     
     // MARK: -

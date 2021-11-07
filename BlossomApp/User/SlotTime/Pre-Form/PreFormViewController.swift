@@ -11,26 +11,23 @@ import Firebase
 import SwiftDate
 import EventKit
 import ConnectyCube
+import AlignedCollectionViewFlowLayout
 
 class PreFormViewController: UIViewController {
-  
-    
-
-    
+      
     lazy var functions = Functions.functions()
     
     @IBOutlet weak var topicButton: DLRadioButton!
     
     @IBOutlet weak var submitButton: UIButton!
     
-    @IBOutlet weak var imageView1: UIImageView!
-    @IBOutlet weak var imageView2: UIImageView!
-    @IBOutlet weak var imageView3: UIImageView!
-    var selectedImage1: Bool = false
-    var selectedImage2: Bool = false
-    var selectedImage3: Bool = false
-    
+    var imageArray: [UIImage] = []
+        
+    @IBOutlet weak var collectionView: UICollectionView!
+    private var pickerManager: ImagePickerManager?
+
     var appointmentID: String = ""
+    let storage = Storage.storage()
     
     var doctor: Doctor?
     var slotDaySelected: SlotDay?
@@ -39,146 +36,155 @@ class PreFormViewController: UIViewController {
     var attachImage: [String] = []
     var formData: [String:String] = [:]
     
+    var appointment: Appointment?
+    
+    var isEditMode:Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.topicButton.isMultipleSelectionEnabled = true
         self.submitButton.layer.cornerRadius = 22
-        // Do any additional setup after loading the view.
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
-        imageView1.isUserInteractionEnabled = true
-        imageView1.addGestureRecognizer(tapGestureRecognizer)
-        let tapGestureRecognizer2 = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
-        imageView2.isUserInteractionEnabled = true
-        imageView2.addGestureRecognizer(tapGestureRecognizer2)
-        let tapGestureRecognizer3 = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
-        imageView3.isUserInteractionEnabled = true
-        imageView3.addGestureRecognizer(tapGestureRecognizer3)
+        
+        let alignedFlowLayout = AlignedCollectionViewFlowLayout(
+            horizontalAlignment: .left,
+            verticalAlignment: .top
+        )
+        alignedFlowLayout.minimumInteritemSpacing = 10
+        alignedFlowLayout.itemSize = CGSize(width: 100, height: 100)
+        collectionView.collectionViewLayout = alignedFlowLayout
+
+        if isEditMode == true {
+            submitButton.setTitle("บันทึก", for: .normal)
+        }
     
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if appointment != nil {
+            self.appointmentID = appointment?.id ?? ""
+            let preform: [String:Any] = appointment?.preForm ?? [:]
+
+            let topicString = (preform["เรื่องที่ปรึกษา"] as? String) ?? ""
+            let arrayTopic = topicString.components(separatedBy: ",")
+            for topic in arrayTopic {
+                for button in topicButton.otherButtons {
+                    if topic == "สิว" {
+                        topicButton.isSelected = true
+                    } else if topic == button.titleLabel?.text {
+                        button.isSelected = true
+                    }
+                }
+            }
+
+            let attachedImageArray: [String] = (preform["attachedImages"] as? [String]) ?? []
+            
+            for imageData in attachedImageArray {
+                let imageRef = storage.reference(withPath: imageData )
+                imageRef.getData(maxSize: 2 * 1024 * 1024) { [weak self] (data, error) in
+                    if error == nil {
+                        if let imgData = data, let img = UIImage(data: imgData) {
+                            self?.imageArray.append(img)
+                            self?.collectionView.reloadData()
+                        }
+                    }
+                }
+            }
+            
+        }
+    }
     
     
     @IBAction func submit() {
-        var image1String = ""
-        if selectedImage1 == true {
-            if let imageData = imageView1.image!.jpeg(.low) {
-                let strBase64:String = imageData.base64EncodedString(options: .lineLength64Characters)
-                let encodeString:String = "data:image/jpeg;base64, \(strBase64)"
-                image1String = encodeString
-                
-            }
-        }
         
-        var image2String = ""
-        if selectedImage2 == true {
-            if let imageData = imageView2.image!.jpeg(.low) {
-                let strBase64:String = imageData.base64EncodedString(options: .lineLength64Characters)
-                let encodeString:String = "data:image/jpeg;base64, \(strBase64)"
-                image2String = encodeString
-            }
-        }
-        
-        var image3String = ""
-        if selectedImage3 == true {
-            if let imageData = imageView3.image!.jpeg(.low) {
-                let strBase64:String = imageData.base64EncodedString(options: .lineLength64Characters)
-                let encodeString:String = "data:image/jpeg;base64, \(strBase64)"
-                image3String = encodeString
-            }
-        }
         
         var selectedButton:String = ""
         for button in topicButton.selectedButtons() {
-            let title = (button.titleLabel?.text)! as String
-            if selectedButton.isEmpty {
-                selectedButton = title
-               } else {
-                selectedButton += ",\(title)"
-               }
+            if let title = button.titleLabel?.text {
+                if selectedButton.isEmpty {
+                    selectedButton = title
+                } else {
+                    selectedButton += ",\(title)"
+                }
+            }
         }
         
         formData = ["เรื่องที่ปรึกษา":selectedButton]
         
         attachImage = []
         
-        if !image1String.isEmpty {
-            attachImage.append(image1String)
+        for image in imageArray {
+            if let imageData = image.jpeg(.low) {
+                let strBase64:String = imageData.base64EncodedString(options: .lineLength64Characters)
+                let encodeString:String = "data:image/jpeg;base64, \(strBase64)"
+                attachImage.append(encodeString)
+            }
         }
         
-        if !image2String.isEmpty {
-            attachImage.append(image2String)
-        }
         
-        if !image3String.isEmpty {
-            attachImage.append(image3String)
-        }
         
         if attachImage.count == 0 {
             showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณาแนบรูปอย่างน้อย 1 รูป") {}
         }
         else {
-            let alert = UIAlertController(title: "ยืนยัน", message: "คุณต้องการที่จะนัดหมายในเวลานี้ใช่หรือไม่​?", preferredStyle: UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: "ยกเลิก", style: .default, handler: nil))
-            alert.addAction(UIAlertAction(title: "ยืนยัน", style: .default, handler: {_ in
-                ProgressHUD.show()
-                
-                let payload = ["doctorID": self.doctor?.id,
-                               "slotID": self.slotDaySelected?.id,
-                               "timeID": self.slotTimeSelected?.id ]
-                
-                self.functions.httpsCallable("app-orders-createAppointmentOrder").call(payload) { result, error in
-                    
-                    ProgressHUD.dismiss()
-                    if error != nil {
-                        let alert = UIAlertController(title: "กรุณาตรวจสอบ", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
-                        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                        self.present(alert, animated: true, completion: nil)
-                    }
-                    else {
-                        print(result?.data as Any)
-                        let order = result?.data as? [String : String] ?? ["":""]
-                        if self.slotTimeSelected?.salePrice == 0 {
-                            if let orderID = order["orderID"] {
-                                self.makeAppointmentOrderPaid(orderID: orderID)
-                            }
-                            
-                        } else if let orderID = order["orderID"] {
-                            // Make Payment
-                            let paymentMethodViewController = PaymentMethodViewController.initializeInstance(cart: nil, appointmentOrder: AppointmentOrder(id: orderID, amount: self.slotTimeSelected?.salePrice ?? 0))
-                            paymentMethodViewController.delegate = self
-                            self.navigationController?.pushViewController(paymentMethodViewController, animated: true)
-                        }
-                    }
-                    
-                }
-                
-            }))
-            self.present(alert, animated: true, completion: nil)
             
+            if appointment != nil {
+                
+                self.updateForm()
+                
+            } else {
+                
+                
+                
+                let alert = UIAlertController(title: "ยืนยัน", message: "คุณต้องการที่จะนัดหมายในเวลานี้ใช่หรือไม่​?", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "ยกเลิก", style: .default, handler: nil))
+                alert.addAction(UIAlertAction(title: "ยืนยัน", style: .default, handler: { [weak self] _ in
+                    ProgressHUD.show()
+                    
+                    guard let self = self else { return }
+                    let payload = ["doctorID": self.doctor?.id,
+                                   "slotID": self.slotDaySelected?.id,
+                                   "timeID": self.slotTimeSelected?.id ]
+                    
+                    self.functions.httpsCallable("app-orders-createAppointmentOrder").call(payload) { [weak self] result, error in
+                        
+                        ProgressHUD.dismiss()
+                        guard let self = self else { return }
+
+                        if error != nil {
+                            let alert = UIAlertController(title: "กรุณาตรวจสอบ", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
+                            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                            self.present(alert, animated: true, completion: nil)
+                        }
+                        else {
+                            print(result?.data as Any)
+                            let order = result?.data as? [String : String] ?? ["":""]
+                            if self.slotTimeSelected?.salePrice == 0 {
+                                if let orderID = order["orderID"] {
+                                    self.makeAppointmentOrderPaid(orderID: orderID)
+                                }
+                                
+                            } else if let orderID = order["orderID"] {
+                                // Make Payment
+                                let paymentMethodViewController = PaymentMethodViewController.initializeInstance(cart: nil, appointmentOrder: AppointmentOrder(id: orderID, amount: self.slotTimeSelected?.salePrice ?? 0))
+                                paymentMethodViewController.delegate = self
+                                self.navigationController?.pushViewController(paymentMethodViewController, animated: true)
+                            }
+                        }
+                        
+                    }
+                    
+                }))
+                self.present(alert, animated: true, completion: nil)
+            }
         }
         
         
          
     }
     
-    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer){
-        
-        ImagePickerManager().pickImage(self){ image in
-            let tappedImage = tapGestureRecognizer.view as! UIImageView
-            if tappedImage.tag == 1 {
-                self.imageView1.image = image
-                self.selectedImage1 = true
-            } else if tappedImage.tag == 2 {
-                self.imageView2.image = image
-                self.selectedImage2 = true
-            } else {
-                self.imageView3.image = image
-                self.selectedImage3 = true
-            }
-            
-        }
-    }
     
 
     func makeAppointmentOrderPaid(orderID: String){
@@ -209,9 +215,9 @@ class PreFormViewController: UIViewController {
                 case .notDetermined:
                     // 3
                     eventStore.requestAccess(to: .event, completion:
-                                                {[weak self] (granted: Bool, error: Error?) -> Void in
+                                                { [weak self] (granted: Bool, error: Error?) -> Void in
                                                     if granted {
-                                                        self!.insertEvent(store: eventStore)
+                                                        self?.insertEvent(store: eventStore)
                                                     } else {
                                                         print("Access denied")
                                                     }
@@ -291,20 +297,27 @@ class PreFormViewController: UIViewController {
                            "images": attachImage,
                            "form": formData ] as [String : Any]
             
-            functions.httpsCallable("app-appointments-updateForm").call(payload) { result, error in
+            functions.httpsCallable("app-appointments-updateForm").call(payload) { [weak self] result, error in
                 ProgressHUD.dismiss()
                 
+                guard let self = self else { return }
+                if self.appointment != nil {
+                    self.navigationController?.popViewController(animated: true)
+                } else {
+                    self.navigationController?.popToRootViewController(animated: false)
+                    if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                        appDelegate.deeplinking = .appointment
+                        appDelegate.handleDeeplinking()
+                        
+                        self.dismiss(animated: false, completion: {
+                            
+                        })
+                        
+                    }
+                }
             }
-            self.navigationController?.popToRootViewController(animated: false)
-            if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-                appDelegate.deeplinking = .appointment
-                appDelegate.handleDeeplinking()
-                
-                self.dismiss(animated: false, completion: {
-                    
-                })
-                
-            }
+            
+          
         }
     }
 }
@@ -315,5 +328,63 @@ extension PreFormViewController : UpdateCartViewControllerDelegate {
         self.navigationController?.popViewController(animated: true)
         makeAppointmentOrderPaid(orderID: orderID)
     }
+    
+}
+
+
+extension PreFormViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height)
+    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return imageArray.count + 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
+        
+        let cell: ImageCell? = (collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as! ImageCell)
+        if indexPath.row < imageArray.count {
+            cell?.imageView.image = imageArray[indexPath.row]
+        } else {
+            cell?.imageView.image = UIImage(named: "image-upload")
+        }
+    
+        return cell ?? UICollectionViewCell()
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+       
+        
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.row == imageArray.count   {
+            pickerManager = ImagePickerManager()
+            pickerManager?.pickImage(self) { [weak self] image in
+                //print(image)
+                self?.imageArray.append(image)
+                self?.collectionView.reloadData()
+            }
+        } else {
+            let alert = UIAlertController(title: "ลบรูป", message: "คุณต้องการลบรูปใช่หรือไม่ ?", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "ยกเลิก", style: .cancel, handler: { _ in
+
+            }))
+            alert.addAction(UIAlertAction(title: "ตกลง", style: .default, handler: { [weak self] _ in
+                self?.imageArray.remove(at: indexPath.row)
+                self?.collectionView.reloadData()
+            }))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    
     
 }

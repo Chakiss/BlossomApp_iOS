@@ -20,6 +20,8 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var surNameTextField: UITextField!
     
+    @IBOutlet weak var nickNameTextField: UITextField!
+    
     @IBOutlet weak var birthDayTextField: UITextField!
     let datePicker = UIDatePicker()
 
@@ -90,7 +92,7 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
         
         getProvinces()
         getDistricts()
@@ -100,6 +102,7 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
         informationView.addConerRadiusAndShadow()
         nameTextField.addBottomBorder()
         surNameTextField.addBottomBorder()
+        nickNameTextField.addBottomBorder()
         birthDayTextField.addBottomBorder()
         addressTextField.addBottomBorder()
         
@@ -251,6 +254,7 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
         
         self.nameTextField.text = self.customer?.firstName
         self.surNameTextField.text = self.customer?.lastName
+        self.nickNameTextField.text = self.customer?.nickName
         
         if self.customer?.phoneNumber?.count ?? 0 > 0 {
             self.phoneTextField.text = self.customer?.phoneNumber?.phonenumberformat()
@@ -392,26 +396,48 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
         
         let phoneNumber = self.customer?.phoneNumber
         ProgressHUD.show()
-        PhoneAuthProvider.provider()
-            .verifyPhoneNumber(phoneNumber!, uiDelegate: nil) { [weak self] verificationID, error in
-                ProgressHUD.dismiss()
-                self?.reguestedOTP = false
-                if error != nil {
-                    let alert = UIAlertController(title: "กรุณาตรวจสอบ", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
-                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                    self?.present(alert, animated: true, completion: nil)
-                }
-                else {
-
+        
+        let payload = ["phoneNumber": phoneNumber]
+        
+        functions.httpsCallable("app-users-requestPhoneNumberOTP").call(payload) { result, error in
+            ProgressHUD.dismiss()
+            if error != nil {
+                let alert = UIAlertController(title: "กรุณาตรวจสอบ", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+            else {
+                if let data = result?.data as? [String: Any]{
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     let viewController = storyboard.instantiateViewController(withIdentifier: "VerifyPhoneNumberViewController") as! VerifyPhoneNumberViewController
-                    viewController.verificationID = verificationID!
+                    viewController.verificationID = data["token"] as! String
                     viewController.phoneNumber = phoneNumber!
-                    self?.navigationController?.present(viewController, animated: true, completion: nil)
+                    self.navigationController?.present(viewController, animated: true, completion: nil)
                 }
                 
+                
             }
-        
+        }
+//        PhoneAuthProvider.provider()
+//            .verifyPhoneNumber(phoneNumber!, uiDelegate: nil) { [weak self] verificationID, error in
+//                ProgressHUD.dismiss()
+//                self?.reguestedOTP = false
+//                if error != nil {
+//                    let alert = UIAlertController(title: "กรุณาตรวจสอบ", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
+//                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+//                    self?.present(alert, animated: true, completion: nil)
+//                }
+//                else {
+//
+//                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//                    let viewController = storyboard.instantiateViewController(withIdentifier: "VerifyPhoneNumberViewController") as! VerifyPhoneNumberViewController
+//                    viewController.verificationID = verificationID!
+//                    viewController.phoneNumber = phoneNumber!
+//                    self?.navigationController?.present(viewController, animated: true, completion: nil)
+//                }
+//
+//            }
+//
     }
     
     @IBAction func changePhoneNumberButtonTapped() {
@@ -681,6 +707,11 @@ class ProfileInformationViewController: UIViewController, UITextFieldDelegate, U
         }
         else if textField == surNameTextField {
             if textField.text != customer?.lastName {
+                NotificationCenter.default.post(name: Notification.Name("BlossomProfileChanged"), object: nil)
+            }
+        }
+        else if textField == nickNameTextField {
+            if textField.text != customer?.nickName {
                 NotificationCenter.default.post(name: Notification.Name("BlossomProfileChanged"), object: nil)
             }
         }

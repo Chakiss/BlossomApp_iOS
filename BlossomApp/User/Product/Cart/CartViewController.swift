@@ -32,7 +32,8 @@ class CartViewController: UIViewController {
     private var cart: Cart?
     private var customer: Customer?
     private var currentCart: Bool = true
-    private var shippingFee: Int = 0
+    private var shippingFee: Double = 0.0
+    private var shippingBy: String = ""
     
     weak var delegate: UpdateCartViewControllerDelegate?
     weak var prescriptDelegate: ProductListPrescriptionDelegate?
@@ -102,22 +103,68 @@ class CartViewController: UIViewController {
 
     private func updateTotalPrice() {
         
+        // TODO shipnity
+        ProgressHUD.show()
+            APIProduct.calculateShipping(items: self.cart?.getPurcahseAttributes() ?? []) { response in
+                ProgressHUD.dismiss()
+                guard let response = response else {
+                    self.showAlertDialogue(title: "ขออภัย", message: "ไม่สามารถส่งคำสั่งซื้อได้ในขณะนี้", completion: {
+                    })
+                    return
+                }
+                
+                let shippingFeeArray = response as [ShippingFee]
+                if shippingFeeArray.count > 0 {
+                    self.shippingFee = shippingFeeArray.first?.cost ?? 0.0
+                    self.shippingBy = shippingFeeArray.first?.name ?? ""
+                } else {
+                    self.shippingFee = 60
+                    self.shippingBy = "J&T Express"
+                }
+                
+                //DispatchQueue.main.async {
+                    self.updatePricewithShipping()
+                //}
+            }.request()
+        
+        //self.updatePricewithShipping()
+        /*
         let total = cart?.calculateTotalPriceInSatang().satangToBaht() ?? 0
         
         if !self.checkSetProduct() && (total > 0 && total < 1000 )  {
             shippingFee = 60
+            shippingBy = "J&T Express"
             self.cartHeaderModel?.shippingText = "60"
         } else {
             shippingFee = 0
+            shippingBy = "J&T Express"
             self.cartHeaderModel?.shippingText = "0"
         }
-        cart?.shippingFee = shippingFee
+        cart?.shippingFee = Int(shippingFee)
         let totalText = (total + Double(shippingFee)).toAmountText()
         self.cartHeaderModel?.priceText = totalText
         checkoutButton.isEnabled = cart?.items.count ?? 0 > 0
         checkoutButton.alpha = checkoutButton.isEnabled ? 1.0 : 0.5
+         
+         */
     }
 
+    private func updatePricewithShipping() {
+        self.cartHeaderModel?.shippingText = String(format: "%.2f", self.shippingFee)
+        let total = self.cart?.calculateTotalPriceInSatang().satangToBaht() ?? 0
+        
+        print(self.shippingFee)
+        print(self.shippingBy)
+        print("====================================")
+        self.cart?.shippingFee = Int(self.shippingFee)
+        let totalText = (total + self.shippingFee).toAmountText()
+        self.cartHeaderModel?.priceText = totalText
+        self.checkoutButton.isEnabled = self.cart?.items.count ?? 0 > 0
+        self.checkoutButton.alpha = (self.checkoutButton.isEnabled ) ? 1.0 : 0.5
+        self.tableView.reloadData()
+    }
+    
+    
     private func checkSetProduct() -> Bool {
         if let setProduct =  cart?.items.filter({ $0.product.code == "37" || $0.product.code == "38" || $0.product.code == "39" || $0.product.code == "40" || $0.product.code == "41" || $0.product.code == "42" || $0.product.code == "43" })  {
             if setProduct.count > 0 {
@@ -174,8 +221,8 @@ class CartViewController: UIViewController {
                                   email: customer.email ?? "",
                                   annotation: "",
                                   tag: "app",
-                                  shippingType: "J&T Express",
-                                  shippingFee: shippingFee,
+                                  shippingType: shippingBy,
+                                  shippingFee: Int(shippingFee),
                                   orderDiscount: 0,
                                   purchasesAttributes: cart?.getPurcahseAttributes() ?? [])
         ProgressHUD.show()
@@ -219,8 +266,8 @@ class CartViewController: UIViewController {
                                   email: customer.email ?? "",
                                   annotation: "",
                                   tag: "app",
-                                  shippingType: "J&T Express",
-                                  shippingFee: shippingFee,
+                                  shippingType: shippingBy,
+                                  shippingFee: Int(shippingFee),
                                   orderDiscount: 0,
                                   purchasesAttributes: cart?.getPurcahseAttributes() ?? [])
         ProgressHUD.show()
@@ -405,17 +452,17 @@ extension CartViewController: CartHeaderTableViewCellDelegate {
             return
         }
         
-        showProfile()
+        self.showProfile()
     }
     
-    private func showProfile() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let viewController = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
-        viewController.showLogout = false
-        viewController.delegate = self
-        viewController.hidesBottomBarWhenPushed = true
-        self.navigationController?.pushViewController(viewController, animated: true)
-    }
+//    private func showProfile() {
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let viewController = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
+//        viewController.showLogout = false
+//        viewController.delegate = self
+//        viewController.hidesBottomBarWhenPushed = true
+//        self.navigationController?.pushViewController(viewController, animated: true)
+//    }
     
 }
 

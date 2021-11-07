@@ -32,7 +32,7 @@ class ReviewViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
        /*
         let alert = UIAlertController(title: "แจ้งเตือน", message: "การสนทนาสำเร็จหรือไม่ ?", preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "ไม่สำเร็จ", style: .default, handler: {_ in

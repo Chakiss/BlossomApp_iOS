@@ -66,17 +66,13 @@ class DoctorDetailViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
         
         getReviewsData()
 
-        
-        
-        let review = (doctor?.review!)! as Int
-        let appointment = (doctor?.appointment!)! as Int
-        self.doctorReviewNumberLabel.text = "\(review) รีวิว  รักษา \(appointment) ครั้ง"
-        
-    
+        if let review = doctor?.review, let appointment = doctor?.appointment {
+            self.doctorReviewNumberLabel.text = "\(review) รีวิว  รักษา \(appointment) ครั้ง"
+        }
         
         self.tableView.reloadData()
         
@@ -86,11 +82,13 @@ class DoctorDetailViewController: UIViewController, UITableViewDelegate, UITable
 
         db.collection("reviews")
             .whereField("doctorReference",isEqualTo: doctor?.documentReference)
-            .addSnapshotListener { (querySnapshot, error) in
-            guard let documents = querySnapshot?.documents else {
+            .addSnapshotListener { [weak self] (querySnapshot, error) in
+                
+            guard let self = self, let documents = querySnapshot?.documents else {
                 print("No documents")
                 return
             }
+                
             self.reviewList = documents.map { queryDocumentSnapshot -> Reviews in
                 let data = queryDocumentSnapshot.data()
 
@@ -108,7 +106,7 @@ class DoctorDetailViewController: UIViewController, UITableViewDelegate, UITable
                 
             }
                 
-                let reviewNumber = self.reviewList.count as Int
+                let reviewNumber = self.reviewList.count
                 self.doctorReviewNumberLabel.text = "\(reviewNumber) รีวิว"
                 self.tableView.reloadData()
         }
@@ -131,22 +129,21 @@ class DoctorDetailViewController: UIViewController, UITableViewDelegate, UITable
             return
         }
         
-//        if CustomerManager.sharedInstance.customer?.isPhoneVerified == false {
-//            showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณายืนยันเบอร์โทรศัพท์") { [weak self] in
-//                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//                let viewController = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
-//                viewController.hidesBottomBarWhenPushed = true
-//                self?.navigationController?.pushViewController(viewController, animated: true)
-//            }
-//        } else {
-            
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let viewController = storyboard.instantiateViewController(withIdentifier: "SlotTimeViewController") as! SlotTimeViewController
-            viewController.doctor = doctor
-            viewController.hidesBottomBarWhenPushed = true
-            self.navigationController?.pushViewController(viewController, animated: true)
-            
-//        }
+        guard (CustomerManager.sharedInstance.customer?.acneType?.count ?? 0 > 0 || CustomerManager.sharedInstance.customer?.skinType?.count ?? 0 > 0) else {
+            showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณากรอกข้อมูลสุขภาพให้ครบถ้วน") { [weak self] in
+                self?.showProfile()
+            }
+            return
+        }
+        
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let viewController = storyboard.instantiateViewController(withIdentifier: "SlotTimeViewController") as! SlotTimeViewController
+        viewController.doctor = doctor
+        viewController.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(viewController, animated: true)
+        
+        
         
         
         

@@ -151,7 +151,7 @@ class Doctor_AppointmentViewController: UIViewController {
                 inCompleteAppointment = inCompleteAppointment.filter({ $0.sessionStart?.dateValue().startOfDay ?? Date().startOfDay >= Date().startOfDay })
                 
                 
-                completeAppointment.sort(by: { ($0.sessionStart ?? Timestamp()).compare($1.sessionStart ?? Timestamp()) == ComparisonResult.orderedAscending })
+                completeAppointment.sort(by: { ($0.sessionStart ?? Timestamp()).compare($1.sessionStart ?? Timestamp()) == ComparisonResult.orderedDescending })
                 self.doctorComingAppointmentViewController.appointments = inCompleteAppointment
                 self.doctorComingAppointmentViewController.tableView.reloadData()
                 
@@ -163,7 +163,7 @@ class Doctor_AppointmentViewController: UIViewController {
 
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
         
         
     }

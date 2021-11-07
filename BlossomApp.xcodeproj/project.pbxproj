@@ -35,6 +35,9 @@
 		1B1C2E3926993C5B00F57122 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C2E3326993C5B00F57122 /* Product.swift */; };
 		1B1C2E3C269944C200F57122 /* ProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C2E3B269944C200F57122 /* ProductCell.swift */; };
 		1B1C2E3E26994FF700F57122 /* ProductDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C2E3D26994FF700F57122 /* ProductDetailViewController.swift */; };
+		1B21B32E270CB60200218E72 /* PreFormImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B21B32D270CB60200218E72 /* PreFormImage.swift */; };
+		1B21B331270CBDCC00218E72 /* GaleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B21B330270CBDCC00218E72 /* GaleryViewController.swift */; };
+		1B279A54271F2A91007FD84D /* CampaignFirstTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B279A53271F2A90007FD84D /* CampaignFirstTime.swift */; };
 		1B27FDC226A5EA11000E8609 /* SlotDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B27FDC126A5EA11000E8609 /* SlotDateCell.swift */; };
 		1B27FDC426A5F01A000E8609 /* SlotDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B27FDC326A5F01A000E8609 /* SlotDay.swift */; };
 		1B29A3D32697E92300556A55 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1B29A3D22697E92300556A55 /* GoogleService-Info.plist */; };
@@ -62,6 +65,7 @@
 		1B5312642693E66400B88165 /* PromotionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5312632693E66400B88165 /* PromotionViewController.swift */; };
 		1B5BC3BA2696086A004206AE /* LandingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5BC3B92696086A004206AE /* LandingViewController.swift */; };
 		1B5BC3BC269636D4004206AE /* DoctorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5BC3BB269636D4004206AE /* DoctorCell.swift */; };
+		1B685B6127089D18008BBBC8 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B685B6027089D18008BBBC8 /* ImageCell.swift */; };
 		1B69AD4D26A402C800910679 /* DoctorHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B69AD4C26A402C800910679 /* DoctorHomeViewController.swift */; };
 		1B69AD5026A40D8B00910679 /* DoctorProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B69AD4F26A40D8B00910679 /* DoctorProfileViewController.swift */; };
 		1B69AD5326A4601400910679 /* DoctorDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B69AD5226A4601400910679 /* DoctorDetailViewController.swift */; };
@@ -88,6 +92,9 @@
 		1BA04F4D26B03D760053F10D /* BlossomReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA04F4C26B03D760053F10D /* BlossomReviewCell.swift */; };
 		1BA04F5126B0F6C30053F10D /* PostFromViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA04F5026B0F6C30053F10D /* PostFromViewController.swift */; };
 		1BA04F5426B112F30053F10D /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA04F5326B112F30053F10D /* ReviewViewController.swift */; };
+		1BA10918270EE654000B0371 /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA10917270EE654000B0371 /* Channel.swift */; };
+		1BA1091A2711ECA6000B0371 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA109192711ECA6000B0371 /* Message.swift */; };
+		1BBB1F242719E6600033D4C9 /* ShippingFeeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BBB1F232719E6600033D4C9 /* ShippingFeeResponse.swift */; };
 		1BC3B21926A1CFA1006EDD29 /* ImagePickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC3B21826A1CFA1006EDD29 /* ImagePickerManager.swift */; };
 		1BC3B21C26A2ADA5006EDD29 /* Nonce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC3B21B26A2ADA5006EDD29 /* Nonce.swift */; };
 		1BC5428926B835BD00C15521 /* BankTransferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC5428826B835BD00C15521 /* BankTransferViewController.swift */; };
@@ -222,6 +229,9 @@
 		1B1C2E3326993C5B00F57122 /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		1B1C2E3B269944C200F57122 /* ProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCell.swift; sourceTree = "<group>"; };
 		1B1C2E3D26994FF700F57122 /* ProductDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailViewController.swift; sourceTree = "<group>"; };
+		1B21B32D270CB60200218E72 /* PreFormImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreFormImage.swift; sourceTree = "<group>"; };
+		1B21B330270CBDCC00218E72 /* GaleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GaleryViewController.swift; sourceTree = "<group>"; };
+		1B279A53271F2A90007FD84D /* CampaignFirstTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampaignFirstTime.swift; sourceTree = "<group>"; };
 		1B27FDC126A5EA11000E8609 /* SlotDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotDateCell.swift; sourceTree = "<group>"; };
 		1B27FDC326A5F01A000E8609 /* SlotDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotDay.swift; sourceTree = "<group>"; };
 		1B29A3D22697E92300556A55 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -249,6 +259,7 @@
 		1B5312632693E66400B88165 /* PromotionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionViewController.swift; sourceTree = "<group>"; };
 		1B5BC3B92696086A004206AE /* LandingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingViewController.swift; sourceTree = "<group>"; };
 		1B5BC3BB269636D4004206AE /* DoctorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorCell.swift; sourceTree = "<group>"; };
+		1B685B6027089D18008BBBC8 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		1B69AD4C26A402C800910679 /* DoctorHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorHomeViewController.swift; sourceTree = "<group>"; };
 		1B69AD4F26A40D8B00910679 /* DoctorProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorProfileViewController.swift; sourceTree = "<group>"; };
 		1B69AD5226A4601400910679 /* DoctorDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorDetailViewController.swift; sourceTree = "<group>"; };
@@ -275,6 +286,9 @@
 		1BA04F4C26B03D760053F10D /* BlossomReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlossomReviewCell.swift; sourceTree = "<group>"; };
 		1BA04F5026B0F6C30053F10D /* PostFromViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostFromViewController.swift; sourceTree = "<group>"; };
 		1BA04F5326B112F30053F10D /* ReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
+		1BA10917270EE654000B0371 /* Channel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
+		1BA109192711ECA6000B0371 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		1BBB1F232719E6600033D4C9 /* ShippingFeeResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShippingFeeResponse.swift; sourceTree = "<group>"; };
 		1BC3B21826A1CFA1006EDD29 /* ImagePickerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerManager.swift; sourceTree = "<group>"; };
 		1BC3B21A26A297C0006EDD29 /* BlossomApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BlossomApp.entitlements; sourceTree = "<group>"; };
 		1BC3B21B26A2ADA5006EDD29 /* Nonce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nonce.swift; sourceTree = "<group>"; };
@@ -483,6 +497,14 @@
 			path = ProductResponse;
 			sourceTree = "<group>";
 		};
+		1B21B32F270CBD4E00218E72 /* GalleryView */ = {
+			isa = PBXGroup;
+			children = (
+				1B21B330270CBDCC00218E72 /* GaleryViewController.swift */,
+			);
+			path = GalleryView;
+			sourceTree = "<group>";
+		};
 		1B3721D026959296006265D3 /* ProfileView */ = {
 			isa = PBXGroup;
 			children = (
@@ -517,6 +539,8 @@
 				1B3D367726B2EEED000EFCEC /* HistoryAppointmentDetailViewController.swift */,
 				1BC5428C26B92B1900C15521 /* FormDetailCell.swift */,
 				1BC5428E26B9374B00C15521 /* FormImageCell.swift */,
+				1B21B32D270CB60200218E72 /* PreFormImage.swift */,
+				1B21B32F270CBD4E00218E72 /* GalleryView */,
 			);
 			path = "History Detail";
 			sourceTree = "<group>";
@@ -740,6 +764,9 @@
 				1BDEAA0226D69AC00038CD49 /* Province.swift */,
 				1BDEAA0426D69B1E0038CD49 /* District.swift */,
 				1BDEAA0626D69BBF0038CD49 /* SubDistrict.swift */,
+				1BA10917270EE654000B0371 /* Channel.swift */,
+				1BA109192711ECA6000B0371 /* Message.swift */,
+				1B279A53271F2A90007FD84D /* CampaignFirstTime.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -847,6 +874,7 @@
 			isa = PBXGroup;
 			children = (
 				1BCE64FC26A8C86C002EE71F /* PreFormViewController.swift */,
+				1B685B6027089D18008BBBC8 /* ImageCell.swift */,
 			);
 			path = "Pre-Form";
 			sourceTree = "<group>";
@@ -860,6 +888,7 @@
 				1BF58D3B26ADBEDE00F2D620 /* OptionsOrder.swift */,
 				1BF58D3C26ADBEDE00F2D620 /* Orders.swift */,
 				1BF58D3F26ADBEDE00F2D620 /* Purchases.swift */,
+				1BBB1F232719E6600033D4C9 /* ShippingFeeResponse.swift */,
 			);
 			name = OrderResponse;
 			path = ProductResponse/OrderResponse;
@@ -1211,6 +1240,7 @@
 				1B69AD5626A4791A00910679 /* ConnectyCubeManager.swift in Sources */,
 				1B1C2E3726993C5B00F57122 /* Paginate.swift in Sources */,
 				1BA04F4526AEF09F0053F10D /* DefaultKey.swift in Sources */,
+				1BBB1F242719E6600033D4C9 /* ShippingFeeResponse.swift in Sources */,
 				1B27FDC426A5F01A000E8609 /* SlotDay.swift in Sources */,
 				1B187A5D268F654300BB0122 /* ViewController.swift in Sources */,
 				1B1C2E2B2698867400F57122 /* Landing.swift in Sources */,
@@ -1233,6 +1263,7 @@
 				3CF7B50726AC40B900F937DE /* APIProduct.swift in Sources */,
 				1B69AD5826A47C8400910679 /* CustomerManager.swift in Sources */,
 				1B69AD5026A40D8B00910679 /* DoctorProfileViewController.swift in Sources */,
+				1B21B32E270CB60200218E72 /* PreFormImage.swift in Sources */,
 				1BCE650C26ABF5A2002EE71F /* Appointment.swift in Sources */,
 				1B19E49E26B5B4CF00A23BAE /* BlossomTabbarController.swift in Sources */,
 				1B27FDC226A5EA11000E8609 /* SlotDateCell.swift in Sources */,
@@ -1256,11 +1287,14 @@
 				1B13E6E5269ADC0000131105 /* RegisterViewController.swift in Sources */,
 				1BA04F5426B112F30053F10D /* ReviewViewController.swift in Sources */,
 				1BF58D4626ADBEDE00F2D620 /* OrderResponse.swift in Sources */,
+				1BA10918270EE654000B0371 /* Channel.swift in Sources */,
 				1B3D367526B28408000EFCEC /* ProductHilight.swift in Sources */,
 				1B77591A2694775E000780BD /* MultiBannerView.swift in Sources */,
 				1B19E4A026B6CFDE00A23BAE /* Doctor-HistoryAppointmentViewController.swift in Sources */,
 				1BE101E7269DD2DD00F7323E /* Customer.swift in Sources */,
+				1B21B331270CBDCC00218E72 /* GaleryViewController.swift in Sources */,
 				3CF7B50526AC23C200F937DE /* String+Extension.swift in Sources */,
+				1B685B6127089D18008BBBC8 /* ImageCell.swift in Sources */,
 				1B3F009126BBD1C6001B2062 /* AllAppointmentViewController.swift in Sources */,
 				1B13E6E7269ADC2100131105 /* LoginViewController.swift in Sources */,
 				1B7C910F26A5268600C341B6 /* DialogCell.swift in Sources */,
@@ -1282,6 +1316,7 @@
 				1B1C2E3E26994FF700F57122 /* ProductDetailViewController.swift in Sources */,
 				1B53125B26937B3400B88165 /* AppointmentListViewController.swift in Sources */,
 				3C857DA326AE727C00DEF13E /* QRPaymentViewController.swift in Sources */,
+				1BA1091A2711ECA6000B0371 /* Message.swift in Sources */,
 				3CF7B50C26AC443700F937DE /* JSONEncodingHelper.swift in Sources */,
 				1B1C2E3526993C5B00F57122 /* Subproducts.swift in Sources */,
 				1BE101E5269DC63200F7323E /* Reviews.swift in Sources */,
@@ -1308,6 +1343,7 @@
 				1BCE64F226A84B66002EE71F /* ComingAppointmentViewController.swift in Sources */,
 				1B38FD8226BD9E5A00BFC40E /* PromotionListCell.swift in Sources */,
 				3CBF265B26B44A9400F640DB /* InboxTableViewController.swift in Sources */,
+				1B279A54271F2A91007FD84D /* CampaignFirstTime.swift in Sources */,
 				1B1C2E2D2698A77A00F57122 /* ProductsResponse.swift in Sources */,
 				1B3D367826B2EEED000EFCEC /* HistoryAppointmentDetailViewController.swift in Sources */,
 				1BA04F4326AE8CF20053F10D /* Doctor_ComingAppointmentViewController.swift in Sources */,
@@ -1503,7 +1539,7 @@
 				CODE_SIGN_ENTITLEMENTS = BlossomApp/BlossomApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 33;
+				CURRENT_PROJECT_VERSION = 42;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = GZWLHGR8C3;
 				EXCLUDED_ARCHS = "";
@@ -1514,7 +1550,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.8;
+				MARKETING_VERSION = 2.1.1;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1668,7 +1704,7 @@
 				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = "";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 33;
+				CURRENT_PROJECT_VERSION = 42;
 				DEVELOPMENT_TEAM = GZWLHGR8C3;
 				EXCLUDED_ARCHS = "";
 				INFOPLIST_FILE = BlossomApp/Info.plist;
@@ -1677,7 +1713,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.8;
+				MARKETING_VERSION = 2.1.1;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",

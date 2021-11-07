@@ -23,6 +23,7 @@ class Customer: Codable {
     var referenceConnectyCubeID: String?
     var referenceShipnityID: String?
     var updatedAt: String?
+    var nickName: String?
     
     var gender: String?
     var birthDate: String?
@@ -67,13 +68,14 @@ class Customer: Codable {
         case acneCaredDescription
         case allergicDrug
         
+        case nickName
     }
 
     init(id: String) {
         self.id = id
     }
     
-    init(id: String, createdAt: String, displayName: String, email: String, firstName: String, isEmailVerified: Bool, isPhoneVerified: Bool, lastName: String, phoneNumber: String, platform: String, referenceConnectyCubeID: String, referenceShipnityID: String, updatedAt: String, gender: String, genderString: String, birthDate: String, birthDayDisplayString:String, birthDayString: String, address: Address,displayPhoto: String, skinType: String, acneType: String, acneCaredDescription: String, allergicDrug: String,documentReference: DocumentReference   ) {
+    init(id: String, createdAt: String, displayName: String, email: String, firstName: String, isEmailVerified: Bool, isPhoneVerified: Bool, lastName: String, phoneNumber: String, platform: String, referenceConnectyCubeID: String, referenceShipnityID: String, updatedAt: String, gender: String, genderString: String, birthDate: String, birthDayDisplayString:String, birthDayString: String, address: Address,displayPhoto: String, skinType: String, acneType: String, acneCaredDescription: String, allergicDrug: String,documentReference: DocumentReference, nickName:String   ) {
         self.id = id
         self.createdAt = createdAt
         self.displayName = displayName
@@ -102,6 +104,8 @@ class Customer: Codable {
         self.allergicDrug = allergicDrug
         
         self.documentReference = documentReference
+        
+        self.nickName = nickName
     }
     
     
@@ -130,6 +134,8 @@ class Customer: Codable {
         acneType = try values.decode(String.self, forKey: .acneType)
         acneCaredDescription = try values.decode(String.self, forKey: .acneCaredDescription)
         allergicDrug = try values.decode(String.self, forKey: .allergicDrug)
+        
+        nickName = try values.decode(String.self, forKey: .nickName)
     }
 }
 

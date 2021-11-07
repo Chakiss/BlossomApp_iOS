@@ -40,6 +40,8 @@ target 'BlossomApp' do
   
   pod 'STRatingControl'
   pod "GSImageViewerController"
+  pod 'SwiftPhotoGallery'
+  pod "AlignedCollectionViewFlowLayout"
 #  pod 'LetterAvatarKit', '~> 1.1.7'
 #  pod 'PINRemoteImage', '~> 2.1.4'
 #  pod 'Reusable', '~> 4.0.5'

@@ -82,7 +82,7 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
     
     }
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
         
         self.profileImageView.circleView()
         self.profileImageView.addShadow()
@@ -149,6 +149,7 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
             let payload = ["birthDate": customer?.birthDayString ?? "",
                            "firstName": profileInformationViewController.nameTextField.text!,
                            "lastName": profileInformationViewController.surNameTextField.text!,
+                           "nickName": profileInformationViewController.nickNameTextField.text!,
                            "gender": customer?.genderString ?? "",
                            "address": profileInformationViewController.addressTextField.text!,
                            "provinceID": profileInformationViewController.selectedProvince?.pROVINCE_ID ?? 0,

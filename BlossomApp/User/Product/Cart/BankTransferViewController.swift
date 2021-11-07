@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class BankTransferViewController: UIViewController {
 
@@ -15,6 +16,13 @@ class BankTransferViewController: UIViewController {
         return controller
     }
     
+    
+    var cart: Cart?
+    
+    lazy var functions = Functions.functions()
+    let db = Firestore.firestore()
+    let storage = Storage.storage()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -22,6 +30,46 @@ class BankTransferViewController: UIViewController {
     }
     
 
+    
+    @IBAction func updateImage() {
+        ImagePickerManager().pickImage(self){ image in
+            
+            if let imageData = image.jpeg(.low) {
+                let strBase64:String = imageData.base64EncodedString(options: .lineLength64Characters)
+                let encodeString:String = "data:image/jpeg;base64, \(strBase64)"
+                
+                let amount = self.cart?.purchaseOrder?.price ?? ""
+                let payload: [String: Any] = [
+                    "image": encodeString,
+                    "total": Double(amount) ?? 0,
+                    "orderID": "\(self.cart?.purchaseOrder?.id ?? 0)",
+                    "type": "shipnity"
+                ]
+                
+                ProgressHUD.show()
+                self.functions.httpsCallable("app-payments-verifySlip").call(payload) { result, error in
+
+                    ProgressHUD.dismiss()
+                    if error == nil {
+                        self.showAlertDialogue(title: "สำเร็จ", message: "กรุณาจอตรวจสอบ", completion: {
+                            self.navigationController?.popViewController(animated: true)
+                        })
+                    } else {
+                        //let code = FunctionsErrorCode(rawValue: error.code)
+                        let message = error?.localizedDescription
+                        
+                        self.showAlertDialogue(title: "เกิดข้อผิดพลาด", message: message ?? "", completion: {
+                            
+                        })
+                    }
+                }
+            }
+           
+        }
+        
+        
+    }
+    
     @IBAction func lineButtonTapped(_ sender: UIButton) {
         UIApplication.shared.open(URL(string: "https://lin.ee/iYHm3As")!, options: [:], completionHandler: nil)
     }

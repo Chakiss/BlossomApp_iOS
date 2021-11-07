@@ -23,6 +23,7 @@ enum APIProduct {
     case updateOrderPayment(bank: String, orderID: Int, completion: (Bool)->Swift.Void)
     case getOrder(term: String, page: Int, completion: (OrderResponse?)->Swift.Void)
     case getOrderByID(shipnityID: String, completion: (OrderResponse?)->Swift.Void)
+    case calculateShipping(items: [PurchasesAttribute], completion: ([ShippingFee]?)->Swift.Void)
     
     func endpoint() -> String {
         switch self {
@@ -42,6 +43,8 @@ enum APIProduct {
             return "https://www.shipnity.pro/api/v2/orders"
         case .getOrderByID(let shipnityID, _):
             return "https://www.shipnity.pro/api/v2/customers/\(shipnityID)/orders"
+        case .calculateShipping:
+            return "https://www.shipnity.pro/api/v2/shipping_calculators/calculate_shipping_fee"
         }
         
     }
@@ -170,6 +173,43 @@ enum APIProduct {
                     }
                     completion(orderResponse)
                 }
+            
+        case let .calculateShipping(items: items, completion):
+            
+            debugPrint("calculateShipping :: \(items)")
+            var itemArray:[Any] = []
+            for item in items {
+                var tmp: [String:Any] = [:]
+                tmp["quantity"] = item.quantity
+                tmp["price"] = item.price
+                tmp["subproduct_id"] = item.subproductID
+                itemArray.append(tmp)
+            }
+            let parameter: Parameters = [
+                "items" : itemArray
+            ]
+            AF.request(endpoint(), method: .post, parameters: parameter, headers: headers)
+                .validate()
+                .responseJSON(completionHandler: { response in
+                    guard let shippingFeeResponse = response.value else {
+                        completion(nil)
+                        return
+                    }
+                    //let shippingFeeResponse = JSONDecoder().decode([ShippingFeeResponse].self, from: response.value as! Data)
+                    // completion(shippingFeeResponse)completion(shippingFeeResponse)
+                    
+                    let decoder = JSONDecoder()
+                    do {
+                        
+                        let shippingFee = try decoder.decode([ShippingFee].self, from: response.data!)
+                        //print(decodedData.zero[0].content)
+    
+                        completion(shippingFee)
+                    } catch {
+                        print(error)
+                    }
+                })
+                
             
             
         }

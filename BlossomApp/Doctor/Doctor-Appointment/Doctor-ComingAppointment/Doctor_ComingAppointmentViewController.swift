@@ -38,7 +38,7 @@ class Doctor_ComingAppointmentViewController: UIViewController, UITableViewDataS
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
     }
         
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -62,7 +62,8 @@ class Doctor_ComingAppointmentViewController: UIViewController, UITableViewDataS
         let payload = ["appointmentID": appointment.id!] as [String : Any]
         
         functions.httpsCallable("app-messages-sendVOIPNotification").call(payload) { result, error in
-            
+            print(result)
+            print("xxxxx")
         }
         
         var opponentID = NSNumber(integerLiteral: 0)

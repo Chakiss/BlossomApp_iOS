@@ -76,7 +76,7 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
     
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
 
         multiBannerView.delegate = self
 
@@ -365,22 +365,53 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
     }
     
     @IBAction func contactAdmin() {
-        UIApplication.shared.open(URL(string: "https://lin.ee/iYHm3As")!, options: [:], completionHandler: nil)
-        /*
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+        //UIApplication.shared.open(URL(string: "https://lin.ee/iYHm3As")!, options: [:], completionHandler: nil)
+        //let channelSelected =
+        if self.customer != nil {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let viewController = storyboard.instantiateViewController(withIdentifier: "MessageingViewController") as! MessageingViewController
+            viewController.title = "Admin"
+            viewController.customer = self.customer
+            viewController.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }
+        
+       // let docRef = db.collection("channels").document(user?.uid ?? "")
+        
+       // docRef.addSnapshotListener { snapshot, error in
             
-            let dialog = ChatDialog(dialogID: nil, type: .private)
-            dialog.occupantIDs = [4663567]  // an ID of opponent
-
-            Request.createDialog(dialog, successBlock: { (dialog) in
-                appDelegate.deeplinking = .chat(id: "4663567")
-                appDelegate.handleDeeplinking()
-            }) { (error) in
-
-            }
+            /*
+            let channels = (snapshot?.map { queryDocumentSnapshot -> Channel  in
+                let data = queryDocumentSnapshot
+                let doctorRef = data["doctorReference"]  as? DocumentReference ?? nil
+                let cusRef = data["customerReference"]  as? DocumentReference ?? nil
+                let createdAt = data["createdAt"]  as? Timestamp ?? nil
+                let updatedAt = data["updatedAt"]  as? Timestamp ?? nil
+                
+                var channel = Channel(id: self.user?.uid ?? "")
+                channel.doctorReference = doctorRef
+                channel.customerReference = cusRef
+                channel.createdAt = createdAt
+                channel.updateAt = updatedAt
+                
+                return channel
+            })
+            let channelSelected = channels
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let viewController = storyboard.instantiateViewController(withIdentifier: "MessageingViewController") as! MessageingViewController
+            //        viewController.chatdialog = dialog
+            viewController.title = "Admin"
+            viewController.channelMessage = channelSelected
+            viewController.customer = self.customer
+            viewController.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(viewController, animated: true)
+            
+         
             
         }
-         */
+        
+        */
+        
     }
     
     @IBAction func openDoctor(_ sender: UITapGestureRecognizer) {
