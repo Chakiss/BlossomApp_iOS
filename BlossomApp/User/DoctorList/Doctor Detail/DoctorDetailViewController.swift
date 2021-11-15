@@ -136,6 +136,12 @@ class DoctorDetailViewController: UIViewController, UITableViewDelegate, UITable
             return
         }
         
+        guard (CustomerManager.sharedInstance.customer?.isPhoneVerified == true) else {
+            showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณายืนยันเบอร์โทรศัพท์") { [weak self] in
+                self?.showProfile()
+            }
+            return
+        }
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let viewController = storyboard.instantiateViewController(withIdentifier: "SlotTimeViewController") as! SlotTimeViewController
