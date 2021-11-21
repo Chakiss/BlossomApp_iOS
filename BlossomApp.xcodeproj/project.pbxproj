@@ -83,6 +83,8 @@
 		1B8D860F26A49A7500A2ED57 /* SenderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8D860E26A49A7500A2ED57 /* SenderCell.swift */; };
 		1B8D861126A49B8400A2ED57 /* ReceiverCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8D861026A49B8400A2ED57 /* ReceiverCell.swift */; };
 		1B8D861426A49C0B00A2ED57 /* MessageingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8D861326A49C0B00A2ED57 /* MessageingViewController.swift */; };
+		1B987E692744802A00C6207B /* Promo_codes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B987E662744802A00C6207B /* Promo_codes.swift */; };
+		1B987E6A2744802A00C6207B /* PromoCodesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B987E672744802A00C6207B /* PromoCodesResponse.swift */; };
 		1BA04F3D26AE84BA0053F10D /* Doctor-AppointmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA04F3C26AE84BA0053F10D /* Doctor-AppointmentViewController.swift */; };
 		1BA04F3F26AE85080053F10D /* Doctor_ChatListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA04F3E26AE85080053F10D /* Doctor_ChatListViewController.swift */; };
 		1BA04F4326AE8CF20053F10D /* Doctor_ComingAppointmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA04F4226AE8CF20053F10D /* Doctor_ComingAppointmentViewController.swift */; };
@@ -277,6 +279,8 @@
 		1B8D860E26A49A7500A2ED57 /* SenderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SenderCell.swift; sourceTree = "<group>"; };
 		1B8D861026A49B8400A2ED57 /* ReceiverCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiverCell.swift; sourceTree = "<group>"; };
 		1B8D861326A49C0B00A2ED57 /* MessageingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageingViewController.swift; sourceTree = "<group>"; };
+		1B987E662744802A00C6207B /* Promo_codes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Promo_codes.swift; sourceTree = "<group>"; };
+		1B987E672744802A00C6207B /* PromoCodesResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromoCodesResponse.swift; sourceTree = "<group>"; };
 		1BA04F3C26AE84BA0053F10D /* Doctor-AppointmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Doctor-AppointmentViewController.swift"; sourceTree = "<group>"; };
 		1BA04F3E26AE85080053F10D /* Doctor_ChatListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doctor_ChatListViewController.swift; sourceTree = "<group>"; };
 		1BA04F4226AE8CF20053F10D /* Doctor_ComingAppointmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doctor_ComingAppointmentViewController.swift; sourceTree = "<group>"; };
@@ -649,6 +653,7 @@
 				1B1C2E3B269944C200F57122 /* ProductCell.swift */,
 				1B38FD7F26BD919200BFC40E /* PromotionListViewController.swift */,
 				1B38FD8126BD9E5A00BFC40E /* PromotionListCell.swift */,
+				1B987E652744801B00C6207B /* PromoCodeResponse */,
 				1BF58D3A26ADBECB00F2D620 /* OrderResponse */,
 				1B1C2E3A269943AC00F57122 /* ProductResponse */,
 				3CF7B50626AC40B900F937DE /* APIProduct.swift */,
@@ -790,6 +795,15 @@
 				1B8D861026A49B8400A2ED57 /* ReceiverCell.swift */,
 			);
 			path = MessageView;
+			sourceTree = "<group>";
+		};
+		1B987E652744801B00C6207B /* PromoCodeResponse */ = {
+			isa = PBXGroup;
+			children = (
+				1B987E662744802A00C6207B /* Promo_codes.swift */,
+				1B987E672744802A00C6207B /* PromoCodesResponse.swift */,
+			);
+			path = PromoCodeResponse;
 			sourceTree = "<group>";
 		};
 		1BA04F3A26AE84790053F10D /* Doctor-Appointment */ = {
@@ -1243,6 +1257,7 @@
 				1BBB1F242719E6600033D4C9 /* ShippingFeeResponse.swift in Sources */,
 				1B27FDC426A5F01A000E8609 /* SlotDay.swift in Sources */,
 				1B187A5D268F654300BB0122 /* ViewController.swift in Sources */,
+				1B987E6A2744802A00C6207B /* PromoCodesResponse.swift in Sources */,
 				1B1C2E2B2698867400F57122 /* Landing.swift in Sources */,
 				1BC3B21926A1CFA1006EDD29 /* ImagePickerManager.swift in Sources */,
 				1BC3B21C26A2ADA5006EDD29 /* Nonce.swift in Sources */,
@@ -1335,6 +1350,7 @@
 				1B1C2E3426993C5B00F57122 /* Sets.swift in Sources */,
 				1BCE64EB26A70964002EE71F /* SlotTime.swift in Sources */,
 				1BE0AA9526C2E86500439CBC /* FacebookLoginViewController.swift in Sources */,
+				1B987E692744802A00C6207B /* Promo_codes.swift in Sources */,
 				1B53126126937B9400B88165 /* ChatListViewController.swift in Sources */,
 				1B53125E26937B5F00B88165 /* ProductListViewController.swift in Sources */,
 				1B69AD5A26A489CB00910679 /* DailogCell2.swift in Sources */,

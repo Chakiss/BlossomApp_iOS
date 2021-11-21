@@ -24,6 +24,7 @@ enum APIProduct {
     case getOrder(term: String, page: Int, completion: (OrderResponse?)->Swift.Void)
     case getOrderByID(shipnityID: String, completion: (OrderResponse?)->Swift.Void)
     case calculateShipping(items: [PurchasesAttribute], completion: ([ShippingFee]?)->Swift.Void)
+    case getPromoCode(code: String, completion: (PromoCodesResponse?)->Swift.Void)
     
     func endpoint() -> String {
         switch self {
@@ -45,6 +46,9 @@ enum APIProduct {
             return "https://www.shipnity.pro/api/v2/customers/\(shipnityID)/orders"
         case .calculateShipping:
             return "https://www.shipnity.pro/api/v2/shipping_calculators/calculate_shipping_fee"
+        case .getPromoCode:
+            return "https://www.shipnity.pro/api/v2/promo_codes"
+            
         }
         
     }
@@ -211,6 +215,21 @@ enum APIProduct {
                 })
                 
             
+         
+        case let .getPromoCode(code,completion):
+            let param: Parameters = [
+                "search": code
+            ]
+            debugPrint("\(endpoint()), \(param)")
+            AF.request(endpoint(), method: .get, parameters: param, headers: headers)
+                .validate()
+                .responseDecodable(of: PromoCodesResponse.self) { (response) in
+                    guard let promoCodesResponse = response.value else {
+                        completion(nil)
+                        return
+                    }
+                    completion(promoCodesResponse)
+                }
             
         }
         

@@ -31,9 +31,10 @@ struct PurchaseOrder: Codable {
     let taxable: Bool = false
     let orderDiscount: Int
     let purchasesAttributes: [PurchasesAttribute]
+    let voucher_id: String
 
     enum CodingKeys: String, CodingKey {
-        case customer, name, address, tel
+        case customer, name, address, tel, voucher_id
         case contactMethod = "contact_method"
         case email, annotation, tag
         case shippingType = "shipping_type"

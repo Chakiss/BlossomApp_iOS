@@ -124,11 +124,29 @@ class PreFormViewController: UIViewController {
         }
         
         
+        var isNeedImage = false
         
-        if attachImage.count == 0 {
-            showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณาแนบรูปอย่างน้อย 1 รูป") {}
+        if appointment != nil {
+            if attachImage.count > 0  {
+                isNeedImage = true
+            }
+        } else {
+            let calendar = Calendar.current
+
+            // Replace the hour (time) of both dates with 00:00
+            let date1 = calendar.startOfDay(for: slotDaySelected?.date?.dateValue() ?? Date())
+            let date2 = calendar.startOfDay(for: Date())
+
+            let components = calendar.dateComponents([.day], from: date1, to: date2)
+            
+            if abs(components.day!) < 7 {
+                isNeedImage = true
+            }
+            
         }
-        else {
+        
+        
+        if isNeedImage == true {
             
             if appointment != nil {
                 
@@ -136,8 +154,13 @@ class PreFormViewController: UIViewController {
                 
             } else {
                 
+                showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณาแนบรูปอย่างน้อย 1 รูป") {}
+            }
+            
+        } else {
+            if appointment != nil {
                 
-                
+            } else {
                 let alert = UIAlertController(title: "ยืนยัน", message: "คุณต้องการที่จะนัดหมายในเวลานี้ใช่หรือไม่​?", preferredStyle: UIAlertController.Style.alert)
                 alert.addAction(UIAlertAction(title: "ยกเลิก", style: .default, handler: nil))
                 alert.addAction(UIAlertAction(title: "ยืนยัน", style: .default, handler: { [weak self] _ in
@@ -152,7 +175,7 @@ class PreFormViewController: UIViewController {
                         
                         ProgressHUD.dismiss()
                         guard let self = self else { return }
-
+                        
                         if error != nil {
                             let alert = UIAlertController(title: "กรุณาตรวจสอบ", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
                             alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
@@ -182,18 +205,17 @@ class PreFormViewController: UIViewController {
         }
         
         
-         
     }
     
     
-
+    
     func makeAppointmentOrderPaid(orderID: String){
-     
+        
         ProgressHUD.show()
         let payload = ["orderID": orderID]
         
         functions.httpsCallable("app-orders-markAppointmentOrderPaid").call(payload) { result, error in
-        
+            
             ProgressHUD.dismiss()
             if error != nil {
                 let alert = UIAlertController(title: "กรุณาตรวจสอบ", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
@@ -216,12 +238,12 @@ class PreFormViewController: UIViewController {
                     // 3
                     eventStore.requestAccess(to: .event, completion:
                                                 { [weak self] (granted: Bool, error: Error?) -> Void in
-                                                    if granted {
-                                                        self?.insertEvent(store: eventStore)
-                                                    } else {
-                                                        print("Access denied")
-                                                    }
-                                                })
+                        if granted {
+                            self?.insertEvent(store: eventStore)
+                        } else {
+                            print("Access denied")
+                        }
+                    })
                 default:
                     print("Case default")
                 }
@@ -320,6 +342,7 @@ class PreFormViewController: UIViewController {
           
         }
     }
+    
 }
 
 extension PreFormViewController : UpdateCartViewControllerDelegate {

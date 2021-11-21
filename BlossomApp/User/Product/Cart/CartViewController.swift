@@ -38,6 +38,8 @@ class CartViewController: UIViewController {
     weak var delegate: UpdateCartViewControllerDelegate?
     weak var prescriptDelegate: ProductListPrescriptionDelegate?
     
+    private var promoCodeID: Int = 0
+    
     static func initializeInstance(cart: Cart, currentCart: Bool = true, customer: Customer?, prescriptDelegate: ProductListPrescriptionDelegate?) -> CartViewController {
         let controller: CartViewController = CartViewController(nibName: "CartViewController", bundle: Bundle.main)
         controller.cart = cart
@@ -224,7 +226,8 @@ class CartViewController: UIViewController {
                                   shippingType: shippingBy,
                                   shippingFee: Int(shippingFee),
                                   orderDiscount: 0,
-                                  purchasesAttributes: cart?.getPurcahseAttributes() ?? [])
+                                  purchasesAttributes: cart?.getPurcahseAttributes() ?? [],
+                                  voucher_id: "7933")
         ProgressHUD.show()
         APIProduct.createOrder(po: CreateOrderRequest(order: order)) { [weak self] response in
             ProgressHUD.dismiss()
@@ -258,6 +261,7 @@ class CartViewController: UIViewController {
         }
         
         let name = (customer.firstName ?? "") + " " + (customer.lastName ?? "")
+        
         let order = PurchaseOrder(customer: Int(customer.referenceShipnityID ?? "") ?? 0,
                                   name: name,
                                   address: address,
@@ -269,7 +273,8 @@ class CartViewController: UIViewController {
                                   shippingType: shippingBy,
                                   shippingFee: Int(shippingFee),
                                   orderDiscount: 0,
-                                  purchasesAttributes: cart?.getPurcahseAttributes() ?? [])
+                                  purchasesAttributes: cart?.getPurcahseAttributes() ?? [],
+                                  voucher_id: "7933")
         ProgressHUD.show()
         APIProduct.updateOrder(orderID: cart?.purchaseOrder?.id ?? 0, po: UpdateOrderRequest(order: order)) { [weak self] response in
             ProgressHUD.dismiss()
@@ -453,6 +458,11 @@ extension CartViewController: CartHeaderTableViewCellDelegate {
         }
         
         self.showProfile()
+    }
+    
+    func cartHeaderApplyPromoCode(codeID: Int) {
+        self.promoCodeID = codeID
+        self.tableView.reloadData()
     }
     
 //    private func showProfile() {

@@ -10,9 +10,10 @@ import SwiftyUserDefaults
 
 protocol CartHeaderTableViewCellDelegate: AnyObject {
     func cartHeaderDidTapEditAddress()
+    func cartHeaderApplyPromoCode(codeID: Int)
 }
 
-class CartHeaderTableViewCell: UITableViewCell {
+class CartHeaderTableViewCell: UITableViewCell, UITextFieldDelegate {
     
     struct Model {
         var dateString: String = ""
@@ -30,6 +31,9 @@ class CartHeaderTableViewCell: UITableViewCell {
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var editAddressButton: UIButton!
     @IBOutlet weak var phoneNumberLabel: UILabel!
+    
+    @IBOutlet weak var promoCodeTextfield: UITextField!
+    @IBOutlet weak var promoCodeLabel: UILabel!
     
     weak var delegate: CartHeaderTableViewCellDelegate?
     
@@ -60,6 +64,10 @@ class CartHeaderTableViewCell: UITableViewCell {
         
         editAddressButton.backgroundColor = UIColor.blossomPrimary3
         editAddressButton.roundCorner(radius: 17)
+        
+        promoCodeTextfield.delegate = self
+        promoCodeLabel.font = FontSize.body2.bold()
+        promoCodeLabel.isHidden = true
     }
     
     public func renderOrderHeader(_ model: Model) {
@@ -81,5 +89,38 @@ class CartHeaderTableViewCell: UITableViewCell {
     @IBAction func editAddressAction(_ sender: Any) {
         delegate?.cartHeaderDidTapEditAddress()
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {   //delegate method
+       textField.resignFirstResponder()
+        APIProduct.getPromoCode(code: textField.text ?? "") { response in
+        
+            ProgressHUD.dismiss()
+            self.promoCodeLabel.isHidden = false
+            if response?.promo_codes?.count ?? 0 > 0 {
+                let promocode = (response?.promo_codes?.first)! as Promo_codes
+                if promocode.code == textField.text {
+                    self.promoCodeLabel.textColor = UIColor.blossomGreen
+                    self.promoCodeLabel.text = "รหัสส่วนลดพร้อมใช้งาน"
+                    
+                    self.delegate?.cartHeaderApplyPromoCode(codeID: promocode.id!)
+                } else {
+                    self.promoCodeLabel.textColor = UIColor.red
+                    self.promoCodeLabel.text = "ไม่พบรหัสส่วนลด"
+                    
+                }
+            } else {
+                self.promoCodeLabel.textColor = UIColor.red
+                self.promoCodeLabel.text = "ไม่พบรหัสส่วนลด"
+                
+            }
+            
+            
+        }.request(
+        )
+       return true
+    }
+    /**
+     
+     */
     
 }

@@ -208,7 +208,11 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
                     let preForm = data["preForm"] as? [String:Any] ?? ["":""]
                     let postForm = data["postForm"] as? [String:Any] ?? ["":""]
                     
-                    let appointment = Appointment(id: queryDocumentSnapshot.documentID, customerReference: cusRef!, doctorReference: doctorRef!, timeReference: timeRef!,sessionStart: sessionStart, sessionEnd: sessionEnd,preForm: preForm, postForm: postForm)
+                    let createdAt = data["createdAt"] as! Timestamp
+                    let updatedAt = data["updatedAt"]  as! Timestamp
+                    
+                    let appointment = Appointment(id: queryDocumentSnapshot.documentID, customerReference: cusRef!, doctorReference: doctorRef!, timeReference: timeRef!,sessionStart: sessionStart, sessionEnd: sessionEnd,preForm: preForm, postForm: postForm, createdAt: createdAt, updatedAt: updatedAt)
+                   
                     return appointment
                 })
                 

@@ -137,7 +137,7 @@ class DoctorDetailViewController: UIViewController, UITableViewDelegate, UITable
         }
         
         guard (CustomerManager.sharedInstance.customer?.isPhoneVerified == true) else {
-            showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณายืนยันเบอร์โทรศัพท์") { [weak self] in
+            showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณายืนยันเบอร์โทรศัพท์ก่อนทำการนัดแพทย์") { [weak self] in
                 self?.showProfile()
             }
             return

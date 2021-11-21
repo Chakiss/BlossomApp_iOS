@@ -80,6 +80,18 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
         
         alert.addAction(UIAlertAction(title: "วีดิโอคอล", style: .default, handler: { [weak self] (UIAlertAction) in
             
+            let calendar = Calendar.current
+
+            // Replace the hour (time) of both dates with 00:00
+            let date1 = appointment.updatedAt?.dateValue() ?? Date()
+            let date2 = appointment.sessionStart?.dateValue() ?? Date()
+
+            let components = calendar.dateComponents([.day], from: date1, to: date2)
+            
+            if abs(components.day!) > 7 {
+                self?.showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณาอัพเดทรูปที่แนบ") {}
+            }
+            
             let startDate = appointment.sessionStart?.dateValue() ?? Date()
             let endDate = appointment.sessionEnd?.dateValue() ?? Date()
             

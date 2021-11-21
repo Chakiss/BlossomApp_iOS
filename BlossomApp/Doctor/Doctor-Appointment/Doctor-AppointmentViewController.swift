@@ -125,7 +125,10 @@ class Doctor_AppointmentViewController: UIViewController {
                     let postForm = data["postForm"] as? [String:Any] ?? ["":""]
                     let attacheImage = data["attachedImages"] as? [String] ?? []
                     
-                    var appointment = Appointment(id: queryDocumentSnapshot.documentID, customerReference: cusRef!, doctorReference: doctorRef!, timeReference: timeRef!,sessionStart: sessionStart, sessionEnd: sessionEnd,preForm: preForm, postForm: postForm)
+                    let createdAt = data["createdAt"] as! Timestamp
+                    let updatedAt = data["updatedAt"]  as! Timestamp
+                    
+                    var appointment = Appointment(id: queryDocumentSnapshot.documentID, customerReference: cusRef!, doctorReference: doctorRef!, timeReference: timeRef!,sessionStart: sessionStart, sessionEnd: sessionEnd,preForm: preForm, postForm: postForm, createdAt: createdAt, updatedAt: updatedAt)
                     appointment.isComplete = isComplete
                     appointment.attachedImages = attacheImage
                     return appointment

@@ -13,6 +13,7 @@ struct Appointment: Codable {
     
     var id: String?
     var createdAt: Timestamp?
+    var updatedAt: Timestamp?
     var doctorReference: DocumentReference?
     var customerReference: DocumentReference?
     var orderReference: DocumentReference?
@@ -42,7 +43,7 @@ struct Appointment: Codable {
         
     }
     
-    init(id: String,customerReference: DocumentReference, doctorReference: DocumentReference,timeReference: DocumentReference, sessionStart: Timestamp, sessionEnd: Timestamp, preForm: [String:Any],postForm: [String:Any] ){
+    init(id: String,customerReference: DocumentReference, doctorReference: DocumentReference,timeReference: DocumentReference, sessionStart: Timestamp, sessionEnd: Timestamp, preForm: [String:Any],postForm: [String:Any], createdAt: Timestamp, updatedAt: Timestamp ){
         self.id = id
         self.customerReference = customerReference
         self.doctorReference = doctorReference
@@ -51,6 +52,9 @@ struct Appointment: Codable {
         self.sessionEnd = sessionEnd
         self.preForm = preForm
         self.postForm = postForm
+        
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
     }
     
     init(from decoder: Decoder) throws {
