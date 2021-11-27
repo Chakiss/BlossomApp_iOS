@@ -60,20 +60,11 @@ class BlossomReviewViewController: UIViewController, UITableViewDelegate, UITabl
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "BlossomReviewCell", for: indexPath) as! BlossomReviewCell
         
-        let imageRef = storage.reference(withPath: review.image )
-        imageRef.getData(maxSize: 2 * 1024 * 1024) { (data, error) in
-            if error == nil {
-                if let imgData = data {
-                    if let img = UIImage(data: imgData) {
-                        cell.reviewImageView.image = img
-                    }
-                }
-            } else {
-                cell.reviewImageView.image = UIImage(named: "placeholder")
-                
-            }
-        }
+        let imageRef = self.storage.reference().child(review.image)
+        let placeholderImage = UIImage(named: "placeholder")
+        cell.reviewImageView.sd_setImage(with: imageRef, placeholderImage: placeholderImage)
         
+       
         
         return cell
      }

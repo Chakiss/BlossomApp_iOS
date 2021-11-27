@@ -10,7 +10,7 @@ import SwiftyUserDefaults
 
 protocol CartHeaderTableViewCellDelegate: AnyObject {
     func cartHeaderDidTapEditAddress()
-    func cartHeaderApplyPromoCode(codeID: Int)
+    func cartHeaderApplyPromoCode(codeID: String)
 }
 
 class CartHeaderTableViewCell: UITableViewCell, UITextFieldDelegate {
@@ -21,6 +21,7 @@ class CartHeaderTableViewCell: UITableViewCell, UITextFieldDelegate {
         var addressText: String = ""
         var shippingText: String = ""
         var phoneNumberText: String = ""
+        var orderDiscountText: String = ""
     }
 
     @IBOutlet weak var stackViewContainer: UIView!
@@ -34,6 +35,8 @@ class CartHeaderTableViewCell: UITableViewCell, UITextFieldDelegate {
     
     @IBOutlet weak var promoCodeTextfield: UITextField!
     @IBOutlet weak var promoCodeLabel: UILabel!
+    
+    @IBOutlet weak var orderDiscountLabel: UILabel!
     
     weak var delegate: CartHeaderTableViewCellDelegate?
     
@@ -54,13 +57,15 @@ class CartHeaderTableViewCell: UITableViewCell, UITextFieldDelegate {
         addressLabel.text = ""
         phoneNumberLabel.text = ""
         editAddressButton.setTitle("แก้ไขที่อยู่", for: .normal)
-
+        orderDiscountLabel.text = ""
+        
         orderLabel.font = FontSize.body.bold()
         priceLabel.font = FontSize.body2.bold()
         shipingPriceLabel.font = FontSize.body2.regular()
         addressTitieLabel.font = FontSize.body2.regular()
         addressLabel.font = FontSize.body2.regular()
         phoneNumberLabel.font = FontSize.body2.regular()
+        orderDiscountLabel.font = FontSize.body2.regular()
         
         editAddressButton.backgroundColor = UIColor.blossomPrimary3
         editAddressButton.roundCorner(radius: 17)
@@ -78,6 +83,27 @@ class CartHeaderTableViewCell: UITableViewCell, UITextFieldDelegate {
         addressLabel.text = model.addressText
         phoneNumberLabel.text = model.phoneNumberText
         editAddressButton.isHidden =  Defaults[\.role] == "doctor"
+        
+        orderDiscountLabel.text = "ส่วนลด \(model.orderDiscountText) บาท"
+       
+    }
+    
+    public func rendorPromoCode(isValid:Bool, discount:Double, promoCode:Promo_codes){
+        promoCodeLabel.isHidden = false
+        if isValid {
+            self.promoCodeTextfield.text = promoCode.code
+            self.promoCodeLabel.textColor = UIColor.blossomGreen
+            if promoCode.discount_type == "percent" {
+                self.promoCodeLabel.text = "รหัสส่วนลดพร้อมใช้งาน ลด \(promoCode.discount_value!)% \(discount) บาท"
+            } else {
+                self.promoCodeLabel.text = "รหัสส่วนลดพร้อมใช้งาน ลด \(discount) บาท"
+            }
+            //self.delegate?.cartHeaderApplyPromoCode(codeID: promocode.id!)
+        } else {
+            self.promoCodeLabel.textColor = UIColor.red
+            self.promoCodeLabel.text = "ไม่พบรหัสส่วนลด"
+        }
+        self.setNeedsDisplay()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -91,33 +117,9 @@ class CartHeaderTableViewCell: UITableViewCell, UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {   //delegate method
-       textField.resignFirstResponder()
-        APIProduct.getPromoCode(code: textField.text ?? "") { response in
-        
-            ProgressHUD.dismiss()
-            self.promoCodeLabel.isHidden = false
-            if response?.promo_codes?.count ?? 0 > 0 {
-                let promocode = (response?.promo_codes?.first)! as Promo_codes
-                if promocode.code == textField.text {
-                    self.promoCodeLabel.textColor = UIColor.blossomGreen
-                    self.promoCodeLabel.text = "รหัสส่วนลดพร้อมใช้งาน"
-                    
-                    self.delegate?.cartHeaderApplyPromoCode(codeID: promocode.id!)
-                } else {
-                    self.promoCodeLabel.textColor = UIColor.red
-                    self.promoCodeLabel.text = "ไม่พบรหัสส่วนลด"
-                    
-                }
-            } else {
-                self.promoCodeLabel.textColor = UIColor.red
-                self.promoCodeLabel.text = "ไม่พบรหัสส่วนลด"
-                
-            }
-            
-            
-        }.request(
-        )
-       return true
+        textField.resignFirstResponder()
+        delegate?.cartHeaderApplyPromoCode(codeID: textField.text!)
+        return true
     }
     /**
      

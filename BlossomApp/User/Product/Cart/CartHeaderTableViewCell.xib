@@ -110,20 +110,26 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;shipingPrice&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D0I-dD-VxB">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;order_discount&gt;" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="10v-1X-KbK">
                                         <rect key="frame" x="0.0" y="256.5" width="240" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;price&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qNc-DU-lOa">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;shipingPrice&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D0I-dD-VxB">
                                         <rect key="frame" x="0.0" y="287" width="240" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;price&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qNc-DU-lOa">
+                                        <rect key="frame" x="0.0" y="317.5" width="240" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eq6-YL-VAc">
-                                        <rect key="frame" x="0.0" y="317.5" width="240" height="62.5"/>
+                                        <rect key="frame" x="0.0" y="348" width="240" height="32"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </view>
                                 </subviews>
@@ -150,6 +156,7 @@
                 <outlet property="addressLabel" destination="dJN-Oy-RxY" id="hAt-Td-9rE"/>
                 <outlet property="addressTitieLabel" destination="Sxz-o2-Jqm" id="hrD-Hw-sYD"/>
                 <outlet property="editAddressButton" destination="aHX-hm-cNT" id="PIb-jp-AkU"/>
+                <outlet property="orderDiscountLabel" destination="10v-1X-KbK" id="u9N-kQ-fuY"/>
                 <outlet property="orderLabel" destination="cI2-JV-oS6" id="8xG-Nm-QS9"/>
                 <outlet property="phoneNumberLabel" destination="x17-Ge-GgK" id="YSV-0L-kfr"/>
                 <outlet property="priceLabel" destination="qNc-DU-lOa" id="hDJ-gy-ee9"/>

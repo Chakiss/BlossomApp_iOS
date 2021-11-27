@@ -119,19 +119,11 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
         
     func displayInformation() {
         
-        let imageRef = storage.reference(withPath: customer?.displayPhoto ?? "")
-        imageRef.getData(maxSize: 2 * 1024 * 1024) { (data, error) in
-            if error == nil {
-                if let imgData = data {
-                    if let img = UIImage(data: imgData) {
-                        self.profileImageView.image = img
-                    }
-                }
-            } else {
-                self.profileImageView.image = UIImage(named: "placeholder")
-                
-            }
-        }
+        let imageRef = self.storage.reference().child(customer?.displayPhoto ?? "")
+        let placeholderImage = UIImage(named: "placeholder")
+        self.profileImageView.sd_setImage(with: imageRef, placeholderImage: placeholderImage)
+        
+    
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -267,18 +259,12 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
             functions.httpsCallable("app-users-uploadAvatar").call(payload) { result, error in
                 let data = result?.data as! [String : String]
                 let imageURL = data["imageUrl"] ?? ""
-                let imageRef = self.storage.reference(withPath:imageURL)
-                imageRef.getData(maxSize: 2 * 1024 * 1024) { (data, error) in
-                    if error == nil {
-                        if let imgData = data {
-                            self.profileImageView.image = UIImage(data: imgData)
-                            
-                        }
-                    } else {
-                        self.profileImageView.image = UIImage(named: "placeholder")
-                        
-                    }
-                }
+                
+                
+                let imageRef = self.storage.reference().child(imageURL)
+                let placeholderImage = UIImage(named: "placeholder")
+                self.profileImageView.sd_setImage(with: imageRef, placeholderImage: placeholderImage)
+                
                 ProgressHUD.dismiss()
                 
             }

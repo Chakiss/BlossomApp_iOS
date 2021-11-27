@@ -39,6 +39,7 @@ class CartViewController: UIViewController {
     weak var prescriptDelegate: ProductListPrescriptionDelegate?
     
     private var promoCodeID: Int = 0
+    private var selectedPromoCode: Promo_codes?
     
     static func initializeInstance(cart: Cart, currentCart: Bool = true, customer: Customer?, prescriptDelegate: ProductListPrescriptionDelegate?) -> CartViewController {
         let controller: CartViewController = CartViewController(nibName: "CartViewController", bundle: Bundle.main)
@@ -84,7 +85,8 @@ class CartViewController: UIViewController {
             priceText: "",
             addressText: customer?.address?.formattedAddress ?? "-",
             shippingText: "",
-            phoneNumberText: customer?.phoneNumber?.phonenumberformat() ?? "-"
+            phoneNumberText: customer?.phoneNumber?.phonenumberformat() ?? "-",
+            orderDiscountText: "0"
         )
         self.cartHeaderModel = model
         updateTotalPrice()
@@ -92,6 +94,13 @@ class CartViewController: UIViewController {
         
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if ((self.cart?.purchaseOrder?.promoCode) != nil) {
+            self.rendorPromoCode((self.cart?.purchaseOrder?.promoCode)!)
+        }
+        self.tableView.reloadData()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -107,62 +116,55 @@ class CartViewController: UIViewController {
         
         // TODO shipnity
         ProgressHUD.show()
-            APIProduct.calculateShipping(items: self.cart?.getPurcahseAttributes() ?? []) { response in
-                ProgressHUD.dismiss()
-                guard let response = response else {
-                    self.showAlertDialogue(title: "ขออภัย", message: "ไม่สามารถส่งคำสั่งซื้อได้ในขณะนี้", completion: {
-                    })
-                    return
-                }
-                
-                let shippingFeeArray = response as [ShippingFee]
-                if shippingFeeArray.count > 0 {
-                    self.shippingFee = shippingFeeArray.first?.cost ?? 0.0
-                    self.shippingBy = shippingFeeArray.first?.name ?? ""
-                } else {
-                    self.shippingFee = 60
-                    self.shippingBy = "J&T Express"
-                }
-                
-                //DispatchQueue.main.async {
-                    self.updatePricewithShipping()
-                //}
-            }.request()
+        APIProduct.calculateShipping(items: self.cart?.getPurcahseAttributes() ?? []) { response in
+            ProgressHUD.dismiss()
+            guard let response = response else {
+                self.showAlertDialogue(title: "ขออภัย", message: "ไม่สามารถส่งคำสั่งซื้อได้ในขณะนี้", completion: {
+                })
+                return
+            }
+            
+            let shippingFeeArray = response as [ShippingFee]
+            if shippingFeeArray.count > 0 {
+                self.shippingFee = shippingFeeArray.first?.cost ?? 0.0
+                self.shippingBy = shippingFeeArray.first?.name ?? ""
+            } else {
+                self.shippingFee = 60
+                self.shippingBy = "J&T Express"
+            }
+            
+            self.updatePricewithShipping()
+            //}
+        }.request()
         
-        //self.updatePricewithShipping()
-        /*
-        let total = cart?.calculateTotalPriceInSatang().satangToBaht() ?? 0
-        
-        if !self.checkSetProduct() && (total > 0 && total < 1000 )  {
-            shippingFee = 60
-            shippingBy = "J&T Express"
-            self.cartHeaderModel?.shippingText = "60"
-        } else {
-            shippingFee = 0
-            shippingBy = "J&T Express"
-            self.cartHeaderModel?.shippingText = "0"
-        }
-        cart?.shippingFee = Int(shippingFee)
-        let totalText = (total + Double(shippingFee)).toAmountText()
-        self.cartHeaderModel?.priceText = totalText
-        checkoutButton.isEnabled = cart?.items.count ?? 0 > 0
-        checkoutButton.alpha = checkoutButton.isEnabled ? 1.0 : 0.5
-         
-         */
     }
-
+    
     private func updatePricewithShipping() {
         self.cartHeaderModel?.shippingText = String(format: "%.2f", self.shippingFee)
         let total = self.cart?.calculateTotalPriceInSatang().satangToBaht() ?? 0
         
-        print(self.shippingFee)
-        print(self.shippingBy)
-        print("====================================")
+        let orderDiscount = self.cart?.purchaseOrder?.orderDiscount ?? "0"
+        self.cartHeaderModel?.orderDiscountText = orderDiscount
+        
+        
+        
+        let promoCode = self.selectedPromoCode ?? self.cart?.purchaseOrder?.promoCode
+        var promoDiscount = 0.0
+        if promoCode?.discount_type == "percent" {
+            let total = self.cart?.calculateTotalPriceInSatang().satangToBaht() ?? 0
+            promoDiscount =  (total * Double(promoCode?.discount_value ?? "1")!) / 100
+        } else {
+            promoDiscount = Double(promoCode?.discount_value ?? "0")!
+        }
+        
+        
         self.cart?.shippingFee = Int(self.shippingFee)
-        let totalText = (total + self.shippingFee).toAmountText()
+        let totalText = (total + self.shippingFee - (Double(orderDiscount) ?? 0) - promoDiscount).toAmountText()
         self.cartHeaderModel?.priceText = totalText
         self.checkoutButton.isEnabled = self.cart?.items.count ?? 0 > 0
         self.checkoutButton.alpha = (self.checkoutButton.isEnabled ) ? 1.0 : 0.5
+        
+        
         self.tableView.reloadData()
     }
     
@@ -227,7 +229,7 @@ class CartViewController: UIViewController {
                                   shippingFee: Int(shippingFee),
                                   orderDiscount: 0,
                                   purchasesAttributes: cart?.getPurcahseAttributes() ?? [],
-                                  voucher_id: "7933")
+                                  promo_code_id: self.promoCodeID)
         ProgressHUD.show()
         APIProduct.createOrder(po: CreateOrderRequest(order: order)) { [weak self] response in
             ProgressHUD.dismiss()
@@ -274,7 +276,7 @@ class CartViewController: UIViewController {
                                   shippingFee: Int(shippingFee),
                                   orderDiscount: 0,
                                   purchasesAttributes: cart?.getPurcahseAttributes() ?? [],
-                                  voucher_id: "7933")
+                                  promo_code_id: self.promoCodeID)
         ProgressHUD.show()
         APIProduct.updateOrder(orderID: cart?.purchaseOrder?.id ?? 0, po: UpdateOrderRequest(order: order)) { [weak self] response in
             ProgressHUD.dismiss()
@@ -377,6 +379,8 @@ extension CartViewController: UITableViewDataSource {
                let model = cartHeaderModel {
                 cell.delegate = self
                 cell.renderOrderHeader(model)
+              
+                
                 return cell
             }
             
@@ -460,9 +464,51 @@ extension CartViewController: CartHeaderTableViewCellDelegate {
         self.showProfile()
     }
     
-    func cartHeaderApplyPromoCode(codeID: Int) {
-        self.promoCodeID = codeID
-        self.tableView.reloadData()
+    func cartHeaderApplyPromoCode(codeID: String) {
+        
+        APIProduct.getPromoCode(code: codeID) { response in
+        
+            ProgressHUD.dismiss()
+            
+            let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! CartHeaderTableViewCell
+            if response?.promo_codes?.count ?? 0 > 0 {
+                let promocode = (response?.promo_codes?.first)! as Promo_codes
+                
+                self.promoCodeID = promocode.id ?? 0
+                
+                if promocode.code == codeID {
+                    self.selectedPromoCode = promocode
+                    self.rendorPromoCode(promocode)
+                    
+                } else {
+                    cell.rendorPromoCode(isValid: false, discount: 0, promoCode: Promo_codes())
+                }
+                self.tableView.reloadData()
+            } else {
+                cell.rendorPromoCode(isValid: false, discount: 0, promoCode: Promo_codes())
+            
+            }
+            self.tableView.reloadData()
+            self.updateTotalPrice()
+            
+        }.request()
+        
+    }
+    
+    func rendorPromoCode(_ promocode:Promo_codes) {
+        self.promoCodeID = promocode.id ?? 0
+        
+        let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! CartHeaderTableViewCell
+        var promodiscount = 0.0
+        if promocode.discount_type == "percent" {
+            let total = self.cart?.calculateTotalPriceInSatang().satangToBaht() ?? 0
+            promodiscount =  (total * Double(promocode.discount_value ?? "1")!) / 100
+        } else {
+            promodiscount = Double(promocode.discount_value ?? "0")!
+        }
+        cell.rendorPromoCode(isValid: true, discount: promodiscount, promoCode: promocode)
+        
+        self.updateTotalPrice()
     }
     
 //    private func showProfile() {

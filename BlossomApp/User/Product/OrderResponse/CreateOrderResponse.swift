@@ -58,7 +58,8 @@ struct Order: Codable {
     var purchases: [Purchase]?
     var setPurchases, orderPayments: [JSONAny]?
     var customer: OrderCustomer?
-    var promoCode, claimedVoucher: String?
+    var promoCode: Promo_codes?
+    var claimedVoucher: String?
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -123,6 +124,10 @@ struct Order: Codable {
         case customer
         case promoCode = "promo_code"
         case claimedVoucher = "claimed_voucher"
+    }
+    
+    func setPromoCode(_ promoCode:Promo_codes) {
+        self.promoCode
     }
 }
 

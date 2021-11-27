@@ -12,6 +12,8 @@ import ConnectyCube
 import SwiftDate
 import Alamofire
 import SwiftyUserDefaults
+import FirebaseStorageUI
+import CoreMedia
 
 class HomeViewController: UIViewController, MultiBannerViewDelegate {
    
@@ -128,13 +130,12 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
     }
     
     func displayUserProfileImage(){
-        let imageRef = self.storage.reference(withPath: self.customer?.displayPhoto ?? "")
+        let imageRef = self.storage.reference().child(self.customer?.displayPhoto ?? "")
+        //let placeholderImage = UIImage(named: "placeholder")
         imageRef.getData(maxSize: 2 * 1024 * 1024) { (data, error) in
             if error == nil {
                 if let imgData = data {
                     if let img = UIImage(data: imgData) {
-                        
-                        
                         self.profileButton.setImage(img, for: .normal)
                         self.profileButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
                         self.profileButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
@@ -145,6 +146,8 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
                 }
             }
         }
+       
+
     }
     
     func fetchProduct(){
@@ -276,27 +279,15 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
                         tabItem.badgeValue = nil
                     }
                 }
-                //let region = Region(calendar: Calendar(identifier: .gregorian), zone: Zones.gmt, locale: Locales.englishUnitedStates)
-                //let d = date.dateValue().startOfDay
-                
             
-                
+            
                 self.doctorProfileImageView.layer.cornerRadius = self.doctorProfileImageView.frame.size.width/2
                 self.doctorNickNameLabel.text = doctor?.displayName
                 self.doctorNameLabel.text = (doctor?.firstName ?? "") + "  " + (doctor?.lastName ?? "")
-                let imageRef = self.storage.reference(withPath: doctor?.displayPhoto ?? "")
-                imageRef.getData(maxSize: 2 * 1024 * 1024) { (data, error) in
-                    if error == nil {
-                        if let imgData = data {
-                            if let img = UIImage(data: imgData) {
-                                self.doctorProfileImageView.image = img
-                            }
-                        }
-                    } else {
-                        self.doctorProfileImageView.image = UIImage(named: "placeholder")
-                        
-                    }
-                }
+                
+                let imageRef = self.storage.reference().child(doctor?.displayPhoto ?? "")
+                let placeholderImage = UIImage(named: "placeholder")
+                self.doctorProfileImageView.sd_setImage(with: imageRef, placeholderImage: placeholderImage)
                 
                 
                 

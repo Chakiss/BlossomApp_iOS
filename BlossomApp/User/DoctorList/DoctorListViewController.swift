@@ -39,17 +39,13 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func getConsultOnlineImage() {
-        let imageRef = storage.reference(withPath: "onlineconsult/currentmonth/image.png")
-        imageRef.getData(maxSize: 2 * 1024 * 1024) { (data, error) in
-            if error == nil {
-                if let imgData = data {
-                    if let img = UIImage(data: imgData) {
-                        self.consultImage.image = img
-                    }
-                }
-            }
-        }
+        
+        let imageRef = self.storage.reference().child("onlineconsult/currentmonth/image.png")
+        let placeholderImage = UIImage(named: "placeholder")
+        self.consultImage.sd_setImage(with: imageRef, placeholderImage: placeholderImage)
+        
     }
+    
     @objc func handleTap(_ sender: UITapGestureRecognizer) {
         // handling code
         let imageInfo   = GSImageInfo(image: self.consultImage.image!, imageMode: .aspectFit)

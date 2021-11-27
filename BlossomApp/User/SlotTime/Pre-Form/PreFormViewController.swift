@@ -12,6 +12,7 @@ import SwiftDate
 import EventKit
 import ConnectyCube
 import AlignedCollectionViewFlowLayout
+import FirebaseStorageUI
 
 class PreFormViewController: UIViewController {
       
@@ -82,13 +83,12 @@ class PreFormViewController: UIViewController {
             let attachedImageArray: [String] = (preform["attachedImages"] as? [String]) ?? []
             
             for imageData in attachedImageArray {
-                let imageRef = storage.reference(withPath: imageData )
-                imageRef.getData(maxSize: 2 * 1024 * 1024) { [weak self] (data, error) in
-                    if error == nil {
-                        if let imgData = data, let img = UIImage(data: imgData) {
-                            self?.imageArray.append(img)
-                            self?.collectionView.reloadData()
-                        }
+                let imageView = UIImageView()
+                let imageRef = self.storage.reference().child(imageData)
+                imageView.sd_setImage(with: imageRef, placeholderImage: nil) { img, error, type, ref in
+                    if img != nil {
+                        self.imageArray.append(img!)
+                        self.collectionView.reloadData()
                     }
                 }
             }

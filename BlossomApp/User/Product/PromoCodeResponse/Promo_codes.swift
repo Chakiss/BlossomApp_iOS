@@ -72,5 +72,25 @@ struct Promo_codes : Codable {
 		prerequisite_code = try values.decodeIfPresent(String.self, forKey: .prerequisite_code)
 		prerequisite_name = try values.decodeIfPresent(String.self, forKey: .prerequisite_name)
 	}
+    
+    init() {
+        id = 0
+        code = ""
+        end_date = ""
+        start_date = ""
+        discount_type = ""
+        discount_value = ""
+        expired = false
+        claimed_vouchers_count = 0
+        max_claimed = 0
+        min_redeem_value = ""
+        min_redeem_type = ""
+        claimable = false
+        orders_count = 0
+        point_used = ""
+        min_redeem_type_name = ""
+        prerequisite_code = ""
+        prerequisite_name = ""
+    }
 
 }

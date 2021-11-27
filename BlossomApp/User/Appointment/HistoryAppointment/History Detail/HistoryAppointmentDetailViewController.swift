@@ -10,6 +10,7 @@ import Firebase
 import GSImageViewerController
 import SwiftDate
 import SwiftPhotoGallery
+import FirebaseStorageUI
 
 class HistoryAppointmentDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate {
     
@@ -50,17 +51,19 @@ class HistoryAppointmentDetailViewController: UIViewController, UITableViewDataS
             
             self.ageLabel.text = "อายุ " + self.getAgeFromDOF(date: customer?.birthDate! ?? "") + " ปี"
             
+            //self.userImageView.image = UIImage(named: "placeholderHero")
             
-            let imageRef = self.storage.reference(withPath: customer?.displayPhoto ?? "")
-            imageRef.getData(maxSize: 2 * 1024 * 1024) { (data, error) in
-                if error == nil {
-                    if let imgData = data {
-                        if let img = UIImage(data: imgData) {
-                            self.userImageView.image = img
-                        }
-                    }
-                }
-            }
+                               
+            
+
+                               
+           
+            
+            let imageRef = self.storage.reference().child(customer?.displayPhoto ?? "")
+            let placeholderImage = UIImage(named: "placeholder")
+            self.userImageView.sd_setImage(with: imageRef, placeholderImage: placeholderImage)
+                
+            
         }
         
         let region = Region(calendar: Calendars.buddhist, zone: Zones.asiaBangkok, locale: Locales.thai)
@@ -185,21 +188,11 @@ extension HistoryAppointmentDetailViewController: UICollectionViewDelegate, UICo
         
         let preform: [String:Any] = appointment?.preForm ?? ["":""]
         let imageArray: [String] = preform["attachedImages"] as! [String]
-        let imageRef = storage.reference(withPath: imageArray[indexPath.row] )
-        imageRef.getData(maxSize: 2 * 1024 * 1024) { (data, error) in
-            if error == nil {
-                if let imgData = data {
-                    if let img = UIImage(data: imgData) {
-                        cell.imageView.image = img
-                        self.imageLoadedArray.append(img)
-                        
-                    }
-                }
-            } else {
-                cell.imageView.image = UIImage(named: "placeholder")
-                
-            }
-        }
+        
+        let imageRef = self.storage.reference().child(imageArray[indexPath.row])
+        let placeholderImage = UIImage(named: "placeholder")
+        cell.imageView.sd_setImage(with: imageRef, placeholderImage: placeholderImage)
+        
 
 
         return cell
