@@ -38,6 +38,7 @@ class DoctorHomeViewController: UIViewController {
             appdelegate.handleDeeplinking()
         }
 
+        CheckUpdate.shared.showUpdate(withConfirmation: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -77,18 +78,12 @@ class DoctorHomeViewController: UIViewController {
     
     func displayInformation()  {
         self.doctorImageView.layer.cornerRadius = self.doctorImageView.bounds.height / 2
-        let imageRef = storage.reference(withPath: self.doctor?.displayPhoto ?? "")
-        imageRef.getData(maxSize: 2 * 1024 * 1024) { (data, error) in
-            if error == nil {
-                if let imgData = data {
-                    if let img = UIImage(data: imgData) {
-                        self.doctorImageView.image = img
-                    }
-                }
-            } else {
-                self.doctorImageView.image = UIImage(named: "placeholder")
-            }
-        }
+        
+        let imageRef = self.storage.reference().child(self.doctor?.displayPhoto ?? "")
+        let placeholderImage = UIImage(named: "placeholder")
+        self.doctorImageView.sd_setImage(with: imageRef, placeholderImage: placeholderImage)
+        
+        
     }
 
     

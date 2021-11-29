@@ -53,19 +53,11 @@ class DoctorProfileViewController: UIViewController {
         self.profileImageView.circleView()
         self.profileImageView.addShadow()
         
-        let imageRef = storage.reference(withPath: doctor?.displayPhoto ?? "")
-        imageRef.getData(maxSize: 2 * 1024 * 1024) { (data, error) in
-            if error == nil {
-                if let imgData = data {
-                    if let img = UIImage(data: imgData) {
-                        self.profileImageView.image = img
-                    }
-                }
-            } else {
-                self.profileImageView.image = UIImage(named: "placeholder")
-                
-            }
-        }
+        let imageRef = self.storage.reference().child(doctor?.displayPhoto ?? "")
+        let placeholderImage = UIImage(named: "placeholder")
+        self.profileImageView.sd_setImage(with: imageRef, placeholderImage: placeholderImage)
+        
+      
         
         signOutButton.layer.cornerRadius = 22
         

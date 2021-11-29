@@ -153,15 +153,27 @@ class PreFormViewController: UIViewController {
                 self.updateForm()
                 
             } else {
+                if attachImage.count > 0 {
+                    createOrder()
+                } else {
+                    showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณาแนบรูปอย่างน้อย 1 รูป") {}
+                }
                 
-                showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณาแนบรูปอย่างน้อย 1 รูป") {}
             }
             
         } else {
             if appointment != nil {
                 
             } else {
-                let alert = UIAlertController(title: "ยืนยัน", message: "คุณต้องการที่จะนัดหมายในเวลานี้ใช่หรือไม่​?", preferredStyle: UIAlertController.Style.alert)
+                createOrder()
+            }
+        }
+        
+        
+    }
+    
+    func createOrder(){
+        let alert = UIAlertController(title: "ยืนยัน", message: "คุณต้องการที่จะนัดหมายในเวลานี้ใช่หรือไม่​?", preferredStyle: UIAlertController.Style.alert)
                 alert.addAction(UIAlertAction(title: "ยกเลิก", style: .default, handler: nil))
                 alert.addAction(UIAlertAction(title: "ยืนยัน", style: .default, handler: { [weak self] _ in
                     ProgressHUD.show()
@@ -202,10 +214,6 @@ class PreFormViewController: UIViewController {
                 }))
                 self.present(alert, animated: true, completion: nil)
             }
-        }
-        
-        
-    }
     
     
     

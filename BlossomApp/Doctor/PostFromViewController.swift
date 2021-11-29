@@ -73,8 +73,8 @@ class PostFromViewController: UIViewController, UITextFieldDelegate{
                 let postForm = data?["postForm"] as? [String:Any] ?? ["":""]
                 let attacheImage = data?["attachedImages"] as? [String] ?? []
                 
-                let createdAt = data?["createdAt"] as! Timestamp
-                let updatedAt = data?["updatedAt"]  as! Timestamp
+                let createdAt = data?["createdAt"] as? Timestamp ?? Timestamp(date: Date())
+                let updatedAt = data?["updatedAt"]  as? Timestamp ?? Timestamp(date: Date())
                 
                 self.appointment = Appointment(id: snapshot?.documentID ?? self.appointmentID, customerReference: cusRef!, doctorReference: doctorRef!, timeReference: timeRef!,sessionStart: sessionStart, sessionEnd: sessionEnd,preForm: preForm, postForm: postForm ,createdAt: createdAt , updatedAt: updatedAt)
                 

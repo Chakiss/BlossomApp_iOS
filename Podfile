@@ -43,6 +43,13 @@ target 'BlossomApp' do
   pod "GSImageViewerController"
   pod 'SwiftPhotoGallery'
   pod "AlignedCollectionViewFlowLayout"
+  
+  pod 'Alamofire'
+  
+  pod 'Mixpanel-swift'
+  
+  pod 'SwiftMessages'
+  
 #  pod 'LetterAvatarKit', '~> 1.1.7'
 #  pod 'PINRemoteImage', '~> 2.1.4'
 #  pod 'Reusable', '~> 4.0.5'

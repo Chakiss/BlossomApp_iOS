@@ -212,30 +212,10 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
         cell.doctorNameLabel.text = (doctor.firstName ?? "") + "  " + (doctor.lastName ?? "")
         
         //
-        
-        let storageRef = storage.reference().child(doctor.displayPhoto ?? "")
        
-        let metadata = StorageMetadata()
-        metadata.contentType = "image/jpeg"
-        metadata.cacheControl = "public,max-age=2592000"
-        
-        
-        storageRef.downloadURL { (URL, error) -> Void in
-          if (error != nil) {
-              cell.doctorImageView.image = UIImage(named: "placeholder")
-          } else {
-              cell.doctorImageView.kf.setImage(with: URL)
-          }
-            
-            guard let URL = URL else {
-                return
-            }
-        
-            //let resource = Source(downloadURL: URL, cacheKey: doctor)
-            //let resource = Source(URL:URL, cacheKey: doctor)
-            //
-            //cell.doctorImageView.kf_setImageWithResource(resource)
-        }
+        let imageRef = self.storage.reference().child(doctor.displayPhoto ?? "")
+        let placeholderImage = UIImage(named: "placeholder")
+        cell.doctorImageView.sd_setImage(with: imageRef, placeholderImage: placeholderImage)
         
       
         

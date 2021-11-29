@@ -83,10 +83,10 @@ class HistoryAppointmentDetailViewController: UIViewController, UITableViewDataS
         if date.count == 0 { return "" }
         
         let dateFormater = DateFormatter()
-        dateFormater.dateFormat = "YYYY-MM-dd"
+        dateFormater.dateFormat = "yyyy-MM-dd"
         let dateOfBirth = dateFormater.date(from: date)
         
-        let calender = Calendar.current
+        let calender = Calendar(identifier: .gregorian)
         
         let dateComponent = calender.dateComponents([.year, .month, .day], from:
                                                         dateOfBirth!, to: Date())

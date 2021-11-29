@@ -14,11 +14,11 @@ import UserNotifications
 import SwiftyUserDefaults
 import FirebaseRemoteConfig
 
-
 protocol DeeplinkingHandler {
     var shouldHandleDeeplink: Bool { get set }
     func handleDeeplink()
 }
+
 
 enum Deeplinking {
     case home
@@ -132,6 +132,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 
             }
         }
+        
         
         return true
         
@@ -347,6 +348,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         self.window!.rootViewController = customerTabbar
                 
     }
+    
+
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {

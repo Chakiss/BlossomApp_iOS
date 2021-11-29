@@ -74,6 +74,10 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
         
         getPromotion()
         getProduct_Hilight()
+        
+        CheckUpdate.shared.showUpdate(withConfirmation: true)
+        
+        getCustomer()
     }
     
     
@@ -101,7 +105,7 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
         
         doctorAppointmentView.addConerRadiusAndShadow()
         user = Auth.auth().currentUser
-        getCustomer()
+        
         
     }
     
@@ -211,8 +215,8 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
                     let preForm = data["preForm"] as? [String:Any] ?? ["":""]
                     let postForm = data["postForm"] as? [String:Any] ?? ["":""]
                     
-                    let createdAt = data["createdAt"] as! Timestamp
-                    let updatedAt = data["updatedAt"]  as! Timestamp
+                    let createdAt = data["createdAt"] as? Timestamp ?? Timestamp(date: Date())
+                    let updatedAt = data["updatedAt"]  as? Timestamp ?? Timestamp(date: Date())
                     
                     let appointment = Appointment(id: queryDocumentSnapshot.documentID, customerReference: cusRef!, doctorReference: doctorRef!, timeReference: timeRef!,sessionStart: sessionStart, sessionEnd: sessionEnd,preForm: preForm, postForm: postForm, createdAt: createdAt, updatedAt: updatedAt)
                    
