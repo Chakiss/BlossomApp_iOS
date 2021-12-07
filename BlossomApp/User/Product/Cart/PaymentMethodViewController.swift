@@ -139,9 +139,9 @@ class PaymentMethodViewController: UIViewController {
     }
 
     private func qrPayment(for cart: Cart) {
-        let amount = cart.purchaseOrder?.price ?? ""
+        let amount = cart.totalPrice
         let payload: [String: Any] = [
-            "amount": Double(amount) ?? 0,
+            "amount": amount,
             "orderID": "\(cart.purchaseOrder?.id ?? 0)",
             "channel": "shipnity"
         ]

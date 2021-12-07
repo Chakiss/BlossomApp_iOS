@@ -113,8 +113,7 @@ class CallManager: NSObject, CXProviderDelegate {
     func loginConnectyCube(email: String, firebaseID: String, connectyID: UInt) {
         SwiftMessages.show {
             let view = MessageView.viewFromNib(layout: .statusLine)
-            let iconText = ["🤔", "😳", "🙄", "😶"].randomElement()!
-            view.configureContent(title: "เริ่ม", body: "กำลังเชื่อมต่อระบบ", iconText: iconText)
+            view.configureContent(title: "เริ่ม", body: "กำลังเชื่อมต่อระบบ", iconText: "🤔")
 
             return view
         }
@@ -127,8 +126,7 @@ class CallManager: NSObject, CXProviderDelegate {
             self?.getDialog()
             SwiftMessages.show {
                 let view = MessageView.viewFromNib(layout: .statusLine)
-                let iconText = ["🤔", "😳", "🙄", "😶"].randomElement()!
-                view.configureContent(title: "สำเร็จ", body: "เชื่อมต่อระบบเรียบร้อย", iconText: iconText)
+                view.configureContent(title: "สำเร็จ", body: "เชื่อมต่อระบบเรียบร้อย", iconText: "😄")
 
                 return view
             }
@@ -136,8 +134,7 @@ class CallManager: NSObject, CXProviderDelegate {
             print(error)
             SwiftMessages.show {
                 let view = MessageView.viewFromNib(layout: .statusLine)
-                let iconText = ["🤔", "😳", "🙄", "😶"].randomElement()!
-                view.configureContent(title: "ล้มเหลว", body: "เชื่อมต่อระบบล้มเหลว", iconText: iconText)
+                view.configureContent(title: "ล้มเหลว", body: "เชื่อมต่อระบบล้มเหลว", iconText: "😢")
 
                 return view
             }

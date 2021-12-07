@@ -29,6 +29,7 @@ class DialogCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        self.badgeView.isHidden = true
         
     }
     

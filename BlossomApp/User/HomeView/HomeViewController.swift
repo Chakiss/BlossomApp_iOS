@@ -77,7 +77,7 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
         
         CheckUpdate.shared.showUpdate(withConfirmation: true)
         
-        getCustomer()
+        
     }
     
     
@@ -106,6 +106,7 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
         doctorAppointmentView.addConerRadiusAndShadow()
         user = Auth.auth().currentUser
         
+        getCustomer()
         
     }
     
@@ -195,6 +196,8 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
             self?.customer = customer            
             self?.getAppointmentData()
             self?.fetchProduct()
+           
+            CallManager.manager.loginConnectyCube(email: customer.email ?? "", firebaseID: customer.id ?? "", connectyID: UInt(customer.referenceConnectyCubeID ?? "") ?? 0)
         }
         
     }

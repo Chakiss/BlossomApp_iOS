@@ -23,6 +23,7 @@ class PreFormViewController: UIViewController {
     @IBOutlet weak var submitButton: UIButton!
     
     var imageArray: [UIImage] = []
+    var tmpImageViewArray: [UIImageView] = []
         
     @IBOutlet weak var collectionView: UICollectionView!
     private var pickerManager: ImagePickerManager?
@@ -79,14 +80,19 @@ class PreFormViewController: UIViewController {
                     }
                 }
             }
-
-            let attachedImageArray: [String] = (preform["attachedImages"] as? [String]) ?? []
             
-            for imageData in attachedImageArray {
+            let attachedImageArray: [String] = (preform["attachedImages"] as? [String]) ?? []
+        
+            
+            for  (index, imageData) in attachedImageArray.enumerated() {
                 let imageView = UIImageView()
+    
+                let placeholderImage = UIImage(named: "placeholder")
+                imageView.image = placeholderImage
+                self.tmpImageViewArray.append(imageView)
                 let imageRef = self.storage.reference().child(imageData)
-                imageView.sd_setImage(with: imageRef, placeholderImage: nil) { img, error, type, ref in
-                    if img != nil {
+                self.tmpImageViewArray[index].sd_setImage(with: imageRef, placeholderImage: nil) { img, error, type, ref in
+                    if error == nil {
                         self.imageArray.append(img!)
                         self.collectionView.reloadData()
                     }
@@ -123,7 +129,7 @@ class PreFormViewController: UIViewController {
             }
         }
         
-        
+        /*
         var isNeedImage = false
         
         if appointment != nil {
@@ -153,10 +159,10 @@ class PreFormViewController: UIViewController {
                 self.updateForm()
                 
             } else {
-                if attachImage.count > 0 {
+                if attachImage.count > 2 {
                     createOrder()
                 } else {
-                    showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณาแนบรูปอย่างน้อย 1 รูป") {}
+                    showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณาแนบรูปอย่างน้อย 3 รูป ด้านซ้าย หน้าตรงและด้านขวา") {}
                 }
                 
             }
@@ -169,7 +175,20 @@ class PreFormViewController: UIViewController {
             }
         }
         
+        */
         
+        if appointment != nil {
+            
+            self.updateForm()
+            
+        } else {
+            if attachImage.count > 2 {
+                createOrder()
+            } else {
+                showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณาแนบรูปอย่างน้อย 3 รูป ด้านซ้าย หน้าตรงและด้านขวา") {}
+            }
+            
+        }
     }
     
     func createOrder(){
@@ -185,7 +204,7 @@ class PreFormViewController: UIViewController {
                     
                     self.functions.httpsCallable("app-orders-createAppointmentOrder").call(payload) { [weak self] result, error in
                         
-                        ProgressHUD.dismiss()
+                        
                         guard let self = self else { return }
                         
                         if error != nil {
@@ -224,14 +243,21 @@ class PreFormViewController: UIViewController {
         
         functions.httpsCallable("app-orders-markAppointmentOrderPaid").call(payload) { result, error in
             
-            ProgressHUD.dismiss()
+            
             if error != nil {
                 let alert = UIAlertController(title: "กรุณาตรวจสอบ", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             }
             else {
+                
                 let appointment = result?.data as? [String : String] ?? ["":""]
+                
+                if let appointmentID = appointment["appointmentID"] {
+                    self.appointmentID = appointmentID
+                    self.updateForm()
+
+                }
                 
                 // 1
                 let eventStore = EKEventStore()
@@ -282,11 +308,7 @@ class PreFormViewController: UIViewController {
                 }
 
                 
-                if let appointmentID = appointment["appointmentID"] {
-                    self.appointmentID = appointmentID
-                    self.updateForm()
-
-                }
+             
                 
 
                 
@@ -319,7 +341,7 @@ class PreFormViewController: UIViewController {
     func updateForm(){
         
         if attachImage.count == 0 {
-            showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณาแนบรูปอย่างน้อย 1 รูป") {}
+            showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณาแนบรูปอย่างน้อย 3 รูป") {}
         } else {
             ProgressHUD.show()
             let payload = ["appointmentID": self.appointmentID,

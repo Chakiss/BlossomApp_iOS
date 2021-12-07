@@ -59,7 +59,7 @@ class CustomerManager: NSObject {
             }
 
             self.customer = customer
-            CallManager.manager.loginConnectyCube(email: customer!.email ?? "", firebaseID: customer!.id ?? "", connectyID: UInt(customer?.referenceConnectyCubeID ?? "") ?? 0)
+          
             completion()
             
         }

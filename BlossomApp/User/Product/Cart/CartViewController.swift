@@ -159,8 +159,8 @@ class CartViewController: UIViewController {
         
         
         self.cart?.shippingFee = Int(self.shippingFee)
-        let totalText = (total + self.shippingFee - (Double(orderDiscount) ?? 0) - promoDiscount).toAmountText()
-        self.cartHeaderModel?.priceText = totalText
+        self.cart?.totalPrice = total + self.shippingFee - (Double(orderDiscount) ?? 0) - promoDiscount
+        self.cartHeaderModel?.priceText = self.cart?.totalPrice.toAmountText() ?? "0"
         self.checkoutButton.isEnabled = self.cart?.items.count ?? 0 > 0
         self.checkoutButton.alpha = (self.checkoutButton.isEnabled ) ? 1.0 : 0.5
         
@@ -472,14 +472,20 @@ extension CartViewController: CartHeaderTableViewCellDelegate {
             
             let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! CartHeaderTableViewCell
             if response?.promo_codes?.count ?? 0 > 0 {
+                
                 let promocode = (response?.promo_codes?.first)! as Promo_codes
                 
                 self.promoCodeID = promocode.id ?? 0
                 
                 if promocode.code == codeID {
-                    self.selectedPromoCode = promocode
-                    self.rendorPromoCode(promocode)
                     
+                    if (self.cart?.totalPrice ?? 0.0) < Double(promocode.min_redeem_value ?? "0.0")! {
+                        self.showAlertDialogue(title: "ขออภัย", message: "รหัสส่วนลดใช้สำหรับยอดซื้อขั้นต่ำ \(promocode.min_redeem_value!) บาท", completion: {
+                        })
+                    } else {
+                        self.selectedPromoCode = promocode
+                        self.rendorPromoCode(promocode)
+                    }
                 } else {
                     cell.rendorPromoCode(isValid: false, discount: 0, promoCode: Promo_codes())
                 }

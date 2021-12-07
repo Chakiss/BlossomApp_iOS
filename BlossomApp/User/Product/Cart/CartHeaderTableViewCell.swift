@@ -98,7 +98,6 @@ class CartHeaderTableViewCell: UITableViewCell, UITextFieldDelegate {
             } else {
                 self.promoCodeLabel.text = "รหัสส่วนลดพร้อมใช้งาน ลด \(discount) บาท"
             }
-            //self.delegate?.cartHeaderApplyPromoCode(codeID: promocode.id!)
         } else {
             self.promoCodeLabel.textColor = UIColor.red
             self.promoCodeLabel.text = "ไม่พบรหัสส่วนลด"

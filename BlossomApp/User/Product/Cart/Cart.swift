@@ -52,6 +52,7 @@ class Cart {
     private(set) var items: [CartItem] = []
     private(set) var purchaseOrder: Order?
     var shippingFee: Int = 0
+    var totalPrice: Double = 0.0
     public func addItem(_ product: Product, quantity: Int = 1, purchaseID: String? = nil) {
         
         let item: CartItem = CartItem(product: product, quantity: quantity, purchaseID: purchaseID)
@@ -106,6 +107,10 @@ class Cart {
     
     public func shippingFeeInSatang() -> Int {
         return (shippingFee * 100)
+    }
+    
+    public func TotalPriceInSatang() -> Int {
+        return Int(totalPrice * 100)
     }
     
     public func getPurcahseAttributes() -> [PurchasesAttribute] {
