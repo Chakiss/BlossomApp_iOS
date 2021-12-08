@@ -263,6 +263,7 @@ class CartViewController: UIViewController {
         }
         
         let name = (customer.firstName ?? "") + " " + (customer.lastName ?? "")
+        let orderDiscount = Double(self.cart?.purchaseOrder?.orderDiscount ?? "0.0")
         
         let order = PurchaseOrder(customer: Int(customer.referenceShipnityID ?? "") ?? 0,
                                   name: name,
@@ -274,7 +275,7 @@ class CartViewController: UIViewController {
                                   tag: "app",
                                   shippingType: shippingBy,
                                   shippingFee: Int(shippingFee),
-                                  orderDiscount: 0,
+                                  orderDiscount: Int(orderDiscount!),
                                   purchasesAttributes: cart?.getPurcahseAttributes() ?? [],
                                   promo_code_id: self.promoCodeID)
         ProgressHUD.show()
@@ -515,6 +516,7 @@ extension CartViewController: CartHeaderTableViewCellDelegate {
         cell.rendorPromoCode(isValid: true, discount: promodiscount, promoCode: promocode)
         
         self.updateTotalPrice()
+        self.tableView.reloadData()
     }
     
 //    private func showProfile() {

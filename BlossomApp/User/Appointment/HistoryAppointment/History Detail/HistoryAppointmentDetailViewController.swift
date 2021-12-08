@@ -28,6 +28,7 @@ class HistoryAppointmentDetailViewController: UIViewController, UITableViewDataS
     var profile = ""
     var index: Int = 0
     var imageLoadedArray: [UIImage] = []
+    var tmpImageViewArray: [UIImageView] = []
     
     @IBOutlet weak var allAppointmentButton: UIButton!
     var isShowAppointmentButton = true
@@ -74,6 +75,25 @@ class HistoryAppointmentDetailViewController: UIViewController, UITableViewDataS
         
         if isShowAppointmentButton == false {
             self.allAppointmentButton.isHidden = true
+        }
+        
+        let preform: [String:Any] = appointment?.preForm ?? ["":""]
+        let attachedImageArray: [String] = (preform["attachedImages"] as? [String]) ?? []
+    
+        
+        for  (index, imageData) in attachedImageArray.enumerated() {
+            let imageView = UIImageView()
+
+            let placeholderImage = UIImage(named: "placeholder")
+            imageView.image = placeholderImage
+            self.tmpImageViewArray.append(imageView)
+            let imageRef = self.storage.reference().child(imageData)
+            self.tmpImageViewArray[index].sd_setImage(with: imageRef, placeholderImage: nil) { img, error, type, ref in
+                if error == nil {
+                    self.imageLoadedArray.append(img!)
+                   
+                }
+            }
         }
         
     }
@@ -210,8 +230,8 @@ extension HistoryAppointmentDetailViewController: UICollectionViewDelegate, UICo
         gallery.transitioningDelegate = self
 
 
-        present(gallery, animated: true, completion: { () -> Void in
-            gallery.currentPage = self.index
+        present(gallery, animated: false, completion: { () -> Void in
+            gallery.currentPage = indexPath.row
         })
     }
 }
