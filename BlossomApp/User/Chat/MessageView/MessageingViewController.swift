@@ -48,11 +48,13 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
         
         keyboardObserver.subscribe(events: [.willChangeFrame, .dragDown]) { [weak self] (info) in
             guard let weakSelf = self else { return }
-            let bottom = (info.isShowing
-                ? (-info.visibleHeight) + weakSelf.view.backwardSafeAreaInsets.bottom
-                : 0
-            )
+            let bottom = (info.isShowing ? (-info.visibleHeight) + weakSelf.view.backwardSafeAreaInsets.bottom: 0)
             UIView.animate(info, animations: { [weak self] in
+                
+                let insets: UIEdgeInsets = UIEdgeInsets( top: 0, left: 0, bottom: 0, right: 0 )
+                self?.tableView.contentInset = insets
+                self?.tableView.scrollIndicatorInsets = insets
+                
                 
                 self?.bottomConstraint.constant = bottom
                 self?.view.layoutIfNeeded()
@@ -60,17 +62,19 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
         }
         
         
-        NotificationCenter.default.addObserver(self,
-               selector: #selector(self.keyboardNotification(notification:)),
-               name: UIResponder.keyboardWillChangeFrameNotification,
-               object: nil)
-        
+//        NotificationCenter.default.addObserver(self,
+//               selector: #selector(self.keyboardNotification(notification:)),
+//               name: UIResponder.keyboardWillChangeFrameNotification,
+//               object: nil)
+//
 
     }
+/*
     deinit {
          NotificationCenter.default.removeObserver(self)
        }
-    
+  */
+    /*
     @objc func keyboardNotification(notification: NSNotification) {
        guard let userInfo = notification.userInfo else { return }
 
@@ -95,6 +99,7 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
          animations: { self.view.layoutIfNeeded() },
          completion: nil)
      }
+     */
     func requestMessages() {
 //        Request.messages(withDialogID: chatdialog?.id ?? "",
 //                         extendedRequest: ["date_sent[gt]":"1455098137"],
