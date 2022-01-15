@@ -173,25 +173,20 @@ class PaymentMethodViewController: UIViewController {
         }
     }
     
-    private func updateOrderPayment(omise: OmisePaymentResponse) {
-        self.omiseResponse = omise
+    private func updateOrderPayment(response: OmisePaymentResponse) {
+
         
-        let paidAt = omise.paidAt ?? ""
-        let formatter = ISO8601DateFormatter()
-        let date = formatter.date(from: paidAt) ?? Date()
-        
-        guard let authorizeURI = omise.authorizeURI,
-              let components = URLComponents(string: "https://www.blossomclinicthailand.com/omise"),
-              let url = URL(string: authorizeURI) else {
-            updateOrderPayment(paidAt: date, omiseID: omise.id)
-            return
-        }
+        guard let url = URL(string: response.authorizeURI!),
+              let components = URLComponents(string: "https://www.blossomclinicthailand.com/omise") else {
+                  return
+              }
         
         let webview = AuthorizingPaymentViewController.makeAuthorizingPaymentViewControllerWithAuthorizedURL(url, expectedReturnURLPatterns: [components], delegate: self)
         let navigationController = BlossomNavigationController(rootViewController: webview)
         navigationController.modalPresentationStyle = .fullScreen
         present(navigationController, animated: true, completion: nil)
         
+    
     }
     
     private func updateOrderPayment(paidAt date: Date, omiseID: String? = nil) {
@@ -240,26 +235,43 @@ extension PaymentMethodViewController : CreditCardFormViewControllerDelegate {
     func creditCardFormViewController(_ controller: CreditCardFormViewController, didSucceedWithToken token: Token) {
         
         let orderID = appointmentOrder != nil ? "\(appointmentOrder!.id)" : "\(cart?.purchaseOrder?.id ?? 0)"
-        let amountSatang = appointmentOrder != nil ? appointmentOrder!.amount*100 : (cart?.calculateTotalPriceInSatang() ?? 0) + (cart?.shippingFeeInSatang() ?? 0) 
-        let ref = appointmentOrder != nil ? "1Z\(appointmentOrder!.id)" : "2Z\(cart?.purchaseOrder?.id ?? 0)"
+        let amountSatang = appointmentOrder != nil ? appointmentOrder!.amount : (cart?.calculateTotalPrice() ?? 0) + (cart?.shippingFeeInSatang() ?? 0)
+        //let ref = appointmentOrder != nil ? "1Z\(appointmentOrder!.id)" : "2Z\(cart?.purchaseOrder?.id ?? 0)"
         ProgressHUD.show()
-        APIProduct.chargeCreditCard(orderID: orderID, amountSatang: amountSatang, token: token.id, ref: ref) { [weak self, weak controller] response in
+        
+        let payload: [String: Any] = [
+            "orderID": orderID,
+            "amount": amountSatang,
+            "token": token.id
+        ]
+        Functions.functions().httpsCallable("app-payments-chargeOmise").call(payload) { [weak self] result, error in
             ProgressHUD.dismiss()
-            guard let response = response else {
-                controller?.showAlertDialogue(title: "ไม่สามารถชำระเงินด้วยบัตรเครดิตได้", message: "กรุณาลองใหม่ภายหลัง", completion: {
+            
+            guard let uri = result?.data as? NSDictionary else {
+                controller.showAlertDialogue(title: "ไม่สามารถชำระเงินด้วยบัตรเครดิตได้", message: "กรุณาลองใหม่ภายหลัง", completion: {
                 })
                 return
             }
             
-            guard response.failureMessage == nil else {
-                controller?.showAlertDialogue(title: "ไม่สามารถชำระเงินด้วยบัตรเครดิตได้", message: "กรุณาลองใหม่ภายหลัง\n\n(\(response.failureMessage!))", completion: {
-                })
+           
+            let date = Date()//formatter.date(from: paidAt) ?? Date()
+            guard let authorize_uri = uri["authorize_uri"] as? String,
+                  let return_uri = uri["return_uri"] as? String else {
+                self?.updateOrderPayment(paidAt: date, omiseID: "")
                 return
             }
+            
+            var omiseResponse = OmisePaymentResponse()
+            omiseResponse.authorizeURI = authorize_uri
+            omiseResponse.returnURI = return_uri
+             
+            self?.omiseResponse = omiseResponse
             
             self?.dismiss(animated: true, completion: nil)
-            self?.updateOrderPayment(omise: response)
-        }.request()
+            self?.updateOrderPayment(response: omiseResponse)
+        }
+        
+        
     }
     
     func creditCardFormViewController(_ controller: CreditCardFormViewController, didFailWithError error: Error) {
@@ -277,26 +289,17 @@ extension PaymentMethodViewController : CreditCardFormViewControllerDelegate {
 extension PaymentMethodViewController : AuthorizingPaymentViewControllerDelegate {
     
     func authorizingPaymentViewController(_ viewController: AuthorizingPaymentViewController, didCompleteAuthorizingPaymentWithRedirectedURL redirectedURL: URL) {
+        
         dismiss(animated: true, completion: nil)
         
         guard let omise = self.omiseResponse else {
             return
         }
         
-        ProgressHUD.show()
-        APIProduct.getChargeCreditCard(chargeID: omise.id ?? "") {[weak self] omiseResponse in
-            ProgressHUD.dismiss()
-            guard let response = omiseResponse else {
-                self?.showAlertDialogue(title: "ไม่สามารถอัพเดตสถานะคำสั่งซื้อได้", message: "กรุณาแจ้งเจ้าหน้าที่ และบันทึกหน้าจอนี้\n(Omise: \(omise.id ?? "n/a"))", completion: {
-                })
-                return
-            }
-            let paidAt = response.paidAt ?? ""
-            let formatter = ISO8601DateFormatter()
-            let date = formatter.date(from: paidAt) ?? Date()
-            self?.updateOrderPayment(paidAt: date, omiseID: response.id)
-        }.request()
-        
+        if redirectedURL.absoluteString == omise.returnURI {
+            self.updateOrderPayment(paidAt: Date(), omiseID: "")
+        }
+       
     }
     
     func authorizingPaymentViewControllerDidCancel(_ viewController: AuthorizingPaymentViewController) {
@@ -310,7 +313,9 @@ fileprivate class CreditCardInputViewController: UIViewController {
     weak var delegate: CreditCardFormViewControllerDelegate?
     
     private lazy var omiseView: CreditCardFormViewController = {
-        let publicKey = "pkey_5ngemrt9grz0ail7cj0"
+        //pkey_test_5mmq1gnwqw4n78r3sil
+        //"pkey_5ngemrt9grz0ail7cj0"
+        let publicKey = "pkey_test_5mmq1gnwqw4n78r3sil"
         let creditCardView = CreditCardFormViewController.makeCreditCardFormViewController(withPublicKey: publicKey)
         creditCardView.preferredPrimaryColor = UIColor.blossomPrimary
         creditCardView.preferredSecondaryColor = UIColor.blossomLightGray

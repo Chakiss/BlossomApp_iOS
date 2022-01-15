@@ -17,9 +17,9 @@ enum APIProduct {
     case list(completion: (ProductsResponse?)->Swift.Void)
     case createOrder(po: CreateOrderRequest, completion: (CreateOrderResponse?)->Swift.Void)
     case updateOrder(orderID: Int, po: UpdateOrderRequest, completion: (UpdateOrderResponse?)->Swift.Void)
-    case chargeCreditCard(orderID: String, amountSatang: Int, token: String, ref: String, completion: (OmisePaymentResponse?)->Swift.Void)
+    //case chargeCreditCard(orderID: String, amountSatang: Int, token: String, ref: String, completion: (OmisePaymentResponse?)->Swift.Void)
     case updateOrderNote(orderID: Int, note: String, completion: (UpdateOrderResponse?)->Swift.Void)
-    case getChargeCreditCard(chargeID: String, completion: (OmisePaymentResponse?)->Swift.Void)
+    //case getChargeCreditCard(chargeID: String, completion: (OmisePaymentResponse?)->Swift.Void)
     case updateOrderPayment(bank: String, orderID: Int, completion: (Bool)->Swift.Void)
     case getOrder(term: String, page: Int, completion: (OrderResponse?)->Swift.Void)
     case getOrderByID(shipnityID: String, completion: (OrderResponse?)->Swift.Void)
@@ -34,10 +34,11 @@ enum APIProduct {
             return "https://www.shipnity.pro/api/v2/orders"
         case .updateOrder(let orderID, _, _), .updateOrderNote(let orderID, _, _):
             return "https://www.shipnity.pro/api/v2/orders/\(orderID)"
-        case .chargeCreditCard:
-            return "https://api.omise.co/charges"
-        case .getChargeCreditCard(let chargeID, _):
-            return "https://api.omise.co/charges/\(chargeID)"
+//        case .chargeCreditCard:
+//            return "https://api.omise.co/charges"
+//        case .getChargeCreditCard(let chargeID, _):
+//            return "https://api.omise.co/charges/\(chargeID)"
+        
         case .updateOrderPayment(_, let orderID,_):
             return "https://www.shipnity.pro/api/v2/orders/\(orderID)/payment"
         case .getOrder:
@@ -106,35 +107,35 @@ enum APIProduct {
                     completion(orderResponse)
                 }
             
-        case let .chargeCreditCard(orderID, amount, token, ref, completion):
-            let parameters: Parameters = [
-                "amount": amount,
-                "currency": "thb",
-                "card": token,
-                "metadata": [ "ref1": ref ],
-                "return_uri": "https://www.blossomclinicthailand.com/omise/\(orderID)/complete"
-            ]
-            debugPrint("\(endpoint()), \(parameters)")
-
-            AF.request(endpoint(), method: .post, parameters: parameters, headers: ["Authorization":"Basic c2tleV81bmdsbTNqYnpyb2dpcnRkdGY3Og=="])
-                .validate()
-                .responseDecodable(of: OmisePaymentResponse.self) { (response) in
-                    guard let orderResponse = response.value else {
-                        completion(nil)
-                        return
-                    }
-                    completion(orderResponse)
-                }
-        case let .getChargeCreditCard(_, completion):
-            AF.request(endpoint(), method: .get, headers: ["Authorization":"Basic c2tleV81bmdsbTNqYnpyb2dpcnRkdGY3Og=="])
-                .validate()
-                .responseDecodable(of: OmisePaymentResponse.self) { (response) in
-                    guard let orderResponse = response.value else {
-                        completion(nil)
-                        return
-                    }
-                    completion(orderResponse)
-                }
+//        case let .chargeCreditCard(orderID, amount, token, ref, completion):
+//            let parameters: Parameters = [
+//                "amount": amount,
+//                "currency": "thb",
+//                "card": token,
+//                "metadata": [ "ref1": ref ],
+//                "return_uri": "https://www.blossomclinicthailand.com/omise/\(orderID)/complete"
+//            ]
+//            debugPrint("\(endpoint()), \(parameters)")
+//
+//            AF.request(endpoint(), method: .post, parameters: parameters, headers: ["Authorization":"Basic c2tleV81bmdsbTNqYnpyb2dpcnRkdGY3Og=="])
+//                .validate()
+//                .responseDecodable(of: OmisePaymentResponse.self) { (response) in
+//                    guard let orderResponse = response.value else {
+//                        completion(nil)
+//                        return
+//                    }
+//                    completion(orderResponse)
+//                }
+//        case let .getChargeCreditCard(_, completion):
+//            AF.request(endpoint(), method: .get, headers: ["Authorization":"Basic c2tleV81bmdsbTNqYnpyb2dpcnRkdGY3Og=="])
+//                .validate()
+//                .responseDecodable(of: OmisePaymentResponse.self) { (response) in
+//                    guard let orderResponse = response.value else {
+//                        completion(nil)
+//                        return
+//                    }
+//                    completion(orderResponse)
+//                }
          
         case let .updateOrderPayment(bankName, _, completion):
             let parameters: Parameters = [

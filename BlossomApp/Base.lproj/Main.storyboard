@@ -2982,7 +2982,6 @@
                                                 <constraint firstItem="Nht-Cr-BDJ" firstAttribute="trailing" secondItem="neb-00-pDw" secondAttribute="trailing" id="Y9f-8G-R5I"/>
                                                 <constraint firstItem="SgO-lh-AuS" firstAttribute="top" secondItem="neb-00-pDw" secondAttribute="top" id="bhG-wm-El0"/>
                                                 <constraint firstItem="MCK-Pd-v4P" firstAttribute="leading" secondItem="neb-00-pDw" secondAttribute="trailing" constant="10" id="ejK-ow-c27"/>
-                                                <constraint firstItem="SgO-lh-AuS" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="neb-00-pDw" secondAttribute="trailing" constant="8" symbolic="YES" id="gC8-80-X25"/>
                                                 <constraint firstAttribute="trailing" secondItem="MCK-Pd-v4P" secondAttribute="trailing" constant="20" id="gto-ye-ScT"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="oRo-7i-6rc" secondAttribute="bottom" constant="20" id="iNV-UO-epZ"/>
                                                 <constraint firstItem="oRo-7i-6rc" firstAttribute="top" secondItem="Azd-YL-gge" secondAttribute="top" constant="20" id="lGZ-Ya-dOS"/>

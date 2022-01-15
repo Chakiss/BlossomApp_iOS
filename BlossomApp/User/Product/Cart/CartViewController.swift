@@ -119,8 +119,13 @@ class CartViewController: UIViewController {
         APIProduct.calculateShipping(items: self.cart?.getPurcahseAttributes() ?? []) { response in
             ProgressHUD.dismiss()
             guard let response = response else {
-                self.showAlertDialogue(title: "ขออภัย", message: "ไม่สามารถส่งคำสั่งซื้อได้ในขณะนี้", completion: {
-                })
+               
+                if self.cart?.items.count ?? 0 > 0 {
+                    self.shippingFee = 0
+                    self.shippingBy = "J&T Express"
+                    self.updatePricewithShipping()
+                }
+                
                 return
             }
             
@@ -169,14 +174,14 @@ class CartViewController: UIViewController {
     }
     
     
-    private func checkSetProduct() -> Bool {
-        if let setProduct =  cart?.items.filter({ $0.product.code == "37" || $0.product.code == "38" || $0.product.code == "39" || $0.product.code == "40" || $0.product.code == "41" || $0.product.code == "42" || $0.product.code == "43" })  {
-            if setProduct.count > 0 {
-                return true
-            }
-        }
-        return false
-    }
+//    private func checkSetProduct() -> Bool {
+//        if let setProduct =  cart?.items.filter({ $0.product.code == "37" || $0.product.code == "38" || $0.product.code == "39" || $0.product.code == "40" || $0.product.code == "41" || $0.product.code == "42" || $0.product.code == "43" })  {
+//            if setProduct.count > 0 {
+//                return true
+//            }
+//        }
+//        return false
+//    }
     
     /*
     // MARK: - Navigation
@@ -347,6 +352,10 @@ extension CartViewController: ProductListViewControllerDelegate {
         cart?.addItem(product, quantity: 1)
         self.navigationController?.popViewController(animated: true)
     }
+    func productListDidSelect(set: Sets) {
+        cart?.addSet(set)
+        self.navigationController?.popViewController(animated: true)
+    }
     
 }
 
@@ -420,19 +429,44 @@ extension CartViewController: CartItemTableViewCellDelegate {
         })
     }
     
+    private func removeWarning(for set: Sets) {
+        showConfirmDialogue(title: "ลบสินค้า", message: "คุณต้องการลบสินค้า \(set.name ?? "") ออกจากตะกร้าใช่ไหม ?", completion: { [weak self] in
+            
+            guard let self = self else {
+                return
+            }
+            
+            self.cart?.removeSet(set)
+            self.updateTotalPrice()
+            self.tableView.reloadData()
+            
+        })
+    }
+    
+    
     func cellDidDecreaseItem(cell: CartItemTableViewCell) {
         if let indexPath = tableView.indexPath(for: cell),
            let items = cart?.items, indexPath.row < items.count {
             let item = items[indexPath.row]
             
             guard item.quantity > 1 else {
-                removeWarning(for: item.product)
+                if item.set != nil {
+                    removeWarning(for: item.set!)
+                }else {
+                    removeWarning(for: item.product!)
+                }
+                
                 return
             }
-            
-            cart?.removeItem(item.product)
-            updateTotalPrice()
-            tableView.reloadData()
+            if item.set != nil {
+                cart?.removeSet(item.set!)
+                updateTotalPrice()
+                tableView.reloadData()
+            } else {
+                cart?.removeItem(item.product!)
+                updateTotalPrice()
+                tableView.reloadData()
+            }
         }
     }
     
@@ -440,9 +474,16 @@ extension CartViewController: CartItemTableViewCellDelegate {
         if let indexPath = tableView.indexPath(for: cell),
            let items = cart?.items, indexPath.row < items.count {
             let item = items[indexPath.row]
-            cart?.addItem(item.product)
-            updateTotalPrice()
-            tableView.reloadData()
+            
+            if item.set != nil {
+                cart?.addSet(item.set!)
+                updateTotalPrice()
+                tableView.reloadData()
+            } else {
+                cart?.addItem(item.product!)
+                updateTotalPrice()
+                tableView.reloadData()
+            }
         }
     }
     

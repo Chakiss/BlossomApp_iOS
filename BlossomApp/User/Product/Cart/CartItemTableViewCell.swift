@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 protocol CartItemTableViewCellDelegate: AnyObject {
     func cellDidDecreaseItem(cell: CartItemTableViewCell)
@@ -67,14 +68,38 @@ class CartItemTableViewCell: UITableViewCell {
     }
     
     public func render(_ model: CartItem) {
-        productNameLabel.text = (model.product.name ?? "")
-        amountTitleLabel.text = "จำนวน"
-        amountLabel.text = "\(model.quantity)"
-        priceLabel.text = "ราคา \(model.product.priceInSatang().satangToBaht().toAmountText()) บาท"
+        if model.set != nil {
+            
+            Firestore.firestore().collection("set_product").document(model.set?.code ?? "").getDocument { documentSnapshot, error in
+                let snapshotData = documentSnapshot?.data()
+                let image = snapshotData?["image"] as? String ?? ""
+                
+                self.productNameLabel.text = (model.set?.name ?? "")
+                self.amountTitleLabel.text = "จำนวน"
+                self.amountLabel.text = "\(model.quantity)"
+                
+                let price = model.set?.priceInSatang().satangToBaht() ?? 0
+                self.priceLabel.text = "ราคา \(price.toAmountText()) บาท"
+                
+                
+                self.productImageView.kf.setImage(with: URL(string: image), placeholder: UIImage(named: "placeholder"))
+                self.productImageView.addConerRadiusAndShadow()
+                
+            }
+        }
         
-        let url = URL(string: model.product.image ?? "")
-        productImageView.kf.setImage(with: url, placeholder: UIImage(named: "placeholder"))
-        productImageView.addConerRadiusAndShadow()
+        if model.product != nil {
+            productNameLabel.text = (model.product?.name ?? "")
+            amountTitleLabel.text = "จำนวน"
+            amountLabel.text = "\(model.quantity)"
+            
+            let price = model.product?.priceInSatang().satangToBaht() ?? 0
+            priceLabel.text = "ราคา \(price.toAmountText()) บาท"
+            
+            let url = URL(string: model.product?.image ?? "")
+            productImageView.kf.setImage(with: url, placeholder: UIImage(named: "placeholder"))
+            productImageView.addConerRadiusAndShadow()
+        }
     }
     
     @IBAction func decreaseItem(_ sender: Any) {

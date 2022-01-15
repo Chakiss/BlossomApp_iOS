@@ -31,7 +31,7 @@ class ImagePickerManager: NSObject, UIImagePickerControllerDelegate, UINavigatio
 
         // Add the actions
         picker.delegate = self
-        picker.allowsEditing = true
+        picker.allowsEditing = false
         alert.addAction(cameraAction)
         alert.addAction(galleryAction)
         alert.addAction(cancelAction)
@@ -81,7 +81,7 @@ class ImagePickerManager: NSObject, UIImagePickerControllerDelegate, UINavigatio
     // For Swift 4.2+
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true, completion: nil)
-        guard let image = info[.editedImage] as? UIImage else {
+        guard let image = info[.originalImage] as? UIImage else {
             fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
         }
         pickImageCallback?(image)

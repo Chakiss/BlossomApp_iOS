@@ -170,6 +170,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let pushCredentials = deviceToken.map { String(format: "%02x", $0) }.joined()
         print("didRegisterForRemoteNotificationsWithDeviceToken -> deviceToken :\(pushCredentials)")
         CustomerManager.sharedInstance.saveDeviceToken(deviceToken)
+       
+        
+        let payload = ["token": pushCredentials,
+                       "os": "ios"] as [String : Any]
+        
+        Functions.functions().httpsCallable("app-users-addDeviceToken").call(payload) { result, error in
+            ProgressHUD.dismiss()
+            
+        }
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {

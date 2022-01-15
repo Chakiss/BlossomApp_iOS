@@ -8,6 +8,8 @@
 import UIKit
 import Alamofire
 import SwiftyUserDefaults
+import Firebase
+import FirebaseFirestore
 
 protocol ProductListPrescriptionDelegate: AnyObject {
     func productListDidFinish()
@@ -15,6 +17,7 @@ protocol ProductListPrescriptionDelegate: AnyObject {
 
 protocol ProductListViewControllerDelegate: AnyObject {
     func productListDidSelect(product: Product)
+    func productListDidSelect(set: Sets)
 }
 
 class ProductListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
@@ -24,6 +27,10 @@ class ProductListViewController: UIViewController, UITableViewDataSource, UITabl
     @IBOutlet weak var headerImageView: UIImageView!
     
     private var products: [Product] = []
+    
+    private var setProducts: [Sets] = []
+    
+    let db = Firestore.firestore()
     
     var deeplinkID: String = ""
     var customer: Customer?
@@ -103,44 +110,96 @@ class ProductListViewController: UIViewController, UITableViewDataSource, UITabl
         
     }
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        1
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        /*if section == 0 {
+            return setProducts.count
+        }
+        else {
+            return products.count
+        }
+        */
         return products.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let product = products[indexPath.row]
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ProductCell", for: indexPath) as! ProductCell
-        
-        cell.selectionStyle = .none
-        cell.delegate = self
-        cell.productNameLabel.text = product.name
-        cell.productPriceLabel.text = product.priceInSatang().satangToBaht().toAmountText() + " บาท"
-        
-        let url = URL(string: product.image ?? "")
-        cell.productImageView.kf.setImage(with: url, placeholder: UIImage(named: "placeholder"))
-        cell.productImageView.addConerRadiusAndShadow()
-        
-        
-        cell.inventoryLabel.text = product.description_short?.count ?? 0 > 0 ? product.description_short : "Set ผลิตภัณฑ์"
-        
-        return cell
+        /*
+        if indexPath.section == 0 {
+            let setproduct = setProducts[indexPath.row]
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ProductCell", for: indexPath) as! ProductCell
+            
+            cell.selectionStyle = .none
+            cell.delegate = self
+            cell.productNameLabel.text = setproduct.name
+            cell.productPriceLabel.text = setproduct.price! + " บาท"
+            
+            
+            db.collection("set_product").document(setproduct.code ?? "").getDocument { documentSnapshot, error in
+                let snapshotData = documentSnapshot?.data()
+                let image = snapshotData?["image"] as? String ?? ""
+                let description = snapshotData?["description"] as? String ?? ""
+                cell.productImageView.kf.setImage(with: URL(string: image), placeholder: UIImage(named: "placeholder"))
+                cell.productImageView.addConerRadiusAndShadow()
+                cell.inventoryLabel.text = description
+            }
+            
+            return cell
+        } else {
+         */
+            let product = products[indexPath.row]
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ProductCell", for: indexPath) as! ProductCell
+            
+            cell.selectionStyle = .none
+            cell.delegate = self
+            cell.productNameLabel.text = product.name
+            cell.productPriceLabel.text = product.priceInSatang().satangToBaht().toAmountText() + " บาท"
+            
+            let url = URL(string: product.image ?? "")
+            cell.productImageView.kf.setImage(with: url, placeholder: UIImage(named: "placeholder"))
+            cell.productImageView.addConerRadiusAndShadow()
+            
+            
+            cell.inventoryLabel.text = product.description_short?.count ?? 0 > 0 ? product.description_short : "Set ผลิตภัณฑ์"
+            
+            return cell
+       // }
     }
 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let product = products[indexPath.row]
-        
-        guard delegate == nil else {
-            return
-        }
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let viewController = storyboard.instantiateViewController(withIdentifier: "ProductDetailViewController") as! ProductDetailViewController
-        viewController.product = product
-        viewController.hidesBottomBarWhenPushed = true
-        self.navigationController?.pushViewController(viewController, animated: true)
+        /*
+        if indexPath.section == 0 {
+            let setProduct = setProducts[indexPath.row]
+            
+            guard delegate == nil else {
+                return
+            }
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let viewController = storyboard.instantiateViewController(withIdentifier: "ProductDetailViewController") as! ProductDetailViewController
+            viewController.set = setProduct
+            viewController.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(viewController, animated: true)
+            
+        } else {
+         */
+            let product = products[indexPath.row]
+            
+            guard delegate == nil else {
+                return
+            }
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let viewController = storyboard.instantiateViewController(withIdentifier: "ProductDetailViewController") as! ProductDetailViewController
+            viewController.product = product
+            viewController.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(viewController, animated: true)
+        //}
     }
     
     func checkDeepLink() {
@@ -175,16 +234,32 @@ extension ProductListViewController: ProductCellDelegate {
             return
         }
         
-        let product = products[indexPath.row]
-
-        guard let delegate = delegate else {
-            buttonHandlerAddToCart(cell.addToCartButton)
-            CartManager.shared.addItem(product)
-            updateCartButton()
-            return
-        }
         
-        delegate.productListDidSelect(product: product)
+
+//        if indexPath.section == 0 {
+//            let setProduct = setProducts[indexPath.row]
+//
+//            guard let delegate = delegate else {
+//                buttonHandlerAddToCart(cell.addToCartButton)
+//                CartManager.shared.addSet(setProduct)
+//                updateCartButton()
+//                return
+//            }
+//
+//            delegate.productListDidSelect(set: setProduct)
+//        } else {
+//
+            let product = products[indexPath.row]
+            
+            guard let delegate = delegate else {
+                buttonHandlerAddToCart(cell.addToCartButton)
+                CartManager.shared.addItem(product)
+                updateCartButton()
+                return
+            }
+            
+            delegate.productListDidSelect(product: product)
+       // }
     }
     
 }
@@ -202,8 +277,12 @@ extension ProductListViewController {
             .responseDecodable(of: ProductsResponse.self) { (response) in
                 ProgressHUD.dismiss()
                 guard let productsResponse = response.value else { return }
+                
                 self.products = productsResponse.products ?? []
                 self.products.reverse()
+                
+                self.setProducts = productsResponse.sets ?? []
+                
                 self.tableView.reloadData()
                 self.checkDeepLink()
             }

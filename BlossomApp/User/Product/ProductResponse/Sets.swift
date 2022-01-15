@@ -13,13 +13,13 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 
 import Foundation
 struct Sets : Codable {
-	let id : Int?
-	let name : String?
-	let code : String?
-	let object_available : Int?
-	let price : String?
-	let slug : String?
-	let product_set_items : [Product_set_items]?
+    var id : Int?
+    var name : String?
+    var code : String?
+    var object_available : Int?
+    var price : String?
+    var slug : String?
+    var product_set_items : [Product_set_items]?
 
 	enum CodingKeys: String, CodingKey {
 
@@ -42,5 +42,16 @@ struct Sets : Codable {
 		slug = try values.decodeIfPresent(String.self, forKey: .slug)
 		product_set_items = try values.decodeIfPresent([Product_set_items].self, forKey: .product_set_items)
 	}
+    
+    init() {
+        id = 0
+        name = ""
+        code = ""
+        object_available = 0
+        price = ""
+        slug = ""
+        product_set_items = []
+    }
+    
 
 }

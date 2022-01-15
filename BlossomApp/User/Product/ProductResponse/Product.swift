@@ -104,7 +104,30 @@ extension Product {
     func priceInSatang() -> Int {
         let baht = price?.components(separatedBy: CharacterSet(charactersIn: ",")).joined() ?? ""
         let bahtValue = Double(baht) ?? 0.0
+        let bathIntVale = Int(bahtValue*100)
+        return bathIntVale
+    }
+    
+    func priceInBaht() -> Int {
+        let baht = price?.components(separatedBy: CharacterSet(charactersIn: ",")).joined() ?? ""
+        let bahtValue = Double(baht) ?? 0.0
+        return Int(bahtValue)
+    }
+    
+}
+
+extension Sets {
+    
+    func priceInSatang() -> Int {
+        let baht = price?.components(separatedBy: CharacterSet(charactersIn: ",")).joined() ?? ""
+        let bahtValue = Double(baht) ?? 0.0
         return Int(bahtValue*100)
+    }
+    
+    func priceInBaht() -> Int {
+        let baht = price?.components(separatedBy: CharacterSet(charactersIn: ",")).joined() ?? ""
+        let bahtValue = Double(baht) ?? 0.0
+        return Int(bahtValue)
     }
     
 }
