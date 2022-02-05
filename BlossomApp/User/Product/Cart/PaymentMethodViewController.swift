@@ -63,9 +63,9 @@ class PaymentMethodViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if isBankTransfer == true {
-            bankTransferButton.isHidden = false
-        }
+//        if isBankTransfer == true {
+//            bankTransferButton.isHidden = false
+//        }
         if cart?.id == CartManager.shared.currentCart?.id && appointmentOrder == nil {
             clearCart()
         }
