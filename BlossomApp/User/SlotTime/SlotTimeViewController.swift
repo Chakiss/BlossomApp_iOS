@@ -282,6 +282,7 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
 
     }
         
+    /*
     func makeAppointmentOrderPaid(orderID: String){
      
         ProgressHUD.show()
@@ -408,14 +409,14 @@ class SlotTimeViewController: UIViewController, UICollectionViewDelegate, UIColl
 //            }
 //        }
     }
-
+*/
 }
 
 extension SlotTimeViewController : UpdateCartViewControllerDelegate {
     
     func appointmentOrderSuccess(orderID: String) {
         self.navigationController?.popViewController(animated: true)
-        makeAppointmentOrderPaid(orderID: orderID)
+        //makeAppointmentOrderPaid(orderID: orderID)
     }
     
 }

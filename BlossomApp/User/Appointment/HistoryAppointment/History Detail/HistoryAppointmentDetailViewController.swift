@@ -31,7 +31,9 @@ class HistoryAppointmentDetailViewController: UIViewController, UITableViewDataS
     var tmpImageViewArray: [UIImageView] = []
     
     @IBOutlet weak var allAppointmentButton: UIButton!
+    
     var isShowAppointmentButton = true
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,12 +56,6 @@ class HistoryAppointmentDetailViewController: UIViewController, UITableViewDataS
             
             //self.userImageView.image = UIImage(named: "placeholderHero")
             
-                               
-            
-
-                               
-           
-            
             let imageRef = self.storage.reference().child(customer?.displayPhoto ?? "")
             let placeholderImage = UIImage(named: "placeholder")
             self.userImageView.sd_setImage(with: imageRef, placeholderImage: placeholderImage)
@@ -77,6 +73,13 @@ class HistoryAppointmentDetailViewController: UIViewController, UITableViewDataS
             self.allAppointmentButton.isHidden = true
         }
         
+       
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         let preform: [String:Any] = appointment?.preForm ?? ["":""]
         let attachedImageArray: [String] = (preform["attachedImages"] as? [String]) ?? []
     
@@ -91,7 +94,11 @@ class HistoryAppointmentDetailViewController: UIViewController, UITableViewDataS
             self.tmpImageViewArray[index].sd_setImage(with: imageRef, placeholderImage: nil) { img, error, type, ref in
                 if error == nil {
                     self.imageLoadedArray.append(img!)
-                   
+                    
+                    if let cell = self.tableView.cellForRow(at: IndexPath(row: 1, section: 1)) as? FormImageCell {
+                        cell.collectionView.reloadData()
+                    }
+            
                 }
             }
         }
@@ -171,7 +178,6 @@ class HistoryAppointmentDetailViewController: UIViewController, UITableViewDataS
                 cell.detailLabel.text = preformString
             } else {
                 let cellimage = tableView.dequeueReusableCell(withIdentifier: "FormImageCell", for: indexPath) as! FormImageCell
-
                 
                 return cellimage
             }
@@ -198,22 +204,25 @@ class HistoryAppointmentDetailViewController: UIViewController, UITableViewDataS
 
 extension HistoryAppointmentDetailViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let preform: [String:Any] = appointment?.preForm ?? ["":""]
-        let imageArray = preform["attachedImages"] as! [String]
-        return  imageArray.count
+        
+        return imageLoadedArray.count
+        //let preform: [String:Any] = appointment?.preForm ?? ["":""]
+        //let imageArray = preform["attachedImages"] as! [String]
+        //return  imageArray.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: PreFormImage = (collectionView.dequeueReusableCell(withReuseIdentifier: "PreFormImage", for: indexPath) as! PreFormImage)
         
-        let preform: [String:Any] = appointment?.preForm ?? ["":""]
-        let imageArray: [String] = preform["attachedImages"] as! [String]
+//        let preform: [String:Any] = appointment?.preForm ?? ["":""]
+//        let imageArray: [String] = preform["attachedImages"] as! [String]
+//
+//        let imageRef = self.storage.reference().child(imageArray[indexPath.row])
+//        let placeholderImage = UIImage(named: "placeholder")
+//        cell.imageView.sd_setImage(with: imageRef, placeholderImage: placeholderImage)
         
-        let imageRef = self.storage.reference().child(imageArray[indexPath.row])
-        let placeholderImage = UIImage(named: "placeholder")
-        cell.imageView.sd_setImage(with: imageRef, placeholderImage: placeholderImage)
-        
-
+        let img = imageLoadedArray[indexPath.row]
+        cell.imageView.image = img
 
         return cell
     }

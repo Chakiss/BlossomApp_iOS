@@ -204,7 +204,8 @@ class PreFormViewController: UIViewController {
                     
                     self.functions.httpsCallable("app-orders-createAppointmentOrder").call(payload) { [weak self] result, error in
                         
-                        
+                       
+                        ProgressHUD.dismiss()
                         guard let self = self else { return }
                         
                         if error != nil {
@@ -215,6 +216,8 @@ class PreFormViewController: UIViewController {
                         else {
                             print(result?.data as Any)
                             let order = result?.data as? [String : String] ?? ["":""]
+                            
+                            
                             if self.slotTimeSelected?.salePrice == 0 {
                                 if let orderID = order["orderID"] {
                                     self.makeAppointmentOrderPaid(orderID: orderID)
@@ -226,6 +229,8 @@ class PreFormViewController: UIViewController {
                                 paymentMethodViewController.delegate = self
                                 self.navigationController?.pushViewController(paymentMethodViewController, animated: true)
                             }
+                             
+                           
                         }
                         
                     }
@@ -243,7 +248,7 @@ class PreFormViewController: UIViewController {
         
         functions.httpsCallable("app-orders-markAppointmentOrderPaid").call(payload) { result, error in
             
-            
+            ProgressHUD.dismiss()
             if error != nil {
                 let alert = UIAlertController(title: "กรุณาตรวจสอบ", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
@@ -343,19 +348,20 @@ class PreFormViewController: UIViewController {
         if attachImage.count == 0 {
             showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณาแนบรูปอย่างน้อย 3 รูป") {}
         } else {
-            ProgressHUD.show()
+            
             let payload = ["appointmentID": self.appointmentID,
                            "type": "pre",
                            "images": attachImage,
                            "form": formData ] as [String : Any]
-            
+            ProgressHUD.show()
             functions.httpsCallable("app-appointments-updateForm").call(payload) { [weak self] result, error in
-                ProgressHUD.dismiss()
-                
                 guard let self = self else { return }
+                
                 if self.appointment != nil {
+                    ProgressHUD.dismiss()
                     self.navigationController?.popViewController(animated: true)
                 } else {
+                    ProgressHUD.dismiss()
                     self.navigationController?.popToRootViewController(animated: false)
                     if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
                         appDelegate.deeplinking = .appointment
@@ -378,8 +384,8 @@ class PreFormViewController: UIViewController {
 extension PreFormViewController : UpdateCartViewControllerDelegate {
     
     func appointmentOrderSuccess(orderID: String) {
-        self.navigationController?.popViewController(animated: true)
-        makeAppointmentOrderPaid(orderID: orderID)
+        self.appointmentID = orderID
+        self.updateForm()
     }
     
 }

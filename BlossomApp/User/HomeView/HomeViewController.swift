@@ -108,6 +108,10 @@ class HomeViewController: UIViewController, MultiBannerViewDelegate {
         
         getCustomer()
         
+        
+        
+        
+        
     }
     
     @objc func appointmentTapped(tapGestureRecognizer: UITapGestureRecognizer){

@@ -29,6 +29,8 @@ class PaymentMethodViewController: UIViewController {
     var delegate: UpdateCartViewControllerDelegate?
     
     var isBankTransfer:Bool = false
+    
+    private weak var db = Firestore.firestore()
 
     static func initializeInstance(cart: Cart?, appointmentOrder: AppointmentOrder? = nil) -> PaymentMethodViewController {
         let controller: PaymentMethodViewController = PaymentMethodViewController(nibName: "PaymentMethodViewController", bundle: Bundle.main)
@@ -315,7 +317,7 @@ fileprivate class CreditCardInputViewController: UIViewController {
     private lazy var omiseView: CreditCardFormViewController = {
         //pkey_test_5mmq1gnwqw4n78r3sil
         //"pkey_5ngemrt9grz0ail7cj0"
-        let publicKey = "pkey_test_5mmq1gnwqw4n78r3sil"
+        let publicKey = "pkey_5ngemrt9grz0ail7cj0"
         let creditCardView = CreditCardFormViewController.makeCreditCardFormViewController(withPublicKey: publicKey)
         creditCardView.preferredPrimaryColor = UIColor.blossomPrimary
         creditCardView.preferredSecondaryColor = UIColor.blossomLightGray
@@ -377,11 +379,12 @@ extension CreditCardInputViewController : CreditCardFormViewControllerDelegate {
 
 extension PaymentMethodViewController: QRPaymentViewControllerDelegate {
     
-    func qrPaymentComplete() {
+    func qrPaymentComplete(appointmentID: String?) {
         if cart != nil {
             gotoOrderList()
         } else {
-            delegate?.appointmentOrderSuccess(orderID: appointmentOrder?.id ?? "")
+          
+            delegate?.appointmentOrderSuccess(orderID: appointmentID ?? "")
         }
     }
     

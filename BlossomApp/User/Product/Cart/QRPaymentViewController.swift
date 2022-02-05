@@ -9,7 +9,7 @@ import UIKit
 import Firebase
 
 protocol QRPaymentViewControllerDelegate: AnyObject {
-    func qrPaymentComplete()
+    func qrPaymentComplete(appointmentID: String?)
 }
 
 class QRPaymentViewController: UIViewController {
@@ -52,8 +52,9 @@ class QRPaymentViewController: UIViewController {
     private func checkPaymentSuccess() {
         
         let orderID = cart?.purchaseOrder?.id != nil ? "\(cart!.purchaseOrder!.id!)" : appointmentOrder ?? ""
-        ProgressHUD.show()
+       
         if cart?.purchaseOrder?.id != nil  {
+            ProgressHUD.show()
             db?.collection("shipnity_orders").document(orderID).addSnapshotListener({ [weak self] result, error in
                 ProgressHUD.dismiss()
                 let data = result?.data()
@@ -64,20 +65,68 @@ class QRPaymentViewController: UIViewController {
                 }
             })
         } else {
+            
+            db?.collection("appointments")
+                .whereField("orderReference", isEqualTo: db?.collection("orders").document(orderID) as Any)
+                .addSnapshotListener({ result, error in
+                    ProgressHUD.dismiss()
+                    let appointments: [Appointment]
+                    appointments = (result?.documents.map({ queryDocumentSnapshot ->  Appointment in
+                        let data = queryDocumentSnapshot.data()
+                        let doctorRef = data["doctorReference"]  as? DocumentReference ?? nil
+                        let timeRef = data["timeReference"]  as? DocumentReference ?? nil
+                        let cusRef = data["customerReference"]  as? DocumentReference ?? nil
+                        let sessionStart = data["sessionStart"] as! Timestamp
+                        let sessionEnd = data["sessionEnd"]  as! Timestamp
+                        let preForm = data["preForm"] as? [String:Any] ?? ["":""]
+                        let postForm = data["postForm"] as? [String:Any] ?? ["":""]
+                        
+                        let createdAt = data["createdAt"] as? Timestamp ?? Timestamp(date: Date())
+                        let updatedAt = data["updatedAt"]  as? Timestamp ?? Timestamp(date: Date())
+                        
+                        let appointment = Appointment(id: queryDocumentSnapshot.documentID, customerReference: cusRef!, doctorReference: doctorRef!, timeReference: timeRef!,sessionStart: sessionStart, sessionEnd: sessionEnd,preForm: preForm, postForm: postForm, createdAt: createdAt, updatedAt: updatedAt)
+                        
+                        return appointment
+                    }))!
+                    
+                    if appointments.count > 0 {
+                        
+                        let alert = UIAlertController(title: "ชำระเงินสำเร็จ ", message: "ระบบกำลังนำคุณเข้าสู่หน้าหลัก", preferredStyle: UIAlertController.Style.alert)
+                        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in 
+                            ProgressHUD.show()
+                            self.delegate?.qrPaymentComplete(appointmentID: appointments[0].id)
+                        }))
+                        self.present(alert, animated: true, completion: nil)
+                        
+                    }
+                    
+            })
+            /*
             db?.collection("orders").document(orderID).addSnapshotListener({ [weak self] result, error in
                 ProgressHUD.dismiss()
                 let data = result?.data()
                 let isPaid = data?["status"] as? String ?? ""
                 if isPaid == "paid" {
                     if self?.appointmentOrder?.count ?? 0 > 0 {
-                        self?.delegate?.qrPaymentComplete()
+                       
+                        let orderRef = result?.reference
+                
+                        self?.checkAppointmentStatus(orderReference: orderRef)
+                        
                     } else {
                         self?.updateOrderPayment(paidAt: Date(), orderID:orderID,paymentRef:"")
                     }
                 }
             })
+             */
         }
         
+    }
+    
+    private func checkAppointmentStatus(orderReference: DocumentReference?) {
+        
+        
+       
     }
     
     private func updateOrderPayment(paidAt date: Date, orderID: String? = nil, paymentRef: String? = nil) {
@@ -98,7 +147,7 @@ class QRPaymentViewController: UIViewController {
             APIProduct.updateOrderNote(orderID: orderIBNumner, note: paymentRef ?? "") { [weak self] response in
                 ProgressHUD.dismiss()
                 
-                self?.delegate?.qrPaymentComplete()
+                self?.delegate?.qrPaymentComplete(appointmentID: "")
                 
             }.request()
             

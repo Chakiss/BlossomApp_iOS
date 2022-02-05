@@ -15,8 +15,8 @@ target 'BlossomApp' do
   pod 'Firebase/Messaging'
   pod 'Firebase/RemoteConfig'
   pod 'FirebaseUI/Storage'
+  pod 'Firebase/Crashlytics'
   
-  pod 'Firebase/Crashlytics'  
 #  pod 'FirebaseFirestoreSwift'
   
   pod 'FBSDKCoreKit'
