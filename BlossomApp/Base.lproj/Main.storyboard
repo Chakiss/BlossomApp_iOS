@@ -5130,7 +5130,7 @@
                                             <constraint firstAttribute="width" constant="50" id="kIh-c4-Ded"/>
                                             <constraint firstAttribute="height" constant="50" id="ppB-ap-CrC"/>
                                         </constraints>
-                                        <state key="normal" image="ic_volume_low_white"/>
+                                        <state key="normal" image="ic_volume_high_white"/>
                                         <state key="selected" image="ic_volume_high_white"/>
                                         <connections>
                                             <action selector="didPressDynamicButton:" destination="0wA-Rz-DJ7" eventType="touchUpInside" id="Mdf-2x-dbJ"/>
@@ -5322,12 +5322,11 @@
         <image name="head_review" width="1000" height="412"/>
         <image name="home_icon" width="26" height="27"/>
         <image name="hot_deal" width="1000" height="412"/>
-        <image name="ic_camera_rear" width="14" height="24"/>
+        <image name="ic_camera_rear" width="51" height="51"/>
         <image name="ic_microphone_white_24dp" width="24" height="24"/>
         <image name="ic_phone_hangup" width="48" height="48"/>
         <image name="ic_videocam_w" width="24" height="24"/>
         <image name="ic_volume_high_white" width="24" height="24"/>
-        <image name="ic_volume_low_white" width="24" height="24"/>
         <image name="image" width="1080" height="445"/>
         <image name="image-upload" width="70" height="70"/>
         <image name="item1" width="92" height="92"/>

@@ -104,6 +104,7 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
             
         }))
         
+        /*
         alert.addAction(UIAlertAction(title: "แชท", style: .default , handler:{ (UIAlertAction)in
             let payload = ["targetUserID": appointment.doctorReference?.documentID] as [String : Any]
             
@@ -118,31 +119,8 @@ class ComingAppointmentViewController: UIViewController, UITableViewDataSource, 
                     })
                 }
             }
-            
-           /*
-            appointment.doctorReference?.getDocument(completion: { doctorDocument, error in
-                
-                let data = doctorDocument?.data()
-                let referenceConnectyCubeID = data?["referenceConnectyCubeID"] as? Int ?? 0
-                let dialog = ChatDialog(dialogID: nil, type: .private)
-                
-                dialog.occupantIDs = [NSNumber(integerLiteral: referenceConnectyCubeID)]  // an ID of opponent
-                
-                Request.createDialog(dialog, successBlock: { (dialog) in
-                    if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-                        appDelegate.deeplinking = .chat(id: String(referenceConnectyCubeID))
-                        appDelegate.handleDeeplinking()
-                        self.dismiss(animated: false, completion: {
-                            self.navigationController?.popToRootViewController(animated: false)
-                        })
-                    }
-                }) { (error) in
-                    
-                }
-                
-            })
-            */
         }))
+         */
         
         alert.addAction(UIAlertAction(title: "ติดต่อ Admin เพื่อเปลี่ยนหรือยกเลิกเวลานัด", style: .default, handler: { (UIAlertAction) in
             let storyboard = UIStoryboard(name: "Main", bundle: nil)

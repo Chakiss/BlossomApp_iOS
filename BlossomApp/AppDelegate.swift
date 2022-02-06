@@ -94,8 +94,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // set the type as sound or badge
         center.requestAuthorization(options: [.sound, .alert, .badge]) { [weak self] (granted, error) in
             // Enable or disable features based on authorization
-            if granted {
-                self?.getNotificationSettings()
+            if let error = error {
+                print("D'oh: \(error.localizedDescription)")
+            } else {
+                application.registerForRemoteNotifications()
             }
         }
         application.registerForRemoteNotifications()
@@ -170,7 +172,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let pushCredentials = deviceToken.map { String(format: "%02x", $0) }.joined()
         print("didRegisterForRemoteNotificationsWithDeviceToken -> deviceToken :\(pushCredentials)")
         CustomerManager.sharedInstance.saveDeviceToken(deviceToken)
-       
         
         let payload = ["token": pushCredentials,
                        "os": "ios"] as [String : Any]
