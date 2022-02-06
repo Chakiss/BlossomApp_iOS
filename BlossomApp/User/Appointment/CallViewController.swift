@@ -225,6 +225,8 @@ class CallViewController: UIViewController, CallClientDelegate {
             configuration.categoryOptions = [configuration.categoryOptions, .allowBluetooth, .allowBluetoothA2DP, .allowAirPlay]
             configuration.mode = AVAudioSession.Mode.videoChat.rawValue
         }
+        audioSession.currentAudioDevice = .speaker
+
     }
     
     // MARK: - Actions
@@ -243,8 +245,8 @@ class CallViewController: UIViewController, CallClientDelegate {
     @IBAction func didPressDynamicButton(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         let audioSession = CallAudioSession.instance()
-        audioSession.currentAudioDevice =
-            audioSession.currentAudioDevice == .speaker ? .receiver : .speaker
+        audioSession.currentAudioDevice = .speaker
+            //audioSession.currentAudioDevice == .speaker ? .receiver : .speaker
     }
     
     @IBAction func didPressCameraRotationButton(_ sender: UIButton) {
@@ -282,6 +284,8 @@ extension CallViewController: CallManagerDelegate {
     func callManagerDidReceivedRemoteVideoTrack(videoTrack: CallVideoTrack) {
         self.opponentVideoView.setVideoTrack(videoTrack)
         connected = true
+        let audioSession = CallAudioSession.instance()
+        audioSession.currentAudioDevice = .speaker
     }
     
 }
