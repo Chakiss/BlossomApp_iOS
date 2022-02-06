@@ -164,7 +164,7 @@ class CartViewController: UIViewController {
         
         
         self.cart?.shippingFee = Int(self.shippingFee)
-        self.cart?.totalPrice = total + self.shippingFee - (Double(orderDiscount) ?? 0) - promoDiscount
+        self.cart?.totalPrice = ((total - (Double(orderDiscount) ?? 0))  - promoDiscount ) + self.shippingFee
         self.cartHeaderModel?.priceText = self.cart?.totalPrice.toAmountText() ?? "0"
         self.checkoutButton.isEnabled = self.cart?.items.count ?? 0 > 0
         self.checkoutButton.alpha = (self.checkoutButton.isEnabled ) ? 1.0 : 0.5
