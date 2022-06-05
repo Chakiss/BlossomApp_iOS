@@ -171,34 +171,6 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
     
   
     
-//    func getAppointment() {
-//        db.collection("appointments")
-//            .addSnapshotListener { snapshot, error in
-//                self.appointmentList = (snapshot?.documents.map { queryDocumentSnapshot -> Appointment  in
-//                    let data = queryDocumentSnapshot.data()
-//                    let doctorRef = data["doctorReference"]  as? DocumentReference ?? nil
-//                    let timeRef = data["timeReference"]  as? DocumentReference ?? nil
-//                    let cusRef = data["customerReference"]  as? DocumentReference ?? nil
-//                    let sessionStart = data["sessionStart"] as! Timestamp
-//                    let sessionEnd = data["sessionEnd"]  as! Timestamp
-//                    let isComplete = data["isCompleted"]  as! Bool
-//                    let preForm = data["preForm"] as? [String:Any] ?? ["":""]
-//                    let postForm = data["postForm"] as? [String:Any] ?? ["":""]
-//
-//                    let attachedImages = data["attachedImages"] as? [String] ?? []
-//
-//                    var appointment = Appointment(id: queryDocumentSnapshot.documentID, customerReference: cusRef!, doctorReference: doctorRef!, timeReference: timeRef!,sessionStart: sessionStart, sessionEnd: sessionEnd,preForm: preForm, postForm: postForm)
-//                    appointment.isComplete = isComplete
-//                    appointment.attachedImages = attachedImages
-//                    return appointment
-//                }) ?? []
-//                self.tableView.reloadData()
-//
-//
-//            }
-//    }
-    
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return doctorList.count
     }

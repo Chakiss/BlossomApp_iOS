@@ -92,7 +92,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let center  = UNUserNotificationCenter.current()
         center.delegate = self
         // set the type as sound or badge
-        center.requestAuthorization(options: [.sound, .alert, .badge]) { [weak self] (granted, error) in
+        center.requestAuthorization(options: [.sound, .alert, .badge]) { (granted, error) in
             // Enable or disable features based on authorization
             if let error = error {
                 print("D'oh: \(error.localizedDescription)")

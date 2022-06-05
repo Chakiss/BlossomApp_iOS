@@ -272,8 +272,8 @@ class CartManager {
         let cart = Cart()
         cart.updatePO(order)
         order.purchases?.forEach({ item in
-                let product = Product(from: item)
-                cart.addItem(product, quantity: item.quantity ?? 0, purchaseID: "\(item.id ?? 0)")
+            let product = Product(from: item)
+            cart.addItem(product, quantity: item.quantity ?? 0, purchaseID: "\(item.id ?? 0)")
         })
         
         order.setPurchases?.forEach({ item in
@@ -284,13 +284,7 @@ class CartManager {
             sets.name = object["name"] as? String
             sets.code = object["code"] as? String
             sets.price = object["price"] as? String
-            
            
-            //sets.product_set_items = []
-            
-            print(item)
-            print("xxxx")
-            //let sets = Sets(from: item as! Decoder)
             cart.addSet(sets, quantity: (object["quantity"] as? Int ?? 0 ) , purchaseID: "\(object["id"] as? String ?? "0")")
         })
         return cart

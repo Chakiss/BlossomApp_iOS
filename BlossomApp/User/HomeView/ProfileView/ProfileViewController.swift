@@ -240,8 +240,6 @@ class ProfileViewController: UIViewController, UINavigationControllerDelegate, U
             self.uploadAvatar(image: image)
             
         }
-        
-        
     }
     
     
