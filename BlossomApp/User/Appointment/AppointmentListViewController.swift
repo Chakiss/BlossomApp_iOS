@@ -167,7 +167,11 @@ class AppointmentListViewController: UIViewController {
                     
                     let attachedImages = data["attachedImages"] as? [String] ?? []
                     
-                    var appointment = Appointment(id: queryDocumentSnapshot.documentID, customerReference: cusRef!, doctorReference: doctorRef!, timeReference: timeRef!,sessionStart: sessionStart, sessionEnd: sessionEnd,preForm: preForm, postForm: postForm)
+                    let createdAt = data["createdAt"] as? Timestamp ?? Timestamp(date: Date())
+                    let updatedAt = data["updatedAt"]  as? Timestamp ?? Timestamp(date: Date())
+                    
+                    var appointment = Appointment(id: queryDocumentSnapshot.documentID, customerReference: cusRef!, doctorReference: doctorRef!, timeReference: timeRef!,sessionStart: sessionStart, sessionEnd: sessionEnd,preForm: preForm, postForm: postForm, createdAt: createdAt, updatedAt: updatedAt)
+                    
                     appointment.isComplete = isComplete
                     appointment.attachedImages = attachedImages
                     return appointment

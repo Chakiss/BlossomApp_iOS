@@ -31,6 +31,7 @@ struct PurchaseOrder: Codable {
     let taxable: Bool = false
     let orderDiscount: Int
     let purchasesAttributes: [PurchasesAttribute]
+    let promo_code_id: Int
 
     enum CodingKeys: String, CodingKey {
         case customer, name, address, tel
@@ -41,6 +42,8 @@ struct PurchaseOrder: Codable {
         case preorder, taxable
         case orderDiscount = "order_discount"
         case purchasesAttributes = "purchases_attributes"
+        case promo_code_id = "promo_code_id"
+        
     }
 }
 

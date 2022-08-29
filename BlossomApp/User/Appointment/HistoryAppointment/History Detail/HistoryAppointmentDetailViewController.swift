@@ -10,6 +10,7 @@ import Firebase
 import GSImageViewerController
 import SwiftDate
 import SwiftPhotoGallery
+import FirebaseStorageUI
 
 class HistoryAppointmentDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate {
     
@@ -27,9 +28,12 @@ class HistoryAppointmentDetailViewController: UIViewController, UITableViewDataS
     var profile = ""
     var index: Int = 0
     var imageLoadedArray: [UIImage] = []
+    var tmpImageViewArray: [UIImageView] = []
     
     @IBOutlet weak var allAppointmentButton: UIButton!
+    
     var isShowAppointmentButton = true
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,17 +54,13 @@ class HistoryAppointmentDetailViewController: UIViewController, UITableViewDataS
             
             self.ageLabel.text = "อายุ " + self.getAgeFromDOF(date: customer?.birthDate! ?? "") + " ปี"
             
+            //self.userImageView.image = UIImage(named: "placeholderHero")
             
-            let imageRef = self.storage.reference(withPath: customer?.displayPhoto ?? "")
-            imageRef.getData(maxSize: 2 * 1024 * 1024) { (data, error) in
-                if error == nil {
-                    if let imgData = data {
-                        if let img = UIImage(data: imgData) {
-                            self.userImageView.image = img
-                        }
-                    }
-                }
-            }
+            let imageRef = self.storage.reference().child(customer?.displayPhoto ?? "")
+            let placeholderImage = UIImage(named: "placeholder")
+            self.userImageView.sd_setImage(with: imageRef, placeholderImage: placeholderImage)
+                
+            
         }
         
         let region = Region(calendar: Calendars.buddhist, zone: Zones.asiaBangkok, locale: Locales.thai)
@@ -73,6 +73,36 @@ class HistoryAppointmentDetailViewController: UIViewController, UITableViewDataS
             self.allAppointmentButton.isHidden = true
         }
         
+       
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let preform: [String:Any] = appointment?.preForm ?? ["":""]
+        let attachedImageArray: [String] = (preform["attachedImages"] as? [String]) ?? []
+    
+        
+        for  (index, imageData) in attachedImageArray.enumerated() {
+            let imageView = UIImageView()
+
+            let placeholderImage = UIImage(named: "placeholder")
+            imageView.image = placeholderImage
+            self.tmpImageViewArray.append(imageView)
+            let imageRef = self.storage.reference().child(imageData)
+            self.tmpImageViewArray[index].sd_setImage(with: imageRef, placeholderImage: nil) { img, error, type, ref in
+                if error == nil {
+                    self.imageLoadedArray.append(img!)
+                    
+                    if let cell = self.tableView.cellForRow(at: IndexPath(row: 1, section: 1)) as? FormImageCell {
+                        cell.collectionView.reloadData()
+                    }
+            
+                }
+            }
+        }
+        
     }
     
     func getAgeFromDOF(date: String) -> String {//(Int,Int,Int) {
@@ -80,10 +110,10 @@ class HistoryAppointmentDetailViewController: UIViewController, UITableViewDataS
         if date.count == 0 { return "" }
         
         let dateFormater = DateFormatter()
-        dateFormater.dateFormat = "YYYY-MM-dd"
+        dateFormater.dateFormat = "yyyy-MM-dd"
         let dateOfBirth = dateFormater.date(from: date)
         
-        let calender = Calendar.current
+        let calender = Calendar(identifier: .gregorian)
         
         let dateComponent = calender.dateComponents([.year, .month, .day], from:
                                                         dateOfBirth!, to: Date())
@@ -148,7 +178,6 @@ class HistoryAppointmentDetailViewController: UIViewController, UITableViewDataS
                 cell.detailLabel.text = preformString
             } else {
                 let cellimage = tableView.dequeueReusableCell(withIdentifier: "FormImageCell", for: indexPath) as! FormImageCell
-
                 
                 return cellimage
             }
@@ -175,32 +204,25 @@ class HistoryAppointmentDetailViewController: UIViewController, UITableViewDataS
 
 extension HistoryAppointmentDetailViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let preform: [String:Any] = appointment?.preForm ?? ["":""]
-        let imageArray = preform["attachedImages"] as! [String]
-        return  imageArray.count
+        
+        return imageLoadedArray.count
+        //let preform: [String:Any] = appointment?.preForm ?? ["":""]
+        //let imageArray = preform["attachedImages"] as! [String]
+        //return  imageArray.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: PreFormImage = (collectionView.dequeueReusableCell(withReuseIdentifier: "PreFormImage", for: indexPath) as! PreFormImage)
         
-        let preform: [String:Any] = appointment?.preForm ?? ["":""]
-        let imageArray: [String] = preform["attachedImages"] as! [String]
-        let imageRef = storage.reference(withPath: imageArray[indexPath.row] )
-        imageRef.getData(maxSize: 2 * 1024 * 1024) { (data, error) in
-            if error == nil {
-                if let imgData = data {
-                    if let img = UIImage(data: imgData) {
-                        cell.imageView.image = img
-                        self.imageLoadedArray.append(img)
-                        
-                    }
-                }
-            } else {
-                cell.imageView.image = UIImage(named: "placeholder")
-                
-            }
-        }
-
+//        let preform: [String:Any] = appointment?.preForm ?? ["":""]
+//        let imageArray: [String] = preform["attachedImages"] as! [String]
+//
+//        let imageRef = self.storage.reference().child(imageArray[indexPath.row])
+//        let placeholderImage = UIImage(named: "placeholder")
+//        cell.imageView.sd_setImage(with: imageRef, placeholderImage: placeholderImage)
+        
+        let img = imageLoadedArray[indexPath.row]
+        cell.imageView.image = img
 
         return cell
     }
@@ -217,8 +239,8 @@ extension HistoryAppointmentDetailViewController: UICollectionViewDelegate, UICo
         gallery.transitioningDelegate = self
 
 
-        present(gallery, animated: true, completion: { () -> Void in
-            gallery.currentPage = self.index
+        present(gallery, animated: false, completion: { () -> Void in
+            gallery.currentPage = indexPath.row
         })
     }
 }

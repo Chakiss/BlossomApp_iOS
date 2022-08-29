@@ -29,6 +29,7 @@ class DialogCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        self.badgeView.isHidden = true
         
     }
     
@@ -78,21 +79,11 @@ class DialogCell: UITableViewCell {
                     self.messageTextLabel.text = ""
                     if doctor!.displayPhoto?.count ?? 0 > 0 {
                         
-                        let imageRef = self.storage.reference(withPath: doctor!.displayPhoto!)
-                        imageRef.getData(maxSize: 2 * 1024 * 1024) { (data, error) in
-                            if error == nil {
-                                if let imgData = data {
-                                    if let img = UIImage(data: imgData) {
-                                        self.profileImageView.layer.cornerRadius = self.profileImageView.bounds.height / 2
-                                        self.profileImageView.image = img
-
-                                    }
-                                }
-                            } else {
-                                self.profileImageView.image = UIImage(named: "placeholder")
-                                
-                            }
-                        }
+                        let imageRef = self.storage.reference().child(doctor!.displayPhoto!)
+                        let placeholderImage = UIImage(named: "placeholder")
+                        self.profileImageView.sd_setImage(with: imageRef, placeholderImage: placeholderImage)
+                        
+                        
                     }
 
                     
@@ -230,23 +221,13 @@ class DialogCell: UITableViewCell {
                 self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width/2
                 self.titleLabel.text = (customer?.firstName ?? "") + "  " + (customer?.lastName ?? "")
                 self.messageTextLabel.text = ""
-                if customer!.displayPhoto?.count ?? 0 > 0 {
+                if customer?.displayPhoto?.count ?? 0 > 0 {
                     
-                    let imageRef = self.storage.reference(withPath: customer!.displayPhoto!)
-                    imageRef.getData(maxSize: 2 * 1024 * 1024) { (data, error) in
-                        if error == nil {
-                            if let imgData = data {
-                                if let img = UIImage(data: imgData) {
-                                    self.profileImageView.layer.cornerRadius = self.profileImageView.bounds.height / 2
-                                    self.profileImageView.image = img
-
-                                }
-                            }
-                        } else {
-                            self.profileImageView.image = UIImage(named: "placeholder")
-                            
-                        }
-                    }
+                    let imageRef = self.storage.reference().child(customer!.displayPhoto!)
+                    let placeholderImage = UIImage(named: "placeholder")
+                    self.profileImageView.sd_setImage(with: imageRef, placeholderImage: placeholderImage)
+                    
+                   
                 }
 
                 

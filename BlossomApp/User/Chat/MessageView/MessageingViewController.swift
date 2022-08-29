@@ -48,11 +48,13 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
         
         keyboardObserver.subscribe(events: [.willChangeFrame, .dragDown]) { [weak self] (info) in
             guard let weakSelf = self else { return }
-            let bottom = (info.isShowing
-                ? (-info.visibleHeight) + weakSelf.view.backwardSafeAreaInsets.bottom
-                : 0
-            )
+            let bottom = (info.isShowing ? (-info.visibleHeight) + weakSelf.view.backwardSafeAreaInsets.bottom: 0)
             UIView.animate(info, animations: { [weak self] in
+                
+                let insets: UIEdgeInsets = UIEdgeInsets( top: 0, left: 0, bottom: 0, right: 0 )
+                self?.tableView.contentInset = insets
+                self?.tableView.scrollIndicatorInsets = insets
+                
                 
                 self?.bottomConstraint.constant = bottom
                 self?.view.layoutIfNeeded()
@@ -60,20 +62,19 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
         }
         
         
-        NotificationCenter.default.addObserver(self,
-               selector: #selector(self.keyboardNotification(notification:)),
-               name: UIResponder.keyboardWillChangeFrameNotification,
-               object: nil)
-        
-        //Chat.instance.addDelegate(self)
-        
-       
-        // Do any additional setup after loading the view.
+//        NotificationCenter.default.addObserver(self,
+//               selector: #selector(self.keyboardNotification(notification:)),
+//               name: UIResponder.keyboardWillChangeFrameNotification,
+//               object: nil)
+//
+
     }
+/*
     deinit {
          NotificationCenter.default.removeObserver(self)
        }
-    
+  */
+    /*
     @objc func keyboardNotification(notification: NSNotification) {
        guard let userInfo = notification.userInfo else { return }
 
@@ -88,6 +89,7 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
          self.keyboardHeightLayoutConstraint?.constant = 0.0
        } else {
          self.keyboardHeightLayoutConstraint?.constant = ( endFrame?.size.height ?? 0.0) - 25
+        self.scrollToBottom()
        }
 
        UIView.animate(
@@ -97,6 +99,7 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
          animations: { self.view.layoutIfNeeded() },
          completion: nil)
      }
+     */
     func requestMessages() {
 //        Request.messages(withDialogID: chatdialog?.id ?? "",
 //                         extendedRequest: ["date_sent[gt]":"1455098137"],
@@ -252,23 +255,29 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
             let cell = tableView.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath) as! SenderCell
             cell.messageLabel.text = chatMessage?.message
             cell.timeLabel.text = chatMessage?.createdAt?.dateValue().timeAgoDisplay()
+            
+            if chatMessage?.message?.count ?? 0 > 0 {
+                cell.messageLabel.isHidden = false
+            } else {
+                cell.messageLabel.isHidden = true
+            }
+            
             if chatMessage?.images?.count ?? 0 > 0 {
                 cell.messageLabel.text = ""
-                cell.chatImageView.image = UIImage(named: "300")
-                cell.chatImageView.image = UIImage(named: "placeholder")
-                let storageRef = storage.reference().child(chatMessage?.images?[0] ?? "");
-                storageRef.downloadURL { (URL, error) -> Void in
-                  if (error != nil) {
-                    // Handle any errors
-                  } else {
-                      cell.chatImageView.kf.setImage(with: URL)
-                  }
-                }
+                cell.chatImageView.isHidden = false
+                let imageRef = self.storage.reference().child(chatMessage?.images?[0] ?? "")
+                let placeholderImage = UIImage(named: "placeholder")
+                cell.chatImageView.sd_setImage(with: imageRef, placeholderImage: placeholderImage)
                 
+                cell.chatImageView.sd_setImage(with: imageRef, placeholderImage: placeholderImage) { image, error, type, ref in
+                    cell.chatImageView.image = self.resizeImage(image: (image ?? placeholderImage)!, targetSize: CGSize(width: 300, height: 300))
+                    
+                }
                 cell.parent = self
                 
             } else {
-                cell.chatImageView.image = nil
+                cell.chatImageView.isHidden = true
+                
             }
             return cell
             
@@ -277,23 +286,31 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
             let cell = tableView.dequeueReusableCell(withIdentifier: "ReceiverCell", for: indexPath) as! ReceiverCell
             cell.messageLabel.text = chatMessage?.message
             cell.timeLabel.text = chatMessage?.createdAt?.dateValue().timeAgoDisplay()
+            
+            if chatMessage?.message?.count ?? 0 > 0 {
+                cell.messageLabel.isHidden = false
+            } else {
+                cell.messageLabel.isHidden = true
+            }
+            
             if chatMessage?.images?.count ?? 0 > 0 {
                 cell.messageLabel.text = ""
-                cell.chatImageView.image = UIImage(named: "300")
-                cell.chatImageView.image = UIImage(named: "placeholder")
-                let storageRef = storage.reference().child(chatMessage?.images?[0] ?? "");
-                storageRef.downloadURL { (URL, error) -> Void in
-                  if (error != nil) {
-                    // Handle any errors
-                  } else {
-                      cell.chatImageView.kf.setImage(with: URL)
-                  }
+                cell.chatImageView.isHidden = false
+                let imageRef = self.storage.reference().child(chatMessage?.images?[0] ?? "")
+                let placeholderImage = UIImage(named: "placeholder")
+                cell.chatImageView.sd_setImage(with: imageRef, placeholderImage: placeholderImage)
+                
+                cell.chatImageView.sd_setImage(with: imageRef, placeholderImage: placeholderImage) { image, error, type, ref in
+                    cell.chatImageView.image = self.resizeImage(image: (image ?? placeholderImage)!, targetSize: CGSize(width: 300, height: 300))
+                    
                 }
                 cell.parent = self
                 
             } else {
-                cell.chatImageView.image = nil
+                cell.chatImageView.isHidden = true
+                
             }
+            
             return cell
 
             
@@ -301,7 +318,31 @@ class MessageingViewController: UIViewController, UITableViewDataSource, UITable
        
     }
     
-    
+    func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+        let size = image.size
+
+        let widthRatio  = targetSize.width  / image.size.width
+        let heightRatio = targetSize.height / image.size.height
+
+        // Figure out what our orientation is, and use that to form the rectangle
+        var newSize: CGSize
+        if(widthRatio > heightRatio) {
+            newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
+        } else {
+            newSize = CGSize(width:size.width * widthRatio, height: size.height * widthRatio)
+        }
+
+        // This is the rect that we've calculated out and this is what is actually used below
+        let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
+
+        // Actually do the resizing to the rect using the ImageContext stuff
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        image.draw(in: rect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return newImage ?? UIImage()
+    }
    
 
 

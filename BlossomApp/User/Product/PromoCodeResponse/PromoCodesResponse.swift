@@ -12,46 +12,20 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 */
 
 import Foundation
-struct Sets : Codable {
-    var id : Int?
-    var name : String?
-    var code : String?
-    var object_available : Int?
-    var price : String?
-    var slug : String?
-    var product_set_items : [Product_set_items]?
+struct PromoCodesResponse : Codable {
+	let promo_codes : [Promo_codes]?
+	//let paginate : Paginate?
 
 	enum CodingKeys: String, CodingKey {
 
-		case id = "id"
-		case name = "name"
-		case code = "code"
-		case object_available = "object_available"
-		case price = "price"
-		case slug = "slug"
-		case product_set_items = "product_set_items"
+		case promo_codes = "promo_codes"
+		//case paginate = "paginate"
 	}
 
 	init(from decoder: Decoder) throws {
 		let values = try decoder.container(keyedBy: CodingKeys.self)
-		id = try values.decodeIfPresent(Int.self, forKey: .id)
-		name = try values.decodeIfPresent(String.self, forKey: .name)
-		code = try values.decodeIfPresent(String.self, forKey: .code)
-		object_available = try values.decodeIfPresent(Int.self, forKey: .object_available)
-		price = try values.decodeIfPresent(String.self, forKey: .price)
-		slug = try values.decodeIfPresent(String.self, forKey: .slug)
-		product_set_items = try values.decodeIfPresent([Product_set_items].self, forKey: .product_set_items)
+		promo_codes = try values.decodeIfPresent([Promo_codes].self, forKey: .promo_codes)
+		//paginate = try values.decodeIfPresent(Paginate.self, forKey: .paginate)
 	}
-    
-    init() {
-        id = 0
-        name = ""
-        code = ""
-        object_available = 0
-        price = ""
-        slug = ""
-        product_set_items = []
-    }
-    
 
 }

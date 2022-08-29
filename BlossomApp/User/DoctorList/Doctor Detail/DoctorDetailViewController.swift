@@ -41,19 +41,11 @@ class DoctorDetailViewController: UIViewController, UITableViewDelegate, UITable
         self.doctorImageView.layer.cornerRadius = self.doctorImageView.bounds.height/2
         self.consultButton.layer.cornerRadius = 22
         
-        let imageRef = storage.reference(withPath: doctor?.displayPhoto ?? "")
-        imageRef.getData(maxSize: 2 * 1024 * 1024) { (data, error) in
-            if error == nil {
-                if let imgData = data {
-                    if let img = UIImage(data: imgData) {
-                        self.doctorImageView.image = img
-                    }
-                }
-            } else {
-                self.doctorImageView.image = UIImage(named: "placeholder")
-                
-            }
-        }
+        
+        let imageRef = self.storage.reference().child(doctor?.displayPhoto ?? "")
+        let placeholderImage = UIImage(named: "placeholder")
+        self.doctorImageView.sd_setImage(with: imageRef, placeholderImage: placeholderImage)
+        
         self.doctorNickNameLabel.text = doctor?.displayName
         self.doctorNameLabel.text = (doctor?.firstName ?? "") + "  " + (doctor?.lastName ?? "")
         let score = (doctor?.score)! as Double
@@ -136,6 +128,12 @@ class DoctorDetailViewController: UIViewController, UITableViewDelegate, UITable
             return
         }
         
+        guard (CustomerManager.sharedInstance.customer?.isPhoneVerified == true) else {
+            showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณายืนยันเบอร์โทรศัพท์ก่อนทำการนัดแพทย์") { [weak self] in
+                self?.showProfile()
+            }
+            return
+        }
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let viewController = storyboard.instantiateViewController(withIdentifier: "SlotTimeViewController") as! SlotTimeViewController

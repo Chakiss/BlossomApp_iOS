@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -22,57 +22,60 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pGZ-eB-s9R" customClass="Button" customModule="BlossomApp" customModuleProvider="target">
-                    <rect key="frame" x="20" y="64" width="374" height="80"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="80" id="nsi-jW-U4O"/>
-                    </constraints>
-                    <inset key="titleEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                    <state key="normal" title="ชำระด้วยพร้อมเพย์ QR">
-                        <color key="titleColor" systemColor="labelColor"/>
-                    </state>
-                    <connections>
-                        <action selector="qrPayment:" destination="-1" eventType="touchUpInside" id="NQC-O7-Kky"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kY2-dd-fVV" customClass="Button" customModule="BlossomApp" customModuleProvider="target">
-                    <rect key="frame" x="20" y="164" width="374" height="80"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <inset key="titleEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                    <state key="normal" title="ชำระด้วยบัตรเครดิต">
-                        <color key="titleColor" systemColor="labelColor"/>
-                    </state>
-                    <connections>
-                        <action selector="creditCardPayment:" destination="-1" eventType="touchUpInside" id="giD-bJ-TQj"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="siF-0z-RiD" customClass="Button" customModule="BlossomApp" customModuleProvider="target">
-                    <rect key="frame" x="20" y="267" width="374" height="80"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <inset key="titleEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                    <state key="normal" title="ชำระด้วยโอนเงิน">
-                        <color key="titleColor" systemColor="labelColor"/>
-                    </state>
-                    <connections>
-                        <action selector="bankTransferButtonTapped:" destination="-1" eventType="touchUpInside" id="yW8-iE-XWI"/>
-                    </connections>
-                </button>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="8Zd-kc-ZKn">
+                    <rect key="frame" x="20" y="64" width="374" height="280"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pGZ-eB-s9R" customClass="Button" customModule="BlossomApp" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="374" height="80"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="80" id="nsi-jW-U4O"/>
+                            </constraints>
+                            <inset key="titleEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="ชำระด้วยพร้อมเพย์ QR">
+                                <color key="titleColor" systemColor="labelColor"/>
+                            </state>
+                            <connections>
+                                <action selector="qrPayment:" destination="-1" eventType="touchUpInside" id="NQC-O7-Kky"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kY2-dd-fVV" customClass="Button" customModule="BlossomApp" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="100" width="374" height="80"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="80" id="piL-9i-BSm"/>
+                            </constraints>
+                            <inset key="titleEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="ชำระด้วยบัตรเครดิต">
+                                <color key="titleColor" systemColor="labelColor"/>
+                            </state>
+                            <connections>
+                                <action selector="creditCardPayment:" destination="-1" eventType="touchUpInside" id="giD-bJ-TQj"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="siF-0z-RiD" customClass="Button" customModule="BlossomApp" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="200" width="374" height="80"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="80" id="4ki-Qn-0PO"/>
+                            </constraints>
+                            <inset key="titleEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="ชำระด้วยโอนเงิน">
+                                <color key="titleColor" systemColor="labelColor"/>
+                            </state>
+                            <connections>
+                                <action selector="bankTransferButtonTapped:" destination="-1" eventType="touchUpInside" id="yW8-iE-XWI"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="kY2-dd-fVV" firstAttribute="top" secondItem="pGZ-eB-s9R" secondAttribute="bottom" constant="20" id="2PE-Ns-IU9"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="pGZ-eB-s9R" secondAttribute="trailing" constant="20" id="6pJ-cM-GE5"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="kY2-dd-fVV" secondAttribute="trailing" constant="20" id="Bbu-No-Epv"/>
-                <constraint firstItem="siF-0z-RiD" firstAttribute="top" secondItem="kY2-dd-fVV" secondAttribute="bottom" constant="23" id="Fd5-65-Znh"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="siF-0z-RiD" secondAttribute="trailing" constant="20" id="I1p-2h-p5D"/>
-                <constraint firstItem="kY2-dd-fVV" firstAttribute="height" secondItem="pGZ-eB-s9R" secondAttribute="height" id="MrK-rc-ZHr"/>
-                <constraint firstItem="pGZ-eB-s9R" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="Ms1-xF-0C3"/>
-                <constraint firstItem="siF-0z-RiD" firstAttribute="height" secondItem="kY2-dd-fVV" secondAttribute="height" id="YGm-fZ-9te"/>
-                <constraint firstItem="siF-0z-RiD" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="YiB-Gd-rTy"/>
-                <constraint firstItem="pGZ-eB-s9R" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="Z5v-bY-oeN"/>
-                <constraint firstItem="kY2-dd-fVV" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="iOK-U8-QYm"/>
+                <constraint firstItem="8Zd-kc-ZKn" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="2CB-jD-A3s"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="8Zd-kc-ZKn" secondAttribute="trailing" constant="20" id="HCM-g8-np0"/>
+                <constraint firstItem="8Zd-kc-ZKn" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="TTS-Dg-2vr"/>
             </constraints>
             <point key="canvasLocation" x="18.840579710144929" y="53.571428571428569"/>
         </view>

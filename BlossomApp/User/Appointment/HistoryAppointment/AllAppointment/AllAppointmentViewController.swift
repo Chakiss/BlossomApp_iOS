@@ -47,8 +47,11 @@ class AllAppointmentViewController: UIViewController, UITableViewDelegate, UITab
                     let postForm = data["postForm"] as? [String:Any] ?? ["":""]
                     
                     let attachedImages = data["attachedImages"] as? [String] ?? []
+                    let createdAt = data["createdAt"] as? Timestamp ?? Timestamp(date: Date())
+                    let updatedAt = data["updatedAt"]  as? Timestamp ?? Timestamp(date: Date())
                     
-                    var appointment = Appointment(id: queryDocumentSnapshot.documentID, customerReference: cusRef!, doctorReference: doctorRef!, timeReference: timeRef!,sessionStart: sessionStart, sessionEnd: sessionEnd,preForm: preForm, postForm: postForm)
+                    var appointment = Appointment(id: queryDocumentSnapshot.documentID, customerReference: cusRef!, doctorReference: doctorRef!, timeReference: timeRef!,sessionStart: sessionStart, sessionEnd: sessionEnd,preForm: preForm, postForm: postForm, createdAt: createdAt, updatedAt: updatedAt)
+                    
                     appointment.isComplete = isComplete
                     appointment.attachedImages = attachedImages
                     return appointment

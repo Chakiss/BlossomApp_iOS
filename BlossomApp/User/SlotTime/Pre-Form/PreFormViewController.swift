@@ -12,6 +12,7 @@ import SwiftDate
 import EventKit
 import ConnectyCube
 import AlignedCollectionViewFlowLayout
+import FirebaseStorageUI
 
 class PreFormViewController: UIViewController {
       
@@ -22,6 +23,7 @@ class PreFormViewController: UIViewController {
     @IBOutlet weak var submitButton: UIButton!
     
     var imageArray: [UIImage] = []
+    var tmpImageViewArray: [UIImageView] = []
         
     @IBOutlet weak var collectionView: UICollectionView!
     private var pickerManager: ImagePickerManager?
@@ -78,17 +80,21 @@ class PreFormViewController: UIViewController {
                     }
                 }
             }
-
-            let attachedImageArray: [String] = (preform["attachedImages"] as? [String]) ?? []
             
-            for imageData in attachedImageArray {
-                let imageRef = storage.reference(withPath: imageData )
-                imageRef.getData(maxSize: 2 * 1024 * 1024) { [weak self] (data, error) in
+            let attachedImageArray: [String] = (preform["attachedImages"] as? [String]) ?? []
+        
+            
+            for  (index, imageData) in attachedImageArray.enumerated() {
+                let imageView = UIImageView()
+    
+                let placeholderImage = UIImage(named: "placeholder")
+                imageView.image = placeholderImage
+                self.tmpImageViewArray.append(imageView)
+                let imageRef = self.storage.reference().child(imageData)
+                self.tmpImageViewArray[index].sd_setImage(with: imageRef, placeholderImage: nil) { img, error, type, ref in
                     if error == nil {
-                        if let imgData = data, let img = UIImage(data: imgData) {
-                            self?.imageArray.append(img)
-                            self?.collectionView.reloadData()
-                        }
+                        self.imageArray.append(img!)
+                        self.collectionView.reloadData()
                     }
                 }
             }
@@ -123,22 +129,70 @@ class PreFormViewController: UIViewController {
             }
         }
         
+        /*
+        var isNeedImage = false
         
-        
-        if attachImage.count == 0 {
-            showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณาแนบรูปอย่างน้อย 1 รูป") {}
+        if appointment != nil {
+            if attachImage.count > 0  {
+                isNeedImage = true
+            }
+        } else {
+            let calendar = Calendar.current
+
+            // Replace the hour (time) of both dates with 00:00
+            let date1 = calendar.startOfDay(for: slotDaySelected?.date?.dateValue() ?? Date())
+            let date2 = calendar.startOfDay(for: Date())
+
+            let components = calendar.dateComponents([.day], from: date1, to: date2)
+            
+            if abs(components.day!) < 7 {
+                isNeedImage = true
+            }
+            
         }
-        else {
+        
+        
+        if isNeedImage == true {
             
             if appointment != nil {
                 
                 self.updateForm()
                 
             } else {
+                if attachImage.count > 2 {
+                    createOrder()
+                } else {
+                    showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณาแนบรูปอย่างน้อย 3 รูป ด้านซ้าย หน้าตรงและด้านขวา") {}
+                }
                 
+            }
+            
+        } else {
+            if appointment != nil {
                 
-                
-                let alert = UIAlertController(title: "ยืนยัน", message: "คุณต้องการที่จะนัดหมายในเวลานี้ใช่หรือไม่​?", preferredStyle: UIAlertController.Style.alert)
+            } else {
+                createOrder()
+            }
+        }
+        
+        */
+        
+        if appointment != nil {
+            
+            self.updateForm()
+            
+        } else {
+            if attachImage.count > 2 {
+                createOrder()
+            } else {
+                showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณาแนบรูปอย่างน้อย 3 รูป ด้านซ้าย หน้าตรงและด้านขวา") {}
+            }
+            
+        }
+    }
+    
+    func createOrder(){
+        let alert = UIAlertController(title: "ยืนยัน", message: "คุณต้องการที่จะนัดหมายในเวลานี้ใช่หรือไม่​?", preferredStyle: UIAlertController.Style.alert)
                 alert.addAction(UIAlertAction(title: "ยกเลิก", style: .default, handler: nil))
                 alert.addAction(UIAlertAction(title: "ยืนยัน", style: .default, handler: { [weak self] _ in
                     ProgressHUD.show()
@@ -150,9 +204,10 @@ class PreFormViewController: UIViewController {
                     
                     self.functions.httpsCallable("app-orders-createAppointmentOrder").call(payload) { [weak self] result, error in
                         
+                       
                         ProgressHUD.dismiss()
                         guard let self = self else { return }
-
+                        
                         if error != nil {
                             let alert = UIAlertController(title: "กรุณาตรวจสอบ", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
                             alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
@@ -161,6 +216,8 @@ class PreFormViewController: UIViewController {
                         else {
                             print(result?.data as Any)
                             let order = result?.data as? [String : String] ?? ["":""]
+                            
+                            
                             if self.slotTimeSelected?.salePrice == 0 {
                                 if let orderID = order["orderID"] {
                                     self.makeAppointmentOrderPaid(orderID: orderID)
@@ -172,6 +229,8 @@ class PreFormViewController: UIViewController {
                                 paymentMethodViewController.delegate = self
                                 self.navigationController?.pushViewController(paymentMethodViewController, animated: true)
                             }
+                             
+                           
                         }
                         
                     }
@@ -179,21 +238,16 @@ class PreFormViewController: UIViewController {
                 }))
                 self.present(alert, animated: true, completion: nil)
             }
-        }
-        
-        
-         
-    }
     
     
-
+    
     func makeAppointmentOrderPaid(orderID: String){
-     
+        
         ProgressHUD.show()
         let payload = ["orderID": orderID]
         
         functions.httpsCallable("app-orders-markAppointmentOrderPaid").call(payload) { result, error in
-        
+            
             ProgressHUD.dismiss()
             if error != nil {
                 let alert = UIAlertController(title: "กรุณาตรวจสอบ", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
@@ -201,7 +255,14 @@ class PreFormViewController: UIViewController {
                 self.present(alert, animated: true, completion: nil)
             }
             else {
+                
                 let appointment = result?.data as? [String : String] ?? ["":""]
+                
+                if let appointmentID = appointment["appointmentID"] {
+                    self.appointmentID = appointmentID
+                    self.updateForm()
+
+                }
                 
                 // 1
                 let eventStore = EKEventStore()
@@ -216,12 +277,12 @@ class PreFormViewController: UIViewController {
                     // 3
                     eventStore.requestAccess(to: .event, completion:
                                                 { [weak self] (granted: Bool, error: Error?) -> Void in
-                                                    if granted {
-                                                        self?.insertEvent(store: eventStore)
-                                                    } else {
-                                                        print("Access denied")
-                                                    }
-                                                })
+                        if granted {
+                            self?.insertEvent(store: eventStore)
+                        } else {
+                            print("Access denied")
+                        }
+                    })
                 default:
                     print("Case default")
                 }
@@ -252,11 +313,7 @@ class PreFormViewController: UIViewController {
                 }
 
                 
-                if let appointmentID = appointment["appointmentID"] {
-                    self.appointmentID = appointmentID
-                    self.updateForm()
-
-                }
+             
                 
 
                 
@@ -289,21 +346,22 @@ class PreFormViewController: UIViewController {
     func updateForm(){
         
         if attachImage.count == 0 {
-            showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณาแนบรูปอย่างน้อย 1 รูป") {}
+            showAlertDialogue(title: "ไม่สามารถดำเนินการได้", message: "กรุณาแนบรูปอย่างน้อย 3 รูป") {}
         } else {
-            ProgressHUD.show()
+            
             let payload = ["appointmentID": self.appointmentID,
                            "type": "pre",
                            "images": attachImage,
                            "form": formData ] as [String : Any]
-            
+            ProgressHUD.show()
             functions.httpsCallable("app-appointments-updateForm").call(payload) { [weak self] result, error in
-                ProgressHUD.dismiss()
-                
                 guard let self = self else { return }
+                
                 if self.appointment != nil {
+                    ProgressHUD.dismiss()
                     self.navigationController?.popViewController(animated: true)
                 } else {
+                    ProgressHUD.dismiss()
                     self.navigationController?.popToRootViewController(animated: false)
                     if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
                         appDelegate.deeplinking = .appointment
@@ -320,13 +378,14 @@ class PreFormViewController: UIViewController {
           
         }
     }
+    
 }
 
 extension PreFormViewController : UpdateCartViewControllerDelegate {
     
     func appointmentOrderSuccess(orderID: String) {
-        self.navigationController?.popViewController(animated: true)
-        makeAppointmentOrderPaid(orderID: orderID)
+        self.appointmentID = orderID
+        self.updateForm()
     }
     
 }

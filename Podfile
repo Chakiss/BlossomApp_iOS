@@ -14,8 +14,9 @@ target 'BlossomApp' do
   pod 'Firebase/Storage'
   pod 'Firebase/Messaging'
   pod 'Firebase/RemoteConfig'
+  pod 'FirebaseUI/Storage'
+  pod 'Firebase/Crashlytics'
   
-  pod 'Firebase/Crashlytics'  
 #  pod 'FirebaseFirestoreSwift'
   
   pod 'FBSDKCoreKit'
@@ -42,6 +43,13 @@ target 'BlossomApp' do
   pod "GSImageViewerController"
   pod 'SwiftPhotoGallery'
   pod "AlignedCollectionViewFlowLayout"
+  
+  pod 'Alamofire'
+  
+  pod 'Mixpanel-swift'
+  
+  pod 'SwiftMessages'
+  
 #  pod 'LetterAvatarKit', '~> 1.1.7'
 #  pod 'PINRemoteImage', '~> 2.1.4'
 #  pod 'Reusable', '~> 4.0.5'

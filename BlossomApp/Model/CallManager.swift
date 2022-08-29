@@ -12,6 +12,7 @@ import PushKit
 import CallKit
 import SwiftyUserDefaults
 import Firebase
+import SwiftMessages
 
 protocol CallManagerDelegate: AnyObject {
     func callManagerDidEndCall()
@@ -110,15 +111,33 @@ class CallManager: NSObject, CXProviderDelegate {
     }
     
     func loginConnectyCube(email: String, firebaseID: String, connectyID: UInt) {
+        SwiftMessages.show {
+            let view = MessageView.viewFromNib(layout: .statusLine)
+            view.configureContent(title: "เริ่ม", body: "กำลังเชื่อมต่อระบบ", iconText: "🤔")
+
+            return view
+        }
+
         Request.logIn(withUserLogin: email, password: firebaseID, successBlock: { [weak self] (user) in
             print(user)
             self?.createSubscription()
             self?.voipRegistration(connectyID: connectyID, firebaseID: firebaseID)
             
             self?.getDialog()
-            
+            SwiftMessages.show {
+                let view = MessageView.viewFromNib(layout: .statusLine)
+                view.configureContent(title: "สำเร็จ", body: "เชื่อมต่อระบบเรียบร้อย", iconText: "😄")
+
+                return view
+            }
         }) { (error) in
             print(error)
+            SwiftMessages.show {
+                let view = MessageView.viewFromNib(layout: .statusLine)
+                view.configureContent(title: "ล้มเหลว", body: "เชื่อมต่อระบบล้มเหลว", iconText: "😢")
+
+                return view
+            }
         }
     }
     

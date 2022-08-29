@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>593223696061-vc3r05m5d37lbg3b82u97a1o1ql8mbo3.apps.googleusercontent.com</string>
+	<string>593223696061-0c19ob86s927l6q5grvtf2ccbq2b9sf1.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.593223696061-vc3r05m5d37lbg3b82u97a1o1ql8mbo3</string>
+	<string>com.googleusercontent.apps.593223696061-0c19ob86s927l6q5grvtf2ccbq2b9sf1</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>593223696061-45oakneio2g0iq8frtdt03iskh1u5n85.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
@@ -32,5 +32,7 @@
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:593223696061:ios:76247b12ee2eee51f441d4</string>
+	<key>DATABASE_URL</key>
+	<string>https://blossom-clinic-thailand-default-rtdb.firebaseio.com</string>
 </dict>
 </plist>

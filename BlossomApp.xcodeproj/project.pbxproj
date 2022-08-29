@@ -40,7 +40,8 @@
 		1B279A54271F2A91007FD84D /* CampaignFirstTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B279A53271F2A90007FD84D /* CampaignFirstTime.swift */; };
 		1B27FDC226A5EA11000E8609 /* SlotDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B27FDC126A5EA11000E8609 /* SlotDateCell.swift */; };
 		1B27FDC426A5F01A000E8609 /* SlotDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B27FDC326A5F01A000E8609 /* SlotDay.swift */; };
-		1B29A3D32697E92300556A55 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1B29A3D22697E92300556A55 /* GoogleService-Info.plist */; };
+		1B310FBE27539D120004FAF2 /* VerionCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B310FBD27539D120004FAF2 /* VerionCheck.swift */; };
+		1B343BCF27AFD0A600333943 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1B343BCE27AFD0A600333943 /* GoogleService-Info.plist */; };
 		1B3721D226959645006265D3 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3721D126959645006265D3 /* ProfileViewController.swift */; };
 		1B3721D52695AF29006265D3 /* ProfileInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3721D42695AF29006265D3 /* ProfileInformationViewController.swift */; };
 		1B3721D82695AF46006265D3 /* ProfileHealthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3721D72695AF46006265D3 /* ProfileHealthViewController.swift */; };
@@ -83,6 +84,8 @@
 		1B8D860F26A49A7500A2ED57 /* SenderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8D860E26A49A7500A2ED57 /* SenderCell.swift */; };
 		1B8D861126A49B8400A2ED57 /* ReceiverCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8D861026A49B8400A2ED57 /* ReceiverCell.swift */; };
 		1B8D861426A49C0B00A2ED57 /* MessageingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8D861326A49C0B00A2ED57 /* MessageingViewController.swift */; };
+		1B987E692744802A00C6207B /* Promo_codes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B987E662744802A00C6207B /* Promo_codes.swift */; };
+		1B987E6A2744802A00C6207B /* PromoCodesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B987E672744802A00C6207B /* PromoCodesResponse.swift */; };
 		1BA04F3D26AE84BA0053F10D /* Doctor-AppointmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA04F3C26AE84BA0053F10D /* Doctor-AppointmentViewController.swift */; };
 		1BA04F3F26AE85080053F10D /* Doctor_ChatListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA04F3E26AE85080053F10D /* Doctor_ChatListViewController.swift */; };
 		1BA04F4326AE8CF20053F10D /* Doctor_ComingAppointmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA04F4226AE8CF20053F10D /* Doctor_ComingAppointmentViewController.swift */; };
@@ -234,7 +237,8 @@
 		1B279A53271F2A90007FD84D /* CampaignFirstTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampaignFirstTime.swift; sourceTree = "<group>"; };
 		1B27FDC126A5EA11000E8609 /* SlotDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotDateCell.swift; sourceTree = "<group>"; };
 		1B27FDC326A5F01A000E8609 /* SlotDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotDay.swift; sourceTree = "<group>"; };
-		1B29A3D22697E92300556A55 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1B310FBD27539D120004FAF2 /* VerionCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerionCheck.swift; sourceTree = "<group>"; };
+		1B343BCE27AFD0A600333943 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1B3721D126959645006265D3 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		1B3721D42695AF29006265D3 /* ProfileInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInformationViewController.swift; sourceTree = "<group>"; };
 		1B3721D72695AF46006265D3 /* ProfileHealthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHealthViewController.swift; sourceTree = "<group>"; };
@@ -277,6 +281,8 @@
 		1B8D860E26A49A7500A2ED57 /* SenderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SenderCell.swift; sourceTree = "<group>"; };
 		1B8D861026A49B8400A2ED57 /* ReceiverCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiverCell.swift; sourceTree = "<group>"; };
 		1B8D861326A49C0B00A2ED57 /* MessageingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageingViewController.swift; sourceTree = "<group>"; };
+		1B987E662744802A00C6207B /* Promo_codes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Promo_codes.swift; sourceTree = "<group>"; };
+		1B987E672744802A00C6207B /* PromoCodesResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromoCodesResponse.swift; sourceTree = "<group>"; };
 		1BA04F3C26AE84BA0053F10D /* Doctor-AppointmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Doctor-AppointmentViewController.swift"; sourceTree = "<group>"; };
 		1BA04F3E26AE85080053F10D /* Doctor_ChatListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doctor_ChatListViewController.swift; sourceTree = "<group>"; };
 		1BA04F4226AE8CF20053F10D /* Doctor_ComingAppointmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doctor_ComingAppointmentViewController.swift; sourceTree = "<group>"; };
@@ -290,12 +296,12 @@
 		1BA109192711ECA6000B0371 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		1BBB1F232719E6600033D4C9 /* ShippingFeeResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShippingFeeResponse.swift; sourceTree = "<group>"; };
 		1BC3B21826A1CFA1006EDD29 /* ImagePickerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerManager.swift; sourceTree = "<group>"; };
-		1BC3B21A26A297C0006EDD29 /* BlossomApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BlossomApp.entitlements; sourceTree = "<group>"; };
 		1BC3B21B26A2ADA5006EDD29 /* Nonce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nonce.swift; sourceTree = "<group>"; };
 		1BC5428826B835BD00C15521 /* BankTransferViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankTransferViewController.swift; sourceTree = "<group>"; };
 		1BC5428A26B835CA00C15521 /* BankTransferViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BankTransferViewController.xib; sourceTree = "<group>"; };
 		1BC5428C26B92B1900C15521 /* FormDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormDetailCell.swift; sourceTree = "<group>"; };
 		1BC5428E26B9374B00C15521 /* FormImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormImageCell.swift; sourceTree = "<group>"; };
+		1BCE5C7E27AFD26F0045C899 /* BlossomApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BlossomApp.entitlements; sourceTree = "<group>"; };
 		1BCE64EA26A70964002EE71F /* SlotTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotTime.swift; sourceTree = "<group>"; };
 		1BCE64EC26A719CF002EE71F /* SlotTimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotTimeCell.swift; sourceTree = "<group>"; };
 		1BCE64F126A84B66002EE71F /* ComingAppointmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComingAppointmentViewController.swift; sourceTree = "<group>"; };
@@ -441,7 +447,7 @@
 		1B187A57268F654300BB0122 /* BlossomApp */ = {
 			isa = PBXGroup;
 			children = (
-				1BC3B21A26A297C0006EDD29 /* BlossomApp.entitlements */,
+				1BCE5C7E27AFD26F0045C899 /* BlossomApp.entitlements */,
 				1B187A58268F654300BB0122 /* AppDelegate.swift */,
 				1B187A5A268F654300BB0122 /* SceneDelegate.swift */,
 				1B187A5C268F654300BB0122 /* ViewController.swift */,
@@ -456,7 +462,7 @@
 				1B187A61268F654500BB0122 /* Assets.xcassets */,
 				1B187A63268F654500BB0122 /* LaunchScreen.storyboard */,
 				1B187A66268F654500BB0122 /* Info.plist */,
-				1B29A3D22697E92300556A55 /* GoogleService-Info.plist */,
+				1B343BCE27AFD0A600333943 /* GoogleService-Info.plist */,
 				1B77591D269479EB000780BD /* Helper */,
 				1B5312412693752E00B88165 /* Support files */,
 				3CBF265526B4415700F640DB /* BlossomApp.xcdatamodeld */,
@@ -649,6 +655,7 @@
 				1B1C2E3B269944C200F57122 /* ProductCell.swift */,
 				1B38FD7F26BD919200BFC40E /* PromotionListViewController.swift */,
 				1B38FD8126BD9E5A00BFC40E /* PromotionListCell.swift */,
+				1B987E652744801B00C6207B /* PromoCodeResponse */,
 				1BF58D3A26ADBECB00F2D620 /* OrderResponse */,
 				1B1C2E3A269943AC00F57122 /* ProductResponse */,
 				3CF7B50626AC40B900F937DE /* APIProduct.swift */,
@@ -741,6 +748,7 @@
 				3CF7B50426AC23C200F937DE /* String+Extension.swift */,
 				3C0BB0C326AD42DF001C58BE /* BlossomNavigationController.swift */,
 				1BA04F4426AEF09F0053F10D /* DefaultKey.swift */,
+				1B310FBD27539D120004FAF2 /* VerionCheck.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -790,6 +798,15 @@
 				1B8D861026A49B8400A2ED57 /* ReceiverCell.swift */,
 			);
 			path = MessageView;
+			sourceTree = "<group>";
+		};
+		1B987E652744801B00C6207B /* PromoCodeResponse */ = {
+			isa = PBXGroup;
+			children = (
+				1B987E662744802A00C6207B /* Promo_codes.swift */,
+				1B987E672744802A00C6207B /* PromoCodesResponse.swift */,
+			);
+			path = PromoCodeResponse;
 			sourceTree = "<group>";
 		};
 		1BA04F3A26AE84790053F10D /* Doctor-Appointment */ = {
@@ -1062,7 +1079,6 @@
 				3C857DA426AE727C00DEF13E /* QRPaymentViewController.xib in Resources */,
 				1B77591B2694775E000780BD /* BannerViewCell.xib in Resources */,
 				1B5312492693754200B88165 /* SukhumvitSet-Thin.ttf in Resources */,
-				1B29A3D32697E92300556A55 /* GoogleService-Info.plist in Resources */,
 				3C7D5E4F269AE48D002E5AB9 /* CartViewController.xib in Resources */,
 				1B53124D2693754200B88165 /* SukhumvitSet-Bold.ttf in Resources */,
 				3CFE6375269B350E005235F1 /* PaymentMethodViewController.xib in Resources */,
@@ -1070,6 +1086,7 @@
 				1B187A60268F654300BB0122 /* Main.storyboard in Resources */,
 				1B53124B2693754200B88165 /* SukhumvitSet-Medium.ttf in Resources */,
 				1B7759192694775E000780BD /* MultiBannerView.xib in Resources */,
+				1B343BCF27AFD0A600333943 /* GoogleService-Info.plist in Resources */,
 				3C7D5E57269AF9F5002E5AB9 /* CartItemTableViewCell.xib in Resources */,
 				1B53124C2693754200B88165 /* SukhumvitSet-Light.ttf in Resources */,
 			);
@@ -1243,6 +1260,7 @@
 				1BBB1F242719E6600033D4C9 /* ShippingFeeResponse.swift in Sources */,
 				1B27FDC426A5F01A000E8609 /* SlotDay.swift in Sources */,
 				1B187A5D268F654300BB0122 /* ViewController.swift in Sources */,
+				1B987E6A2744802A00C6207B /* PromoCodesResponse.swift in Sources */,
 				1B1C2E2B2698867400F57122 /* Landing.swift in Sources */,
 				1BC3B21926A1CFA1006EDD29 /* ImagePickerManager.swift in Sources */,
 				1BC3B21C26A2ADA5006EDD29 /* Nonce.swift in Sources */,
@@ -1289,6 +1307,7 @@
 				1BF58D4626ADBEDE00F2D620 /* OrderResponse.swift in Sources */,
 				1BA10918270EE654000B0371 /* Channel.swift in Sources */,
 				1B3D367526B28408000EFCEC /* ProductHilight.swift in Sources */,
+				1B310FBE27539D120004FAF2 /* VerionCheck.swift in Sources */,
 				1B77591A2694775E000780BD /* MultiBannerView.swift in Sources */,
 				1B19E4A026B6CFDE00A23BAE /* Doctor-HistoryAppointmentViewController.swift in Sources */,
 				1BE101E7269DD2DD00F7323E /* Customer.swift in Sources */,
@@ -1335,6 +1354,7 @@
 				1B1C2E3426993C5B00F57122 /* Sets.swift in Sources */,
 				1BCE64EB26A70964002EE71F /* SlotTime.swift in Sources */,
 				1BE0AA9526C2E86500439CBC /* FacebookLoginViewController.swift in Sources */,
+				1B987E692744802A00C6207B /* Promo_codes.swift in Sources */,
 				1B53126126937B9400B88165 /* ChatListViewController.swift in Sources */,
 				1B53125E26937B5F00B88165 /* ProductListViewController.swift in Sources */,
 				1B69AD5A26A489CB00910679 /* DailogCell2.swift in Sources */,
@@ -1539,7 +1559,7 @@
 				CODE_SIGN_ENTITLEMENTS = BlossomApp/BlossomApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 42;
+				CURRENT_PROJECT_VERSION = 55;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = GZWLHGR8C3;
 				EXCLUDED_ARCHS = "";
@@ -1550,7 +1570,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1.1;
+				MARKETING_VERSION = 2.2.1;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1701,10 +1721,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = BlossomApp/BlossomApp.entitlements;
-				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = "";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 42;
+				CURRENT_PROJECT_VERSION = 55;
 				DEVELOPMENT_TEAM = GZWLHGR8C3;
 				EXCLUDED_ARCHS = "";
 				INFOPLIST_FILE = BlossomApp/Info.plist;
@@ -1713,7 +1732,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1.1;
+				MARKETING_VERSION = 2.2.1;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1851,7 +1870,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.blossomclinic.blossomapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Blossom Company Limited App Store Provisioning";
+				PROVISIONING_PROFILE_SPECIFIER = "Adhoc Blossom";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1864,7 +1883,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = LWRVC9W7B3;
+				DEVELOPMENT_TEAM = GZWLHGR8C3;
 				INFOPLIST_FILE = BlossomAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1909,7 +1928,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = LWRVC9W7B3;
+				DEVELOPMENT_TEAM = GZWLHGR8C3;
 				INFOPLIST_FILE = BlossomAppUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

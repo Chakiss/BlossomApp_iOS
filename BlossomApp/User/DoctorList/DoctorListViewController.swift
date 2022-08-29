@@ -39,17 +39,13 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func getConsultOnlineImage() {
-        let imageRef = storage.reference(withPath: "onlineconsult/currentmonth/image.png")
-        imageRef.getData(maxSize: 2 * 1024 * 1024) { (data, error) in
-            if error == nil {
-                if let imgData = data {
-                    if let img = UIImage(data: imgData) {
-                        self.consultImage.image = img
-                    }
-                }
-            }
-        }
+        
+        let imageRef = self.storage.reference().child("onlineconsult/currentmonth/image.png")
+        let placeholderImage = UIImage(named: "placeholder")
+        self.consultImage.sd_setImage(with: imageRef, placeholderImage: placeholderImage)
+        
     }
+    
     @objc func handleTap(_ sender: UITapGestureRecognizer) {
         // handling code
         let imageInfo   = GSImageInfo(image: self.consultImage.image!, imageMode: .aspectFit)
@@ -175,34 +171,6 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
     
   
     
-//    func getAppointment() {
-//        db.collection("appointments")
-//            .addSnapshotListener { snapshot, error in
-//                self.appointmentList = (snapshot?.documents.map { queryDocumentSnapshot -> Appointment  in
-//                    let data = queryDocumentSnapshot.data()
-//                    let doctorRef = data["doctorReference"]  as? DocumentReference ?? nil
-//                    let timeRef = data["timeReference"]  as? DocumentReference ?? nil
-//                    let cusRef = data["customerReference"]  as? DocumentReference ?? nil
-//                    let sessionStart = data["sessionStart"] as! Timestamp
-//                    let sessionEnd = data["sessionEnd"]  as! Timestamp
-//                    let isComplete = data["isCompleted"]  as! Bool
-//                    let preForm = data["preForm"] as? [String:Any] ?? ["":""]
-//                    let postForm = data["postForm"] as? [String:Any] ?? ["":""]
-//
-//                    let attachedImages = data["attachedImages"] as? [String] ?? []
-//
-//                    var appointment = Appointment(id: queryDocumentSnapshot.documentID, customerReference: cusRef!, doctorReference: doctorRef!, timeReference: timeRef!,sessionStart: sessionStart, sessionEnd: sessionEnd,preForm: preForm, postForm: postForm)
-//                    appointment.isComplete = isComplete
-//                    appointment.attachedImages = attachedImages
-//                    return appointment
-//                }) ?? []
-//                self.tableView.reloadData()
-//
-//
-//            }
-//    }
-    
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return doctorList.count
     }
@@ -216,30 +184,10 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
         cell.doctorNameLabel.text = (doctor.firstName ?? "") + "  " + (doctor.lastName ?? "")
         
         //
-        
-        let storageRef = storage.reference().child(doctor.displayPhoto ?? "")
        
-        let metadata = StorageMetadata()
-        metadata.contentType = "image/jpeg"
-        metadata.cacheControl = "public,max-age=2592000"
-        
-        
-        storageRef.downloadURL { (URL, error) -> Void in
-          if (error != nil) {
-              cell.doctorImageView.image = UIImage(named: "placeholder")
-          } else {
-              cell.doctorImageView.kf.setImage(with: URL)
-          }
-            
-            guard let URL = URL else {
-                return
-            }
-        
-            //let resource = Source(downloadURL: URL, cacheKey: doctor)
-            //let resource = Source(URL:URL, cacheKey: doctor)
-            //
-            //cell.doctorImageView.kf_setImageWithResource(resource)
-        }
+        let imageRef = self.storage.reference().child(doctor.displayPhoto ?? "")
+        let placeholderImage = UIImage(named: "placeholder")
+        cell.doctorImageView.sd_setImage(with: imageRef, placeholderImage: placeholderImage)
         
       
         

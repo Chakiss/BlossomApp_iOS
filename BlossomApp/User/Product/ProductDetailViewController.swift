@@ -6,10 +6,14 @@
 //
 
 import UIKit
+import Firebase
 
 class ProductDetailViewController: UIViewController {
 
     var product:Product? = nil
+    var set:Sets? = nil
+    
+    let db = Firestore.firestore()
     
     @IBOutlet weak var productNameLabel: UILabel!
     @IBOutlet weak var productPriceLabel: UILabel!
@@ -35,19 +39,43 @@ class ProductDetailViewController: UIViewController {
         self.footerView.layer.shadowOpacity = 0.1
         self.footerView.layer.shadowRadius = 4.0
         
-        self.title = product?.name
+        if product != nil {
+            self.title = product?.name
+            
+            productNameLabel.text = product?.name
+            productPriceLabel.text = product?.priceInSatang().satangToBaht().toAmountText()
+            productDescriptionLabel.text = product?.description_long?.htmlToString
+            
+            let url = URL(string: product?.image ?? "")
+            productImageView.kf.setImage(with: url, placeholder: UIImage(named: "placeholder"))
+            productImageView.addConerRadiusAndShadow()
+            
+            decreaseButton.addConerRadiusAndShadow()
+            addButton.addConerRadiusAndShadow()
+            calculatePrice()
+        }
         
-        productNameLabel.text = product?.name
-        productPriceLabel.text = product?.priceInSatang().satangToBaht().toAmountText()
-        productDescriptionLabel.text = product?.description_long?.htmlToString
-        
-        let url = URL(string: product?.image ?? "")
-        productImageView.kf.setImage(with: url, placeholder: UIImage(named: "placeholder"))
-        productImageView.addConerRadiusAndShadow()
-        
-        decreaseButton.addConerRadiusAndShadow()
-        addButton.addConerRadiusAndShadow()
-        calculatePrice()
+        if set != nil {
+            productNameLabel.text = set?.name
+            
+            productPriceLabel.text = set?.price
+            
+            db.collection("set_product").document(set?.code ?? "").getDocument { documentSnapshot, error in
+                let snapshotData = documentSnapshot?.data()
+                let image = snapshotData?["image"] as? String ?? ""
+                let description = snapshotData?["description"] as? String ?? ""
+                
+                self.productImageView.kf.setImage(with: URL(string: image), placeholder: UIImage(named: "placeholder"))
+                self.productImageView.addConerRadiusAndShadow()
+                self.productDescriptionLabel.text = description
+            }
+            
+            productImageView.addConerRadiusAndShadow()
+            
+            decreaseButton.addConerRadiusAndShadow()
+            addButton.addConerRadiusAndShadow()
+            calculatePrice()
+        }
     }
     
     @IBAction func addQuantity(_ sender: Any) {
@@ -63,19 +91,39 @@ class ProductDetailViewController: UIViewController {
     }
     
     private func calculatePrice() {
-        guard let itemPrice = product?.priceInSatang() else {
-            return
+        if product != nil {
+            guard let itemPrice = product?.priceInSatang() else {
+                return
+            }
+            let total = itemPrice*quantity
+            priceLabel.text = "ราคา \(total.satangToBaht().toAmountText()) บาท"
         }
-        let total = itemPrice*quantity
-        priceLabel.text = "ราคา \(total.satangToBaht().toAmountText()) บาท"
+        
+        if set != nil {
+            guard let itemPrice = set?.priceInSatang() else {
+                return
+            }
+            let total = itemPrice*quantity
+            priceLabel.text = "ราคา \(total.satangToBaht().toAmountText()) บาท"
+        }
     }
     
     @IBAction func addToCart(_ sender: Any) {
-        guard let product = product, let button = sender as? UIButton else {
-            return
+        if product != nil {
+            guard let product = product, let button = sender as? UIButton else {
+                return
+            }
+            buttonHandlerAddToCart(button)
+            CartManager.shared.addItem(product, quantity: quantity)
         }
-        buttonHandlerAddToCart(button)
-        CartManager.shared.addItem(product, quantity: quantity)
+        
+        if set != nil {
+            guard let product = set, let button = sender as? UIButton else {
+                return
+            }
+            buttonHandlerAddToCart(button)
+            CartManager.shared.addSet(product, quantity: quantity)
+        }
     }
     
 }

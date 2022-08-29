@@ -14,11 +14,11 @@ import UserNotifications
 import SwiftyUserDefaults
 import FirebaseRemoteConfig
 
-
 protocol DeeplinkingHandler {
     var shouldHandleDeeplink: Bool { get set }
     func handleDeeplink()
 }
+
 
 enum Deeplinking {
     case home
@@ -92,10 +92,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let center  = UNUserNotificationCenter.current()
         center.delegate = self
         // set the type as sound or badge
-        center.requestAuthorization(options: [.sound, .alert, .badge]) { [weak self] (granted, error) in
+        center.requestAuthorization(options: [.sound, .alert, .badge]) { (granted, error) in
             // Enable or disable features based on authorization
-            if granted {
-                self?.getNotificationSettings()
+            if let error = error {
+                print("D'oh: \(error.localizedDescription)")
+            } else {
+                application.registerForRemoteNotifications()
             }
         }
         application.registerForRemoteNotifications()
@@ -133,6 +135,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             }
         }
         
+        
         return true
         
     }
@@ -169,6 +172,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let pushCredentials = deviceToken.map { String(format: "%02x", $0) }.joined()
         print("didRegisterForRemoteNotificationsWithDeviceToken -> deviceToken :\(pushCredentials)")
         CustomerManager.sharedInstance.saveDeviceToken(deviceToken)
+        
+        let payload = ["token": pushCredentials,
+                       "os": "ios"] as [String : Any]
+        
+        Functions.functions().httpsCallable("app-users-addDeviceToken").call(payload) { result, error in
+            ProgressHUD.dismiss()
+            
+        }
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
@@ -347,6 +358,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         self.window!.rootViewController = customerTabbar
                 
     }
+    
+
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {

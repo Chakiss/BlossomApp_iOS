@@ -78,19 +78,12 @@ class AppointmentCell: UITableViewCell {
                 self.doctorImageView.layer.cornerRadius = self.doctorImageView.frame.size.width/2
                 self.doctorNickNameLabel.text = doctor?.displayName
                 self.doctorNameLabel.text = (doctor?.firstName ?? "") + "  " + (doctor?.lastName ?? "")
-                let imageRef = self.storage.reference(withPath: doctor?.displayPhoto ?? "")
-                imageRef.getData(maxSize: 2 * 1024 * 1024) { (data, error) in
-                    if error == nil {
-                        if let imgData = data {
-                            if let img = UIImage(data: imgData) {
-                                self.doctorImageView.image = img
-                            }
-                        }
-                    } else {
-                        self.doctorImageView.image = UIImage(named: "placeholder")
-                        
-                    }
-                }
+                
+                let imageRef = self.storage.reference().child(doctor?.displayPhoto ?? "")
+                        let placeholderImage = UIImage(named: "placeholder")
+                self.doctorImageView.sd_setImage(with: imageRef, placeholderImage: placeholderImage)
+                
+            
             }
     }
     
@@ -159,19 +152,12 @@ class AppointmentCell: UITableViewCell {
                 self.doctorImageView.layer.cornerRadius = self.doctorImageView.frame.size.width/2
                 self.doctorNickNameLabel.text = customer?.displayName
                 self.doctorNameLabel.text = (customer?.firstName ?? "") + "  " + (customer?.lastName ?? "")
-                let imageRef = self.storage.reference(withPath: customer?.displayPhoto ?? "")
-                imageRef.getData(maxSize: 2 * 1024 * 1024) { (data, error) in
-                    if error == nil {
-                        if let imgData = data {
-                            if let img = UIImage(data: imgData) {
-                                self.doctorImageView.image = img
-                            }
-                        }
-                    } else {
-                        self.doctorImageView.image = UIImage(named: "placeholder")
-                        
-                    }
-                }
+                
+                let imageRef = self.storage.reference().child(customer?.displayPhoto ?? "")
+                let placeholderImage = UIImage(named: "placeholder")
+                self.doctorImageView.sd_setImage(with: imageRef, placeholderImage: placeholderImage)
+                
+               
             }
         
         
