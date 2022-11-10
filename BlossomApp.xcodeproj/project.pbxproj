@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		005EA101033397470554506A /* Pods_BlossomApp_BlossomAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12E35CC8C0DC554A5E8BFF0C /* Pods_BlossomApp_BlossomAppUITests.framework */; };
-		0CB88719E0A6B968E5F2A4ED /* Pods_BlossomAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 443CC29CCD003E56492D4338 /* Pods_BlossomAppTests.framework */; };
 		1B13A28326BE3D080073A19F /* ReceiveCallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B13A28226BE3D080073A19F /* ReceiveCallViewController.swift */; };
 		1B13E6E5269ADC0000131105 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B13E6E4269ADC0000131105 /* RegisterViewController.swift */; };
 		1B13E6E7269ADC2100131105 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B13E6E6269ADC2100131105 /* LoginViewController.swift */; };
@@ -51,6 +49,9 @@
 		1B3D367526B28408000EFCEC /* ProductHilight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D367426B28408000EFCEC /* ProductHilight.swift */; };
 		1B3D367826B2EEED000EFCEC /* HistoryAppointmentDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D367726B2EEED000EFCEC /* HistoryAppointmentDetailViewController.swift */; };
 		1B3F009126BBD1C6001B2062 /* AllAppointmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3F009026BBD1C6001B2062 /* AllAppointmentViewController.swift */; };
+		1B476994291CFA6D00DE1B56 /* OmiseSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B476993291CFA6D00DE1B56 /* OmiseSDK.xcframework */; };
+		1B476995291CFA6D00DE1B56 /* OmiseSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B476993291CFA6D00DE1B56 /* OmiseSDK.xcframework */; };
+		1B476996291CFA6D00DE1B56 /* OmiseSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B476993291CFA6D00DE1B56 /* OmiseSDK.xcframework */; };
 		1B5312492693754200B88165 /* SukhumvitSet-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1B5312432693754200B88165 /* SukhumvitSet-Thin.ttf */; };
 		1B53124A2693754200B88165 /* SukhumvitSet-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1B5312442693754200B88165 /* SukhumvitSet-SemiBold.ttf */; };
 		1B53124B2693754200B88165 /* SukhumvitSet-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1B5312452693754200B88165 /* SukhumvitSet-Medium.ttf */; };
@@ -113,8 +114,6 @@
 		1BCE64FA26A88736002EE71F /* CallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCE64F926A88736002EE71F /* CallViewController.swift */; };
 		1BCE64FD26A8C86C002EE71F /* PreFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCE64FC26A8C86C002EE71F /* PreFormViewController.swift */; };
 		1BCE650126A9A1D0002EE71F /* LocalVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCE64FF26A9A1D0002EE71F /* LocalVideoView.swift */; };
-		1BCE650426ABB153002EE71F /* OmiseSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 1BCE650326ABB153002EE71F /* OmiseSDK */; };
-		1BCE650526ABB153002EE71F /* OmiseSDK in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 1BCE650326ABB153002EE71F /* OmiseSDK */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		1BCE650826ABB69E002EE71F /* DoctorProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCE650726ABB69E002EE71F /* DoctorProfileCell.swift */; };
 		1BCE650A26ABCE83002EE71F /* ReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCE650926ABCE82002EE71F /* ReviewCell.swift */; };
 		1BCE650C26ABF5A2002EE71F /* Appointment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCE650B26ABF5A2002EE71F /* Appointment.swift */; };
@@ -137,6 +136,8 @@
 		1BF58D4426ADBEDE00F2D620 /* Filters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF58D3E26ADBEDE00F2D620 /* Filters.swift */; };
 		1BF58D4526ADBEDE00F2D620 /* Purchases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF58D3F26ADBEDE00F2D620 /* Purchases.swift */; };
 		1BF58D4626ADBEDE00F2D620 /* OrderResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF58D4026ADBEDE00F2D620 /* OrderResponse.swift */; };
+		263784AC3F899F003546F55F /* Pods_BlossomAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0629A948087FF447E70A62CF /* Pods_BlossomAppTests.framework */; };
+		32D3F06A6A04B4F6EF858AB1 /* Pods_BlossomApp_BlossomAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB148FC1AB54BEF3444E176A /* Pods_BlossomApp_BlossomAppUITests.framework */; };
 		3C0BB0C426AD42DF001C58BE /* BlossomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0BB0C326AD42DF001C58BE /* BlossomNavigationController.swift */; };
 		3C52EB4826AE98BE00E31023 /* OrderItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C52EB4726AE98BE00E31023 /* OrderItemTableViewCell.swift */; };
 		3C65030726AC10D100DAA98A /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C65030626AC10D100DAA98A /* Button.swift */; };
@@ -164,7 +165,7 @@
 		3CFE6374269B350E005235F1 /* PaymentMethodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CFE6372269B350E005235F1 /* PaymentMethodViewController.swift */; };
 		3CFE6375269B350E005235F1 /* PaymentMethodViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CFE6373269B350E005235F1 /* PaymentMethodViewController.xib */; };
 		3CFE6377269B44BF005235F1 /* UIViewController+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CFE6376269B44BF005235F1 /* UIViewController+Additions.swift */; };
-		D0FA51DDE5904EA57F3A74FE /* Pods_BlossomApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E5DEC790F17DFFE8009234D /* Pods_BlossomApp.framework */; };
+		FC758A8AED7944054A752CE3 /* Pods_BlossomApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C89B1FC93259D098D8F21ED /* Pods_BlossomApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -191,7 +192,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				1BCE650526ABB153002EE71F /* OmiseSDK in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -199,7 +199,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		12E35CC8C0DC554A5E8BFF0C /* Pods_BlossomApp_BlossomAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BlossomApp_BlossomAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0629A948087FF447E70A62CF /* Pods_BlossomAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BlossomAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0C89B1FC93259D098D8F21ED /* Pods_BlossomApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BlossomApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		16A96A37E0698613BFD0351E /* Pods-BlossomAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlossomAppTests.release.xcconfig"; path = "Target Support Files/Pods-BlossomAppTests/Pods-BlossomAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		1B13A28226BE3D080073A19F /* ReceiveCallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveCallViewController.swift; sourceTree = "<group>"; };
 		1B13E6E4269ADC0000131105 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		1B13E6E6269ADC2100131105 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -248,6 +250,7 @@
 		1B3D367426B28408000EFCEC /* ProductHilight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductHilight.swift; sourceTree = "<group>"; };
 		1B3D367726B2EEED000EFCEC /* HistoryAppointmentDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryAppointmentDetailViewController.swift; sourceTree = "<group>"; };
 		1B3F009026BBD1C6001B2062 /* AllAppointmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllAppointmentViewController.swift; sourceTree = "<group>"; };
+		1B476993291CFA6D00DE1B56 /* OmiseSDK.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = OmiseSDK.xcframework; path = Carthage/Build/OmiseSDK.xcframework; sourceTree = "<group>"; };
 		1B5312432693754200B88165 /* SukhumvitSet-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SukhumvitSet-Thin.ttf"; sourceTree = "<group>"; };
 		1B5312442693754200B88165 /* SukhumvitSet-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SukhumvitSet-SemiBold.ttf"; sourceTree = "<group>"; };
 		1B5312452693754200B88165 /* SukhumvitSet-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SukhumvitSet-Medium.ttf"; sourceTree = "<group>"; };
@@ -333,9 +336,7 @@
 		1BF58D3E26ADBEDE00F2D620 /* Filters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Filters.swift; sourceTree = "<group>"; };
 		1BF58D3F26ADBEDE00F2D620 /* Purchases.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Purchases.swift; sourceTree = "<group>"; };
 		1BF58D4026ADBEDE00F2D620 /* OrderResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderResponse.swift; sourceTree = "<group>"; };
-		1E5DEC790F17DFFE8009234D /* Pods_BlossomApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BlossomApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		21AF61717057C8CE864F6266 /* Pods-BlossomApp-BlossomAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlossomApp-BlossomAppUITests.debug.xcconfig"; path = "Target Support Files/Pods-BlossomApp-BlossomAppUITests/Pods-BlossomApp-BlossomAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		2814CF4B25807FE820AF0573 /* Pods-BlossomApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlossomApp.debug.xcconfig"; path = "Target Support Files/Pods-BlossomApp/Pods-BlossomApp.debug.xcconfig"; sourceTree = "<group>"; };
+		2763D070982EA85E08034F51 /* Pods-BlossomApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlossomApp.release.xcconfig"; path = "Target Support Files/Pods-BlossomApp/Pods-BlossomApp.release.xcconfig"; sourceTree = "<group>"; };
 		3C0BB0C326AD42DF001C58BE /* BlossomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlossomNavigationController.swift; sourceTree = "<group>"; };
 		3C52EB4726AE98BE00E31023 /* OrderItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderItemTableViewCell.swift; sourceTree = "<group>"; };
 		3C65030626AC10D100DAA98A /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
@@ -363,11 +364,11 @@
 		3CFE6372269B350E005235F1 /* PaymentMethodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodViewController.swift; sourceTree = "<group>"; };
 		3CFE6373269B350E005235F1 /* PaymentMethodViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentMethodViewController.xib; sourceTree = "<group>"; };
 		3CFE6376269B44BF005235F1 /* UIViewController+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Additions.swift"; sourceTree = "<group>"; };
-		443CC29CCD003E56492D4338 /* Pods_BlossomAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BlossomAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5DC040D10118CC79D232E34D /* Pods-BlossomAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlossomAppTests.release.xcconfig"; path = "Target Support Files/Pods-BlossomAppTests/Pods-BlossomAppTests.release.xcconfig"; sourceTree = "<group>"; };
-		B3831D8E9A7A3637316392EA /* Pods-BlossomApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlossomApp.release.xcconfig"; path = "Target Support Files/Pods-BlossomApp/Pods-BlossomApp.release.xcconfig"; sourceTree = "<group>"; };
-		D73BAF34AF5747B96995AA97 /* Pods-BlossomAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlossomAppTests.debug.xcconfig"; path = "Target Support Files/Pods-BlossomAppTests/Pods-BlossomAppTests.debug.xcconfig"; sourceTree = "<group>"; };
-		EB66B125AA8DF575D14EA2A1 /* Pods-BlossomApp-BlossomAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlossomApp-BlossomAppUITests.release.xcconfig"; path = "Target Support Files/Pods-BlossomApp-BlossomAppUITests/Pods-BlossomApp-BlossomAppUITests.release.xcconfig"; sourceTree = "<group>"; };
+		4549AA37289A41C9FBBA7C59 /* Pods-BlossomAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlossomAppTests.debug.xcconfig"; path = "Target Support Files/Pods-BlossomAppTests/Pods-BlossomAppTests.debug.xcconfig"; sourceTree = "<group>"; };
+		4E4E7B972D40DF155D69EB07 /* Pods-BlossomApp-BlossomAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlossomApp-BlossomAppUITests.debug.xcconfig"; path = "Target Support Files/Pods-BlossomApp-BlossomAppUITests/Pods-BlossomApp-BlossomAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		891141C9DB5CC62AD4231566 /* Pods-BlossomApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlossomApp.debug.xcconfig"; path = "Target Support Files/Pods-BlossomApp/Pods-BlossomApp.debug.xcconfig"; sourceTree = "<group>"; };
+		E48323F23A3A78217344B02E /* Pods-BlossomApp-BlossomAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlossomApp-BlossomAppUITests.release.xcconfig"; path = "Target Support Files/Pods-BlossomApp-BlossomAppUITests/Pods-BlossomApp-BlossomAppUITests.release.xcconfig"; sourceTree = "<group>"; };
+		EB148FC1AB54BEF3444E176A /* Pods_BlossomApp_BlossomAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BlossomApp_BlossomAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -376,8 +377,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				1BDEA9FF26D5FFCD0038CD49 /* AdSupport.framework in Frameworks */,
-				1BCE650426ABB153002EE71F /* OmiseSDK in Frameworks */,
-				D0FA51DDE5904EA57F3A74FE /* Pods_BlossomApp.framework in Frameworks */,
+				1B476994291CFA6D00DE1B56 /* OmiseSDK.xcframework in Frameworks */,
+				FC758A8AED7944054A752CE3 /* Pods_BlossomApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -385,7 +386,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0CB88719E0A6B968E5F2A4ED /* Pods_BlossomAppTests.framework in Frameworks */,
+				1B476995291CFA6D00DE1B56 /* OmiseSDK.xcframework in Frameworks */,
+				263784AC3F899F003546F55F /* Pods_BlossomAppTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -393,7 +395,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				005EA101033397470554506A /* Pods_BlossomApp_BlossomAppUITests.framework in Frameworks */,
+				1B476996291CFA6D00DE1B56 /* OmiseSDK.xcframework in Frameworks */,
+				32D3F06A6A04B4F6EF858AB1 /* Pods_BlossomApp_BlossomAppUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -403,12 +406,12 @@
 		19E0BD1C073416A35022193B /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				2814CF4B25807FE820AF0573 /* Pods-BlossomApp.debug.xcconfig */,
-				B3831D8E9A7A3637316392EA /* Pods-BlossomApp.release.xcconfig */,
-				21AF61717057C8CE864F6266 /* Pods-BlossomApp-BlossomAppUITests.debug.xcconfig */,
-				EB66B125AA8DF575D14EA2A1 /* Pods-BlossomApp-BlossomAppUITests.release.xcconfig */,
-				D73BAF34AF5747B96995AA97 /* Pods-BlossomAppTests.debug.xcconfig */,
-				5DC040D10118CC79D232E34D /* Pods-BlossomAppTests.release.xcconfig */,
+				891141C9DB5CC62AD4231566 /* Pods-BlossomApp.debug.xcconfig */,
+				2763D070982EA85E08034F51 /* Pods-BlossomApp.release.xcconfig */,
+				4E4E7B972D40DF155D69EB07 /* Pods-BlossomApp-BlossomAppUITests.debug.xcconfig */,
+				E48323F23A3A78217344B02E /* Pods-BlossomApp-BlossomAppUITests.release.xcconfig */,
+				4549AA37289A41C9FBBA7C59 /* Pods-BlossomAppTests.debug.xcconfig */,
+				16A96A37E0698613BFD0351E /* Pods-BlossomAppTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -944,10 +947,11 @@
 		5A33B9B51641CF67E01E1D2A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1B476993291CFA6D00DE1B56 /* OmiseSDK.xcframework */,
 				1BDEA9FE26D5FFCD0038CD49 /* AdSupport.framework */,
-				1E5DEC790F17DFFE8009234D /* Pods_BlossomApp.framework */,
-				12E35CC8C0DC554A5E8BFF0C /* Pods_BlossomApp_BlossomAppUITests.framework */,
-				443CC29CCD003E56492D4338 /* Pods_BlossomAppTests.framework */,
+				0C89B1FC93259D098D8F21ED /* Pods_BlossomApp.framework */,
+				EB148FC1AB54BEF3444E176A /* Pods_BlossomApp_BlossomAppUITests.framework */,
+				0629A948087FF447E70A62CF /* Pods_BlossomAppTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -959,23 +963,20 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1B187A7F268F654500BB0122 /* Build configuration list for PBXNativeTarget "BlossomApp" */;
 			buildPhases = (
-				8A751F7D16A89C0E098A287B /* [CP] Check Pods Manifest.lock */,
+				439916767012F4D9DA1F159B /* [CP] Check Pods Manifest.lock */,
 				1B187A51268F654300BB0122 /* Sources */,
 				1B187A52268F654300BB0122 /* Frameworks */,
 				1B187A53268F654300BB0122 /* Resources */,
 				1B69AD5426A4769B00910679 /* ShellScript */,
 				1BCE650626ABB154002EE71F /* Embed Frameworks */,
 				1B3A30F926C552C3009FD035 /* ShellScript */,
-				B0F47AE68B171167040AE95C /* [CP] Embed Pods Frameworks */,
+				053C417DC27863F1FAA0FE36 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = BlossomApp;
-			packageProductDependencies = (
-				1BCE650326ABB153002EE71F /* OmiseSDK */,
-			);
 			productName = BlossomApp;
 			productReference = 1B187A55268F654300BB0122 /* BlossomApp.app */;
 			productType = "com.apple.product-type.application";
@@ -984,7 +985,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1B187A82268F654500BB0122 /* Build configuration list for PBXNativeTarget "BlossomAppTests" */;
 			buildPhases = (
-				2ACEF542928A7D1E62F76495 /* [CP] Check Pods Manifest.lock */,
+				ECE8174685DDFFDB29C817DB /* [CP] Check Pods Manifest.lock */,
 				1B187A67268F654500BB0122 /* Sources */,
 				1B187A68268F654500BB0122 /* Frameworks */,
 				1B187A69268F654500BB0122 /* Resources */,
@@ -1003,11 +1004,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1B187A85268F654500BB0122 /* Build configuration list for PBXNativeTarget "BlossomAppUITests" */;
 			buildPhases = (
-				DAABB29D721BC53FBCB87CAF /* [CP] Check Pods Manifest.lock */,
+				0D9ED3314EBB0A148613572F /* [CP] Check Pods Manifest.lock */,
 				1B187A72268F654500BB0122 /* Sources */,
 				1B187A73268F654500BB0122 /* Frameworks */,
 				1B187A74268F654500BB0122 /* Resources */,
-				D547878D2A294FB9DAF2B197 /* [CP] Embed Pods Frameworks */,
+				70E0D4D91A33FD94C0C154C0 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1050,9 +1051,6 @@
 				Base,
 			);
 			mainGroup = 1B187A4C268F654300BB0122;
-			packageReferences = (
-				1BCE650226ABB153002EE71F /* XCRemoteSwiftPackageReference "omise-ios" */,
-			);
 			productRefGroup = 1B187A56268F654300BB0122 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1109,9 +1107,48 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1B3A30F926C552C3009FD035 /* ShellScript */ = {
+		053C417DC27863F1FAA0FE36 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BlossomApp/Pods-BlossomApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BlossomApp/Pods-BlossomApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BlossomApp/Pods-BlossomApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		0D9ED3314EBB0A148613572F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BlossomApp-BlossomAppUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		1B3A30F926C552C3009FD035 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
 			files = (
 			);
 			inputFileListPaths = (
@@ -1128,7 +1165,7 @@
 		};
 		1B69AD5426A4769B00910679 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputFileListPaths = (
@@ -1143,29 +1180,7 @@
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n";
 		};
-		2ACEF542928A7D1E62F76495 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-BlossomAppTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8A751F7D16A89C0E098A287B /* [CP] Check Pods Manifest.lock */ = {
+		439916767012F4D9DA1F159B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1187,24 +1202,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B0F47AE68B171167040AE95C /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BlossomApp/Pods-BlossomApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BlossomApp/Pods-BlossomApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BlossomApp/Pods-BlossomApp-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D547878D2A294FB9DAF2B197 /* [CP] Embed Pods Frameworks */ = {
+		70E0D4D91A33FD94C0C154C0 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1221,7 +1219,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BlossomApp-BlossomAppUITests/Pods-BlossomApp-BlossomAppUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DAABB29D721BC53FBCB87CAF /* [CP] Check Pods Manifest.lock */ = {
+		ECE8174685DDFFDB29C817DB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1236,7 +1234,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-BlossomApp-BlossomAppUITests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-BlossomAppTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1552,18 +1550,18 @@
 		};
 		1B187A80268F654500BB0122 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2814CF4B25807FE820AF0573 /* Pods-BlossomApp.debug.xcconfig */;
+			baseConfigurationReference = 891141C9DB5CC62AD4231566 /* Pods-BlossomApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = BlossomApp/BlossomApp.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 55;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = GZWLHGR8C3;
 				EXCLUDED_ARCHS = "";
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
+				"EXCLUDED_ARCHS[sdk=*]" = arm64;
 				INFOPLIST_FILE = BlossomApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1618,8 +1616,6 @@
 					"\"FirebaseAuth\"",
 					"-framework",
 					"\"FirebaseCore\"",
-					"-framework",
-					"\"FirebaseCoreDiagnostics\"",
 					"-framework",
 					"\"FirebaseCrashlytics\"",
 					"-framework",
@@ -1708,7 +1704,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.blossomclinic.blossomapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Blossom Company Limited Development Provisioning";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1716,16 +1712,17 @@
 		};
 		1B187A81268F654500BB0122 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B3831D8E9A7A3637316392EA /* Pods-BlossomApp.release.xcconfig */;
+			baseConfigurationReference = 2763D070982EA85E08034F51 /* Pods-BlossomApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = BlossomApp/BlossomApp.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 55;
 				DEVELOPMENT_TEAM = GZWLHGR8C3;
 				EXCLUDED_ARCHS = "";
+				"EXCLUDED_ARCHS[sdk=*]" = "";
 				INFOPLIST_FILE = BlossomApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1780,8 +1777,6 @@
 					"\"FirebaseAuth\"",
 					"-framework",
 					"\"FirebaseCore\"",
-					"-framework",
-					"\"FirebaseCoreDiagnostics\"",
 					"-framework",
 					"\"FirebaseCrashlytics\"",
 					"-framework",
@@ -1870,7 +1865,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.blossomclinic.blossomapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Adhoc Blossom";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1878,7 +1873,7 @@
 		};
 		1B187A83268F654500BB0122 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D73BAF34AF5747B96995AA97 /* Pods-BlossomAppTests.debug.xcconfig */;
+			baseConfigurationReference = 4549AA37289A41C9FBBA7C59 /* Pods-BlossomAppTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1901,7 +1896,7 @@
 		};
 		1B187A84268F654500BB0122 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5DC040D10118CC79D232E34D /* Pods-BlossomAppTests.release.xcconfig */;
+			baseConfigurationReference = 16A96A37E0698613BFD0351E /* Pods-BlossomAppTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1924,7 +1919,7 @@
 		};
 		1B187A86268F654500BB0122 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 21AF61717057C8CE864F6266 /* Pods-BlossomApp-BlossomAppUITests.debug.xcconfig */;
+			baseConfigurationReference = 4E4E7B972D40DF155D69EB07 /* Pods-BlossomApp-BlossomAppUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1945,7 +1940,7 @@
 		};
 		1B187A87268F654500BB0122 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EB66B125AA8DF575D14EA2A1 /* Pods-BlossomApp-BlossomAppUITests.release.xcconfig */;
+			baseConfigurationReference = E48323F23A3A78217344B02E /* Pods-BlossomApp-BlossomAppUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -2004,25 +1999,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		1BCE650226ABB153002EE71F /* XCRemoteSwiftPackageReference "omise-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/omise/omise-ios.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.4.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		1BCE650326ABB153002EE71F /* OmiseSDK */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1BCE650226ABB153002EE71F /* XCRemoteSwiftPackageReference "omise-ios" */;
-			productName = OmiseSDK;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		3CBF265526B4415700F640DB /* BlossomApp.xcdatamodeld */ = {

@@ -97,7 +97,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             if let error = error {
                 print("D'oh: \(error.localizedDescription)")
             } else {
-                application.registerForRemoteNotifications()
+                //application.registerForRemoteNotifications()
             }
         }
         application.registerForRemoteNotifications()
@@ -125,7 +125,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         settings.minimumFetchInterval = 43200 // 12 * 60 * 60
         remoteConfig.configSettings = settings
         RemoteConfig.remoteConfig().fetch {  _, error in
-            if let error = error {
+            if error != nil {
                 
                 return
             }
@@ -134,6 +134,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 
             }
         }
+       
+        ApplicationDelegate.shared.application(
+            application,
+            didFinishLaunchingWithOptions: launchOptions
+        )
         
         
         return true
@@ -152,6 +157,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     func application( _ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:] ) -> Bool {
         
+        ApplicationDelegate.shared.application(
+                    app,
+                    open: url,
+                    sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
+                    annotation: options[UIApplication.OpenURLOptionsKey.annotation]
+                )
         let handled = ApplicationDelegate.shared.application(
             app,
             open: url,

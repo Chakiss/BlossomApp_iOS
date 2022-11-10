@@ -7,11 +7,22 @@ target 'BlossomApp' do
 
   # Pods for BlossomApp
 
+#  pod 'Firebase/Analytics'
+#  pod 'Firebase/Auth'
+#  pod 'Firebase/Functions'
+#  pod 'Firebase/Firestore'
+#  pod 'Firebase/Storage'
+#  pod 'Firebase/Messaging'
+#  pod 'Firebase/RemoteConfig'
+#  pod 'FirebaseUI/Storage'
+#  pod 'Firebase/Crashlytics'
+  pod 'Firebase/Core'
   pod 'Firebase/Analytics'
   pod 'Firebase/Auth'
   pod 'Firebase/Functions'
   pod 'Firebase/Firestore'
-  pod 'Firebase/Storage'
+  pod 'Firebase/Core'
+  pod 'Firebase/Firestore'
   pod 'Firebase/Messaging'
   pod 'Firebase/RemoteConfig'
   pod 'FirebaseUI/Storage'

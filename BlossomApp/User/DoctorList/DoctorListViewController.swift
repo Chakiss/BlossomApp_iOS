@@ -91,7 +91,7 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
                     let doctor = Doctor(id: id, displayName: displayName, email: email, firstName: firstName, lastName: lastName, phonenumber: phoneNumber, connectyCubeID: referenceConnectyCubeID, story: story, createdAt: createdAt, updatedAt: updatedAt, displayPhoto: displayPhoto, score: score,documentReference: queryDocumentSnapshot.reference)
                     
                     self.db.collection("doctors")
-                        .document(queryDocumentSnapshot.documentID ?? "")
+                        .document(queryDocumentSnapshot.documentID )
                         .collection("slots")
                         .whereField("platform", isEqualTo: "app")
                         .getDocuments { daySlot, error in
@@ -119,7 +119,6 @@ class DoctorListViewController: UIViewController, UITableViewDataSource, UITable
                             }
                         }
                     
-                   
                     doctor.appointment = appointment
                     doctor.review = review
                     

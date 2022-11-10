@@ -120,7 +120,16 @@ class DoctorProfileViewController: UIViewController {
         
         
         let loginManager = LoginManager()
-        loginManager.logIn(permissions: [Permission.publicProfile, Permission.email], viewController: self) { (loginResult) in
+        guard let configuration = LoginConfiguration(
+            permissions:["email", "public_profile"],
+            tracking: .limited,
+            nonce: "123"
+        )
+        else {
+            return
+        }
+
+        loginManager.logIn(configuration: configuration) { (loginResult) in
           switch loginResult {
           case .success:
             let credential = FacebookAuthProvider
